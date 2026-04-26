@@ -11,6 +11,36 @@ function isActive(href: string) {
 ---
 
 <header class="sticky top-0 z-50 border-b border-ink-100/70 bg-white/85 backdrop-blur supports-[backdrop-filter]:bg-white/70 dark:border-ink-800/60 dark:bg-ink-950/80 dark:supports-[backdrop-filter]:bg-ink-950/60">
+  <!-- Top utility strip: phone | email | theme toggle -->
+  <div class="hidden md:block bg-ink-900 text-ink-100 dark:bg-ink-900 border-b border-ink-800/60">
+    <div class="container-pf flex h-9 items-center justify-between gap-6 text-xs">
+      <div class="flex items-center gap-5">
+        <a href={SITE.phoneHref} class="inline-flex items-center gap-2 text-ink-200 hover:text-brand-300 transition-colors">
+          <i class="fa-solid fa-phone text-brand-400 text-[11px]" aria-hidden="true"></i>
+          <span class="font-medium">{SITE.phone}</span>
+        </a>
+        <a href={`mailto:${SITE.email}`} class="inline-flex items-center gap-2 text-ink-200 hover:text-brand-300 transition-colors">
+          <i class="fa-solid fa-envelope text-brand-400 text-[11px]" aria-hidden="true"></i>
+          <span>{SITE.email}</span>
+        </a>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="hidden lg:inline text-[11px] text-ink-400 uppercase tracking-wider mr-1">Theme</span>
+        <button
+          type="button"
+          class="inline-flex h-7 items-center gap-1.5 rounded-full bg-ink-800 px-3 text-[11px] font-medium text-ink-200 ring-1 ring-ink-700 hover:bg-ink-700 hover:text-white transition-colors"
+          aria-label="Toggle dark mode"
+          data-theme-toggle
+        >
+          <i class="fa-solid fa-sun dark:hidden text-amber-300" aria-hidden="true"></i>
+          <i class="fa-solid fa-moon hidden dark:inline-block text-brand-400" aria-hidden="true"></i>
+          <span class="dark:hidden">Light</span>
+          <span class="hidden dark:inline">Dark</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Top accent bar (logo's rainbow gradient) -->
   <div aria-hidden="true" class="h-[3px] w-full bg-spectrum"></div>
 
@@ -125,19 +155,6 @@ function isActive(href: string) {
         class="inline-flex h-10 w-10 items-center justify-center rounded-full ring-1 ring-ink-200 text-ink-700 hover:bg-ink-50 hover:text-brand-700 dark:ring-ink-700 dark:text-ink-200 dark:hover:bg-ink-800 dark:hover:text-brand-400 transition-colors"
       >
         <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-      </button>
-      <a href={SITE.phoneHref} class="text-sm font-semibold text-ink-700 hover:text-brand-700 dark:text-ink-200 dark:hover:text-brand-400">
-        <i class="fa-solid fa-phone text-brand-600"></i>
-        <span class="ml-2">{SITE.phone}</span>
-      </a>
-      <button
-        type="button"
-        class="inline-flex h-10 w-10 items-center justify-center rounded-full ring-1 ring-ink-200 text-ink-700 hover:bg-ink-50 hover:text-brand-700 dark:ring-ink-700 dark:text-ink-200 dark:hover:bg-ink-800 dark:hover:text-brand-400 transition-colors"
-        aria-label="Toggle dark mode"
-        data-theme-toggle
-      >
-        <i class="fa-solid fa-sun hidden dark:inline-block" aria-hidden="true"></i>
-        <i class="fa-solid fa-moon dark:hidden" aria-hidden="true"></i>
       </button>
       <a href="/contact-us/" class="btn-primary">
         Get a Quote <i class="fa-solid fa-arrow-right text-xs" aria-hidden="true"></i>
