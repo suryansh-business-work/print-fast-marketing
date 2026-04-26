@@ -1,0 +1,168 @@
+---
+import { SITE, FOOTER_SERVICES } from '@data/site';
+import NewsletterForm from './NewsletterForm.tsx';
+const year = new Date().getFullYear();
+
+const certifications = [
+  { label: 'Google Partner', icon: 'fa-google' },
+  { label: 'Meta Business', icon: 'fa-meta' },
+  { label: 'HubSpot Certified', icon: 'fa-hubspot' },
+  { label: 'BBB Accredited', icon: 'fa-certificate', solid: true },
+];
+---
+
+<footer class="relative mt-24 bg-ink-900 text-ink-100 overflow-hidden">
+  <!-- Decorative -->
+  <div aria-hidden="true" class="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-brand-500/60 to-transparent"></div>
+  <div aria-hidden="true" class="absolute -top-24 -left-24 h-72 w-72 rounded-full bg-brand-700/20 blur-3xl"></div>
+  <div aria-hidden="true" class="absolute -bottom-32 right-0 h-72 w-72 rounded-full bg-accent-500/10 blur-3xl"></div>
+
+  <!-- Newsletter strip -->
+  <div class="relative border-b border-white/10">
+    <div class="container-pf py-10 grid gap-8 lg:grid-cols-2 lg:items-center">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-[0.22em] text-brand-300">Stay in the loop</p>
+        <h2 class="mt-2 text-2xl sm:text-3xl font-display font-bold text-white">
+          Marketing tips for the trades — straight to your inbox.
+        </h2>
+        <p class="mt-2 text-sm text-ink-300 max-w-lg">
+          One email a month. Real tactics. No fluff. Unsubscribe any time.
+        </p>
+      </div>
+      <NewsletterForm client:load />
+    </div>
+  </div>
+
+  <!-- Main footer grid -->
+  <div class="relative container-pf py-16 lg:py-20 grid gap-12 lg:grid-cols-12">
+    <!-- Brand -->
+    <div class="lg:col-span-4 space-y-6">
+      <a href="/" class="inline-flex items-center group" aria-label={`${SITE.fullName} home`}>
+        <img
+          src={SITE.logo}
+          alt={`${SITE.fullName} logo`}
+          width="200"
+          height="56"
+          loading="lazy"
+          decoding="async"
+          class="h-12 w-auto object-contain transition-all duration-300 footer-logo"
+        />
+      </a>
+      <p class="text-sm text-ink-300 leading-relaxed max-w-sm">
+        {SITE.description}
+      </p>
+
+      <ul class="flex flex-wrap gap-2 pt-1" aria-label="Certifications">
+        {certifications.map((c) => (
+          <li class="inline-flex items-center gap-2 rounded-full bg-white/5 ring-1 ring-white/10 px-3 py-1.5 text-xs text-ink-200">
+            <i class:list={[c.solid ? 'fa-solid' : 'fa-brands', c.icon, 'text-brand-300']} aria-hidden="true"></i>
+            {c.label}
+          </li>
+        ))}
+      </ul>
+
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-[0.18em] text-white/60 mb-3">Follow us</p>
+        <div class="flex items-center gap-3">
+          {Object.entries(SITE.social).map(([name, href]) => (
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Print Fast on ${name}`}
+              class="grid h-10 w-10 place-items-center rounded-full bg-white/5 ring-1 ring-white/10 text-ink-300 hover:bg-brand-600 hover:text-white hover:ring-brand-500 hover:-translate-y-0.5 transition-all duration-200"
+            >
+              <i class:list={['fa-brands', `fa-${name}`]} aria-hidden="true"></i>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- Services -->
+    <nav class="lg:col-span-3" aria-label="Footer services">
+      <h3 class="text-sm font-semibold uppercase tracking-[0.18em] text-white">Services</h3>
+      <ul class="mt-5 space-y-3">
+        {FOOTER_SERVICES.map((s) => (
+          <li>
+            <a href={s.href} class="group inline-flex items-center text-sm text-ink-300 hover:text-white transition-colors">
+              <i class="fa-solid fa-chevron-right text-[10px] text-brand-400 mr-2 opacity-0 -ml-3 group-hover:opacity-100 group-hover:ml-0 transition-all" aria-hidden="true"></i>
+              <span>{s.label}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <!-- Company -->
+    <nav class="lg:col-span-2" aria-label="Footer company">
+      <h3 class="text-sm font-semibold uppercase tracking-[0.18em] text-white">Company</h3>
+      <ul class="mt-5 space-y-3">
+        <li><a href="/" class="text-sm text-ink-300 hover:text-white">Home</a></li>
+        <li><a href="/free-digital-review/" class="text-sm text-ink-300 hover:text-white">Free Review</a></li>
+        <li><a href="#contact" class="text-sm text-ink-300 hover:text-white">Contact</a></li>
+        <li><a href="/" class="text-sm text-ink-300 hover:text-white">About</a></li>
+        <li><a href="/" class="text-sm text-ink-300 hover:text-white">Careers</a></li>
+      </ul>
+    </nav>
+
+    <!-- Contact -->
+    <div class="lg:col-span-3 space-y-5">
+      <h3 class="text-sm font-semibold uppercase tracking-[0.18em] text-white">Get in touch</h3>
+      <ul class="space-y-4 text-sm">
+        <li class="flex items-start gap-3">
+          <span class="grid h-9 w-9 place-items-center rounded-lg bg-white/5 ring-1 ring-white/10 text-brand-300 flex-shrink-0">
+            <i class="fa-solid fa-phone text-xs" aria-hidden="true"></i>
+          </span>
+          <div>
+            <p class="text-[11px] uppercase tracking-wider text-ink-400">Call us</p>
+            <a href={SITE.phoneHref} class="text-white font-semibold hover:text-brand-300">{SITE.phone}</a>
+          </div>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="grid h-9 w-9 place-items-center rounded-lg bg-white/5 ring-1 ring-white/10 text-brand-300 flex-shrink-0">
+            <i class="fa-solid fa-envelope text-xs" aria-hidden="true"></i>
+          </span>
+          <div>
+            <p class="text-[11px] uppercase tracking-wider text-ink-400">Email</p>
+            <a href={`mailto:${SITE.email}`} class="text-white hover:text-brand-300 break-all">{SITE.email}</a>
+          </div>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="grid h-9 w-9 place-items-center rounded-lg bg-white/5 ring-1 ring-white/10 text-brand-300 flex-shrink-0">
+            <i class="fa-solid fa-clock text-xs" aria-hidden="true"></i>
+          </span>
+          <div>
+            <p class="text-[11px] uppercase tracking-wider text-ink-400">Hours</p>
+            <p class="text-ink-200">{SITE.hours}</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="relative border-t border-white/10">
+    <div class="container-pf py-6 flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between text-sm text-ink-400">
+      <p>© {year} <span class="text-white font-semibold">{SITE.fullName}</span>. All rights reserved.</p>
+      <nav class="flex flex-wrap items-center gap-x-6 gap-y-2" aria-label="Legal">
+        <a href="/" class="hover:text-white">Privacy Policy</a>
+        <a href="/" class="hover:text-white">Terms of Service</a>
+        <a href="/sitemap-index.xml" class="hover:text-white">Sitemap</a>
+        <a href="/" class="hover:text-white">Accessibility</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<style>
+  /* Greyscale-by-default brand logo in footer; restores color on hover */
+  .footer-logo {
+    filter: grayscale(100%) brightness(0) invert(1);
+    opacity: 0.85;
+  }
+  .footer-logo:hover {
+    filter: none;
+    opacity: 1;
+  }
+</style>

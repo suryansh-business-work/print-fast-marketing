@@ -1,0 +1,17 @@
+---
+import { STATS } from '@data/site';
+---
+<section class="relative -mt-10 sm:-mt-14 z-10">
+  <div class="container-pf">
+    <div class="card grid grid-cols-2 lg:grid-cols-4 divide-y lg:divide-y-0 lg:divide-x divide-ink-100 overflow-hidden">
+      {STATS.map((s) => (
+        <div class="p-6 sm:p-8 text-center" data-reveal>
+          <p class="text-3xl sm:text-4xl font-display font-extrabold gradient-text">
+            {s.value}
+          </p>
+          <p class="mt-2 text-sm font-medium text-ink-600">{s.label}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

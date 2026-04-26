@@ -1,0 +1,125 @@
+/* Import Font Awesome (free) — must precede @tailwind per CSS spec */
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+
+/* Local SCSS layer for advanced bits Tailwind alone is awkward for */
+@import './scss/main.scss';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-bg: #ffffff;
+    --color-text: #0b1020;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-ink-900 font-sans antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tight text-ink-900;
+  }
+
+  ::selection {
+    @apply bg-brand-500/90 text-white;
+  }
+
+  a {
+    @apply transition-colors;
+  }
+
+  *:focus-visible {
+    @apply outline-none ring-2 ring-brand-500 ring-offset-2 ring-offset-white rounded-md;
+  }
+}
+
+@layer components {
+  .container-pf {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold tracking-wide
+           transition-all duration-200 will-change-transform focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+  }
+
+  .btn-primary {
+    @apply btn bg-brand-600 text-white shadow-soft hover:bg-brand-700 hover:shadow-glow active:translate-y-px;
+  }
+
+  .btn-accent {
+    @apply btn bg-accent-500 text-white shadow-soft hover:bg-accent-600 active:translate-y-px;
+  }
+
+  .btn-ghost {
+    @apply btn bg-white/10 text-white ring-1 ring-white/30 backdrop-blur hover:bg-white/20;
+  }
+
+  .btn-outline {
+    @apply btn border border-ink-200 bg-white text-ink-900 hover:border-brand-500 hover:text-brand-700;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-brand-100 bg-brand-50 px-3 py-1
+           text-xs font-semibold uppercase tracking-[0.18em] text-brand-700;
+  }
+
+  .section {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+
+  .section-tight {
+    @apply py-12 sm:py-16;
+  }
+
+  .heading-xl {
+    @apply text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.05];
+  }
+
+  .heading-lg {
+    @apply text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight;
+  }
+
+  .heading-md {
+    @apply text-2xl sm:text-3xl font-bold leading-snug;
+  }
+
+  .lead {
+    @apply text-lg sm:text-xl text-ink-600 leading-relaxed;
+  }
+
+  .card {
+    @apply rounded-2xl bg-white ring-1 ring-ink-100 shadow-soft;
+  }
+
+  .card-hover {
+    @apply card transition-all duration-300 hover:-translate-y-1 hover:shadow-glow hover:ring-brand-200;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-brand-600 via-brand-500 to-accent-500 bg-clip-text text-transparent;
+  }
+
+  .check-list li {
+    @apply relative pl-7 text-ink-700;
+  }
+  .check-list li::before {
+    content: '';
+    @apply absolute left-0 top-2 h-4 w-4 rounded-full bg-brand-100;
+  }
+  .check-list li::after {
+    content: '\f00c'; /* Font Awesome check */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    @apply absolute left-[3px] top-[3px] text-[10px] text-brand-700;
+  }
+}

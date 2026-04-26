@@ -1,0 +1,136 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import Stats from '@components/Stats.astro';
+import TrustStrip from '@components/TrustStrip.astro';
+import SectionHeading from '@components/SectionHeading.astro';
+import ServiceCard from '@components/ServiceCard.astro';
+import FeatureGrid from '@components/FeatureGrid.astro';
+import Testimonials from '@components/Testimonials.astro';
+import CTA from '@components/CTA.astro';
+import ContactForm from '@components/ContactForm.astro';
+import { SERVICES } from '@data/site';
+
+const whyUs = [
+  { icon: 'fa-trophy', title: 'Trades-only experts', description: 'Years of focused work with HVAC, plumbing, electrical, roofing, cleaning and more.' },
+  { icon: 'fa-chart-line', title: 'Performance, not vanity', description: 'We obsess over qualified leads, calls and booked jobs — not impressions.' },
+  { icon: 'fa-handshake', title: 'No long-term contracts', description: 'Earn the relationship every month. Cancel any time, keep all your assets.' },
+  { icon: 'fa-bolt', title: 'Fast execution', description: 'A senior team that ships campaigns in days — not quarters.' },
+  { icon: 'fa-comments', title: 'Real humans', description: 'A dedicated strategist who knows your account, market and goals.' },
+  { icon: 'fa-lock', title: 'Transparent reporting', description: 'Live dashboards, monthly reviews and zero black-box metrics.' },
+];
+---
+
+<BaseLayout
+  title="Marketing for Home-Service Pros"
+  description="Print Fast helps HVAC, plumbing, electrical and home-service businesses grow with managed social media, organic SEO, video marketing and free digital reviews."
+  keywords={[
+    'home service marketing',
+    'HVAC marketing agency',
+    'plumbing marketing agency',
+    'electrical contractor marketing',
+    'managed social media for trades',
+    'organic SEO for trades',
+    'video marketing for contractors',
+    'free digital review',
+    'PrintFast',
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    name: 'Print Fast Digital Marketing',
+    image: 'https://dqj17tese79do.cloudfront.net/printfast/images/websitelogos/retailer_site_logo776.png',
+    priceRange: '$$',
+    areaServed: 'United States',
+    aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.9', reviewCount: '500' },
+  }}
+>
+  <Hero
+    eyebrow="Print Fast Digital Marketing"
+    title="Marketing that books real jobs for"
+    highlight="home-service pros."
+    description="Managed social, organic SEO, and story-led video — built and run by a team that lives and breathes the trades. Get more calls, more booked work, and a brand customers trust."
+    primaryCta={{ label: 'Get a Free Digital Review', href: '/free-digital-review/' }}
+    secondaryCta={{ label: 'Explore Services', href: '#services' }}
+  />
+
+  <Stats />
+  <TrustStrip />
+
+  <section id="services" class="section">
+    <div class="container-pf">
+      <SectionHeading
+        eyebrow="What we do"
+        title="A growth stack tuned for the trades"
+        description="Pick a single service or combine them — every engagement starts with a strategy call and a clear plan."
+      />
+
+      <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {SERVICES.map((s) => (
+          <ServiceCard
+            icon={s.icon}
+            title={s.title}
+            description={s.description}
+            href={s.href}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <SectionHeading
+        eyebrow="Why Print Fast"
+        title="The marketing partner the trades actually wanted"
+        description="We know the seasonality, the slow days, the truck-roll math — and we build campaigns that fit your business, not a generic playbook."
+      />
+      <div class="mt-14">
+        <FeatureGrid items={whyUs} columns={3} />
+      </div>
+    </div>
+  </section>
+
+  <Testimonials />
+
+  <CTA
+    eyebrow="Free strategy session"
+    title="See what we'd do for your business — for free."
+    description="Get a custom Digital Review Report covering SEO, content, local search and your top 3 competitors. Plus a 1:1 strategy call (a $200 value)."
+    primaryCta={{ label: 'Claim My Free Review', href: '/free-digital-review/' }}
+    secondaryCta={{ label: 'Talk to a strategist', href: '/free-digital-review/#contact' }}
+  />
+
+  <section id="contact" class="section">
+    <div class="container-pf">
+      <SectionHeading
+        eyebrow="Connect with us"
+        title="Tell us about your goals"
+        description="We're here to help — drop a few details below and we'll reach out within one business day."
+      />
+      <div class="mt-12 grid gap-8 lg:grid-cols-5">
+        <div class="lg:col-span-3">
+          <ContactForm />
+        </div>
+        <aside class="lg:col-span-2 space-y-5">
+          <div class="card p-7">
+            <h3 class="font-bold text-lg">Why customers stay</h3>
+            <ul class="check-list mt-4 space-y-3 text-sm">
+              <li>Senior strategist on every account</li>
+              <li>Live KPI dashboards, no fluff reports</li>
+              <li>You own all content, ad accounts and assets</li>
+              <li>Trades-only — we won't work with your competitor</li>
+            </ul>
+          </div>
+          <div class="card p-7 bg-brand-900 text-white">
+            <h3 class="font-bold text-lg">Prefer to talk?</h3>
+            <p class="mt-2 text-white/80 text-sm">Mon–Fri · 8 AM – 5 PM ET</p>
+            <a href="tel:800-810-4818" class="btn-ghost mt-5">
+              <i class="fa-solid fa-phone"></i> 800-810-4818
+            </a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

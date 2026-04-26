@@ -1,0 +1,195 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import SectionHeading from '@components/SectionHeading.astro';
+import CTA from '@components/CTA.astro';
+import Stats from '@components/Stats.astro';
+import Lottie from '@components/Lottie.astro';
+
+const values = [
+  { icon: 'fa-handshake', title: 'Owner-level service', desc: 'Direct access to senior strategists — no junior account managers.' },
+  { icon: 'fa-bullseye', title: 'Outcomes over outputs', desc: 'We measure leads, calls and revenue — not vanity metrics.' },
+  { icon: 'fa-clock-rotate-left', title: 'Transparent reporting', desc: 'A single live dashboard. Monthly reviews. No black boxes.' },
+  { icon: 'fa-people-group', title: 'Trade-specific expertise', desc: '15+ years marketing exclusively for home-service brands.' },
+  { icon: 'fa-rocket', title: 'AI-accelerated craft', desc: 'We use AI to move faster — humans still own the strategy.' },
+  { icon: 'fa-shield-halved', title: 'No long-term lock-ins', desc: 'Earn the relationship every month with measurable progress.' },
+];
+
+const milestones = [
+  { year: '2010', title: 'Founded',           desc: 'Started serving local trades with print and signage marketing.' },
+  { year: '2014', title: 'Digital pivot',     desc: 'Launched SEO and managed social services for HVAC + plumbing pros.' },
+  { year: '2018', title: '500+ clients',      desc: 'Hit our 500th home-service brand under management.' },
+  { year: '2022', title: 'Video studio',      desc: 'Opened in-house video production for cinematic, social-first brands.' },
+  { year: '2025', title: 'AI growth platform',desc: 'Built our AI publishing and analytics layer for true full-stack growth.' },
+];
+
+const team = [
+  { name: 'Derek Mason',   role: 'Founder & CEO',           img: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=facearea&facepad=2&w=400&h=400&q=80' },
+  { name: 'Maria Chen',    role: 'Head of Strategy',        img: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=facearea&facepad=2&w=400&h=400&q=80' },
+  { name: 'James Whitlow', role: 'Director of SEO',         img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=facearea&facepad=2&w=400&h=400&q=80' },
+  { name: 'Aisha Patel',   role: 'Creative Director, Video',img: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=facearea&facepad=2&w=400&h=400&q=80' },
+];
+---
+
+<BaseLayout
+  title="Who We Are"
+  description="Print Fast is a digital marketing partner built for the trades. Meet the team, our story, our values, and how we help home-service brands grow."
+  keywords={['about Print Fast', 'who we are', 'home service marketing agency', 'PrintFast team', 'marketing for trades']}
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Who We Are', href: '/who-we-are/' },
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    name: 'Who We Are — Print Fast Digital Marketing',
+  }}
+>
+  <!-- Hero -->
+  <section class="relative overflow-hidden bg-hero-radial">
+    <div class="container-pf grid lg:grid-cols-12 gap-10 items-center py-16 sm:py-20 lg:py-28">
+      <div class="lg:col-span-7 min-w-0" data-reveal>
+        <p class="eyebrow"><i class="fa-solid fa-bolt text-brand-600"></i> Who We Are</p>
+        <h1 class="heading-xl mt-4">A growth team that <span class="gradient-text">speaks the trades.</span></h1>
+        <p class="lead mt-5 max-w-2xl">
+          Print Fast was built by marketers who grew up around HVAC vans, plumbing trucks and electrical sites. We've spent 15+ years helping home-service brands win locally — with strategy, systems and craft.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/digital-marketing-services/" class="btn-primary">Explore services <i class="fa-solid fa-arrow-right text-xs"></i></a>
+          <a href="/contact-us/" class="btn-outline">Get in touch</a>
+        </div>
+      </div>
+      <div class="lg:col-span-5 min-w-0" data-reveal>
+        <div class="relative aspect-square max-w-md mx-auto">
+          <div aria-hidden="true" class="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-accent-300/30 to-brand-500/15 blur-2xl"></div>
+          <div class="relative h-full w-full rounded-[2rem] bg-white ring-1 ring-ink-100 shadow-soft overflow-hidden">
+            <Lottie
+              src="https://assets3.lottiefiles.com/packages/lf20_xyadoh9h.json"
+              ariaLabel="Team collaboration animation"
+              class="h-full w-full"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission / story -->
+  <section class="section">
+    <div class="container-pf grid lg:grid-cols-12 gap-12 items-center">
+      <div class="lg:col-span-6 min-w-0" data-reveal>
+        <img
+          src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1100&q=80"
+          alt="Print Fast team meeting around a strategy whiteboard"
+          loading="lazy" decoding="async"
+          width="1100" height="733"
+          class="w-full rounded-3xl ring-1 ring-ink-100 shadow-soft"
+        />
+      </div>
+      <div class="lg:col-span-6 min-w-0" data-reveal>
+        <p class="eyebrow"><i class="fa-solid fa-bolt text-brand-600"></i> Our story</p>
+        <h2 class="heading-lg mt-4">Built for the people who keep America running.</h2>
+        <p class="mt-5 text-ink-700 leading-relaxed">
+          We started Print Fast in 2010 to give local trades the kind of marketing the big franchises take for granted. Today we're a full-stack growth team — with senior strategists, in-house video, and an AI-accelerated publishing platform — but the mission is the same: <strong>make the phone ring for the people who fix America's homes.</strong>
+        </p>
+        <p class="mt-4 text-ink-700 leading-relaxed">
+          We're a <strong>partner</strong>, not a vendor. That means transparent reporting, owner-level access, and the discipline to ship work that actually moves the business.
+        </p>
+        <div class="mt-6 grid sm:grid-cols-2 gap-3 text-sm">
+          <p class="inline-flex items-center gap-2 text-ink-700"><i class="fa-solid fa-circle-check text-brand-600"></i> 15+ years in the trades</p>
+          <p class="inline-flex items-center gap-2 text-ink-700"><i class="fa-solid fa-circle-check text-brand-600"></i> 500+ home-service brands</p>
+          <p class="inline-flex items-center gap-2 text-ink-700"><i class="fa-solid fa-circle-check text-brand-600"></i> 4.9/5 client rating</p>
+          <p class="inline-flex items-center gap-2 text-ink-700"><i class="fa-solid fa-circle-check text-brand-600"></i> US-based, all 50 states</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="section bg-ink-50/40">
+    <div class="container-pf">
+      <SectionHeading
+        eyebrow="Our values"
+        title="What you can expect, every engagement."
+        description="The principles we hire, build and report against."
+      />
+      <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {values.map((v) => (
+          <div class="card-hover p-6" data-reveal>
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-brand-50 text-brand-600 text-lg">
+              <i class:list={['fa-solid', v.icon]} aria-hidden="true"></i>
+            </span>
+            <h3 class="mt-5 text-lg font-bold text-ink-900">{v.title}</h3>
+            <p class="mt-2 text-sm text-ink-600 leading-relaxed">{v.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="section">
+    <div class="container-pf">
+      <SectionHeading
+        eyebrow="Milestones"
+        title="15 years. Same mission."
+        description="From print shop to full-stack growth platform — built one trade at a time."
+      />
+      <ol class="mt-14 relative">
+        <span aria-hidden="true" class="absolute left-4 sm:left-1/2 top-0 bottom-0 w-px bg-ink-200 sm:-translate-x-1/2"></span>
+        {milestones.map((m, i) => (
+          <li class:list={['relative pl-12 sm:pl-0 sm:grid sm:grid-cols-2 sm:gap-8 mb-10', i % 2 === 0 ? '' : 'sm:[&>div:first-child]:order-2']} data-reveal>
+            <span aria-hidden="true" class="absolute left-2.5 sm:left-1/2 top-2 h-3 w-3 -translate-x-0 sm:-translate-x-1/2 rounded-full bg-brand-600 ring-4 ring-brand-100"></span>
+            <div class:list={['sm:px-8', i % 2 === 0 ? 'sm:text-right' : '']}>
+              <p class="text-sm font-mono text-brand-600 font-semibold">{m.year}</p>
+              <h3 class="mt-1 text-xl font-bold text-ink-900">{m.title}</h3>
+              <p class="mt-2 text-ink-600">{m.desc}</p>
+            </div>
+            <div class="hidden sm:block"></div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="section bg-gradient-to-b from-brand-50/40 to-white">
+    <div class="container-pf">
+      <SectionHeading
+        eyebrow="The team"
+        title="The people behind your growth"
+        description="Senior strategists who lead — and stay on — your account."
+      />
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {team.map((p) => (
+          <figure class="card overflow-hidden p-0" data-reveal>
+            <img
+              src={p.img}
+              alt={p.name}
+              loading="lazy" decoding="async"
+              width="400" height="400"
+              class="w-full aspect-square object-cover"
+            />
+            <figcaption class="p-5">
+              <p class="text-base font-bold text-ink-900">{p.name}</p>
+              <p class="text-sm text-brand-600 font-semibold">{p.role}</p>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Stats />
+
+  <section class="section">
+    <div class="container-pf">
+      <CTA
+        eyebrow="Let's build"
+        title="Want a partner who treats your business like their own?"
+        description="Start with a free Digital Review — we'll show you exactly where the growth lives."
+        primaryCta={{ label: 'Claim my free review', href: '/free-digital-review/' }}
+        secondaryCta={{ label: 'Contact us', href: '/contact-us/' }}
+      />
+    </div>
+  </section>
+</BaseLayout>

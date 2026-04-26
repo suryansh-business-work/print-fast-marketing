@@ -1,0 +1,289 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import SectionHeading from '@components/SectionHeading.astro';
+import FeatureGrid from '@components/FeatureGrid.astro';
+import PricingCard from '@components/PricingCard.astro';
+import Testimonials from '@components/Testimonials.astro';
+import CTA from '@components/CTA.astro';
+import ContactForm from '@components/ContactForm.astro';
+
+const pillars = [
+  { icon: 'fa-location-dot',         title: 'Local SEO',           description: 'Google Business Profile optimization, NAP consistency, citations, geo-grid rank tracking and review velocity — built for U.S. service-area businesses.' },
+  { icon: 'fa-screwdriver-wrench',   title: 'Technical SEO',       description: 'Crawlability, indexation, Core Web Vitals (LCP, INP, CLS), JavaScript rendering, structured data and HTTPS hardening.' },
+  { icon: 'fa-pen-fancy',            title: 'Content & on-page',   description: 'Topical clusters, internal linking, search-intent matching, E-E-A-T signals and on-page optimization that matches user intent.' },
+  { icon: 'fa-link',                 title: 'Authority & links',   description: 'White-hat digital PR, niche edits, partnerships and unlinked-mention reclamation — no PBNs, no spam.' },
+  { icon: 'fa-robot',                title: 'AI search (GEO)',     description: 'Optimization for Google AI Overviews, ChatGPT search, Perplexity and Bing Copilot — including llms.txt and citation-grade content.' },
+  { icon: 'fa-chart-mixed',          title: 'Reporting & analytics', description: 'GA4, GSC, CrUX field data and call tracking unified into one client dashboard with monthly executive summaries.' },
+];
+
+const stats = [
+  { stat: '53%', label: 'of all U.S. website traffic comes from organic search' },
+  { stat: '#1',  label: 'organic result earns ~28% click-through (Backlinko)' },
+  { stat: '46%', label: 'of Google searches have local intent' },
+  { stat: '93%', label: 'of online experiences begin with a search engine' },
+];
+
+const localSeo = [
+  { icon: 'fa-google',           title: 'GBP optimization',     description: 'Categories, services, products, posts, photos and Q&A — managed weekly to lift map-pack rankings.' },
+  { icon: 'fa-map-location-dot', title: 'Geo-grid rank tracking', description: 'Track rankings across hundreds of points in your service area, not just a single zip code.' },
+  { icon: 'fa-id-card',          title: 'Citations & NAP',      description: 'Audit and fix listings across Apple Maps, Bing Places, Yelp, BBB and 50+ data aggregators.' },
+  { icon: 'fa-star',             title: 'Review acquisition',   description: 'Automated review requests with proper FTC-compliant gating, monitoring and response.' },
+];
+
+const technicalSeo = [
+  { icon: 'fa-spider',          title: 'Crawl & index audit',   description: 'Identify wasted crawl budget, orphan pages, indexation bloat and conflicting signals.' },
+  { icon: 'fa-bolt',            title: 'Core Web Vitals',       description: 'Real-user LCP, INP and CLS optimization tied to your CrUX field data and Lighthouse scores.' },
+  { icon: 'fa-code-branch',     title: 'JS rendering & schema', description: 'Server-side rendering review, hydration audit and JSON-LD schema for rich results.' },
+  { icon: 'fa-shield-halved',   title: 'Security & headers',    description: 'HTTPS, HSTS, CSP and modern security headers that protect users and rankings.' },
+];
+
+const process = [
+  { n: '01', title: 'Audit',     desc: 'A 60-page technical, content and link audit of your site against your top 3 U.S. competitors.', icon: 'fa-magnifying-glass' },
+  { n: '02', title: 'Strategy',  desc: 'A 12-month roadmap covering technical fixes, content cluster plan and link-building targets.',  icon: 'fa-route' },
+  { n: '03', title: 'Execute',   desc: 'Engineers, writers and outreach working in 2-week sprints with weekly progress notes.',          icon: 'fa-gears' },
+  { n: '04', title: 'Measure',   desc: 'Live dashboard with rankings, traffic, leads and revenue — reviewed in monthly working sessions.', icon: 'fa-chart-line' },
+];
+
+const plans = [
+  {
+    name: 'Local',
+    price: '$1,299',
+    description: 'For single-location service businesses ready to dominate the map pack.',
+    features: [
+      'GBP optimization & weekly posts',
+      'Citation audit + 50 listings cleaned',
+      'On-page SEO for 10 core pages',
+      '1 cornerstone article / month',
+      'Review monitoring & response templates',
+      'Monthly geo-grid rank report',
+    ],
+    cta: { label: 'Start with Local', href: '/contact-us/' },
+  },
+  {
+    name: 'Growth',
+    price: '$2,899',
+    description: 'For growing brands competing across multiple cities.',
+    popular: true,
+    features: [
+      'Everything in Local',
+      'Up to 3 locations',
+      'Technical SEO sprints (CWV, schema, JS)',
+      '4 articles / month + content optimization',
+      '4 high-quality backlinks / month',
+      'GA4 + GSC + call-tracking dashboard',
+    ],
+    cta: { label: 'Choose Growth', href: '/contact-us/' },
+  },
+  {
+    name: 'Authority',
+    price: '$5,499',
+    description: 'For market leaders investing in long-term organic dominance.',
+    features: [
+      'Everything in Growth',
+      'Unlimited locations / service-area pages',
+      'Digital PR + 8 backlinks / month',
+      '8 articles + topical cluster builds',
+      'AI Overviews & Perplexity optimization',
+      'Dedicated SEO lead + bi-weekly reviews',
+    ],
+    cta: { label: 'Build authority', href: '/contact-us/' },
+  },
+];
+
+const faqs = [
+  { q: 'How long until SEO starts working?',
+    a: 'Local SEO and technical wins often show inside 30–60 days. Sustained organic traffic growth typically lifts in months 3–6, with compounding gains beyond month 6. We share leading indicators (rankings, impressions, indexation) every week.' },
+  { q: 'Do you guarantee #1 rankings?',
+    a: 'No reputable agency does — Google explicitly forbids that promise. We do guarantee a senior team, a transparent roadmap and reporting that ties our work to traffic, leads and revenue.' },
+  { q: 'What about Google AI Overviews and ChatGPT?',
+    a: 'Generative Engine Optimization (GEO) is built into every plan. We optimize content for citation-grade quality, implement llms.txt where appropriate, and track brand mentions across AI search engines.' },
+  { q: 'Will you fix my site, or just hand me a list?',
+    a: 'We do the work. Our SEO sprints include developers and content writers — the recommendations get implemented, not just delivered.' },
+  { q: 'Do you use white-hat link building?',
+    a: 'Always. Our links come from digital PR, niche edits and partnerships — sites with real traffic and editorial standards. No PBNs, no link schemes, no shortcuts that put you at risk.' },
+];
+---
+
+<BaseLayout
+  title="Search Engine Optimization (SEO) Services in the USA"
+  description="SEO services for U.S. businesses — local SEO, technical SEO, content, link building and AI search optimization. Built to win Google, Bing and AI search."
+  keywords={[
+    'SEO services',
+    'SEO agency USA',
+    'local SEO services',
+    'technical SEO',
+    'Google Business Profile optimization',
+    'Core Web Vitals',
+    'AI search optimization',
+    'GEO Generative Engine Optimization',
+    'link building services',
+  ]}
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Search Engine Optimization', href: '/search-engine-optimization/' },
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Search Engine Optimization (SEO)',
+    serviceType: 'SEO & Local Search Optimization',
+    provider: { '@type': 'Organization', name: 'Print Fast Digital Marketing' },
+    areaServed: { '@type': 'Country', name: 'United States' },
+    offers: [
+      { '@type': 'Offer', name: 'Local',     price: '1299', priceCurrency: 'USD' },
+      { '@type': 'Offer', name: 'Growth',    price: '2899', priceCurrency: 'USD' },
+      { '@type': 'Offer', name: 'Authority', price: '5499', priceCurrency: 'USD' },
+    ],
+  }}
+>
+  <Hero
+    variant="service"
+    eyebrow="Search Engine Optimization"
+    title="SEO that wins Google,"
+    highlight="Bing and AI search."
+    description="A senior U.S. SEO team handles the audit, the engineering, the content and the links — so your business shows up first when ready-to-buy customers search."
+    primaryCta={{ label: 'Request an SEO proposal', href: '/contact-us/' }}
+    secondaryCta={{ label: 'See pricing', href: '#pricing' }}
+  />
+
+  <!-- Stats -->
+  <section class="section-tight">
+    <div class="container-pf">
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {stats.map((s) => (
+          <div class="card p-7 text-center" data-reveal>
+            <p class="font-display text-4xl font-extrabold gradient-text">{s.stat}</p>
+            <p class="mt-2 text-sm text-ink-600">{s.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Pillars -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <SectionHeading
+        eyebrow="Our SEO disciplines"
+        title="The full stack of modern SEO"
+        description="We do not pick a lane. Local, technical, content, links and AI search — they only work when they work together."
+      />
+      <div class="mt-14">
+        <FeatureGrid items={pillars} columns={3} />
+      </div>
+    </div>
+  </section>
+
+  <!-- Local SEO deep dive -->
+  <section class="section">
+    <div class="container-pf">
+      <SectionHeading
+        eyebrow="Local SEO"
+        title="Owning the map pack in your U.S. service area"
+        description="46% of Google searches have local intent. We help service-area businesses win the three results that matter most."
+      />
+      <div class="mt-14">
+        <FeatureGrid items={localSeo} columns={4} />
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical SEO deep dive -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <SectionHeading
+        eyebrow="Technical SEO"
+        title="Engineering the foundation Google rewards"
+        description="Most rankings problems are technical. We fix them before adding more content or links."
+      />
+      <div class="mt-14">
+        <FeatureGrid items={technicalSeo} columns={4} />
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="grid lg:grid-cols-12 gap-10 items-start">
+        <div class="lg:col-span-5">
+          <p class="eyebrow"><i class="fa-solid fa-bolt text-brand-600"></i> How we work</p>
+          <h2 class="heading-lg mt-4">A predictable engagement, end to end.</h2>
+          <p class="lead mt-5">
+            Every engagement starts with the same four phases — and a 12-month roadmap you can hold us to.
+          </p>
+          <a href="/contact-us/" class="btn-primary mt-8">Talk to a strategist</a>
+        </div>
+        <ol class="lg:col-span-7 grid sm:grid-cols-2 gap-5">
+          {process.map((p) => (
+            <li class="card p-6" data-reveal>
+              <div class="flex items-center justify-between">
+                <span class="grid h-11 w-11 place-items-center rounded-xl bg-brand-50 text-brand-600">
+                  <i class:list={['fa-solid', p.icon]}></i>
+                </span>
+                <span class="text-xs font-mono text-ink-400">{p.n}</span>
+              </div>
+              <h3 class="mt-4 text-lg font-bold text-ink-900">{p.title}</h3>
+              <p class="mt-2 text-sm text-ink-600">{p.desc}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="section bg-ink-50/60">
+    <div class="container-pf">
+      <SectionHeading
+        eyebrow="Plans & pricing"
+        title="Month-to-month pricing in USD"
+        description="All retainers include strategy, engineering, content and reporting. No hidden tool fees or per-keyword markups."
+      />
+      <div class="mt-14 grid gap-6 lg:grid-cols-3">
+        {plans.map((p) => <PricingCard {...p} />)}
+      </div>
+      <p class="mt-8 text-center text-sm text-ink-500">
+        <span class="font-semibold text-brand-700">Save 10% on annual prepay.</span> Multi-location and enterprise pricing available on request.
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="container-pf max-w-4xl">
+      <SectionHeading eyebrow="FAQs" title="Common questions" />
+      <div class="mt-10 space-y-3">
+        {faqs.map((f) => (
+          <details class="group card p-6 transition-colors hover:ring-brand-200">
+            <summary class="flex cursor-pointer items-center justify-between gap-4 list-none">
+              <span class="font-semibold text-ink-900">{f.q}</span>
+              <i class="fa-solid fa-plus text-ink-400 group-open:rotate-45 transition-transform"></i>
+            </summary>
+            <p class="mt-4 text-ink-600 leading-relaxed">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Testimonials />
+
+  <CTA
+    eyebrow="Ready to be found?"
+    title="Let's build the SEO program that earns its keep."
+    description="Tell us your top keywords and competitors — we'll come back with an audit summary and a 12-month roadmap within one business day."
+    primaryCta={{ label: 'Request an SEO proposal', href: '/contact-us/' }}
+    secondaryCta={{ label: 'Talk to a strategist', href: '#contact' }}
+  />
+
+  <section id="contact" class="section">
+    <div class="container-pf max-w-4xl">
+      <ContactForm
+        title="Talk to our SEO team"
+        subtitle="Share your site, top keywords and goals — we'll respond within one business day."
+      />
+    </div>
+  </section>
+</BaseLayout>

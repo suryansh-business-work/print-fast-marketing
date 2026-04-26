@@ -1,0 +1,56 @@
+---
+export interface PricingPlan {
+  name: string;
+  price: string;
+  period?: string;
+  description?: string;
+  features: string[];
+  cta?: { label: string; href: string };
+  popular?: boolean;
+}
+export interface Props extends PricingPlan {}
+const {
+  name,
+  price,
+  period = '/mo',
+  description,
+  features,
+  cta = { label: 'Contact Us', href: '/free-digital-review/' },
+  popular = false,
+} = Astro.props;
+---
+<article
+  class:list={[
+    'relative flex flex-col p-7 sm:p-8 rounded-2xl bg-white ring-1 transition-all',
+    popular
+      ? 'ring-brand-500 shadow-glow lg:-translate-y-2'
+      : 'ring-ink-100 shadow-soft hover:-translate-y-1 hover:ring-brand-200',
+  ]}
+  data-reveal
+>
+  {popular && <span class="pf-ribbon">Popular</span>}
+
+  <header>
+    <h3 class="text-lg font-display font-bold text-ink-900">{name}</h3>
+    {description && <p class="mt-2 text-sm text-ink-500">{description}</p>}
+  </header>
+
+  <div class="mt-6 flex items-baseline gap-1">
+    <span class="text-4xl font-display font-extrabold text-ink-900">{price}</span>
+    <span class="text-sm text-ink-500">{period}</span>
+  </div>
+
+  <ul class="check-list mt-6 space-y-3 text-sm flex-1">
+    {features.map((f) => <li>{f}</li>)}
+  </ul>
+
+  <a
+    href={cta.href}
+    class:list={[
+      'mt-8 justify-center',
+      popular ? 'btn-primary' : 'btn-outline',
+    ]}
+  >
+    {cta.label} <i class="fa-solid fa-arrow-right text-xs"></i>
+  </a>
+</article>

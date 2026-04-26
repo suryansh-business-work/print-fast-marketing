@@ -1,0 +1,162 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import SectionHeading from '@components/SectionHeading.astro';
+import FeatureGrid from '@components/FeatureGrid.astro';
+import ServiceCard from '@components/ServiceCard.astro';
+import Testimonials from '@components/Testimonials.astro';
+import CTA from '@components/CTA.astro';
+import ContactForm from '@components/ContactForm.astro';
+
+const importance = [
+  { icon: 'fa-sack-dollar', title: 'High return on investment', description: 'After the initial setup, organic SEO compounds — far cheaper than paid ads at scale.' },
+  { icon: 'fa-shield-halved', title: 'Builds lasting trust', description: 'Users see organic results as more credible than ads, giving you an edge over competitors.' },
+  { icon: 'fa-seedling', title: 'Sustainable results', description: 'Unlike paid campaigns, organic growth keeps producing leads long after the work is done.' },
+];
+
+const strategies = [
+  { icon: 'fa-key', title: 'Keyword optimization', description: 'Identify and weave the high-intent phrases customers actually use into your site.' },
+  { icon: 'fa-location-dot', title: 'Local SEO', description: 'Google Business Profile, NAP consistency and reviews — the local trifecta.' },
+  { icon: 'fa-pen-nib', title: 'Quality content', description: 'Helpful articles, FAQs and guides that position you as the local authority.' },
+  { icon: 'fa-link', title: 'Backlinking', description: 'Earn links from credible sites to grow domain authority the right way.' },
+  { icon: 'fa-mobile-screen', title: 'UX & mobile', description: 'Fast, mobile-first sites that satisfy both Google and your customers.' },
+  { icon: 'fa-share-nodes', title: 'Social signals', description: 'Coordinated social activity that drives traffic and reinforces your brand.' },
+];
+
+const services = [
+  { title: 'HVAC Marketing', icon: 'fa-fan', description: 'SEO & GMB, website design, LSAs, reputation, content and direct mail — built for HVAC.', href: '#contact' },
+  { title: 'Plumbing Marketing', icon: 'fa-faucet-drip', description: 'Custom plumbing sites, LSA management, Google Maps marketing, retention and content.', href: '#contact' },
+  { title: 'Electrical Marketing', icon: 'fa-bolt-lightning', description: 'SEO & GMB, LSAs, reputation, maps marketing and content for electrical contractors.', href: '#contact' },
+  { title: 'Garage Door Services', icon: 'fa-warehouse', description: 'Lead-gen and reputation programs that book repair calls all season long.', href: '#contact' },
+  { title: 'Pest Control', icon: 'fa-bug-slash', description: 'SEO, LSAs, reputation, content and geo-fenced direct mail for exterminators.', href: '#contact' },
+  { title: 'Septic Services', icon: 'fa-water', description: 'Service-area SEO, GMB, reviews and content built for septic businesses.', href: '#contact' },
+  { title: 'Landscaping', icon: 'fa-tree', description: 'Seasonal lead programs for landscapers and hardscaping companies.', href: '#contact' },
+  { title: 'Painting Contractors', icon: 'fa-paint-roller', description: 'GMB, LSAs, reputation and content marketing for painting pros.', href: '#contact' },
+  { title: 'Roofing', icon: 'fa-house-chimney', description: 'High-intent lead generation and reputation for roofing contractors.', href: '#contact' },
+  { title: 'House Cleaning', icon: 'fa-broom', description: 'Recurring-revenue marketing for residential cleaning companies.', href: '#contact' },
+  { title: 'Pool Services', icon: 'fa-water-ladder', description: 'Seasonal SEO and LSAs for pool maintenance and repair businesses.', href: '#contact' },
+  { title: 'Featured: Customer Retention', icon: 'fa-heart', description: 'Email, SMS and review programs that turn one-time jobs into loyal customers.', href: '#contact' },
+];
+
+const pillars = [
+  { icon: 'fa-magnifying-glass', title: 'SEO: elevate your visibility', description: 'Keyword research, on-page optimization and link building that puts you on page one when buyers are looking.' },
+  { icon: 'fa-rocket', title: 'SEM: accelerate your growth', description: 'Google Ads campaigns that complement SEO, drive immediate traffic and protect your branded terms.' },
+  { icon: 'fa-filter', title: 'Organic lead generation', description: 'Content, email and social that nurtures every stage of the customer journey.' },
+  { icon: 'fa-share-nodes', title: 'Managed organic social', description: 'Consistent posting and engagement that builds brand loyalty in your service area.' },
+];
+---
+
+<BaseLayout
+  title="Organic Digital Marketing"
+  description="Organic SEO, SEM, lead generation and managed social media built for HVAC, plumbing and electrical small businesses."
+  keywords={[
+    'organic digital marketing',
+    'SEO for HVAC',
+    'plumbing SEO',
+    'electrical contractor SEO',
+    'local SEO trades',
+    'Google Business Profile',
+    'organic lead generation',
+  ]}
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Organic Digital Marketing', href: '/organic-digital-marketing/' },
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Organic Digital Marketing & SEO',
+    provider: { '@type': 'Organization', name: 'Print Fast Digital Marketing' },
+    areaServed: 'United States',
+  }}
+>
+  <Hero
+    variant="service"
+    eyebrow="Organic Digital Marketing"
+    title="Real relationships."
+    highlight="Sustainable growth."
+    description="Organic digital marketing is a beacon of authenticity in a noisy landscape. PrintFast helps U.S.-based home-service businesses cultivate trust, craft compelling stories and turn search intent into booked jobs."
+    primaryCta={{ label: 'Get my free SEO review', href: '/free-digital-review/' }}
+    secondaryCta={{ label: 'Talk to a strategist', href: '#contact' }}
+  />
+
+  <section class="section">
+    <div class="container-pf">
+      <SectionHeading
+        eyebrow="Why it matters"
+        title="Why organic SEO is essential for the trades"
+        description="A trio of advantages that compound over time and outlast every paid campaign."
+      />
+      <div class="mt-14">
+        <FeatureGrid items={importance} columns={3} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <SectionHeading
+        eyebrow="Our methodology"
+        title="Key organic SEO strategies we use"
+        description="A repeatable, transparent playbook tailored to your service area, season and competitors."
+      />
+      <div class="mt-14">
+        <FeatureGrid items={strategies} columns={3} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-pf">
+      <SectionHeading
+        eyebrow="Industries we serve"
+        title="Digital services for your digital growth"
+        description="Specialized programs for every home-service vertical we work with."
+      />
+      <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {services.map((s) => (
+          <ServiceCard icon={s.icon} title={s.title} description={s.description} href={s.href} cta="Get a quote" />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <SectionHeading
+        eyebrow="The pillars"
+        title="Our organic digital marketing services"
+        description="Four interconnected disciplines that work together to grow your business sustainably."
+      />
+      <div class="mt-14 grid gap-6 lg:grid-cols-2">
+        {pillars.map((p, i) => (
+          <ServiceCard
+            icon={p.icon}
+            title={p.title}
+            description={p.description}
+            number={String(i + 1).padStart(2, '0')}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Testimonials />
+
+  <CTA
+    eyebrow="Free strategy session"
+    title="Ready to maximize your online presence?"
+    description="Schedule a free consultation with our organic digital marketing experts and find out which plan fits your business best."
+    primaryCta={{ label: 'Schedule a Call', href: '#contact' }}
+    secondaryCta={{ label: 'Get a Free Review', href: '/free-digital-review/' }}
+  />
+
+  <section id="contact" class="section">
+    <div class="container-pf max-w-4xl">
+      <ContactForm
+        title="Connect with us"
+        subtitle="Tell us about your business and goals — we'll come back with a custom plan."
+      />
+    </div>
+  </section>
+</BaseLayout>

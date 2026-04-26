@@ -1,0 +1,216 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import SectionHeading from '@components/SectionHeading.astro';
+import ContactForm from '@components/ContactForm.astro';
+import Lottie from '@components/Lottie.astro';
+import { SITE } from '@data/site';
+
+const channels = [
+  {
+    icon: 'fa-phone',
+    label: 'Call us',
+    value: SITE.phone,
+    href: SITE.phoneHref,
+    sub: 'Mon–Fri · 8 AM – 5 PM ET',
+  },
+  {
+    icon: 'fa-envelope',
+    label: 'Email',
+    value: SITE.email,
+    href: `mailto:${SITE.email}`,
+    sub: 'Replies within 1 business day',
+  },
+  {
+    icon: 'fa-comments',
+    label: 'Live chat',
+    value: 'Chat with sales',
+    href: '#contact-form',
+    sub: 'Avg. wait under 2 minutes',
+  },
+  {
+    icon: 'fa-calendar-check',
+    label: 'Book a strategy call',
+    value: 'Pick a time',
+    href: '/free-digital-review/',
+    sub: 'Free 30-min consultation',
+  },
+];
+
+const departments = [
+  { icon: 'fa-rocket', label: 'New business',  email: 'sales@print-fast.com',   desc: 'Pricing, onboarding, free reviews.' },
+  { icon: 'fa-headset', label: 'Client support', email: 'support@print-fast.com', desc: 'Existing client questions & requests.' },
+  { icon: 'fa-newspaper', label: 'Press & media', email: 'press@print-fast.com',  desc: 'Interview, partnership and PR enquiries.' },
+];
+
+const faqs = [
+  { q: 'How fast can you start?', a: 'Most engagements kick off within 5 business days of signing — strategy in week one, content in week two.' },
+  { q: 'Do you require contracts?', a: 'No long-term lock-ins. We earn the relationship monthly with measurable progress.' },
+  { q: 'Which industries do you serve?', a: 'We focus on home-service brands — HVAC, plumbing, electrical, roofing, landscaping, cleaning, pest control and pool/spa.' },
+  { q: 'Do you work nationally?', a: 'Yes — we serve clients in all 50 states, from single-truck operators to multi-location franchises.' },
+];
+---
+
+<BaseLayout
+  title="Contact Us"
+  description="Talk to Print Fast — get pricing, book a strategy call, or claim your free Digital Review. We respond within 1 business day."
+  keywords={['contact Print Fast', 'home service marketing contact', 'PrintFast phone', 'request a quote marketing agency']}
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Contact', href: '/contact-us/' },
+  ]}
+  faqs={faqs.map((f) => ({ question: f.q, answer: f.a }))}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'ContactPage',
+    name: 'Contact Print Fast Digital Marketing',
+    url: `${SITE.url}/contact-us/`,
+  }}
+>
+  <!-- Hero -->
+  <section class="relative overflow-hidden bg-hero-radial">
+    <div class="container-pf grid lg:grid-cols-12 gap-10 items-center py-16 sm:py-20 lg:py-24">
+      <div class="lg:col-span-7 min-w-0" data-reveal>
+        <p class="eyebrow"><i class="fa-solid fa-bolt text-brand-600"></i> Contact Us</p>
+        <h1 class="heading-xl mt-4">Let's get the <span class="gradient-text">phone ringing.</span></h1>
+        <p class="lead mt-5 max-w-2xl">
+          Whether you want pricing, a free Digital Review, or just an honest second opinion on your marketing — we're easy to reach.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-ink-600">
+          <p class="inline-flex items-center gap-2"><i class="fa-solid fa-check text-brand-600"></i> Reply within 1 business day</p>
+          <p class="inline-flex items-center gap-2"><i class="fa-solid fa-check text-brand-600"></i> No-obligation conversations</p>
+          <p class="inline-flex items-center gap-2"><i class="fa-solid fa-check text-brand-600"></i> US-based team</p>
+        </div>
+      </div>
+      <div class="lg:col-span-5 min-w-0" data-reveal>
+        <div class="relative aspect-square max-w-md mx-auto">
+          <div aria-hidden="true" class="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-brand-500/15 to-spectrum-yellow/20 blur-2xl"></div>
+          <div class="relative h-full w-full rounded-[2rem] bg-white ring-1 ring-ink-100 shadow-soft overflow-hidden">
+            <Lottie
+              src="https://assets10.lottiefiles.com/packages/lf20_u25cckyh.json"
+              ariaLabel="Customer service contact animation"
+              class="h-full w-full"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact channels -->
+  <section class="section-tight">
+    <div class="container-pf">
+      <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {channels.map((c) => (
+          <li>
+            <a href={c.href} class="card-hover p-6 block h-full">
+              <span class="grid h-12 w-12 place-items-center rounded-xl bg-brand-50 text-brand-600 text-lg">
+                <i class:list={['fa-solid', c.icon]} aria-hidden="true"></i>
+              </span>
+              <p class="mt-5 text-xs font-semibold uppercase tracking-[0.18em] text-ink-500">{c.label}</p>
+              <p class="mt-1 text-lg font-bold text-ink-900">{c.value}</p>
+              <p class="mt-1 text-sm text-ink-500">{c.sub}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Form + sidebar -->
+  <section class="section" id="contact-form">
+    <div class="container-pf grid lg:grid-cols-12 gap-10 items-start">
+      <div class="lg:col-span-7 min-w-0">
+        <ContactForm />
+      </div>
+
+      <aside class="lg:col-span-5 min-w-0 space-y-6">
+        <!-- Departments -->
+        <div class="card p-6 sm:p-8">
+          <h3 class="heading-md text-2xl">Find the right inbox</h3>
+          <p class="mt-2 text-ink-600 text-sm">For faster routing, email the team that fits your need.</p>
+          <ul class="mt-6 space-y-4">
+            {departments.map((d) => (
+              <li class="flex items-start gap-4">
+                <span class="grid h-10 w-10 place-items-center rounded-lg bg-brand-50 text-brand-600 flex-shrink-0">
+                  <i class:list={['fa-solid', d.icon]} aria-hidden="true"></i>
+                </span>
+                <div class="min-w-0">
+                  <p class="text-sm font-semibold text-ink-900">{d.label}</p>
+                  <a href={`mailto:${d.email}`} class="text-sm text-brand-700 hover:text-brand-800 break-all">{d.email}</a>
+                  <p class="text-xs text-ink-500 mt-0.5">{d.desc}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Hours / location -->
+        <div class="card p-6 sm:p-8 bg-ink-900 text-white relative overflow-hidden">
+          <span aria-hidden="true" class="absolute -top-16 -right-16 h-44 w-44 rounded-full bg-brand-600/40 blur-3xl"></span>
+          <h3 class="text-xl font-bold relative">Office hours</h3>
+          <p class="mt-2 text-white/80 text-sm relative">{SITE.hours}</p>
+          <div class="mt-6 grid grid-cols-2 gap-4 relative text-sm">
+            <div>
+              <p class="text-white/60 uppercase text-[11px] tracking-wider">Phone</p>
+              <a href={SITE.phoneHref} class="font-semibold text-white hover:text-brand-300">{SITE.phone}</a>
+            </div>
+            <div>
+              <p class="text-white/60 uppercase text-[11px] tracking-wider">Email</p>
+              <a href={`mailto:${SITE.email}`} class="font-semibold text-white hover:text-brand-300 break-all">{SITE.email}</a>
+            </div>
+            <div class="col-span-2">
+              <p class="text-white/60 uppercase text-[11px] tracking-wider">Service area</p>
+              <p class="font-semibold">All 50 United States</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Map / coverage -->
+  <section class="section-tight">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl ring-1 ring-ink-100 shadow-soft">
+        <img
+          src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=2000&q=80"
+          alt="Map of the United States showing Print Fast coverage"
+          loading="lazy" decoding="async"
+          width="2000" height="900"
+          class="w-full h-[280px] sm:h-[360px] object-cover"
+        />
+        <div class="absolute inset-0 bg-gradient-to-r from-ink-900/85 via-ink-900/55 to-transparent"></div>
+        <div class="absolute inset-0 flex items-center">
+          <div class="container-pf">
+            <p class="eyebrow text-white/80"><i class="fa-solid fa-location-dot text-brand-400"></i> Coverage</p>
+            <h3 class="text-white text-2xl sm:text-3xl font-display font-bold mt-3 max-w-md">Serving home-service brands across all 50 states.</h3>
+            <a href="/free-digital-review/" class="btn-primary mt-5">Start with a free review <i class="fa-solid fa-arrow-right text-xs"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="container-pf">
+      <SectionHeading
+        eyebrow="FAQs"
+        title="Quick answers before you reach out"
+      />
+      <div class="mt-10 max-w-3xl mx-auto space-y-3">
+        {faqs.map((f) => (
+          <details class="group card p-0 overflow-hidden">
+            <summary class="flex items-center justify-between cursor-pointer list-none p-5 sm:p-6 text-left">
+              <span class="text-base sm:text-lg font-semibold text-ink-900">{f.q}</span>
+              <span class="grid h-8 w-8 place-items-center rounded-full bg-brand-50 text-brand-600 ml-4 flex-shrink-0 transition-transform group-open:rotate-45">
+                <i class="fa-solid fa-plus text-xs" aria-hidden="true"></i>
+              </span>
+            </summary>
+            <p class="px-5 sm:px-6 pb-5 sm:pb-6 -mt-2 text-ink-600 leading-relaxed">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

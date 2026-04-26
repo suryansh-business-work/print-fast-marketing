@@ -1,0 +1,280 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import SectionHeading from '@components/SectionHeading.astro';
+import FeatureGrid from '@components/FeatureGrid.astro';
+import PricingCard from '@components/PricingCard.astro';
+import Testimonials from '@components/Testimonials.astro';
+import CTA from '@components/CTA.astro';
+import ContactForm from '@components/ContactForm.astro';
+
+const platforms = [
+  { name: 'Facebook',  icon: 'fa-facebook',  note: '#1 platform for U.S. adults 35+' },
+  { name: 'Instagram', icon: 'fa-instagram', note: 'Reels & Stories for younger buyers' },
+  { name: 'TikTok',    icon: 'fa-tiktok',    note: 'Fastest-growing local discovery channel' },
+  { name: 'YouTube',   icon: 'fa-youtube',   note: 'Long-form trust + Shorts reach' },
+  { name: 'LinkedIn',  icon: 'fa-linkedin',  note: 'B2B, commercial & recruiting' },
+  { name: 'Pinterest', icon: 'fa-pinterest', note: 'High-intent home & lifestyle search' },
+  { name: 'X / Twitter', icon: 'fa-x-twitter', note: 'Real-time customer service' },
+  { name: 'Google Business', icon: 'fa-google', note: 'Posts that move local rankings' },
+];
+
+const whatYouGet = [
+  { icon: 'fa-pen-fancy',           title: 'Channel-native content',  description: 'Reels, carousels, shorts, stories, threads — produced for the platform, not copy-pasted across them.' },
+  { icon: 'fa-calendar-days',       title: 'Editorial calendar',       description: 'A 30-, 60- and 90-day plan tied to your service seasonality, promos and U.S. holidays.' },
+  { icon: 'fa-comments',            title: 'Community management',     description: 'We answer DMs, comments and reviews in your voice — typically within two business hours.' },
+  { icon: 'fa-bullhorn',            title: 'Paid social campaigns',    description: 'Meta, TikTok and YouTube ads with audience-by-zip targeting, lookalikes and retargeting.' },
+  { icon: 'fa-camera-retro',        title: 'On-site shoots (optional)', description: 'Quarterly content days where we capture a quarter of assets in a single visit.' },
+  { icon: 'fa-user-shield',         title: 'Reputation & reviews',     description: 'Active monitoring across Google, Facebook, Yelp and Nextdoor — with response templates and escalation.' },
+  { icon: 'fa-people-group',        title: 'Employee advocacy',        description: 'Turn your crew into creators with simple capture kits and easy-to-approve drafts.' },
+  { icon: 'fa-chart-pie',           title: 'Monthly reporting',        description: 'A live dashboard plus a one-page exec summary: reach, engagement, leads and ROAS.' },
+];
+
+const proofPoints = [
+  { stat: '5.17B',  label: 'social media users worldwide (2024)' },
+  { stat: '76%',    label: 'of U.S. adults use Facebook or Instagram' },
+  { stat: '2.3 hr', label: 'average daily time on social per U.S. user' },
+  { stat: '3.4×',   label: 'higher conversion when paid social pairs with organic' },
+];
+
+const process = [
+  { n: '01', title: 'Audit & strategy',  desc: 'Brand voice, competitor scan, content pillars, and a measurable 90-day plan.', icon: 'fa-compass' },
+  { n: '02', title: 'Production',        desc: 'Captions, graphics, short-form video and creator briefs — approved before they go live.', icon: 'fa-clapperboard' },
+  { n: '03', title: 'Publish & engage',  desc: 'We schedule, post and reply — you stay focused on running the business.', icon: 'fa-paper-plane' },
+  { n: '04', title: 'Optimize & scale',  desc: 'Weekly tests on hooks, formats and audiences. Wins get scaled, losers get cut.', icon: 'fa-arrows-spin' },
+];
+
+const plans = [
+  {
+    name: 'Starter',
+    price: '$899',
+    description: 'Stay consistent on the two channels that matter most.',
+    features: [
+      '12 custom posts / month (2 platforms)',
+      'Content calendar & captions',
+      'Basic community management (M–F)',
+      'Monthly performance report',
+      'Google Business Profile posts',
+      '1 strategy call per quarter',
+    ],
+    cta: { label: 'Start with Starter', href: '/contact-us/' },
+  },
+  {
+    name: 'Growth',
+    price: '$1,899',
+    description: 'Our most popular plan for trades & local brands.',
+    popular: true,
+    features: [
+      '20 custom posts + 4 short-form videos / month',
+      'Up to 4 platforms',
+      'Daily community management',
+      'Reputation monitoring across Google, FB, Yelp',
+      'Up to $750/mo of paid social management included',
+      'Monthly strategy call + dashboard',
+    ],
+    cta: { label: 'Choose Growth', href: '/contact-us/' },
+  },
+  {
+    name: 'Scale',
+    price: '$3,499',
+    description: 'For brands ready to own the conversation in their market.',
+    features: [
+      '40+ posts + 10 short-form videos / month',
+      'All major platforms + Nextdoor',
+      'Quarterly on-site content shoot',
+      'Influencer & employee advocacy program',
+      'Up to $3,000/mo of paid social management included',
+      'Bi-weekly strategy + custom reporting',
+    ],
+    cta: { label: 'Scale with us', href: '/contact-us/' },
+  },
+];
+
+const faqs = [
+  { q: 'Do I keep ownership of my content and ad accounts?',
+    a: 'Always. Every account, asset and creative we produce is owned by you and lives in your business accounts — not ours.' },
+  { q: 'How long until I see results?',
+    a: 'Engagement and reach typically lift within 30–45 days. Lead-driving paid campaigns usually show qualified results inside the first 60 days.' },
+  { q: 'Will you respond to my reviews and DMs?',
+    a: 'Yes. On Growth and Scale plans we monitor and respond on your behalf within two business hours during U.S. business hours, with escalation rules you set.' },
+  { q: 'Are contracts month-to-month?',
+    a: 'Yes. We earn the relationship every month. There are no long-term commitments or cancellation fees.' },
+  { q: 'Do you handle TCPA, FTC and platform compliance?',
+    a: 'Yes — including endorsement and testimonial disclosures (FTC), platform-specific ad policies, and proper opt-in language for any SMS or paid promotions.' },
+];
+---
+
+<BaseLayout
+  title="Social Media Marketing Services in the USA"
+  description="Done-for-you social media marketing for U.S. businesses. Strategy, content, paid social and community management on Facebook, Instagram, TikTok, LinkedIn and YouTube."
+  keywords={[
+    'social media marketing services',
+    'social media management USA',
+    'Facebook marketing agency',
+    'Instagram marketing agency',
+    'TikTok marketing for business',
+    'paid social advertising',
+    'community management',
+    'social media for small business',
+  ]}
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Social Media Marketing', href: '/social-media-marketing/' },
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Social Media Marketing',
+    serviceType: 'Social Media Marketing & Management',
+    provider: { '@type': 'Organization', name: 'Print Fast Digital Marketing' },
+    areaServed: { '@type': 'Country', name: 'United States' },
+    offers: [
+      { '@type': 'Offer', name: 'Starter', price: '899', priceCurrency: 'USD' },
+      { '@type': 'Offer', name: 'Growth',  price: '1899', priceCurrency: 'USD' },
+      { '@type': 'Offer', name: 'Scale',   price: '3499', priceCurrency: 'USD' },
+    ],
+  }}
+>
+  <Hero
+    variant="service"
+    eyebrow="Social Media Marketing"
+    title="Social media that"
+    highlight="builds your brand and books real jobs."
+    description="A senior U.S. team plans, produces, publishes and replies — across every platform your customers actually use. Less posting noise, more booked work and a brand customers trust."
+    primaryCta={{ label: 'Get a proposal', href: '/contact-us/' }}
+    secondaryCta={{ label: 'See pricing', href: '#pricing' }}
+  />
+
+  <!-- Platforms -->
+  <section class="section-tight">
+    <div class="container-pf">
+      <SectionHeading eyebrow="Where we'll show up" title="Every channel your U.S. customers use" />
+      <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {platforms.map((p) => (
+          <div class="card p-5 flex items-center gap-4" data-reveal>
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-brand-50 text-brand-600 text-xl">
+              <i class:list={[p.icon.startsWith('fa-google') ? 'fa-brands' : 'fa-brands', p.icon]}></i>
+            </span>
+            <div class="min-w-0">
+              <p class="font-semibold text-ink-900">{p.name}</p>
+              <p class="text-xs text-ink-500 mt-0.5">{p.note}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {proofPoints.map((p) => (
+          <div class="card p-7 text-center" data-reveal>
+            <p class="font-display text-4xl font-extrabold gradient-text">{p.stat}</p>
+            <p class="mt-2 text-sm text-ink-600">{p.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- What you get -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <SectionHeading
+        eyebrow="What's included"
+        title="A full social team — without the overhead"
+        description="Strategy, production, publishing, paid and reputation. One contract, one accountable team, one dashboard."
+      />
+      <div class="mt-14">
+        <FeatureGrid items={whatYouGet} columns={4} />
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="grid lg:grid-cols-12 gap-10 items-start">
+        <div class="lg:col-span-5">
+          <p class="eyebrow"><i class="fa-solid fa-bolt text-brand-600"></i> How we work</p>
+          <h2 class="heading-lg mt-4">From kickoff to first published post in 14 days.</h2>
+          <p class="lead mt-5">
+            We replace the chaos of agency hand-offs with one team, one plan and clear weekly progress — designed for U.S. small and mid-market businesses.
+          </p>
+          <a href="/contact-us/" class="btn-primary mt-8">Talk to a strategist</a>
+        </div>
+        <ol class="lg:col-span-7 grid sm:grid-cols-2 gap-5">
+          {process.map((p) => (
+            <li class="card p-6" data-reveal>
+              <div class="flex items-center justify-between">
+                <span class="grid h-11 w-11 place-items-center rounded-xl bg-brand-50 text-brand-600">
+                  <i class:list={['fa-solid', p.icon]}></i>
+                </span>
+                <span class="text-xs font-mono text-ink-400">{p.n}</span>
+              </div>
+              <h3 class="mt-4 text-lg font-bold text-ink-900">{p.title}</h3>
+              <p class="mt-2 text-sm text-ink-600">{p.desc}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="section bg-ink-50/60">
+    <div class="container-pf">
+      <SectionHeading
+        eyebrow="Plans & pricing"
+        title="Transparent monthly pricing — no hidden fees"
+        description="All plans are month-to-month and billed in USD. Need a custom build for multi-location or franchise? We'll design it around you."
+      />
+      <div class="mt-14 grid gap-6 lg:grid-cols-3">
+        {plans.map((p) => <PricingCard {...p} />)}
+      </div>
+      <p class="mt-8 text-center text-sm text-ink-500">
+        Paid social ad spend is billed directly by the platform to your card.
+        <span class="font-semibold text-brand-700"> Save 10% on annual prepay.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="section">
+    <div class="container-pf max-w-4xl">
+      <SectionHeading eyebrow="FAQs" title="Common questions" />
+      <div class="mt-10 space-y-3">
+        {faqs.map((f) => (
+          <details class="group card p-6 transition-colors hover:ring-brand-200">
+            <summary class="flex cursor-pointer items-center justify-between gap-4 list-none">
+              <span class="font-semibold text-ink-900">{f.q}</span>
+              <i class="fa-solid fa-plus text-ink-400 group-open:rotate-45 transition-transform"></i>
+            </summary>
+            <p class="mt-4 text-ink-600 leading-relaxed">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Testimonials />
+
+  <CTA
+    eyebrow="Ready to grow?"
+    title="Let's build a social program that earns its keep."
+    description="Tell us about your goals and we'll send a tailored plan within one business day."
+    primaryCta={{ label: 'Request a proposal', href: '/contact-us/' }}
+    secondaryCta={{ label: 'Explore all services', href: '/social-media-marketing/#services' }}
+  />
+
+  <section id="contact" class="section">
+    <div class="container-pf max-w-4xl">
+      <ContactForm
+        title="Talk to our social team"
+        subtitle="Send us a few details — we'll reply with a custom plan within one business day."
+      />
+    </div>
+  </section>
+</BaseLayout>

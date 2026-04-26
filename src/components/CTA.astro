@@ -1,0 +1,79 @@
+---
+export interface Props {
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  primaryCta: { label: string; href: string };
+  secondaryCta?: { label: string; href: string };
+  variant?: 'gradient' | 'dark' | 'light';
+}
+const {
+  eyebrow,
+  title,
+  description,
+  primaryCta,
+  secondaryCta,
+  variant = 'gradient',
+} = Astro.props;
+
+const wrapperClasses = {
+  gradient:
+    'bg-gradient-to-br from-brand-700 via-brand-600 to-brand-800 text-white',
+  dark: 'bg-ink-900 text-white',
+  light: 'bg-brand-50 text-ink-900',
+};
+---
+<section class="section">
+  <div class="container-pf">
+    <div class:list={[
+      'relative overflow-hidden rounded-3xl px-6 py-14 sm:p-14 lg:p-20',
+      wrapperClasses[variant],
+    ]} data-reveal>
+      {variant !== 'light' && (
+        <>
+          <span aria-hidden="true" class="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-white/10 blur-3xl"></span>
+          <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-accent-500/30 blur-3xl"></span>
+        </>
+      )}
+
+      <div class="relative max-w-3xl">
+        {eyebrow && (
+          <p class:list={[
+            'inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em]',
+            variant === 'light' ? 'bg-white text-brand-700' : 'bg-white/10 text-white ring-1 ring-white/20',
+          ]}>
+            <i class="fa-solid fa-rocket"></i> {eyebrow}
+          </p>
+        )}
+        <h2 class="heading-lg mt-5">{title}</h2>
+        {description && (
+          <p class:list={[
+            'mt-5 text-lg leading-relaxed',
+            variant === 'light' ? 'text-ink-600' : 'text-white/85',
+          ]}>{description}</p>
+        )}
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a
+            href={primaryCta.href}
+            class:list={[
+              variant === 'light' ? 'btn-primary' : 'btn bg-white text-brand-700 hover:bg-ink-100 shadow-soft',
+            ]}
+          >
+            {primaryCta.label} <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+          {secondaryCta && (
+            <a
+              href={secondaryCta.href}
+              class:list={[
+                variant === 'light' ? 'btn-outline' : 'btn-ghost',
+              ]}
+            >
+              {secondaryCta.label}
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

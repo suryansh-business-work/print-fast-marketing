@@ -1,0 +1,21 @@
+---
+import ContactFormReact from './ContactFormReact.tsx';
+import { SITE } from '@data/site';
+
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  variant?: 'general' | 'review';
+}
+const { title, subtitle, variant = 'general' } = Astro.props;
+---
+
+<ContactFormReact
+  client:load
+  variant={variant}
+  title={title}
+  subtitle={subtitle}
+  phone={SITE.phone}
+  phoneHref={SITE.phoneHref}
+  email={SITE.email}
+/>

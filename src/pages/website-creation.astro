@@ -1,0 +1,283 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import SectionHeading from '@components/SectionHeading.astro';
+import FeatureGrid from '@components/FeatureGrid.astro';
+import PricingCard from '@components/PricingCard.astro';
+import Testimonials from '@components/Testimonials.astro';
+import CTA from '@components/CTA.astro';
+import ContactForm from '@components/ContactForm.astro';
+
+const principles = [
+  { icon: 'fa-gauge-high',     title: 'Speed by default',         description: 'Sub-2-second LCP, 95+ Lighthouse and Core Web Vitals "Good" — out of the box, not as a Phase 2.' },
+  { icon: 'fa-universal-access', title: 'WCAG 2.2 AA accessibility', description: 'ADA-aware design, keyboard navigation, screen-reader semantics — protecting you from the wave of U.S. ADA web lawsuits.' },
+  { icon: 'fa-mobile-screen',  title: 'Mobile-first',             description: 'Over 60% of U.S. service search is mobile. We design for the smallest screen, then scale up.' },
+  { icon: 'fa-magnifying-glass-chart', title: 'SEO-grade architecture', description: 'Clean URLs, semantic HTML, schema.org markup and sitemap automation built in from day one.' },
+  { icon: 'fa-bullseye',       title: 'Conversion-first design',  description: 'Every page has a primary action. Clear CTAs, sticky calls and forms designed to convert, not just look pretty.' },
+  { icon: 'fa-shield-halved',  title: 'Secure & compliant',       description: 'HTTPS, modern headers, CCPA / state-privacy banners and a stack you can pass a security review with.' },
+];
+
+const stack = [
+  { name: 'Astro',      icon: 'fa-rocket',     desc: 'Content & marketing sites where speed and SEO win.' },
+  { name: 'Next.js',    icon: 'fa-react',      desc: 'Apps and complex sites with dynamic data.' },
+  { name: 'WordPress',  icon: 'fa-wordpress',  desc: 'Familiar editing for in-house marketing teams.' },
+  { name: 'Shopify',    icon: 'fa-bag-shopping', desc: 'E-commerce — Liquid themes or headless.' },
+  { name: 'Webflow',    icon: 'fa-paintbrush', desc: 'Designer-friendly CMS for fast iteration.' },
+  { name: 'HubSpot CMS', icon: 'fa-cubes',     desc: 'When sales + content live in the same place.' },
+];
+
+const includes = [
+  { icon: 'fa-pen-ruler',         title: 'Custom design system',     description: 'A reusable component library that keeps every future page on-brand.' },
+  { icon: 'fa-code',              title: 'Hand-built code',          description: 'No bloated templates. Production code reviewed for performance and security.' },
+  { icon: 'fa-link',              title: 'Booking & CRM integrations', description: 'ServiceTitan, Housecall Pro, Jobber, HubSpot, Salesforce, Calendly — wired in correctly.' },
+  { icon: 'fa-pen-to-square',     title: 'Easy CMS editing',         description: 'A friendly editor so your team can update copy and images without a developer.' },
+  { icon: 'fa-image',             title: 'Optimized media pipeline', description: 'Modern formats, responsive images and lazy loading — your site stays fast as it grows.' },
+  { icon: 'fa-chart-line',        title: 'Analytics & tag setup',    description: 'GA4, GTM, conversion events, call tracking and Search Console — all configured before launch.' },
+  { icon: 'fa-cookie-bite',       title: 'Privacy & consent',        description: 'CCPA/CPRA cookie consent, privacy policy review and data flow documentation.' },
+  { icon: 'fa-life-ring',         title: 'Post-launch care',         description: 'Monthly updates, monitoring and security patching to keep the site healthy long after go-live.' },
+];
+
+const process = [
+  { n: '01', title: 'Discover',  desc: 'Goals, audience, competitor & analytics review. We define what success looks like before we design anything.', icon: 'fa-compass' },
+  { n: '02', title: 'Architect', desc: 'Sitemap, content model, technical spec and a clickable wireframe — approved before pixels are pushed.',         icon: 'fa-sitemap' },
+  { n: '03', title: 'Design',    desc: 'A design system and key page mockups in Figma, with a clear feedback loop and 2 revision rounds built in.',     icon: 'fa-pen-ruler' },
+  { n: '04', title: 'Build',     desc: 'Production code, CMS, integrations and content migration — reviewed weekly with you in a staging environment.', icon: 'fa-code' },
+  { n: '05', title: 'QA',        desc: 'Cross-browser, mobile, accessibility and performance testing. Real devices, real users — not just emulators.',  icon: 'fa-vial-circle-check' },
+  { n: '06', title: 'Launch',    desc: 'Zero-downtime cutover, redirect map, search-console verification and a 30-day stabilization window.',           icon: 'fa-rocket' },
+];
+
+const plans = [
+  {
+    name: 'Launchpad',
+    price: '$3,900',
+    period: ' one-time',
+    description: 'A fast, professional site for small local businesses.',
+    features: [
+      'Up to 6 custom pages',
+      'Mobile-first responsive design',
+      'WCAG 2.2 AA accessibility pass',
+      'Local SEO + LocalBusiness schema',
+      'GA4, GTM & call-tracking setup',
+      'Contact form + CRM integration',
+      '30 days of post-launch support',
+    ],
+    cta: { label: 'Start a Launchpad site', href: '/contact-us/' },
+  },
+  {
+    name: 'Growth Site',
+    price: '$8,900',
+    period: ' one-time',
+    description: 'Our most popular package for growing service brands.',
+    popular: true,
+    features: [
+      'Up to 15 custom pages + blog',
+      'Custom design system in Figma',
+      'Service-area / location pages',
+      'Booking & CRM integrations',
+      'Advanced schema + technical SEO',
+      'Content migration from old site',
+      '90 days of post-launch support',
+    ],
+    cta: { label: 'Choose Growth Site', href: '/contact-us/' },
+  },
+  {
+    name: 'Custom Build',
+    price: 'From $25k',
+    period: '',
+    description: 'For multi-location brands, e-commerce and bespoke web apps.',
+    features: [
+      'Unlimited pages & locations',
+      'Custom integrations & data sources',
+      'Headless CMS or e-commerce',
+      'Performance & accessibility audit',
+      'Dedicated PM + tech lead',
+      'SLA-backed monthly care plan',
+      'Quarterly roadmap reviews',
+    ],
+    cta: { label: 'Scope a custom build', href: '/contact-us/' },
+  },
+];
+
+const faqs = [
+  { q: 'How long does a website take to build?',
+    a: 'Launchpad sites typically go live in 4–6 weeks, Growth Sites in 8–12 weeks, and custom builds in 12–20 weeks depending on scope. We share a week-by-week schedule on day one.' },
+  { q: 'Do I own the website and the code?',
+    a: 'Yes. You own the design, the code, the CMS account and the domain. There is no proprietary lock-in — if you ever leave, the site comes with you.' },
+  { q: 'Will the site be ADA accessible?',
+    a: 'Every site we ship targets WCAG 2.2 AA. We test with axe DevTools and a manual checklist covering keyboard, screen reader and color-contrast issues — important protection given the rise in U.S. ADA web lawsuits.' },
+  { q: 'Can you redesign without losing my SEO?',
+    a: 'Yes. Every redesign includes a content inventory, ranked-keyword preservation, a redirect map, structured data and Search Console submission. Most clients see organic traffic recover or improve within 60 days of launch.' },
+  { q: 'Do you handle hosting?',
+    a: 'We can — on Vercel, Netlify, Cloudflare or your preferred host — or we can set you up on your own account and just deploy to it. You always own the hosting account.' },
+];
+---
+
+<BaseLayout
+  title="Website Creation & Web Design Services in the USA"
+  description="Custom website design and development for U.S. businesses. Fast, ADA-accessible, SEO-ready websites built on Astro, Next.js, WordPress, Shopify and Webflow."
+  keywords={[
+    'website creation services',
+    'web design agency USA',
+    'custom website development',
+    'ADA compliant website',
+    'WCAG 2.2 website',
+    'Core Web Vitals website',
+    'small business website design',
+    'home services website',
+  ]}
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Website Creation', href: '/website-creation/' },
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Website Creation',
+    serviceType: 'Web Design & Development',
+    provider: { '@type': 'Organization', name: 'Print Fast Digital Marketing' },
+    areaServed: { '@type': 'Country', name: 'United States' },
+    offers: [
+      { '@type': 'Offer', name: 'Launchpad',   price: '3900',  priceCurrency: 'USD' },
+      { '@type': 'Offer', name: 'Growth Site', price: '8900',  priceCurrency: 'USD' },
+      { '@type': 'Offer', name: 'Custom Build', price: '25000', priceCurrency: 'USD' },
+    ],
+  }}
+>
+  <Hero
+    variant="service"
+    eyebrow="Website Creation"
+    title="Websites that"
+    highlight="load fast, rank well and convert."
+    description="Custom-designed, hand-built websites for U.S. businesses — ADA-ready, SEO-grade and engineered for Core Web Vitals from the first commit."
+    primaryCta={{ label: 'Get a quote', href: '/contact-us/' }}
+    secondaryCta={{ label: 'See pricing', href: '#pricing' }}
+  />
+
+  <!-- Principles -->
+  <section class="section">
+    <div class="container-pf">
+      <SectionHeading
+        eyebrow="What you can expect"
+        title="Six non-negotiables on every site we ship"
+        description="The fundamentals are not upsells. They are how we build."
+      />
+      <div class="mt-14">
+        <FeatureGrid items={principles} columns={3} />
+      </div>
+    </div>
+  </section>
+
+  <!-- Stack -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <SectionHeading
+        eyebrow="Tech we work in"
+        title="The right tool for the job"
+        description="We pick the stack to match your team and goals — not to lock you in."
+      />
+      <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {stack.map((s) => (
+          <div class="card p-6 flex gap-5" data-reveal>
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-brand-50 text-brand-600 text-xl">
+              <i class:list={[s.icon.startsWith('fa-react') || s.icon.startsWith('fa-wordpress') ? 'fa-brands' : 'fa-solid', s.icon]}></i>
+            </span>
+            <div>
+              <h3 class="font-bold text-ink-900">{s.name}</h3>
+              <p class="text-sm text-ink-600 mt-1">{s.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- What's included -->
+  <section class="section">
+    <div class="container-pf">
+      <SectionHeading
+        eyebrow="What's included"
+        title="A site that earns its keep — long after launch"
+        description="Every package ships with the integrations, analytics and accessibility work that most agencies leave for later."
+      />
+      <div class="mt-14">
+        <FeatureGrid items={includes} columns={4} />
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <SectionHeading
+        eyebrow="Our process"
+        title="From kickoff to go-live in 6 phases"
+        description="A clear, weekly cadence — with you in every step."
+      />
+      <ol class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {process.map((p) => (
+          <li class="card p-6" data-reveal>
+            <div class="flex items-center justify-between">
+              <span class="grid h-11 w-11 place-items-center rounded-xl bg-brand-50 text-brand-600">
+                <i class:list={['fa-solid', p.icon]}></i>
+              </span>
+              <span class="text-xs font-mono text-ink-400">{p.n}</span>
+            </div>
+            <h3 class="mt-4 text-lg font-bold text-ink-900">{p.title}</h3>
+            <p class="mt-2 text-sm text-ink-600">{p.desc}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="section">
+    <div class="container-pf">
+      <SectionHeading
+        eyebrow="Investment"
+        title="Transparent project pricing"
+        description="Project pricing in USD. Hosting and CMS license fees billed at cost. Optional monthly care plans available from $249/mo."
+      />
+      <div class="mt-14 grid gap-6 lg:grid-cols-3">
+        {plans.map((p) => <PricingCard {...p} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf max-w-4xl">
+      <SectionHeading eyebrow="FAQs" title="Common questions" />
+      <div class="mt-10 space-y-3">
+        {faqs.map((f) => (
+          <details class="group card p-6 transition-colors hover:ring-brand-200">
+            <summary class="flex cursor-pointer items-center justify-between gap-4 list-none">
+              <span class="font-semibold text-ink-900">{f.q}</span>
+              <i class="fa-solid fa-plus text-ink-400 group-open:rotate-45 transition-transform"></i>
+            </summary>
+            <p class="mt-4 text-ink-600 leading-relaxed">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Testimonials />
+
+  <CTA
+    eyebrow="Ready to ship a better site?"
+    title="Let's design a website that works as hard as you do."
+    description="Send a few details about your project and we'll come back with a tailored proposal and timeline within one business day."
+    primaryCta={{ label: 'Get a quote', href: '/contact-us/' }}
+    secondaryCta={{ label: 'Talk to a strategist', href: '#contact' }}
+  />
+
+  <section id="contact" class="section">
+    <div class="container-pf max-w-4xl">
+      <ContactForm
+        title="Tell us about your project"
+        subtitle="Share your goals, current site URL and timeline. We'll respond within one business day."
+      />
+    </div>
+  </section>
+</BaseLayout>

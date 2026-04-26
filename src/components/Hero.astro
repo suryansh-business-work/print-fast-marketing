@@ -1,0 +1,89 @@
+---
+export interface Props {
+  eyebrow?: string;
+  title: string;
+  highlight?: string;
+  description?: string;
+  primaryCta?: { label: string; href: string };
+  secondaryCta?: { label: string; href: string };
+  align?: 'left' | 'center';
+  variant?: 'default' | 'service';
+}
+
+const {
+  eyebrow,
+  title,
+  highlight,
+  description,
+  primaryCta,
+  secondaryCta,
+  align = 'left',
+  variant = 'default',
+} = Astro.props;
+---
+
+<section class:list={[
+  'relative overflow-hidden',
+  variant === 'service' ? 'pt-20 pb-16 lg:pt-28 lg:pb-20' : 'pt-24 pb-20 lg:pt-32 lg:pb-28',
+]}>
+  <!-- Decorative background -->
+  <div aria-hidden="true" class="absolute inset-0 -z-10 bg-hero-radial"></div>
+  <div aria-hidden="true" class="absolute inset-0 -z-10 bg-grid-light bg-grid-32 opacity-40 [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]"></div>
+  <span aria-hidden="true" class="pf-blob pf-blob--a -top-20 -left-20"></span>
+  <span aria-hidden="true" class="pf-blob pf-blob--b top-20 right-0"></span>
+
+  <div class="container-pf">
+    <div class:list={[
+      'max-w-4xl',
+      align === 'center' && 'mx-auto text-center',
+    ]}>
+      {eyebrow && (
+        <p class="eyebrow animate-fade-up">
+          <i class="fa-solid fa-sparkles text-accent-500"></i>
+          {eyebrow}
+        </p>
+      )}
+
+      <h1 class="heading-xl mt-5 animate-fade-up" style="animation-delay:80ms">
+        {title}{' '}
+        {highlight && <span class="gradient-text">{highlight}</span>}
+      </h1>
+
+      {description && (
+        <p
+          class:list={['lead mt-6 max-w-2xl animate-fade-up', align === 'center' && 'mx-auto']}
+          style="animation-delay:160ms"
+        >
+          {description}
+        </p>
+      )}
+
+      {(primaryCta || secondaryCta) && (
+        <div class:list={[
+          'mt-8 flex flex-wrap gap-3 animate-fade-up',
+          align === 'center' && 'justify-center',
+        ]} style="animation-delay:240ms">
+          {primaryCta && (
+            <a href={primaryCta.href} class="btn-primary">
+              {primaryCta.label} <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+          )}
+          {secondaryCta && (
+            <a href={secondaryCta.href} class="btn-outline">
+              {secondaryCta.label}
+            </a>
+          )}
+        </div>
+      )}
+
+      <div class:list={[
+        'mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 text-sm text-ink-500 animate-fade-up',
+        align === 'center' && 'justify-center',
+      ]} style="animation-delay:320ms">
+        <span class="inline-flex items-center gap-2"><i class="fa-solid fa-circle-check text-brand-600"></i> No long-term contracts</span>
+        <span class="inline-flex items-center gap-2"><i class="fa-solid fa-circle-check text-brand-600"></i> Built for the trades</span>
+        <span class="inline-flex items-center gap-2"><i class="fa-solid fa-circle-check text-brand-600"></i> Free strategy call</span>
+      </div>
+    </div>
+  </div>
+</section>

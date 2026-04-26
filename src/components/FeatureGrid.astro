@@ -1,0 +1,28 @@
+---
+export interface FeatureItem {
+  icon: string;
+  title: string;
+  description: string;
+}
+export interface Props {
+  items: FeatureItem[];
+  columns?: 2 | 3 | 4;
+}
+const { items, columns = 3 } = Astro.props;
+const gridCols = {
+  2: 'sm:grid-cols-2',
+  3: 'sm:grid-cols-2 lg:grid-cols-3',
+  4: 'sm:grid-cols-2 lg:grid-cols-4',
+};
+---
+<div class:list={['grid gap-6', gridCols[columns]]}>
+  {items.map((item) => (
+    <div class="card p-6 sm:p-7 hover:ring-brand-200 transition-all" data-reveal>
+      <span class="grid h-11 w-11 place-items-center rounded-lg bg-brand-50 text-brand-700 ring-1 ring-brand-100">
+        <i class:list={['fa-solid', item.icon]}></i>
+      </span>
+      <h3 class="mt-5 text-lg font-bold text-ink-900">{item.title}</h3>
+      <p class="mt-2 text-sm text-ink-600 leading-relaxed">{item.description}</p>
+    </div>
+  ))}
+</div>
