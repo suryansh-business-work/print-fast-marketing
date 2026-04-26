@@ -71,10 +71,10 @@
   .pf-marquee__track {
     gap: 2.5rem;
     align-items: center;
-    animation-duration: 50s; // slower for logo readability
+    animation-duration: 90s; // slower for logo readability
   }
   .pf-marquee__track--reverse {
-    animation-duration: 55s;
+    animation-duration: 100s;
   }
 }
 
