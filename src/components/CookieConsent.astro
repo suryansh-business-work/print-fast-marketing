@@ -1,10 +1,11 @@
 ---
-// Cookie consent drawer with floating launcher button.
-// Persists user choice ("accepted" | "rejected") in localStorage under "pf-cookie-consent-v1".
-// Floating button is positioned just ABOVE the accessibility launcher (bottom-5).
+// Cookie consent — right-side drawer with category toggles.
+// Persists detailed preferences in localStorage under "pf-cookie-consent-v1":
+//   { choice: 'accepted'|'rejected'|'custom', categories: { essential, functional, analytics, marketing }, ts }
+// Floating launcher sits ABOVE the accessibility launcher (bottom-5).
 ---
 
-<!-- Floating launcher (sits above the a11y button which is bottom-5 + h-12) -->
+<!-- Floating launcher -->
 <button
   type="button"
   data-cookie-open
@@ -23,7 +24,7 @@
   aria-hidden="true"
 ></div>
 
-<!-- Drawer -->
+<!-- Right-side Drawer -->
 <aside
   id="cookie-drawer"
   data-cookie-drawer
@@ -31,45 +32,132 @@
   aria-modal="true"
   aria-labelledby="cookie-title"
   tabindex="-1"
-  class="fixed bottom-0 left-0 right-0 z-[80] translate-y-full bg-white dark:bg-ink-900 shadow-2xl transition-transform duration-300 ease-out focus:outline-none border-t border-ink-100 dark:border-ink-800"
+  class="fixed top-0 right-0 bottom-0 z-[80] w-full sm:w-[440px] max-w-full translate-x-full bg-white dark:bg-ink-900 shadow-2xl transition-transform duration-300 ease-out focus:outline-none border-l border-ink-100 dark:border-ink-800 flex flex-col"
 >
-  <div class="container-pf py-6 sm:py-7">
-    <div class="grid gap-5 sm:grid-cols-[1fr_auto] sm:items-center">
-      <div class="flex items-start gap-4">
-        <span class="grid h-12 w-12 flex-shrink-0 place-items-center rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-950/40 dark:text-brand-300">
-          <i class="fa-solid fa-cookie-bite text-xl" aria-hidden="true"></i>
-        </span>
-        <div class="min-w-0">
-          <h2 id="cookie-title" class="text-lg font-display font-bold text-ink-900 dark:text-white">
-            We value your privacy
-          </h2>
-          <p class="mt-1.5 text-sm text-ink-600 dark:text-ink-300 leading-relaxed">
-            We use cookies to improve your browsing experience, analyze site traffic and personalize content.
-            You can accept all cookies or reject non-essential ones. Read our
-            <a href="/contact-us/" class="text-brand-700 dark:text-brand-400 underline underline-offset-2 hover:text-brand-800">privacy policy</a>
-            for details.
-          </p>
-        </div>
-      </div>
-
-      <div class="flex flex-wrap items-center gap-3 sm:justify-end">
-        <button type="button" data-cookie-reject class="btn-outline">
-          Reject non-essential
-        </button>
-        <button type="button" data-cookie-accept class="btn-primary">
-          Accept all cookies
-        </button>
-        <button
-          type="button"
-          data-cookie-close
-          aria-label="Close cookie banner"
-          class="grid h-10 w-10 place-items-center rounded-full ring-1 ring-ink-200 text-ink-500 hover:bg-ink-50 dark:ring-ink-700 dark:hover:bg-ink-800"
-        >
-          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
-        </button>
+  <!-- Header -->
+  <header class="flex items-start justify-between gap-4 px-6 pt-6 pb-4 border-b border-ink-100 dark:border-ink-800">
+    <div class="flex items-start gap-3 min-w-0">
+      <span class="grid h-11 w-11 flex-shrink-0 place-items-center rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-950/40 dark:text-brand-300">
+        <i class="fa-solid fa-cookie-bite text-lg" aria-hidden="true"></i>
+      </span>
+      <div class="min-w-0">
+        <h2 id="cookie-title" class="text-lg font-display font-bold text-ink-900 dark:text-white">
+          Cookie preferences
+        </h2>
+        <p class="mt-1 text-xs text-ink-600 dark:text-ink-300 leading-relaxed">
+          Choose which cookies you allow. You can change this anytime.
+        </p>
       </div>
     </div>
+    <button
+      type="button"
+      data-cookie-close
+      aria-label="Close cookie preferences"
+      class="grid h-9 w-9 flex-shrink-0 place-items-center rounded-full ring-1 ring-ink-200 text-ink-500 hover:bg-ink-50 dark:ring-ink-700 dark:hover:bg-ink-800"
+    >
+      <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+    </button>
+  </header>
+
+  <!-- Body / categories -->
+  <div class="flex-1 overflow-y-auto px-6 py-5 space-y-4">
+    <p class="text-sm text-ink-600 dark:text-ink-300 leading-relaxed">
+      We use cookies to improve your browsing experience, analyse site traffic and personalise content.
+      Read our <a href="/contact-us/" class="text-brand-700 dark:text-brand-400 underline underline-offset-2 hover:text-brand-800">privacy policy</a>.
+    </p>
+
+    <!-- Essential -->
+    <article class="rounded-xl border border-ink-100 dark:border-ink-800 bg-ink-50/40 dark:bg-ink-800/30 p-4">
+      <div class="flex items-start justify-between gap-4">
+        <div class="min-w-0">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-shield-halved text-brand-600 dark:text-brand-400" aria-hidden="true"></i>
+            <h3 class="text-sm font-semibold text-ink-900 dark:text-white">Strictly necessary</h3>
+            <span class="text-[10px] font-semibold uppercase tracking-wide text-brand-700 dark:text-brand-400 bg-brand-50 dark:bg-brand-950/40 px-1.5 py-0.5 rounded">Always on</span>
+          </div>
+          <p class="mt-1.5 text-xs text-ink-600 dark:text-ink-300 leading-relaxed">
+            Required for the site to function — security, load balancing and your saved preferences. Cannot be turned off.
+          </p>
+        </div>
+        <label class="relative inline-flex items-center cursor-not-allowed flex-shrink-0">
+          <input type="checkbox" checked disabled class="sr-only peer" />
+          <span class="w-11 h-6 bg-brand-600 rounded-full opacity-70 relative after:content-[''] after:absolute after:top-[2px] after:left-[22px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all"></span>
+        </label>
+      </div>
+    </article>
+
+    <!-- Functional -->
+    <article class="rounded-xl border border-ink-100 dark:border-ink-800 p-4">
+      <div class="flex items-start justify-between gap-4">
+        <div class="min-w-0">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-sliders text-ink-700 dark:text-ink-200" aria-hidden="true"></i>
+            <h3 class="text-sm font-semibold text-ink-900 dark:text-white">Functional</h3>
+          </div>
+          <p class="mt-1.5 text-xs text-ink-600 dark:text-ink-300 leading-relaxed">
+            Enable enhanced features like remembered form inputs, chat widgets and embedded media playback.
+          </p>
+        </div>
+        <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+          <input type="checkbox" data-cookie-cat="functional" class="sr-only peer" checked />
+          <span class="w-11 h-6 bg-ink-300 dark:bg-ink-700 rounded-full peer-checked:bg-brand-600 peer-focus-visible:ring-2 peer-focus-visible:ring-brand-400 transition-colors relative after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-5"></span>
+        </label>
+      </div>
+    </article>
+
+    <!-- Analytics -->
+    <article class="rounded-xl border border-ink-100 dark:border-ink-800 p-4">
+      <div class="flex items-start justify-between gap-4">
+        <div class="min-w-0">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-chart-line text-ink-700 dark:text-ink-200" aria-hidden="true"></i>
+            <h3 class="text-sm font-semibold text-ink-900 dark:text-white">Analytics</h3>
+          </div>
+          <p class="mt-1.5 text-xs text-ink-600 dark:text-ink-300 leading-relaxed">
+            Help us understand how visitors use the site (pages viewed, time spent) so we can improve it. Data is aggregated and anonymous.
+          </p>
+        </div>
+        <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+          <input type="checkbox" data-cookie-cat="analytics" class="sr-only peer" checked />
+          <span class="w-11 h-6 bg-ink-300 dark:bg-ink-700 rounded-full peer-checked:bg-brand-600 peer-focus-visible:ring-2 peer-focus-visible:ring-brand-400 transition-colors relative after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-5"></span>
+        </label>
+      </div>
+    </article>
+
+    <!-- Marketing -->
+    <article class="rounded-xl border border-ink-100 dark:border-ink-800 p-4">
+      <div class="flex items-start justify-between gap-4">
+        <div class="min-w-0">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-bullhorn text-ink-700 dark:text-ink-200" aria-hidden="true"></i>
+            <h3 class="text-sm font-semibold text-ink-900 dark:text-white">Marketing</h3>
+          </div>
+          <p class="mt-1.5 text-xs text-ink-600 dark:text-ink-300 leading-relaxed">
+            Used by us and our advertising partners to show you relevant ads on this site and across the web, and to measure campaign performance.
+          </p>
+        </div>
+        <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+          <input type="checkbox" data-cookie-cat="marketing" class="sr-only peer" />
+          <span class="w-11 h-6 bg-ink-300 dark:bg-ink-700 rounded-full peer-checked:bg-brand-600 peer-focus-visible:ring-2 peer-focus-visible:ring-brand-400 transition-colors relative after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-5"></span>
+        </label>
+      </div>
+    </article>
   </div>
+
+  <!-- Footer actions -->
+  <footer class="border-t border-ink-100 dark:border-ink-800 px-6 py-4 space-y-2 bg-white dark:bg-ink-900">
+    <button type="button" data-cookie-accept class="btn-primary w-full justify-center">
+      Accept all cookies
+    </button>
+    <div class="grid grid-cols-2 gap-2">
+      <button type="button" data-cookie-reject class="btn-outline w-full justify-center text-sm">
+        Reject non-essential
+      </button>
+      <button type="button" data-cookie-save class="btn-outline w-full justify-center text-sm">
+        Save preferences
+      </button>
+    </div>
+  </footer>
 </aside>
 
 <script is:inline>
@@ -81,42 +169,87 @@
     var closeBtn = document.querySelector('[data-cookie-close]');
     var acceptBtn = document.querySelector('[data-cookie-accept]');
     var rejectBtn = document.querySelector('[data-cookie-reject]');
+    var saveBtn = document.querySelector('[data-cookie-save]');
+    var toggles = document.querySelectorAll('[data-cookie-cat]');
 
     if (!drawer || !backdrop || !openBtn) return;
 
+    function setToggle(name, value) {
+      for (var i = 0; i < toggles.length; i++) {
+        if (toggles[i].getAttribute('data-cookie-cat') === name) toggles[i].checked = !!value;
+      }
+    }
+    function readToggles() {
+      var cats = { essential: true, functional: false, analytics: false, marketing: false };
+      for (var i = 0; i < toggles.length; i++) {
+        cats[toggles[i].getAttribute('data-cookie-cat')] = !!toggles[i].checked;
+      }
+      return cats;
+    }
     function openDrawer() {
-      drawer.classList.remove('translate-y-full');
+      drawer.classList.remove('translate-x-full');
       backdrop.classList.remove('opacity-0', 'pointer-events-none');
       openBtn.setAttribute('aria-expanded', 'true');
+      document.documentElement.style.overflow = 'hidden';
       setTimeout(function () { drawer.focus(); }, 50);
     }
     function closeDrawer() {
-      drawer.classList.add('translate-y-full');
+      drawer.classList.add('translate-x-full');
       backdrop.classList.add('opacity-0', 'pointer-events-none');
       openBtn.setAttribute('aria-expanded', 'false');
+      document.documentElement.style.overflow = '';
     }
-    function setChoice(value) {
+    function persist(choice, categories) {
       try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify({ choice: value, ts: Date.now() }));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          choice: choice,
+          categories: categories,
+          ts: Date.now()
+        }));
       } catch (_) { /* ignore */ }
       closeDrawer();
     }
 
+    // Restore previous choice into toggles (if any)
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        var saved = JSON.parse(raw);
+        if (saved && saved.categories) {
+          setToggle('functional', saved.categories.functional);
+          setToggle('analytics', saved.categories.analytics);
+          setToggle('marketing', saved.categories.marketing);
+        }
+      }
+    } catch (_) { /* ignore */ }
+
     openBtn.addEventListener('click', openDrawer);
     closeBtn && closeBtn.addEventListener('click', closeDrawer);
     backdrop.addEventListener('click', closeDrawer);
-    acceptBtn && acceptBtn.addEventListener('click', function () { setChoice('accepted'); });
-    rejectBtn && rejectBtn.addEventListener('click', function () { setChoice('rejected'); });
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && !drawer.classList.contains('translate-y-full')) closeDrawer();
+
+    acceptBtn && acceptBtn.addEventListener('click', function () {
+      setToggle('functional', true);
+      setToggle('analytics', true);
+      setToggle('marketing', true);
+      persist('accepted', { essential: true, functional: true, analytics: true, marketing: true });
+    });
+    rejectBtn && rejectBtn.addEventListener('click', function () {
+      setToggle('functional', false);
+      setToggle('analytics', false);
+      setToggle('marketing', false);
+      persist('rejected', { essential: true, functional: false, analytics: false, marketing: false });
+    });
+    saveBtn && saveBtn.addEventListener('click', function () {
+      persist('custom', readToggles());
     });
 
-    // Auto-open on first visit when no choice saved
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !drawer.classList.contains('translate-x-full')) closeDrawer();
+    });
+
+    // Auto-open on first visit
     var hasChoice = false;
     try { hasChoice = !!localStorage.getItem(STORAGE_KEY); } catch (_) { /* ignore */ }
-    if (!hasChoice) {
-      // Slight delay so it doesn't fight first-paint
-      setTimeout(openDrawer, 800);
-    }
+    if (!hasChoice) setTimeout(openDrawer, 800);
   })();
 </script>
