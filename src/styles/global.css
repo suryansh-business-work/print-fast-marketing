@@ -1,7 +1,9 @@
-/* Import Font Awesome (free) — base + solid subset only (we don't use brands/regular).
-   Saves ~50–70 KB of unused CSS vs all.min.css. Must precede @tailwind per CSS spec. */
+/* Import Font Awesome (free) — base + solid + brands (we use solid icons throughout
+   and brand icons in footer/social/PPC pages). Skip regular to save weight.
+   Must precede @tailwind per CSS spec. */
 @import '@fortawesome/fontawesome-free/css/fontawesome.min.css';
 @import '@fortawesome/fontawesome-free/css/solid.min.css';
+@import '@fortawesome/fontawesome-free/css/brands.min.css';
 
 /* Local SCSS layer for advanced bits Tailwind alone is awkward for */
 @import './scss/main.scss';
