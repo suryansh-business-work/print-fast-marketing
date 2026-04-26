@@ -26,7 +26,7 @@ export const SITE = {
   tagline: 'Performance marketing for U.S. home-service brands',
   description:
     'Print Fast is a U.S. digital marketing agency for home-service and local brands. We deliver social media marketing, email marketing, website creation, search engine optimization (SEO), and pay-per-click (PPC) advertising under one accountable team.',
-  url: 'https://www.print-fast.com',
+  url: 'https://marketing.print-fast.com',
   phone: '800-810-4818',
   phoneHref: 'tel:800-810-4818',
   email: 'orders@print-fast.com',

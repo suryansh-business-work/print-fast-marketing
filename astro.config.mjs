@@ -5,7 +5,7 @@ import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://www.print-fast.com',
+  site: 'https://marketing.print-fast.com',
   integrations: [
     tailwind({ applyBaseStyles: false }),
     sitemap(),
