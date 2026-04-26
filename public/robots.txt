@@ -1,4 +1,23 @@
+# Print Fast — robots.txt
+# https://www.print-fast.com
+
 User-agent: *
+Allow: /
+Disallow: /404
+Disallow: /api/
+Disallow: /*?*utm_
+
+# AI / LLM crawlers — allow citation
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: ClaudeBot
 Allow: /
 
 Sitemap: https://www.print-fast.com/sitemap-index.xml

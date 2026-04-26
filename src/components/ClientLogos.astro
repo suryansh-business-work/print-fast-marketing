@@ -1,0 +1,102 @@
+---
+import { CLIENT_LOGOS } from '@data/site';
+
+export interface Props {
+  /** Section heading (set to null to hide) */
+  title?: string | null;
+  /** Small uppercase eyebrow above the title */
+  eyebrow?: string | null;
+  /** Optional supporting copy under the title */
+  description?: string | null;
+  /** Number of marquee rows. 1 row = single strip, 2 = opposite-direction rows (default for many logos) */
+  rows?: 1 | 2;
+  /** Background style: 'white' (default) or 'muted' */
+  background?: 'white' | 'muted';
+  /** Reduce vertical padding for in-page strips */
+  compact?: boolean;
+}
+
+const {
+  title = 'Trusted by 500+ home-service brands across the U.S.',
+  eyebrow = null,
+  description = null,
+  rows = 2,
+  background = 'white',
+  compact = false,
+} = Astro.props;
+
+// IMPORTANT: for a truly seamless infinite marquee, each row must contain the
+// SAME items it animates back to. We render the full set twice and translate
+// by exactly -50%, so the duplicate set takes the original's place at loop end
+// — zero gap, zero jump, zero flicker.
+// For two rows, row B uses a rotated copy so the rows look different while still
+// looping cleanly.
+const rotate = <T,>(arr: T[], n: number): T[] => arr.slice(n).concat(arr.slice(0, n));
+const rowA = CLIENT_LOGOS;
+const rowB = rows === 2 ? rotate(CLIENT_LOGOS, Math.floor(CLIENT_LOGOS.length / 2)) : [];
+---
+
+<section
+  class:list={[
+    compact ? 'py-10' : 'py-14 sm:py-16',
+    background === 'muted' ? 'bg-ink-50/60' : 'bg-white',
+    'border-y border-ink-100',
+  ]}
+  aria-label="Our clients"
+>
+  <div class="container-pf">
+    {(eyebrow || title || description) && (
+      <header class="text-center max-w-3xl mx-auto">
+        {eyebrow && (
+          <p class="text-xs font-semibold uppercase tracking-[0.22em] text-brand-600">{eyebrow}</p>
+        )}
+        {title && (
+          <h2 class="mt-3 text-xl sm:text-2xl font-display font-bold text-ink-900">{title}</h2>
+        )}
+        {description && (
+          <p class="mt-3 text-sm sm:text-base text-ink-600 leading-relaxed">{description}</p>
+        )}
+      </header>
+    )}
+
+    <div class:list={[(eyebrow || title || description) ? 'mt-10' : '', 'space-y-6']}>
+      <div class="pf-marquee pf-marquee--logos">
+        <div class="pf-marquee__track">
+          {[...rowA, ...rowA].map((logo, i) => (
+            <div class="pf-logo-cell" aria-hidden={i >= rowA.length ? 'true' : 'false'}>
+              <img
+                src={logo.src}
+                alt={logo.name}
+                loading="lazy"
+                decoding="async"
+                width="180"
+                height="80"
+                class="pf-logo-img"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {rows === 2 && rowB.length > 0 && (
+        <div class="pf-marquee pf-marquee--logos">
+          <div class="pf-marquee__track pf-marquee__track--reverse">
+            {[...rowB, ...rowB].map((logo, i) => (
+              <div class="pf-logo-cell" aria-hidden={i >= rowB.length ? 'true' : 'false'}>
+                <img
+                  src={logo.src}
+                  alt={logo.name}
+                  loading="lazy"
+                  decoding="async"
+                  width="180"
+                  height="80"
+                  class="pf-logo-img"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</section>

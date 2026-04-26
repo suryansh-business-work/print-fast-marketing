@@ -16,22 +16,36 @@ const seoProps = Astro.props;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#ed1c24" media="(prefers-color-scheme: light)" />
+
+    <!-- Set theme BEFORE first paint to prevent FOUC flash -->
+    <script is:inline>
+      (function () {
+        try {
+          var stored = localStorage.getItem('pf-theme');
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var theme = stored || (prefersDark ? 'dark' : 'light');
+          if (theme === 'dark') document.documentElement.classList.add('dark');
+        } catch (e) {}
+      })();
+    </script>
+
+    <meta name="theme-color" content="#6FD12E" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#16181f" media="(prefers-color-scheme: dark)" />
-    <meta name="color-scheme" content="light" />
+    <meta name="color-scheme" content="light dark" />
 
     <!-- Performance hints -->
     <link rel="dns-prefetch" href="https://dqj17tese79do.cloudfront.net" />
     <link rel="preconnect" href="https://dqj17tese79do.cloudfront.net" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="image" href={SITE.logo} />
+    <link rel="preload" as="image" href={SITE.logoLight} />
+    <link rel="preload" as="image" href={SITE.logoDark} />
 
-    <!-- Favicons (derived from the brand logo) -->
-    <link rel="icon" type="image/png" href={SITE.logo} />
-    <link rel="shortcut icon" href={SITE.logo} />
-    <link rel="apple-touch-icon" href={SITE.logo} />
-    <link rel="mask-icon" href="/favicon.svg" color="#ed1c24" />
+    <!-- Favicons (always use the color/light logo for OS UI) -->
+    <link rel="icon" type="image/png" href={SITE.logoLight} />
+    <link rel="shortcut icon" href={SITE.logoLight} />
+    <link rel="apple-touch-icon" href={SITE.logoLight} />
+    <link rel="mask-icon" href="/favicon.svg" color="#6FD12E" />
 
     <!-- Fonts -->
     <link
@@ -47,7 +61,7 @@ const seoProps = Astro.props;
 
     <slot name="head" />
   </head>
-  <body class="min-h-screen flex flex-col bg-white">
+  <body class="min-h-screen flex flex-col bg-white text-ink-900 dark:bg-ink-950 dark:text-ink-100 transition-colors">
     <a
       href="#main"
       class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:rounded-md focus:bg-brand-600 focus:px-4 focus:py-2 focus:text-white"

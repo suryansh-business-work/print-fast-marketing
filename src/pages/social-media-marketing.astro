@@ -7,6 +7,7 @@ import PricingCard from '@components/PricingCard.astro';
 import Testimonials from '@components/Testimonials.astro';
 import CTA from '@components/CTA.astro';
 import ContactForm from '@components/ContactForm.astro';
+import ClientLogos from '@components/ClientLogos.astro';
 
 const platforms = [
   { name: 'Facebook',  icon: 'fa-facebook',  note: '#1 platform for U.S. adults 35+' },
@@ -260,6 +261,13 @@ const faqs = [
   </section>
 
   <Testimonials />
+
+  <ClientLogos
+    eyebrow="Trusted partners"
+    title="In good company"
+    description="Hundreds of U.S. brands trust Print Fast to run their social."
+    background="muted"
+  />
 
   <CTA
     eyebrow="Ready to grow?"

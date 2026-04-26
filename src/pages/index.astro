@@ -2,13 +2,13 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Hero from '@components/Hero.astro';
 import Stats from '@components/Stats.astro';
-import TrustStrip from '@components/TrustStrip.astro';
 import SectionHeading from '@components/SectionHeading.astro';
 import ServiceCard from '@components/ServiceCard.astro';
 import FeatureGrid from '@components/FeatureGrid.astro';
 import Testimonials from '@components/Testimonials.astro';
 import CTA from '@components/CTA.astro';
 import ContactForm from '@components/ContactForm.astro';
+import ClientLogos from '@components/ClientLogos.astro';
 import { SERVICES } from '@data/site';
 
 const whyUs = [
@@ -23,16 +23,16 @@ const whyUs = [
 
 <BaseLayout
   title="Marketing for Home-Service Pros"
-  description="Print Fast helps HVAC, plumbing, electrical and home-service businesses grow with managed social media, organic SEO, video marketing and free digital reviews."
+  description="Print Fast is a U.S. digital marketing agency. Social media marketing, email marketing, website creation, SEO and PPC for home-service and local brands."
   keywords={[
+    'digital marketing agency USA',
+    'social media marketing services',
+    'email marketing services',
+    'website creation services',
+    'SEO services USA',
+    'pay-per-click advertising',
+    'PPC management',
     'home service marketing',
-    'HVAC marketing agency',
-    'plumbing marketing agency',
-    'electrical contractor marketing',
-    'managed social media for trades',
-    'organic SEO for trades',
-    'video marketing for contractors',
-    'free digital review',
     'PrintFast',
   ]}
   schema={{
@@ -48,14 +48,19 @@ const whyUs = [
   <Hero
     eyebrow="Print Fast Digital Marketing"
     title="Marketing that books real jobs for"
-    highlight="home-service pros."
-    description="Managed social, organic SEO, and story-led video — built and run by a team that lives and breathes the trades. Get more calls, more booked work, and a brand customers trust."
-    primaryCta={{ label: 'Get a Free Digital Review', href: '/free-digital-review/' }}
+    highlight="U.S. home-service pros."
+    description="Social media marketing, email, websites, SEO and PPC — built and run by a senior U.S. team. Get more calls, more booked work and a brand customers trust."
+    primaryCta={{ label: 'Get a Quote', href: '/contact-us/' }}
     secondaryCta={{ label: 'Explore Services', href: '#services' }}
   />
 
   <Stats />
-  <TrustStrip />
+
+  <ClientLogos
+    eyebrow="Our clients"
+    title="Brands that trust Print Fast to grow their business"
+    description="From single-truck operators to multi-location brands, hundreds of U.S. home-service companies rely on us every month."
+  />
 
   <section id="services" class="section">
     <div class="container-pf">
@@ -95,10 +100,10 @@ const whyUs = [
 
   <CTA
     eyebrow="Free strategy session"
-    title="See what we'd do for your business — for free."
-    description="Get a custom Digital Review Report covering SEO, content, local search and your top 3 competitors. Plus a 1:1 strategy call (a $200 value)."
-    primaryCta={{ label: 'Claim My Free Review', href: '/free-digital-review/' }}
-    secondaryCta={{ label: 'Talk to a strategist', href: '/free-digital-review/#contact' }}
+    title="See what we'd do for your business."
+    description="Tell us your goals and we'll send a tailored proposal — covering the right mix of social, email, SEO, PPC and web — within one business day."
+    primaryCta={{ label: 'Request a proposal', href: '/contact-us/' }}
+    secondaryCta={{ label: 'Talk to a strategist', href: '/contact-us/#contact-form' }}
   />
 
   <section id="contact" class="section">

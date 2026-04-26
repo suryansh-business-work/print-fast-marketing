@@ -29,10 +29,22 @@ export const SITE = {
   url: 'https://www.print-fast.com',
   phone: '800-810-4818',
   phoneHref: 'tel:800-810-4818',
-  email: 'info@print-fast.com',
+  email: 'orders@print-fast.com',
   hours: 'Mon–Fri · 8 AM – 5 PM ET',
-  address: 'United States',
-  logo: 'https://dqj17tese79do.cloudfront.net/printfast/images/websitelogos/retailer_site_logo776.png',
+  address: {
+    company: 'PrintFast',
+    street: '100 Blackford Ave.',
+    city: 'Middlesex',
+    state: 'NJ',
+    zip: '08846',
+    country: 'USA',
+    full: '100 Blackford Ave., Middlesex, NJ 08846',
+    lat: 40.5734,
+    lng: -74.4960,
+  },
+  logo: '/logo/logo-print-fast-light.png',
+  logoLight: '/logo/logo-print-fast-light.png',
+  logoDark: '/logo/logo-print-fast-dark.png',
   defaultOgImage: '/og-default.svg',
   defaultKeywords: [
     'digital marketing agency USA',
@@ -55,6 +67,27 @@ export const SITE = {
     twitter: 'https://twitter.com',
   },
 };
+
+export const TEAM = [
+  {
+    name: 'Bill McGowan',
+    role: 'President / CEO and Marketing Warrior',
+    email: 'bill@print-fast.com',
+    icon: 'fa-crown',
+  },
+  {
+    name: 'Kim Burke',
+    role: 'General Manager',
+    email: 'kim@print-fast.com',
+    icon: 'fa-user-tie',
+  },
+  {
+    name: 'Mark Luffy',
+    role: 'CSR Lead',
+    email: 'mark@print-fast.com',
+    icon: 'fa-headset',
+  },
+];
 
 export const NAV_LINKS: NavLink[] = [
   { label: 'Home', href: '/' },
@@ -160,6 +193,48 @@ export const TRUST_LOGOS = [
   'RoofRight',
   'PestGuard',
 ];
+
+// Real client logos shown in the rotating client strip.
+// Hosted on Print Fast's CloudFront CDN.
+const CLIENT_LOGO_BASE = 'https://dqj17tese79do.cloudfront.net/printfast/images/common';
+
+export interface ClientLogo {
+  name: string;
+  src: string;
+}
+
+const CLIENT_LOGO_FILES: string[] = [
+  'magic.png','nashoba.png','innovative.png','j_and_j.png','good_guys.png','healthy_homes.png','pac.png','comfort_control.png',
+  'boss.png','all_pro_plumbing.png','lightfoot.png','falcon_services.png','chad_love.png','KC_waterproofing.png','daniel.png',
+  'msp.png','gudorf.png','all_hours_air.png','service_command.png','giannone.png','a_to_z.png','assured_comfort.png',
+  'easy_rooter.png','champion.png','air_serv.png','mr_sparky.png','twebber.png','all_hours.png','gietzen.png','quail.png',
+  'absolute.png','paramount.png','wired.png','morrison.png','colepepper.png','lion.png','professional.png','cch_mechanical.png',
+  'cornerstone.png','dr_energysaver.png','gilmore.png','millers_services.png','climate_partners.png','nytech.png','wilson.png',
+  'cool_it.png','gold_shield.png','just_right.png','puredry.png','clockwork.png','mhc.png','triple_service.png','aap.png',
+  'electricians.png','gold_medal.png','air_time.png','folkes.png','carney.png','climate_care.png','addario.png','craigs.png',
+  'dog_house.png','friendly.png','hartlaub.png','hunts.png','jp.png','maverick.png','northern_colorado.png','parker.png',
+  'service_max.png','weltman.png','marshall.png','gold_eagle.png','clearwater.png','ysp.png','hardcastle.png','trademark.png',
+  'gladiator.png','gold_star.png','einstein_pros.png','medley.png','rowells.png','air_south.png','mcquillan.png',
+  'service_olympians.png','ceow.png','kings.png','central.png','electric_city.png','mccuen.png','copeland.png','arrow.png',
+  'gubruds.png','protocool.png','blue_label.png','service_experts.png','decker.png','harts.png','orion.png','correct_temp.png',
+  'roto_rooter.png','dear.png','blackwell.png','premier_power.png','cc_meyers.png','rodenhiser.png','einsteins.png',
+  'comfort_technologiespsd.png','total_comfort.png','davis.png','nicholson.png','electrical_detectives.png','dc_cheek.png',
+  'plumbing_masters.png','harts_home.png','tartan.png','daniels.png','evolution.png','petri.png','conserva.png','option_one.png',
+  'topline.png','griffin.png','air_pros.png','roberts.png','intelligent.png','baker.png','titantium.png','eternal.png',
+  'neerings.png','american.png','marklein.png','falcon.png','magothy.png','southern_trust.png','joe_cool.png','greely.png',
+  'heat_depot.png','envirotech.png','all_services.png','sewer_surgeons.png','grand_canyon.png','reliance.png','home_furniture.png',
+  'plesh.png','commonwealth.png','ohmstead.png','hobaica.png','cbus.png','rcs.png','j_and_s.png','patriot.png','magnolia.png',
+  'one_source.png','essig.png',
+];
+
+export const CLIENT_LOGOS: ClientLogo[] = CLIENT_LOGO_FILES.map((file) => {
+  const slug = file.replace(/\.[^.]+$/, '').replace(/_/g, ' ');
+  const name = slug
+    .split(' ')
+    .map((w) => (w.length <= 3 ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1)))
+    .join(' ');
+  return { name, src: `${CLIENT_LOGO_BASE}/${file}` };
+});
 
 export const TESTIMONIALS = [
   {

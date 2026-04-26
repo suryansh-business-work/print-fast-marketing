@@ -1,0 +1,293 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import SectionHeading from '@components/SectionHeading.astro';
+import FeatureGrid from '@components/FeatureGrid.astro';
+import PricingCard from '@components/PricingCard.astro';
+import Testimonials from '@components/Testimonials.astro';
+import CTA from '@components/CTA.astro';
+import ContactForm from '@components/ContactForm.astro';
+import ClientLogos from '@components/ClientLogos.astro';
+
+const channels = [
+  { icon: 'fa-google',          title: 'Google Ads — Search',        description: 'High-intent text ads on the queries that actually book jobs and revenue. Single-keyword ad groups, negatives that work and bid strategies tied to lead value.' },
+  { icon: 'fa-shop',            title: 'Google Local Services Ads',  description: 'Pay-per-lead, Google-Guaranteed badge, license & insurance verification, and dispute management — built for U.S. service-area businesses.' },
+  { icon: 'fa-bullseye',        title: 'Performance Max & Demand Gen', description: 'AI-driven Google campaigns with our manual guardrails: brand exclusions, asset groups by intent, and signal-rich audiences.' },
+  { icon: 'fa-meta',            title: 'Meta Ads (Facebook & Instagram)', description: 'Conversion-API-powered campaigns, creative testing frameworks and audience-by-zip targeting.' },
+  { icon: 'fa-youtube',         title: 'YouTube Ads',                description: 'Skippable, bumper and Shorts campaigns engineered to drive both reach and direct response.' },
+  { icon: 'fa-microsoft',       title: 'Microsoft (Bing) Ads',       description: 'Often 30–50% cheaper CPCs than Google for the same intent. We import, restructure and optimize.' },
+  { icon: 'fa-tiktok',          title: 'TikTok Ads',                 description: 'Spark Ads, lead-gen forms and creative-led campaigns for the fastest-growing local-discovery channel.' },
+  { icon: 'fa-list',            title: 'LinkedIn & B2B',             description: 'Account-based targeting, lead-gen forms and CRM integration for commercial / B2B service businesses.' },
+];
+
+const stats = [
+  { stat: '$2',   label: 'average return per $1 spent on Google Search ads' },
+  { stat: '7×',   label: 'higher conversion when calls are properly tracked' },
+  { stat: '4.4×', label: 'lower CPL on properly structured Local Services Ads' },
+  { stat: '<24h', label: 'typical time-to-launch for a new PPC account with us' },
+];
+
+const whatYouGet = [
+  { icon: 'fa-folder-tree',     title: 'Account architecture',    description: 'Campaigns, ad groups, audiences and naming built for clarity and scale — no spaghetti accounts.' },
+  { icon: 'fa-pen-fancy',       title: 'Creative & copy',          description: 'Headlines, descriptions, RSA assets, image and short-form video creative produced in-house.' },
+  { icon: 'fa-flask',           title: 'Continuous testing',       description: 'Weekly creative, audience and bid experiments — wins scale, losers get cut, every test is logged.' },
+  { icon: 'fa-display',         title: 'Landing-page CRO',         description: 'Dedicated, fast landing pages with form, call and chat tracking. Average lift: 35–80% conversion-rate.' },
+  { icon: 'fa-phone-volume',    title: 'Call tracking & CRM',      description: 'CallRail / WhatConverts setup, call scoring, conversion API and CRM sync (HubSpot, Salesforce, ServiceTitan).' },
+  { icon: 'fa-shield-halved',   title: 'Click-fraud protection',   description: 'Live filtering of bot, competitor and accidental clicks so your budget reaches real prospects.' },
+  { icon: 'fa-chart-line',      title: 'Attribution & reporting',  description: 'GA4, server-side tagging, offline conversion import and a single dashboard tying spend to revenue.' },
+  { icon: 'fa-handshake',       title: 'Transparent fees',         description: 'You own the ad accounts and the data. Ad spend is billed directly by the platforms to your card — never marked up.' },
+];
+
+const process = [
+  { n: '01', title: 'Audit & forecast', desc: 'A 30-page audit of your current accounts plus a media plan with realistic CPL/CPA forecasts for your market.', icon: 'fa-magnifying-glass-chart' },
+  { n: '02', title: 'Build',            desc: 'Campaigns, conversions, tracking, landing pages and creative — built in your accounts under your ownership.',  icon: 'fa-screwdriver-wrench' },
+  { n: '03', title: 'Launch & learn',   desc: 'Soft launch + structured 14-day learning phase to validate signals and CPL before scaling spend.',              icon: 'fa-rocket' },
+  { n: '04', title: 'Scale',            desc: 'Geo, audience and creative expansion — paired with weekly tests and monthly executive reviews.',                 icon: 'fa-arrow-trend-up' },
+];
+
+const plans = [
+  {
+    name: 'Starter PPC',
+    price: '$899',
+    description: 'For local businesses spending up to $5k/mo on ads.',
+    features: [
+      '1–2 channels (Google Search + LSA, or Meta)',
+      'Account build + conversion tracking',
+      '1 dedicated landing page',
+      'Bi-weekly optimization sprints',
+      'Call tracking with recording & scoring',
+      'Monthly performance report',
+    ],
+    cta: { label: 'Start with Starter', href: '/contact-us/' },
+  },
+  {
+    name: 'Growth PPC',
+    price: '$1,899',
+    description: 'Our most popular plan for multi-channel paid programs.',
+    popular: true,
+    features: [
+      'Up to 4 channels',
+      'Manages $5k–$30k / mo of ad spend',
+      '3 landing pages + ongoing CRO',
+      'Weekly optimization + creative tests',
+      'GA4 + CRM + offline conversion import',
+      'Monthly strategy call + dashboard',
+    ],
+    cta: { label: 'Choose Growth', href: '/contact-us/' },
+  },
+  {
+    name: 'Scale PPC',
+    price: '12% of spend',
+    period: ' / mo',
+    description: 'For brands spending $30k+ /mo who need a senior team in the seat.',
+    features: [
+      'All major paid channels',
+      'Server-side tracking & attribution',
+      'Dedicated paid-media lead + CRO designer',
+      'Bi-weekly creative production',
+      'Quarterly business review with finance',
+      'SLA-backed reporting & response times',
+    ],
+    cta: { label: 'Scale with us', href: '/contact-us/' },
+  },
+];
+
+const faqs = [
+  { q: 'What is the minimum ad spend I need?',
+    a: 'For local Google Search and LSAs, we typically recommend at least $1,500–$2,500/mo of ad spend to gather enough data for optimization. Below that, organic and email usually deliver a better ROI.' },
+  { q: 'Do I own the ad accounts?',
+    a: 'Yes. We always build in your Google Ads, Meta Business, Microsoft and TikTok accounts. You retain full admin access and can revoke ours at any time — there is no platform lock-in.' },
+  { q: 'Are ad-spend dollars marked up?',
+    a: 'No. Ad spend is billed by the platforms directly to your card — we never touch the money. Our management fee is the only cost you pay us.' },
+  { q: 'How fast will I see leads?',
+    a: 'Search and LSA campaigns typically generate qualified leads within 7–14 days of launch. Meta and YouTube usually take 3–4 weeks to fully optimize. We share leading indicators every week.' },
+  { q: 'Will you write the ads and design the landing pages?',
+    a: 'Yes. Every plan includes copywriting, creative production and dedicated landing-page design. You approve everything before it goes live.' },
+  { q: 'Do you handle click fraud and bot traffic?',
+    a: 'Yes. We deploy click-fraud protection (such as ClickCease or Clickguard) on every Search and Display account, plus IP and device exclusions for known bad actors.' },
+];
+---
+
+<BaseLayout
+  title="Pay-Per-Click (PPC) Advertising Services in the USA"
+  description="PPC management for U.S. businesses — Google Ads, Local Services Ads, Microsoft Ads, Meta, YouTube and TikTok. Transparent fees, real call tracking, revenue-grade attribution."
+  keywords={[
+    'pay-per-click advertising',
+    'PPC management services',
+    'Google Ads agency USA',
+    'Local Services Ads management',
+    'Meta Ads agency',
+    'Microsoft Ads management',
+    'YouTube advertising',
+    'paid search agency',
+    'PPC for small business',
+  ]}
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Pay-Per-Click Advertising', href: '/pay-per-click-advertising/' },
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Pay-Per-Click Advertising (PPC)',
+    serviceType: 'Paid Search & Paid Social Management',
+    provider: { '@type': 'Organization', name: 'Print Fast Digital Marketing' },
+    areaServed: { '@type': 'Country', name: 'United States' },
+    offers: [
+      { '@type': 'Offer', name: 'Starter PPC', price: '899',  priceCurrency: 'USD' },
+      { '@type': 'Offer', name: 'Growth PPC',  price: '1899', priceCurrency: 'USD' },
+      { '@type': 'Offer', name: 'Scale PPC',   priceSpecification: { '@type': 'PriceSpecification', priceCurrency: 'USD', description: '12% of monthly ad spend' } },
+    ],
+  }}
+>
+  <Hero
+    variant="service"
+    eyebrow="Pay-Per-Click Advertising (PPC)"
+    title="Paid ads tied to"
+    highlight="real lead value — not vanity clicks."
+    description="A senior U.S. paid-media team manages Google, LSA, Meta, Microsoft, YouTube and TikTok in one accountable engagement. You own the accounts, the data and every dollar of spend."
+    primaryCta={{ label: 'Request a PPC proposal', href: '/contact-us/' }}
+    secondaryCta={{ label: 'See pricing', href: '#pricing' }}
+  />
+
+  <!-- Stats -->
+  <section class="section-tight">
+    <div class="container-pf">
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {stats.map((s) => (
+          <div class="card p-7 text-center" data-reveal>
+            <p class="font-display text-4xl font-extrabold gradient-text">{s.stat}</p>
+            <p class="mt-2 text-sm text-ink-600">{s.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Channels -->
+  <section class="section">
+    <div class="container-pf">
+      <SectionHeading
+        eyebrow="Channels we manage"
+        title="Every paid channel that drives the phone to ring"
+        description="We manage them as one program — so budget flows to the channel and creative that actually performs this week."
+      />
+      <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {channels.map((c) => (
+          <div class="card-hover p-6" data-reveal>
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-brand-50 text-brand-600 text-lg">
+              <i class:list={[c.icon === 'fa-meta' || c.icon === 'fa-google' || c.icon === 'fa-youtube' || c.icon === 'fa-microsoft' || c.icon === 'fa-tiktok' ? 'fa-brands' : 'fa-solid', c.icon]}></i>
+            </span>
+            <h3 class="mt-5 text-lg font-bold text-ink-900">{c.title}</h3>
+            <p class="mt-2 text-sm text-ink-600 leading-relaxed">{c.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- What's included -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <SectionHeading
+        eyebrow="What's included"
+        title="A complete PPC operation, not just campaign launches"
+        description="Strategy, creative, tracking, landing pages, CRO and attribution — all in one engagement."
+      />
+      <div class="mt-14">
+        <FeatureGrid items={whatYouGet} columns={4} />
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="grid lg:grid-cols-12 gap-10 items-start">
+        <div class="lg:col-span-5">
+          <p class="eyebrow"><i class="fa-solid fa-bolt text-brand-600"></i> Our process</p>
+          <h2 class="heading-lg mt-4">From kickoff to first qualified lead in under 14 days.</h2>
+          <p class="lead mt-5">
+            We never &ldquo;set and forget.&rdquo; Every account runs on a documented optimization cadence — and you see it.
+          </p>
+          <a href="/contact-us/" class="btn-primary mt-8">Talk to a paid-media lead</a>
+        </div>
+        <ol class="lg:col-span-7 grid sm:grid-cols-2 gap-5">
+          {process.map((p) => (
+            <li class="card p-6" data-reveal>
+              <div class="flex items-center justify-between">
+                <span class="grid h-11 w-11 place-items-center rounded-xl bg-brand-50 text-brand-600">
+                  <i class:list={['fa-solid', p.icon]}></i>
+                </span>
+                <span class="text-xs font-mono text-ink-400">{p.n}</span>
+              </div>
+              <h3 class="mt-4 text-lg font-bold text-ink-900">{p.title}</h3>
+              <p class="mt-2 text-sm text-ink-600">{p.desc}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="section bg-ink-50/60">
+    <div class="container-pf">
+      <SectionHeading
+        eyebrow="Plans & pricing"
+        title="Transparent management fees in USD"
+        description="All plans are month-to-month. Ad spend is billed directly by the platforms to your card — never marked up."
+      />
+      <div class="mt-14 grid gap-6 lg:grid-cols-3">
+        {plans.map((p) => <PricingCard {...p} />)}
+      </div>
+      <p class="mt-8 text-center text-sm text-ink-500">
+        One-time setup fee starts at $750 (waived on annual prepay). <span class="font-semibold text-brand-700">Save 10% on annual prepay.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="container-pf max-w-4xl">
+      <SectionHeading eyebrow="FAQs" title="Common questions" />
+      <div class="mt-10 space-y-3">
+        {faqs.map((f) => (
+          <details class="group card p-6 transition-colors hover:ring-brand-200">
+            <summary class="flex cursor-pointer items-center justify-between gap-4 list-none">
+              <span class="font-semibold text-ink-900">{f.q}</span>
+              <i class="fa-solid fa-plus text-ink-400 group-open:rotate-45 transition-transform"></i>
+            </summary>
+            <p class="mt-4 text-ink-600 leading-relaxed">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Testimonials />
+
+  <ClientLogos
+    eyebrow="Paid-media clients"
+    title="Spending smart for brands like these"
+    description="A snapshot of U.S. brands trusting Print Fast with their paid-media budget."
+    background="muted"
+  />
+
+  <CTA
+    eyebrow="Ready to stop wasting ad spend?"
+    title="Let's run paid media that pays you back."
+    description="Send us your current spend and goals — we'll respond with a no-nonsense audit and forecast within one business day."
+    primaryCta={{ label: 'Request a PPC proposal', href: '/contact-us/' }}
+    secondaryCta={{ label: 'Talk to a strategist', href: '#contact' }}
+  />
+
+  <section id="contact" class="section">
+    <div class="container-pf max-w-4xl">
+      <ContactForm
+        title="Talk to our paid-media team"
+        subtitle="Share your current ad accounts and goals — we'll respond within one business day."
+      />
+    </div>
+  </section>
+</BaseLayout>

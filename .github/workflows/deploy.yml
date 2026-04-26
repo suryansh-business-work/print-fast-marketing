@@ -1,0 +1,79 @@
+name: Build & Deploy to Exyconn
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: '20'
+  REMOTE_HOST: 148.135.136.107
+  REMOTE_USER: root
+  REMOTE_PATH: /var/www/print-fast-marketing
+  SITE_DOMAIN: print-fast-marketing.exyconn.com
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Astro site
+        run: npm run build
+
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H ${{ env.REMOTE_HOST }} >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Ensure remote directory exists
+        run: |
+          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no \
+            ${{ env.REMOTE_USER }}@${{ env.REMOTE_HOST }} \
+            "mkdir -p ${{ env.REMOTE_PATH }}"
+
+      - name: Deploy via rsync
+        run: |
+          rsync -avz --delete \
+            --exclude='.git' \
+            --exclude='.well-known' \
+            -e "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no" \
+            ./dist/ \
+            ${{ env.REMOTE_USER }}@${{ env.REMOTE_HOST }}:${{ env.REMOTE_PATH }}/
+
+      - name: Fix permissions & reload nginx
+        run: |
+          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no \
+            ${{ env.REMOTE_USER }}@${{ env.REMOTE_HOST }} \
+            "chown -R www-data:www-data ${{ env.REMOTE_PATH }} && \
+             find ${{ env.REMOTE_PATH }} -type d -exec chmod 755 {} \; && \
+             find ${{ env.REMOTE_PATH }} -type f -exec chmod 644 {} \; && \
+             nginx -t && systemctl reload nginx"
+
+      - name: Cleanup SSH key
+        if: always()
+        run: rm -f ~/.ssh/id_ed25519
+
+      - name: Deployment summary
+        run: |
+          echo "✅ Deployed to https://${{ env.SITE_DOMAIN }}"
+          echo "📁 Path: ${{ env.REMOTE_PATH }}"
+          echo "🕐 Time: $(date -u)"

@@ -36,6 +36,10 @@
     display: flex;
     width: max-content;
     gap: 3rem;
+    // GPU compositing prevents sub-pixel flicker on the loop boundary
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
     animation: pf-marquee-scroll 30s linear infinite;
   }
 
@@ -45,8 +49,66 @@
 }
 
 @keyframes pf-marquee-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  // translate3d (not translateX) keeps the layer on the GPU = no flicker
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes pf-marquee-scroll-reverse {
+  from { transform: translate3d(-50%, 0, 0); }
+  to   { transform: translate3d(0, 0, 0); }
+}
+
+// Reverse-direction track (used for second logo row)
+.pf-marquee__track--reverse {
+  animation: pf-marquee-scroll-reverse 40s linear infinite;
+}
+
+// =====================================================
+// Client logo strip (greyscale → color on hover)
+// =====================================================
+.pf-marquee--logos {
+  .pf-marquee__track {
+    gap: 2.5rem;
+    align-items: center;
+    animation-duration: 50s; // slower for logo readability
+  }
+  .pf-marquee__track--reverse {
+    animation-duration: 55s;
+  }
+}
+
+.pf-logo-cell {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70px;
+  padding: 0 0.5rem;
+}
+
+.pf-logo-img {
+  max-height: 56px;
+  width: auto;
+  max-width: 160px;
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: 0.65;
+  transition: filter 0.35s ease, opacity 0.35s ease, transform 0.35s ease;
+
+  &:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+
+// Respect users who prefer reduced motion
+@media (prefers-reduced-motion: reduce) {
+  .pf-marquee__track,
+  .pf-marquee__track--reverse {
+    animation: none;
+  }
 }
 
 // =====================================================
@@ -63,7 +125,7 @@
   &--a {
     width: 28rem;
     height: 28rem;
-    background: radial-gradient(circle at 30% 30%, #ed1c24, transparent 60%);
+    background: radial-gradient(circle at 30% 30%, #6FD12E, transparent 60%);
   }
   &--b {
     width: 22rem;

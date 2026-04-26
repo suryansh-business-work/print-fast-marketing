@@ -1,4 +1,7 @@
 {
+  "terminal.integrated.defaultProfile.windows": "Git Bash",
+  "editor.tabSize": 2,
+  "workbench.colorTheme": "Dark Modern",
   "workbench.colorCustomizations": {
     "activityBar.background": "#A02C18",
     "titleBar.activeBackground": "#DE3F24",

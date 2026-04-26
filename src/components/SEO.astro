@@ -63,6 +63,19 @@ schemas.push({
   email: SITE.email,
   description: SITE.description,
   sameAs: Object.values(SITE.social),
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: SITE.address.street,
+    addressLocality: SITE.address.city,
+    addressRegion: SITE.address.state,
+    postalCode: SITE.address.zip,
+    addressCountry: 'US',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: SITE.address.lat,
+    longitude: SITE.address.lng,
+  },
   contactPoint: {
     '@type': 'ContactPoint',
     telephone: SITE.phone,

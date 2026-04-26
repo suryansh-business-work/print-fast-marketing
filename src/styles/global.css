@@ -14,6 +14,10 @@
     --color-text: #0b1020;
   }
 
+  html.dark {
+    color-scheme: dark;
+  }
+
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -22,11 +26,11 @@
   }
 
   body {
-    @apply bg-white text-ink-900 font-sans antialiased;
+    @apply bg-white text-ink-900 font-sans antialiased dark:bg-ink-950 dark:text-ink-100 transition-colors duration-300;
   }
 
   h1, h2, h3, h4 {
-    @apply font-display tracking-tight text-ink-900;
+    @apply font-display tracking-tight text-ink-900 dark:text-white;
   }
 
   ::selection {
@@ -38,7 +42,7 @@
   }
 
   *:focus-visible {
-    @apply outline-none ring-2 ring-brand-500 ring-offset-2 ring-offset-white rounded-md;
+    @apply outline-none ring-2 ring-brand-500 ring-offset-2 ring-offset-white dark:ring-offset-ink-950 rounded-md;
   }
 }
 
@@ -65,12 +69,14 @@
   }
 
   .btn-outline {
-    @apply btn border border-ink-200 bg-white text-ink-900 hover:border-brand-500 hover:text-brand-700;
+    @apply btn border border-ink-200 bg-white text-ink-900 hover:border-brand-500 hover:text-brand-700
+           dark:border-ink-700 dark:bg-ink-900 dark:text-ink-100 dark:hover:border-brand-400 dark:hover:text-brand-400;
   }
 
   .eyebrow {
     @apply inline-flex items-center gap-2 rounded-full border border-brand-100 bg-brand-50 px-3 py-1
-           text-xs font-semibold uppercase tracking-[0.18em] text-brand-700;
+           text-xs font-semibold uppercase tracking-[0.18em] text-brand-700
+           dark:border-brand-900/60 dark:bg-brand-950/40 dark:text-brand-300;
   }
 
   .section {
@@ -94,15 +100,17 @@
   }
 
   .lead {
-    @apply text-lg sm:text-xl text-ink-600 leading-relaxed;
+    @apply text-lg sm:text-xl text-ink-600 leading-relaxed dark:text-ink-300;
   }
 
   .card {
-    @apply rounded-2xl bg-white ring-1 ring-ink-100 shadow-soft;
+    @apply rounded-2xl bg-white ring-1 ring-ink-100 shadow-soft
+           dark:bg-ink-900 dark:ring-ink-800;
   }
 
   .card-hover {
-    @apply card transition-all duration-300 hover:-translate-y-1 hover:shadow-glow hover:ring-brand-200;
+    @apply card transition-all duration-300 hover:-translate-y-1 hover:shadow-glow hover:ring-brand-200
+           dark:hover:ring-brand-700;
   }
 
   .gradient-text {
@@ -110,16 +118,75 @@
   }
 
   .check-list li {
-    @apply relative pl-7 text-ink-700;
+    @apply relative pl-7 text-ink-700 dark:text-ink-300;
   }
   .check-list li::before {
     content: '';
-    @apply absolute left-0 top-2 h-4 w-4 rounded-full bg-brand-100;
+    @apply absolute left-0 top-2 h-4 w-4 rounded-full bg-brand-100 dark:bg-brand-900/60;
   }
   .check-list li::after {
     content: '\f00c'; /* Font Awesome check */
     font-family: 'Font Awesome 6 Free';
     font-weight: 900;
-    @apply absolute left-[3px] top-[3px] text-[10px] text-brand-700;
+    @apply absolute left-[3px] top-[3px] text-[10px] text-brand-700 dark:text-brand-300;
   }
+}
+
+/* =====================================================
+ * Dark-mode broad overrides
+ * Auto-flips common light surfaces / text colors used
+ * across many components, so we don't need to add dark:
+ * variants on every single class. Component-specific
+ * dark variants below this still take precedence.
+ * ===================================================== */
+@layer utilities {
+  .dark .bg-white                 { background-color: theme('colors.ink.900'); }
+  .dark .bg-ink-50,
+  .dark .bg-ink-50\/60,
+  .dark .bg-ink-50\/70            { background-color: theme('colors.ink.900'); }
+  .dark .bg-ink-100               { background-color: theme('colors.ink.800'); }
+  .dark .bg-ink-900               { background-color: theme('colors.ink.950'); }
+
+  .dark .text-ink-900             { color: theme('colors.ink.50'); }
+  .dark .text-ink-800             { color: theme('colors.ink.100'); }
+  .dark .text-ink-700             { color: theme('colors.ink.200'); }
+  .dark .text-ink-600             { color: theme('colors.ink.300'); }
+  .dark .text-ink-500             { color: theme('colors.ink.400'); }
+
+  .dark .border-ink-100           { border-color: theme('colors.ink.800'); }
+  .dark .border-ink-200           { border-color: theme('colors.ink.700'); }
+  .dark .border-ink-50            { border-color: theme('colors.ink.800'); }
+
+  .dark .ring-ink-100             { --tw-ring-color: theme('colors.ink.800'); }
+  .dark .ring-ink-200             { --tw-ring-color: theme('colors.ink.700'); }
+
+  .dark .divide-ink-100 > :not([hidden]) ~ :not([hidden]) { border-color: theme('colors.ink.800'); }
+
+  /* Soft brand tints stay legible on dark */
+  .dark .bg-brand-50              { background-color: rgba(111, 209, 46, 0.10); }
+  .dark .bg-brand-100             { background-color: rgba(111, 209, 46, 0.18); }
+  .dark .text-brand-700           { color: theme('colors.brand.300'); }
+  .dark .text-brand-600           { color: theme('colors.brand.400'); }
+  .dark .border-brand-100         { border-color: rgba(111, 209, 46, 0.30); }
+  .dark .border-brand-200         { border-color: rgba(111, 209, 46, 0.40); }
+
+  /* Accent (orange) tints */
+  .dark .bg-accent-50             { background-color: rgba(245, 158, 11, 0.12); }
+  .dark .text-accent-700          { color: theme('colors.accent.300'); }
+  .dark .border-accent-100        { border-color: rgba(245, 158, 11, 0.30); }
+
+  /* Hero / decorative backgrounds */
+  .dark .bg-hero-radial {
+    background-image:
+      radial-gradient(1200px 600px at 80% -10%, rgba(111,209,46,0.18), transparent 60%),
+      radial-gradient(900px 500px at 0% 20%, rgba(252,209,22,0.10), transparent 60%);
+  }
+  .dark .bg-grid-light {
+    background-image:
+      linear-gradient(rgba(111,209,46,0.10) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(111,209,46,0.10) 1px, transparent 1px);
+  }
+
+  /* Footer is already navy; keep it darker in dark mode */
+  .dark footer.bg-ink-900 { background-color: #07080c; }
 }

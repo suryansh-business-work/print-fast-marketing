@@ -7,6 +7,7 @@ import PricingCard from '@components/PricingCard.astro';
 import Testimonials from '@components/Testimonials.astro';
 import CTA from '@components/CTA.astro';
 import ContactForm from '@components/ContactForm.astro';
+import ClientLogos from '@components/ClientLogos.astro';
 
 const principles = [
   { icon: 'fa-gauge-high',     title: 'Speed by default',         description: 'Sub-2-second LCP, 95+ Lighthouse and Core Web Vitals "Good" — out of the box, not as a Phase 2.' },
@@ -48,53 +49,72 @@ const process = [
 
 const plans = [
   {
-    name: 'Launchpad',
-    price: '$3,900',
+    name: 'Essentials',
+    price: '$1,499',
     period: ' one-time',
-    description: 'A fast, professional site for small local businesses.',
+    description: 'A clean, professional starter site for small home-service businesses.',
     features: [
-      'Up to 6 custom pages',
-      'Mobile-first responsive design',
-      'WCAG 2.2 AA accessibility pass',
-      'Local SEO + LocalBusiness schema',
-      'GA4, GTM & call-tracking setup',
-      'Contact form + CRM integration',
+      '5-page website',
+      'Mobile responsive design',
+      '1 contact form included',
+      'Home, About, Services, Promotions & Contact pages',
+      'Brand-aligned design system',
+      'Basic on-page SEO setup',
       '30 days of post-launch support',
     ],
-    cta: { label: 'Start a Launchpad site', href: '/contact-us/' },
+    cta: { label: 'Start with Essentials', href: '/contact-us/' },
   },
   {
-    name: 'Growth Site',
-    price: '$8,900',
+    name: 'Standard',
+    price: '$2,999',
     period: ' one-time',
-    description: 'Our most popular package for growing service brands.',
+    description: 'Built for HVAC, plumbing and electrical brands ready to grow online.',
+    features: [
+      '10-page website',
+      'Mobile responsive design',
+      '1 contact form included',
+      'Home, About, Services, Heating, Cooling, Plumbing, Blog & Contact pages',
+      '5 locally-targeted pages',
+      'Hosting, email & domain setup',
+      '60 days of post-launch support',
+    ],
+    cta: { label: 'Choose Standard', href: '/contact-us/' },
+  },
+  {
+    name: 'Premium',
+    price: '$4,999',
+    period: ' one-time',
+    description: 'Our most popular package — full site, local SEO and content baked in.',
     popular: true,
     features: [
-      'Up to 15 custom pages + blog',
-      'Custom design system in Figma',
-      'Service-area / location pages',
-      'Booking & CRM integrations',
-      'Advanced schema + technical SEO',
-      'Content migration from old site',
-      '90 days of post-launch support',
+      'Full site with services pages',
+      'Mobile responsive design',
+      '2 contact forms included',
+      'Home, About, Services, Heating, Cooling, Plumbing, 3 local, Blog & Contact pages',
+      '20 locally-targeted pages',
+      'Hosting, email, domain, GBP & Google Analytics setup',
+      'Custom SEO-rich content',
+      '1 "launch" blog article per service',
     ],
-    cta: { label: 'Choose Growth Site', href: '/contact-us/' },
+    cta: { label: 'Choose Premium', href: '/contact-us/' },
   },
   {
-    name: 'Custom Build',
-    price: 'From $25k',
-    period: '',
-    description: 'For multi-location brands, e-commerce and bespoke web apps.',
+    name: 'AI-Enabled',
+    price: '$9,999',
+    period: ' one-time',
+    description: 'Top-tier site with built-in AI assistant for 24/7 customer engagement.',
     features: [
-      'Unlimited pages & locations',
-      'Custom integrations & data sources',
-      'Headless CMS or e-commerce',
-      'Performance & accessibility audit',
-      'Dedicated PM + tech lead',
-      'SLA-backed monthly care plan',
-      'Quarterly roadmap reviews',
+      'Full site with services pages',
+      'Mobile responsive design',
+      '2 contact forms included',
+      'Home, About, Services, Heating, Cooling, Plumbing, 8 local, Blog & Contact pages',
+      '50 locally-targeted pages',
+      'Hosting, email, domain, GBP & Google Analytics setup',
+      'Custom SEO-rich content',
+      '2 "launch" blog articles per service',
+      'FAQs AI Bot — answers customer questions 24/7',
     ],
-    cta: { label: 'Scope a custom build', href: '/contact-us/' },
+    cta: { label: 'Choose AI-Enabled', href: '/contact-us/' },
   },
 ];
 
@@ -234,11 +254,11 @@ const faqs = [
   <section id="pricing" class="section">
     <div class="container-pf">
       <SectionHeading
-        eyebrow="Investment"
-        title="Transparent project pricing"
-        description="Project pricing in USD. Hosting and CMS license fees billed at cost. Optional monthly care plans available from $249/mo."
+        eyebrow="Our Plans for Your Digital Growth"
+        title="Website plans built for home-service brands"
+        description="Choose any plan that fits your business. All prices in USD, one-time project fee. Optional monthly care plans available from $249/mo."
       />
-      <div class="mt-14 grid gap-6 lg:grid-cols-3">
+      <div class="mt-14 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
         {plans.map((p) => <PricingCard {...p} />)}
       </div>
     </div>
@@ -263,6 +283,13 @@ const faqs = [
   </section>
 
   <Testimonials />
+
+  <ClientLogos
+    eyebrow="Selected work"
+    title="Brands we've built websites for"
+    description="A small selection from hundreds of U.S. home-service brands we serve."
+    background="muted"
+  />
 
   <CTA
     eyebrow="Ready to ship a better site?"
