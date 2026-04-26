@@ -1,0 +1,122 @@
+---
+// Cookie consent drawer with floating launcher button.
+// Persists user choice ("accepted" | "rejected") in localStorage under "pf-cookie-consent-v1".
+// Floating button is positioned just ABOVE the accessibility launcher (bottom-5).
+---
+
+<!-- Floating launcher (sits above the a11y button which is bottom-5 + h-12) -->
+<button
+  type="button"
+  data-cookie-open
+  aria-label="Cookie preferences"
+  aria-controls="cookie-drawer"
+  aria-expanded="false"
+  class="fixed bottom-[5.25rem] right-5 z-[60] grid h-12 w-12 place-items-center rounded-full bg-ink-900 text-brand-400 shadow-glow ring-2 ring-white hover:bg-ink-800 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-400 transition-transform hover:scale-105 dark:ring-ink-800"
+>
+  <i class="fa-solid fa-cookie-bite text-xl" aria-hidden="true"></i>
+</button>
+
+<!-- Backdrop -->
+<div
+  data-cookie-backdrop
+  class="fixed inset-0 z-[70] bg-ink-900/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"
+  aria-hidden="true"
+></div>
+
+<!-- Drawer -->
+<aside
+  id="cookie-drawer"
+  data-cookie-drawer
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="cookie-title"
+  tabindex="-1"
+  class="fixed bottom-0 left-0 right-0 z-[80] translate-y-full bg-white dark:bg-ink-900 shadow-2xl transition-transform duration-300 ease-out focus:outline-none border-t border-ink-100 dark:border-ink-800"
+>
+  <div class="container-pf py-6 sm:py-7">
+    <div class="grid gap-5 sm:grid-cols-[1fr_auto] sm:items-center">
+      <div class="flex items-start gap-4">
+        <span class="grid h-12 w-12 flex-shrink-0 place-items-center rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-950/40 dark:text-brand-300">
+          <i class="fa-solid fa-cookie-bite text-xl" aria-hidden="true"></i>
+        </span>
+        <div class="min-w-0">
+          <h2 id="cookie-title" class="text-lg font-display font-bold text-ink-900 dark:text-white">
+            We value your privacy
+          </h2>
+          <p class="mt-1.5 text-sm text-ink-600 dark:text-ink-300 leading-relaxed">
+            We use cookies to improve your browsing experience, analyze site traffic and personalize content.
+            You can accept all cookies or reject non-essential ones. Read our
+            <a href="/contact-us/" class="text-brand-700 dark:text-brand-400 underline underline-offset-2 hover:text-brand-800">privacy policy</a>
+            for details.
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-3 sm:justify-end">
+        <button type="button" data-cookie-reject class="btn-outline">
+          Reject non-essential
+        </button>
+        <button type="button" data-cookie-accept class="btn-primary">
+          Accept all cookies
+        </button>
+        <button
+          type="button"
+          data-cookie-close
+          aria-label="Close cookie banner"
+          class="grid h-10 w-10 place-items-center rounded-full ring-1 ring-ink-200 text-ink-500 hover:bg-ink-50 dark:ring-ink-700 dark:hover:bg-ink-800"
+        >
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<script is:inline>
+  (function () {
+    var STORAGE_KEY = 'pf-cookie-consent-v1';
+    var drawer = document.querySelector('[data-cookie-drawer]');
+    var backdrop = document.querySelector('[data-cookie-backdrop]');
+    var openBtn = document.querySelector('[data-cookie-open]');
+    var closeBtn = document.querySelector('[data-cookie-close]');
+    var acceptBtn = document.querySelector('[data-cookie-accept]');
+    var rejectBtn = document.querySelector('[data-cookie-reject]');
+
+    if (!drawer || !backdrop || !openBtn) return;
+
+    function openDrawer() {
+      drawer.classList.remove('translate-y-full');
+      backdrop.classList.remove('opacity-0', 'pointer-events-none');
+      openBtn.setAttribute('aria-expanded', 'true');
+      setTimeout(function () { drawer.focus(); }, 50);
+    }
+    function closeDrawer() {
+      drawer.classList.add('translate-y-full');
+      backdrop.classList.add('opacity-0', 'pointer-events-none');
+      openBtn.setAttribute('aria-expanded', 'false');
+    }
+    function setChoice(value) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ choice: value, ts: Date.now() }));
+      } catch (_) { /* ignore */ }
+      closeDrawer();
+    }
+
+    openBtn.addEventListener('click', openDrawer);
+    closeBtn && closeBtn.addEventListener('click', closeDrawer);
+    backdrop.addEventListener('click', closeDrawer);
+    acceptBtn && acceptBtn.addEventListener('click', function () { setChoice('accepted'); });
+    rejectBtn && rejectBtn.addEventListener('click', function () { setChoice('rejected'); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !drawer.classList.contains('translate-y-full')) closeDrawer();
+    });
+
+    // Auto-open on first visit when no choice saved
+    var hasChoice = false;
+    try { hasChoice = !!localStorage.getItem(STORAGE_KEY); } catch (_) { /* ignore */ }
+    if (!hasChoice) {
+      // Slight delay so it doesn't fight first-paint
+      setTimeout(openDrawer, 800);
+    }
+  })();
+</script>

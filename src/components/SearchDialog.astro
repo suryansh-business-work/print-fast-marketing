@@ -1,0 +1,142 @@
+---
+// Lightweight client-side search across all marketing pages.
+// Indexed pages defined inline — keeps everything static and dependency-free.
+---
+
+<!-- Trigger button (used in Header). Slot via class targeting from header. -->
+<!-- Backdrop -->
+<div
+  data-search-backdrop
+  class="fixed inset-0 z-[90] bg-ink-900/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-200"
+  aria-hidden="true"
+></div>
+
+<!-- Dialog -->
+<div
+  id="search-dialog"
+  data-search-dialog
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="search-title"
+  class="fixed left-1/2 top-24 z-[95] w-[min(92vw,640px)] -translate-x-1/2 scale-95 opacity-0 pointer-events-none transition-all duration-200 rounded-2xl border border-ink-100 bg-white shadow-2xl dark:bg-ink-900 dark:border-ink-800"
+>
+  <div class="flex items-center gap-3 border-b border-ink-100 dark:border-ink-800 px-5 py-4">
+    <i class="fa-solid fa-magnifying-glass text-ink-400" aria-hidden="true"></i>
+    <label for="search-input" id="search-title" class="sr-only">Search the site</label>
+    <input
+      id="search-input"
+      data-search-input
+      type="search"
+      placeholder="Search services, pages, contact…"
+      autocomplete="off"
+      class="flex-1 bg-transparent text-base text-ink-900 placeholder:text-ink-400 focus:outline-none dark:text-ink-100"
+    />
+    <kbd class="hidden sm:inline-flex items-center rounded-md border border-ink-200 bg-ink-50 px-2 py-0.5 text-[11px] font-semibold text-ink-500 dark:border-ink-700 dark:bg-ink-800 dark:text-ink-300">ESC</kbd>
+    <button
+      type="button"
+      data-search-close
+      aria-label="Close search"
+      class="grid h-8 w-8 place-items-center rounded-full text-ink-500 hover:bg-ink-100 dark:hover:bg-ink-800"
+    >
+      <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <div data-search-results class="max-h-[60vh] overflow-y-auto p-2">
+    <p data-search-empty class="px-4 py-8 text-center text-sm text-ink-500">Start typing to search the site…</p>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var INDEX = [
+      { title: 'Home', href: '/', kw: 'home digital marketing agency printfast home-service' },
+      { title: 'Social Media Marketing', href: '/social-media-marketing/', kw: 'social media facebook instagram tiktok linkedin youtube content paid social smm' },
+      { title: 'Email Marketing', href: '/email-marketing/', kw: 'email newsletters automations sms can-spam lifecycle' },
+      { title: 'Website Creation', href: '/website-creation/', kw: 'website web design development ada accessibility core web vitals build site' },
+      { title: 'Search Engine Optimization (SEO)', href: '/search-engine-optimization/', kw: 'seo search engine optimization local national ai search google bing' },
+      { title: 'Pay-Per-Click Advertising (PPC)', href: '/pay-per-click-advertising/', kw: 'ppc pay per click google ads lsa local services ads meta microsoft ads' },
+      { title: 'Who We Are', href: '/who-we-are/', kw: 'about team company history bill mcgowan kim burke mark luffy' },
+      { title: 'Contact Us', href: '/contact-us/', kw: 'contact phone email address quote proposal middlesex nj' },
+    ];
+
+    var dialog = document.querySelector('[data-search-dialog]');
+    var backdrop = document.querySelector('[data-search-backdrop]');
+    var input = document.querySelector('[data-search-input]');
+    var results = document.querySelector('[data-search-results]');
+    var empty = document.querySelector('[data-search-empty]');
+    var closeBtn = document.querySelector('[data-search-close]');
+    if (!dialog || !backdrop || !input || !results) return;
+
+    function open() {
+      dialog.classList.remove('opacity-0', 'pointer-events-none', 'scale-95');
+      dialog.classList.add('scale-100');
+      backdrop.classList.remove('opacity-0', 'pointer-events-none');
+      document.body.style.overflow = 'hidden';
+      setTimeout(function () { input.focus(); input.select && input.select(); }, 50);
+    }
+    function close() {
+      dialog.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
+      dialog.classList.remove('scale-100');
+      backdrop.classList.add('opacity-0', 'pointer-events-none');
+      document.body.style.overflow = '';
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, function (m) {
+        return ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' })[m];
+      });
+    }
+
+    function render(query) {
+      var q = String(query || '').trim().toLowerCase();
+      results.querySelectorAll('a[data-result]').forEach(function (n) { n.remove(); });
+      if (!q) {
+        empty.style.display = '';
+        empty.textContent = 'Start typing to search the site…';
+        return;
+      }
+      var matches = INDEX.filter(function (item) {
+        var hay = (item.title + ' ' + item.kw).toLowerCase();
+        return hay.indexOf(q) !== -1;
+      }).slice(0, 8);
+      if (!matches.length) {
+        empty.style.display = '';
+        empty.textContent = 'No results for "' + q + '". Try another keyword.';
+        return;
+      }
+      empty.style.display = 'none';
+      matches.forEach(function (m) {
+        var a = document.createElement('a');
+        a.href = m.href;
+        a.setAttribute('data-result', '');
+        a.className = 'group flex items-center gap-3 rounded-xl px-4 py-3 hover:bg-brand-50 dark:hover:bg-ink-800 transition-colors';
+        a.innerHTML =
+          '<span class="grid h-9 w-9 place-items-center rounded-lg bg-brand-50 text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition-colors dark:bg-ink-800 dark:text-brand-300">' +
+          '<i class="fa-solid fa-arrow-right-long text-xs" aria-hidden="true"></i></span>' +
+          '<span class="min-w-0">' +
+          '<span class="block text-sm font-semibold text-ink-900 dark:text-ink-100">' + escapeHtml(m.title) + '</span>' +
+          '<span class="block text-xs text-ink-500 mt-0.5">' + escapeHtml(m.href) + '</span>' +
+          '</span>';
+        results.appendChild(a);
+      });
+    }
+
+    input.addEventListener('input', function (e) { render(e.target.value); });
+    backdrop.addEventListener('click', close);
+    closeBtn && closeBtn.addEventListener('click', close);
+    document.addEventListener('keydown', function (e) {
+      // Cmd/Ctrl+K opens
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        open();
+        return;
+      }
+      if (e.key === 'Escape' && !dialog.classList.contains('opacity-0')) close();
+    });
+
+    document.querySelectorAll('[data-search-open]').forEach(function (btn) {
+      btn.addEventListener('click', open);
+    });
+  })();
+</script>

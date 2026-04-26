@@ -1,18 +1,51 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import Lottie from '@components/Lottie.astro';
 ---
 <BaseLayout title="Page Not Found" description="The page you were looking for doesn't exist." noindex>
-  <section class="section text-center">
-    <div class="container-pf max-w-2xl">
-      <p class="eyebrow mx-auto"><i class="fa-solid fa-triangle-exclamation"></i> 404</p>
-      <h1 class="heading-xl mt-5">We couldn't find that page.</h1>
-      <p class="lead mt-5">
-        It may have moved, or the link might be wrong. Head back home or jump to one of our services.
-      </p>
-      <div class="mt-8 flex flex-wrap justify-center gap-3">
-        <a href="/" class="btn-primary">Back to Home</a>
-        <a href="/contact-us/" class="btn-outline">Contact Us</a>
+  <section class="section">
+    <div class="container-pf grid gap-10 lg:grid-cols-2 lg:items-center">
+      <div class="order-2 lg:order-1 text-center lg:text-left">
+        <p class="eyebrow inline-flex"><i class="fa-solid fa-triangle-exclamation"></i> Error 404</p>
+        <h1 class="heading-xl mt-5">
+          Looks like this page took a <span class="gradient-text">marketing detour.</span>
+        </h1>
+        <p class="lead mt-5">
+          The link you followed may be broken, or the page has moved. While we get back on
+          campaign — explore our services or get in touch with our strategists.
+        </p>
+
+        <div class="mt-8 flex flex-wrap justify-center lg:justify-start gap-3">
+          <a href="/" class="btn-primary">
+            <i class="fa-solid fa-house"></i> Back to Home
+          </a>
+          <a href="/contact-us/" class="btn-outline">
+            <i class="fa-solid fa-headset"></i> Contact Us
+          </a>
+        </div>
+
+        <div class="mt-10">
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-ink-500">
+            Or jump to a service
+          </p>
+          <div class="mt-4 flex flex-wrap justify-center lg:justify-start gap-2">
+            <a href="/social-media-marketing/" class="rounded-full border border-ink-200 px-4 py-2 text-sm font-semibold text-ink-700 hover:border-brand-500 hover:text-brand-700 transition-colors">Social Media</a>
+            <a href="/email-marketing/" class="rounded-full border border-ink-200 px-4 py-2 text-sm font-semibold text-ink-700 hover:border-brand-500 hover:text-brand-700 transition-colors">Email</a>
+            <a href="/website-creation/" class="rounded-full border border-ink-200 px-4 py-2 text-sm font-semibold text-ink-700 hover:border-brand-500 hover:text-brand-700 transition-colors">Websites</a>
+            <a href="/search-engine-optimization/" class="rounded-full border border-ink-200 px-4 py-2 text-sm font-semibold text-ink-700 hover:border-brand-500 hover:text-brand-700 transition-colors">SEO</a>
+            <a href="/pay-per-click-advertising/" class="rounded-full border border-ink-200 px-4 py-2 text-sm font-semibold text-ink-700 hover:border-brand-500 hover:text-brand-700 transition-colors">PPC</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="order-1 lg:order-2 mx-auto w-full max-w-lg">
+        <Lottie
+          src="https://assets10.lottiefiles.com/packages/lf20_kcsr6fcp.json"
+          ariaLabel="Animated 404 illustration"
+          class="aspect-square w-full"
+        />
       </div>
     </div>
   </section>
 </BaseLayout>
+

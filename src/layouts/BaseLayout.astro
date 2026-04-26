@@ -4,6 +4,8 @@ import Header from '@components/Header.astro';
 import Footer from '@components/Footer.astro';
 import SEO, { type Props as SEOProps } from '@components/SEO.astro';
 import AccessibilityDrawer from '@components/AccessibilityDrawer.astro';
+import CookieConsent from '@components/CookieConsent.astro';
+import SearchDialog from '@components/SearchDialog.astro';
 import { SITE } from '@data/site';
 
 export interface Props extends SEOProps {}
@@ -17,13 +19,12 @@ const seoProps = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
-    <!-- Set theme BEFORE first paint to prevent FOUC flash -->
+    <!-- Set theme BEFORE first paint to prevent FOUC flash. Light mode is the default. -->
     <script is:inline>
       (function () {
         try {
           var stored = localStorage.getItem('pf-theme');
-          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          var theme = stored || (prefersDark ? 'dark' : 'light');
+          var theme = stored || 'light';
           if (theme === 'dark') document.documentElement.classList.add('dark');
         } catch (e) {}
       })();
@@ -41,11 +42,14 @@ const seoProps = Astro.props;
     <link rel="preload" as="image" href={SITE.logoLight} />
     <link rel="preload" as="image" href={SITE.logoDark} />
 
-    <!-- Favicons (always use the color/light logo for OS UI) -->
-    <link rel="icon" type="image/png" href={SITE.logoLight} />
-    <link rel="shortcut icon" href={SITE.logoLight} />
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href={SITE.logoLight} />
     <link rel="mask-icon" href="/favicon.svg" color="#6FD12E" />
+
+    <!-- Sitemap -->
+    <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
 
     <!-- Fonts -->
     <link
@@ -77,6 +81,8 @@ const seoProps = Astro.props;
 
     <Footer />
 
+    <SearchDialog />
+    <CookieConsent />
     <AccessibilityDrawer />
 
     <script>
