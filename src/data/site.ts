@@ -261,7 +261,7 @@ export const TESTIMONIALS = [
 ];
 
 export const STATS = [
-  { value: '15+', label: 'Years serving the trades' },
+  { value: '35+', label: 'Serving home service providers' },
   { value: '500+', label: 'Home-service brands grown' },
   { value: '4.9/5', label: 'Average client rating' },
   { value: '12M+', label: 'Leads generated for clients' },

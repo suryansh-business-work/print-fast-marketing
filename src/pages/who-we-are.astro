@@ -14,14 +14,6 @@ const values = [
   { icon: 'fa-shield-halved', title: 'No long-term lock-ins', desc: 'Earn the relationship every month with measurable progress.' },
 ];
 
-const milestones = [
-  { year: '2010', title: 'Founded',           desc: 'Started serving local trades with print and signage marketing.' },
-  { year: '2014', title: 'Digital pivot',     desc: 'Launched SEO and managed social services for HVAC + plumbing pros.' },
-  { year: '2018', title: '500+ clients',      desc: 'Hit our 500th home-service brand under management.' },
-  { year: '2022', title: 'Video studio',      desc: 'Opened in-house video production for cinematic, social-first brands.' },
-  { year: '2025', title: 'AI growth platform',desc: 'Built our AI publishing and analytics layer for true full-stack growth.' },
-];
-
 const team = [
   { name: 'Derek Mason',   role: 'Founder & CEO',           img: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=facearea&facepad=2&w=400&h=400&q=80' },
   { name: 'Maria Chen',    role: 'Head of Strategy',        img: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=facearea&facepad=2&w=400&h=400&q=80' },
@@ -123,31 +115,6 @@ const team = [
           </div>
         ))}
       </div>
-    </div>
-  </section>
-
-  <!-- Timeline -->
-  <section class="section">
-    <div class="container-pf">
-      <SectionHeading
-        eyebrow="Milestones"
-        title="15 years. Same mission."
-        description="From print shop to full-stack growth platform — built one trade at a time."
-      />
-      <ol class="mt-14 relative">
-        <span aria-hidden="true" class="absolute left-4 sm:left-1/2 top-0 bottom-0 w-px bg-ink-200 sm:-translate-x-1/2"></span>
-        {milestones.map((m, i) => (
-          <li class:list={['relative pl-12 sm:pl-0 sm:grid sm:grid-cols-2 sm:gap-8 mb-10', i % 2 === 0 ? '' : 'sm:[&>div:first-child]:order-2']} data-reveal>
-            <span aria-hidden="true" class="absolute left-2.5 sm:left-1/2 top-2 h-3 w-3 -translate-x-0 sm:-translate-x-1/2 rounded-full bg-brand-600 ring-4 ring-brand-100"></span>
-            <div class:list={['sm:px-8', i % 2 === 0 ? 'sm:text-right' : '']}>
-              <p class="text-sm font-mono text-brand-600 font-semibold">{m.year}</p>
-              <h3 class="mt-1 text-xl font-bold text-ink-900">{m.title}</h3>
-              <p class="mt-2 text-ink-600">{m.desc}</p>
-            </div>
-            <div class="hidden sm:block"></div>
-          </li>
-        ))}
-      </ol>
     </div>
   </section>
 

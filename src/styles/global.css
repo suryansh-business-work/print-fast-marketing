@@ -125,14 +125,11 @@
     @apply relative pl-7 text-ink-700 dark:text-ink-300;
   }
   .check-list li::before {
-    content: '';
-    @apply absolute left-0 top-2 h-4 w-4 rounded-full bg-brand-100 dark:bg-brand-900/60;
-  }
-  .check-list li::after {
     content: '\f00c'; /* Font Awesome check */
     font-family: 'Font Awesome 6 Free';
     font-weight: 900;
-    @apply absolute left-[3px] top-[3px] text-[10px] text-brand-700 dark:text-brand-300;
+    line-height: 1;
+    @apply absolute left-0 top-1 inline-grid h-4 w-4 place-items-center rounded-full bg-brand-100 text-[8px] text-brand-700 dark:bg-brand-900/60 dark:text-brand-300;
   }
 }
 

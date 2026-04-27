@@ -12,7 +12,6 @@ import ClientLogos from '@components/ClientLogos.astro';
 const capabilities = [
   { icon: 'fa-route',           title: 'Lifecycle automations',     description: 'Welcome series, post-purchase / post-job, win-back, abandoned cart and seasonal tune-up reminders.' },
   { icon: 'fa-newspaper',       title: 'Branded newsletters',       description: 'Weekly or monthly newsletters with a content calendar that mirrors your real promotions and seasonality.' },
-  { icon: 'fa-mobile-screen',   title: 'SMS & MMS marketing',       description: 'TCPA-compliant SMS programs with opt-in flows, segmentation and A/B-tested send times.' },
   { icon: 'fa-list-check',      title: 'Segmentation & RFM',        description: 'Recency-frequency-monetary cohorts so the right offer hits the right customer at the right moment.' },
   { icon: 'fa-flask-vial',      title: 'A/B & multivariate testing', description: 'Subject lines, preview text, send times, creative and offers — tested with statistical confidence, not gut feel.' },
   { icon: 'fa-shield-check',    title: 'Deliverability engineering', description: 'SPF, DKIM, DMARC, BIMI, list hygiene and warm-up — the work that keeps you out of the Promotions tab and spam folder.' },
@@ -35,7 +34,7 @@ const stats = [
   { stat: '$36',  label: 'returned per $1 spent on email (DMA)' },
   { stat: '4.2%', label: 'average click-to-open rate across U.S. SMBs' },
   { stat: '60%',  label: 'of consumers prefer email for promos & offers' },
-  { stat: '98%',  label: 'open rate on properly opted-in SMS' },
+  { stat: '99%',  label: 'of email users check their inbox every day' },
 ];
 
 const flows = [
@@ -69,7 +68,7 @@ const plans = [
     popular: true,
     features: [
       'Everything in Foundations',
-      '4 sends/month + 1 SMS / MMS broadcast',
+      '4 sends/month + 1 promotional broadcast',
       '6+ active automation flows',
       'Quarterly creative refresh',
       'Advanced segmentation & A/B tests',
@@ -80,10 +79,10 @@ const plans = [
   {
     name: 'Lifecycle',
     price: '$2,899',
-    description: 'For brands ready to make email & SMS a top-3 revenue channel.',
+    description: 'For brands ready to make email a top-3 revenue channel.',
     features: [
       'Everything in Growth',
-      '8+ sends/month across email & SMS',
+      '8+ sends/month',
       'Custom RFM model & predictive flows',
       'CRM/ESP integration & sync',
       'Dedicated email strategist',
@@ -98,8 +97,6 @@ const faqs = [
     a: 'It depends on your business. We work most often with Klaviyo (best for e-commerce and lifecycle), HubSpot (best for sales-led B2B) and Mailchimp/Constant Contact (best for simple newsletters). We will recommend the right tool, not the most expensive one.' },
   { q: 'Will my emails actually reach the inbox?',
     a: 'Deliverability is treated as a discipline here. We configure SPF, DKIM and DMARC, set up BIMI where eligible, warm new domains correctly and run continuous list hygiene. Most clients see inbox placement above 95% within 60 days.' },
-  { q: 'Are SMS programs allowed in every U.S. state?',
-    a: 'Yes — when run correctly. We follow TCPA, CTIA and 10DLC registration requirements, build proper opt-in/opt-out flows and document consent. We do not use unverified or grey-area lists.' },
   { q: 'Do you write the copy and design the emails?',
     a: 'Yes. Our team writes every send, designs every template and produces every image — all reviewed and approved by you before it goes out.' },
   { q: 'Who owns the list and the data?',
@@ -109,14 +106,13 @@ const faqs = [
 
 <BaseLayout
   title="Email Marketing Services in the USA"
-  description="Email marketing and SMS services for U.S. businesses — lifecycle automations, newsletters and revenue attribution. CAN-SPAM and TCPA compliant."
+  description="Email marketing services for U.S. businesses — lifecycle automations, newsletters and revenue attribution. CAN-SPAM compliant."
   keywords={[
     'email marketing services',
     'email marketing agency USA',
     'lifecycle email marketing',
     'Klaviyo agency',
     'Mailchimp services',
-    'SMS marketing TCPA',
     'newsletter design and management',
     'CAN-SPAM compliance',
   ]}
@@ -128,7 +124,7 @@ const faqs = [
     '@context': 'https://schema.org',
     '@type': 'Service',
     name: 'Email Marketing',
-    serviceType: 'Email & SMS Marketing',
+    serviceType: 'Email Marketing',
     provider: { '@type': 'Organization', name: 'Print Fast Digital Marketing' },
     areaServed: { '@type': 'Country', name: 'United States' },
     offers: [
@@ -141,7 +137,7 @@ const faqs = [
   <Hero
     variant="service"
     eyebrow="Email Marketing"
-    title="Email & SMS that"
+    title="Email that"
     highlight="quietly compound revenue."
     description="Done-for-you email programs — strategy, copy, design, automations and deliverability — engineered to become a top-three revenue channel for U.S. brands."
     primaryCta={{ label: 'Request a proposal', href: '/contact-us/' }}
@@ -167,7 +163,7 @@ const faqs = [
     <div class="container-pf">
       <SectionHeading
         eyebrow="What's included"
-        title="A complete email & SMS program"
+        title="A complete email program"
         description="Strategy, creative, automations and deliverability — managed by senior operators, not a junior account team."
       />
       <div class="mt-14">
@@ -225,7 +221,7 @@ const faqs = [
       <SectionHeading
         eyebrow="Plans & pricing"
         title="Month-to-month pricing in USD"
-        description="Pricing covers strategy, creative, deployment and reporting. Your ESP/SMS platform fees are billed by the platform directly."
+        description="Pricing covers strategy, creative, deployment and reporting. Your ESP platform fees are billed by the platform directly."
       />
       <div class="mt-14 grid gap-6 lg:grid-cols-3">
         {plans.map((p) => <PricingCard {...p} />)}
