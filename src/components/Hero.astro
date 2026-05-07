@@ -6,9 +6,12 @@ export interface Props {
   description?: string;
   primaryCta?: { label: string; href: string };
   secondaryCta?: { label: string; href: string };
+  trustItems?: string[];
   align?: 'left' | 'center';
   variant?: 'default' | 'service';
 }
+
+const defaultTrustItems = ['No long-term contracts', 'Built for the trades', 'Free strategy call'];
 
 const {
   eyebrow,
@@ -17,6 +20,7 @@ const {
   description,
   primaryCta,
   secondaryCta,
+  trustItems = defaultTrustItems,
   align = 'left',
   variant = 'default',
 } = Astro.props;
@@ -76,14 +80,16 @@ const {
         </div>
       )}
 
-      <div class:list={[
-        'mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 text-sm text-ink-500 animate-fade-up',
-        align === 'center' && 'justify-center',
-      ]} style="animation-delay:320ms">
-        <span class="inline-flex items-center gap-2"><i class="fa-solid fa-circle-check text-brand-600"></i> No long-term contracts</span>
-        <span class="inline-flex items-center gap-2"><i class="fa-solid fa-circle-check text-brand-600"></i> Built for the trades</span>
-        <span class="inline-flex items-center gap-2"><i class="fa-solid fa-circle-check text-brand-600"></i> Free strategy call</span>
-      </div>
+      {trustItems.length > 0 && (
+        <div class:list={[
+          'mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 text-sm text-ink-500 animate-fade-up',
+          align === 'center' && 'justify-center',
+        ]} style="animation-delay:320ms">
+          {trustItems.map((item) => (
+            <span class="inline-flex items-center gap-2"><i class="fa-solid fa-circle-check text-brand-600"></i> {item}</span>
+          ))}
+        </div>
+      )}
     </div>
   </div>
 </section>

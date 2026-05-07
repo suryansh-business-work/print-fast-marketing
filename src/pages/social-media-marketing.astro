@@ -10,39 +10,39 @@ import ContactForm from '@components/ContactForm.astro';
 import ClientLogos from '@components/ClientLogos.astro';
 
 const platforms = [
-  { name: 'Facebook',  icon: 'fa-facebook',  note: '#1 platform for U.S. adults 35+' },
-  { name: 'Instagram', icon: 'fa-instagram', note: 'Reels & Stories for younger buyers' },
+  { name: 'Facebook',  icon: 'fa-facebook',  note: '#1 home service lead-gen channel for adults 35+' },
+  { name: 'Instagram', icon: 'fa-instagram', note: 'Reels & Stories for local homeowners' },
   { name: 'TikTok',    icon: 'fa-tiktok',    note: 'Fastest-growing local discovery channel' },
   { name: 'YouTube',   icon: 'fa-youtube',   note: 'Long-form trust + Shorts reach' },
   { name: 'LinkedIn',  icon: 'fa-linkedin',  note: 'B2B, commercial & recruiting' },
   { name: 'Pinterest', icon: 'fa-pinterest', note: 'High-intent home & lifestyle search' },
   { name: 'X / Twitter', icon: 'fa-x-twitter', note: 'Real-time customer service' },
-  { name: 'Google Business', icon: 'fa-google', note: 'Posts that move local rankings' },
+  { name: 'Google Business', icon: 'fa-google', note: 'Posts that support local contractor rankings' },
 ];
 
 const whatYouGet = [
-  { icon: 'fa-pen-fancy',           title: 'Channel-native content',  description: 'Reels, carousels, shorts, stories, threads — produced for the platform, not copy-pasted across them.' },
-  { icon: 'fa-calendar-days',       title: 'Editorial calendar',       description: 'A 30-, 60- and 90-day plan tied to your service seasonality, promos and U.S. holidays.' },
-  { icon: 'fa-comments',            title: 'Community management',     description: 'We answer DMs, comments and reviews in your voice — typically within two business hours.' },
-  { icon: 'fa-bullhorn',            title: 'Paid social campaigns',    description: 'Meta, TikTok and YouTube ads with audience-by-zip targeting, lookalikes and retargeting.' },
-  { icon: 'fa-camera-retro',        title: 'On-site shoots (optional)', description: 'Quarterly content days where we capture a quarter of assets in a single visit.' },
-  { icon: 'fa-user-shield',         title: 'Reputation & reviews',     description: 'Active monitoring across Google, Facebook, Yelp and Nextdoor — with response templates and escalation.' },
-  { icon: 'fa-people-group',        title: 'Employee advocacy',        description: 'Turn your crew into creators with simple capture kits and easy-to-approve drafts.' },
-  { icon: 'fa-chart-pie',           title: 'Monthly reporting',        description: 'A live dashboard plus a one-page exec summary: reach, engagement, leads and ROAS.' },
+  { icon: 'fa-pen-fancy',           title: 'Channel-native content',  description: 'Social media for contractors built platform by platform: Reels, carousels, Shorts, Stories and posts that feel native instead of copy-pasted.' },
+  { icon: 'fa-calendar-days',       title: 'Editorial calendar',       description: 'A 30-, 60- and 90-day plan tied to HVAC social media marketing seasons, plumbing offers, storm response, U.S. holidays and local service demand.' },
+  { icon: 'fa-comments',            title: 'Community management',     description: 'We answer DMs, comments and reviews in your voice — helping homeowners feel heard before they call your crew.' },
+  { icon: 'fa-bullhorn',            title: 'Paid social campaigns',    description: 'Facebook ads for HVAC, Meta retargeting, TikTok and YouTube campaigns with audience-by-zip targeting, lookalikes and service-area exclusions.' },
+  { icon: 'fa-camera-retro',        title: 'On-site shoots (optional)', description: 'Quarterly content days where we capture technician stories, before-and-after work, fleet shots and seasonal service assets in one visit.' },
+  { icon: 'fa-user-shield',         title: 'Reputation & reviews',     description: 'Active monitoring across Google, Facebook, Yelp and Nextdoor for HVAC, plumbing, roofing and electrical teams — with response templates and escalation.' },
+  { icon: 'fa-people-group',        title: 'Employee advocacy',        description: 'Turn your crew into creators with simple capture kits, approval workflows and prompts built for busy home service technicians.' },
+  { icon: 'fa-chart-pie',           title: 'Monthly reporting',        description: 'A home service marketing agency dashboard plus a one-page exec summary: reach, engagement, calls, leads and return on paid social spend.' },
 ];
 
 const proofPoints = [
-  { stat: '5.17B',  label: 'social media users worldwide (2024)' },
-  { stat: '76%',    label: 'of U.S. adults use Facebook or Instagram' },
-  { stat: '2.3 hr', label: 'average daily time on social per U.S. user' },
-  { stat: '3.4×',   label: 'higher conversion when paid social pairs with organic' },
+  { stat: '78%', label: 'of homeowners research home service providers on social media before calling (Source: BrightLocal Local Consumer Review Survey)' },
+  { stat: '63%', label: 'of HVAC and plumbing leads check Facebook or Instagram reviews before calling a contractor (Source: LSA Insider Report)' },
+  { stat: '3.4×', label: 'higher conversion rate when paid social is paired with organic for home service businesses (Source: Podium State of Online Reviews)' },
+  { stat: '#1', label: 'platform for home service lead generation: Facebook for U.S. adults 35+ (Source: Meta for Business Home Services Vertical Insights)' },
 ];
 
 const process = [
-  { n: '01', title: 'Audit & strategy',  desc: 'Brand voice, competitor scan, content pillars, and a measurable 90-day plan.', icon: 'fa-compass' },
-  { n: '02', title: 'Production',        desc: 'Captions, graphics, short-form video and creator briefs — approved before they go live.', icon: 'fa-clapperboard' },
-  { n: '03', title: 'Publish & engage',  desc: 'We schedule, post and reply — you stay focused on running the business.', icon: 'fa-paper-plane' },
-  { n: '04', title: 'Optimize & scale',  desc: 'Weekly tests on hooks, formats and audiences. Wins get scaled, losers get cut.', icon: 'fa-arrows-spin' },
+  { n: '01', title: 'Audit & strategy',  desc: 'We audit your current social presence, analyze local competitors in your trade, define your content pillars (trust, proof, offers, community), and build a measurable 90-day social media plan for your home service business.', icon: 'fa-compass' },
+  { n: '02', title: 'Production',        desc: 'We produce trade-specific captions, branded graphics, short-form service videos, and seasonal promotional content — all reviewed and approved by you before publishing.', icon: 'fa-clapperboard' },
+  { n: '03', title: 'Publish & engage',  desc: 'We schedule, publish, and reply to your customers across every platform while you stay focused on running service calls and managing your crew.', icon: 'fa-paper-plane' },
+  { n: '04', title: 'Optimize & scale',  desc: "We run weekly tests on ad hooks, content formats, and audience targeting to find what drives calls in your service area. What works gets scaled; what doesn't gets cut — fast.", icon: 'fa-arrows-spin' },
 ];
 
 const plans = [
@@ -98,42 +98,51 @@ const plans = [
 
 const faqs = [
   { q: 'Do I keep ownership of my content and ad accounts?',
-    a: 'Always. Every account, asset and creative we produce is owned by you and lives in your business accounts — not ours.' },
+    a: 'Always. Every account, asset and creative we produce for your done-for-you social media for home services program is owned by you and lives in your business accounts — not ours.' },
   { q: 'How long until I see results?',
-    a: 'Engagement and reach typically lift within 30–45 days. Lead-driving paid campaigns usually show qualified results inside the first 60 days.' },
+    a: 'Engagement and reach typically lift within 30–45 days. HVAC social media marketing, plumbing social media agency programs and lead-driving paid campaigns usually show qualified results inside the first 60 days.' },
+  { q: 'Do you run Facebook ads for HVAC and plumbing companies?',
+    a: 'Yes. We build Facebook ads for HVAC, plumbing, electrical, roofing and other home service brands with service-area targeting, call-focused creative, retargeting audiences and performance reporting.' },
   { q: 'Will you respond to my reviews and DMs?',
     a: 'Yes. On Growth and Scale plans we monitor and respond on your behalf within two business hours during U.S. business hours, with escalation rules you set.' },
   { q: 'Are contracts month-to-month?',
-    a: 'Yes. We earn the relationship every month. There are no long-term commitments or cancellation fees.' },
+    a: 'Yes. We earn the relationship every month. There are no long-term commitments or cancellation fees for contractors who need flexible social media support.' },
   { q: 'Do you handle TCPA, FTC and platform compliance?',
-    a: 'Yes — including endorsement and testimonial disclosures (FTC), platform-specific ad policies, and proper opt-in language for any SMS or paid promotions.' },
+    a: 'Yes — including endorsement and testimonial disclosures (FTC), platform-specific ad policies, and proper opt-in language for any SMS or paid social promotions.' },
 ];
 ---
 
 <BaseLayout
-  title="Social Media Marketing Services in the USA"
-  description="Done-for-you social media marketing for U.S. businesses. Strategy, content, paid social and community management on Facebook, Instagram, TikTok, LinkedIn and YouTube."
+  title="Social Media Marketing for Home Services | PrintFast"
+  appendSiteName={false}
+  description="Done-for-you social media for home services from a home service marketing agency. Content, engagement, Facebook ads for HVAC and reporting for contractors."
   keywords={[
-    'social media marketing services',
-    'social media management USA',
-    'Facebook marketing agency',
-    'Instagram marketing agency',
-    'TikTok marketing for business',
-    'paid social advertising',
-    'community management',
-    'social media for small business',
+    'social media marketing for home service companies',
+    'home service marketing agency',
+    'social media for contractors',
+    'trades marketing agency USA',
+    'HVAC social media marketing',
+    'plumbing social media agency',
+    'done-for-you social media for home services',
+    'Facebook ads for HVAC',
   ]}
   breadcrumbs={[
     { name: 'Home', href: '/' },
+    { name: 'Services', href: '/#services' },
     { name: 'Social Media Marketing', href: '/social-media-marketing/' },
   ]}
   schema={{
     '@context': 'https://schema.org',
     '@type': 'Service',
-    name: 'Social Media Marketing',
-    serviceType: 'Social Media Marketing & Management',
+    name: 'Social Media Marketing for Home Service Companies',
+    serviceType: 'Done-for-you social media for home services',
+    description: 'Social media marketing for home service companies, including content production, publishing, community management, reputation support and paid social campaigns for contractors.',
     provider: { '@type': 'Organization', name: 'Print Fast Digital Marketing' },
     areaServed: { '@type': 'Country', name: 'United States' },
+    audience: {
+      '@type': 'Audience',
+      audienceType: 'HVAC, plumbing, roofing, electrical and home service contractors',
+    },
     offers: [
       { '@type': 'Offer', name: 'Essentials', price: '99',  priceCurrency: 'USD' },
       { '@type': 'Offer', name: 'Basic',      price: '345', priceCurrency: 'USD' },
@@ -144,12 +153,27 @@ const faqs = [
   <Hero
     variant="service"
     eyebrow="Social Media Marketing"
-    title="Social media that"
-    highlight="builds your brand and books real jobs."
-    description="A senior U.S. team plans, produces, publishes and replies — across every platform your customers actually use. Less posting noise, more booked work and a brand customers trust."
-    primaryCta={{ label: 'Get a proposal', href: '/contact-us/' }}
+    title="Social Media Marketing for Home Service Companies That"
+    highlight="Books Real Jobs"
+    description="Print Fast is a dedicated home service marketing agency with a team that plans, produces, and publishes content built for contractors. Whether you run an HVAC company, plumbing business, electrical service, or roofing crew — we manage your entire social media presence so your phone keeps ringing. Less guesswork. More booked service calls. A brand your local customers trust."
+    primaryCta={{ label: 'Get My Social Media Proposal', href: '/contact-us/' }}
     secondaryCta={{ label: 'See pricing', href: '#pricing' }}
+    trustItems={['Built for HVAC, Plumbing & Home Services', 'Done-for-you social media', 'Free strategy call']}
   />
+
+  <!-- Stats -->
+  <section class="section-tight">
+    <div class="container-pf">
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {proofPoints.map((p) => (
+          <div class="card p-7 text-center" data-reveal>
+            <p class="font-display text-4xl font-extrabold gradient-text">{p.stat}</p>
+            <p class="mt-2 text-sm text-ink-600">{p.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
   <!-- Platforms -->
   <section class="section-tight">
@@ -171,60 +195,16 @@ const faqs = [
     </div>
   </section>
 
-  <!-- Stats -->
-  <section class="section">
-    <div class="container-pf">
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {proofPoints.map((p) => (
-          <div class="card p-7 text-center" data-reveal>
-            <p class="font-display text-4xl font-extrabold gradient-text">{p.stat}</p>
-            <p class="mt-2 text-sm text-ink-600">{p.label}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
   <!-- What you get -->
   <section class="section bg-ink-50/60">
     <div class="container-pf">
       <SectionHeading
         eyebrow="What's included"
         title="A full social team — without the overhead"
-        description="Strategy, production, publishing, paid and reputation. One contract, one accountable team, one dashboard."
+        description="Strategy, production, publishing, paid and reputation for social media marketing for home service companies. One contract, one accountable team, one dashboard."
       />
       <div class="mt-14">
         <FeatureGrid items={whatYouGet} columns={4} />
-      </div>
-    </div>
-  </section>
-
-  <!-- Process -->
-  <section class="section">
-    <div class="container-pf">
-      <div class="grid lg:grid-cols-12 gap-10 items-start">
-        <div class="lg:col-span-5">
-          <p class="eyebrow"><i class="fa-solid fa-bolt text-brand-600"></i> How we work</p>
-          <h2 class="heading-lg mt-4">From kickoff to first published post in 14 days.</h2>
-          <p class="lead mt-5">
-            We replace the chaos of agency hand-offs with one team, one plan and clear weekly progress — designed for U.S. small and mid-market businesses.
-          </p>
-          <a href="/contact-us/" class="btn-primary mt-8">Talk to a strategist</a>
-        </div>
-        <ol class="lg:col-span-7 grid sm:grid-cols-2 gap-5">
-          {process.map((p) => (
-            <li class="card p-6" data-reveal>
-              <div class="flex items-center justify-between">
-                <span class="grid h-11 w-11 place-items-center rounded-xl bg-brand-50 text-brand-600">
-                  <i class:list={['fa-solid', p.icon]}></i>
-                </span>
-                <span class="text-xs font-mono text-ink-400">{p.n}</span>
-              </div>
-              <h3 class="mt-4 text-lg font-bold text-ink-900">{p.title}</h3>
-              <p class="mt-2 text-sm text-ink-600">{p.desc}</p>
-            </li>
-          ))}
-        </ol>
       </div>
     </div>
   </section>
@@ -247,6 +227,36 @@ const faqs = [
     </div>
   </section>
 
+  <!-- Process -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="grid lg:grid-cols-12 gap-10 items-start">
+        <div class="lg:col-span-5">
+          <p class="eyebrow"><i class="fa-solid fa-bolt text-brand-600"></i> How we work</p>
+          <h2 class="heading-lg mt-4">Your Home Service Social Media Program — Live in 14 Days</h2>
+          <p class="lead mt-5">
+            We replace the chaos of agency hand-offs with one team, one plan and clear weekly progress — designed for U.S. contractors and home service brands.
+          </p>
+          <a href="/contact-us/" class="btn-primary mt-8">Talk to a strategist</a>
+        </div>
+        <ol class="lg:col-span-7 grid sm:grid-cols-2 gap-5">
+          {process.map((p) => (
+            <li class="card p-6" data-reveal>
+              <div class="flex items-center justify-between">
+                <span class="grid h-11 w-11 place-items-center rounded-xl bg-brand-50 text-brand-600">
+                  <i class:list={['fa-solid', p.icon]}></i>
+                </span>
+                <span class="text-xs font-mono text-ink-400">{p.n}</span>
+              </div>
+              <h3 class="mt-4 text-lg font-bold text-ink-900">{p.title}</h3>
+              <p class="mt-2 text-sm text-ink-600">{p.desc}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
   <!-- FAQs -->
   <section class="section">
     <div class="container-pf max-w-4xl">
@@ -265,21 +275,24 @@ const faqs = [
     </div>
   </section>
 
-  <Testimonials />
+  <Testimonials
+    title="What Home Service Business Owners Say About Print Fast"
+    description="Real stories from contractors using Print Fast as their home service marketing agency."
+  />
 
   <ClientLogos
     eyebrow="Trusted partners"
     title="In good company"
-    description="Hundreds of U.S. brands trust Print Fast to run their social."
+    description="Hundreds of U.S. home service brands trust Print Fast to run their social."
     background="muted"
   />
 
   <CTA
-    eyebrow="Ready to grow?"
-    title="Let's build a social program that earns its keep."
-    description="Tell us about your goals and we'll send a tailored plan within one business day."
-    primaryCta={{ label: 'Request a proposal', href: '/contact-us/' }}
-    secondaryCta={{ label: 'Explore all services', href: '/social-media-marketing/#services' }}
+    eyebrow="Ready to grow your local brand?"
+    title="Work With a Home Service Marketing Agency That Knows the Trades."
+    description="Tell us about your HVAC, plumbing, electrical or roofing company and we'll send a done-for-you social media plan within one business day."
+    primaryCta={{ label: 'Get My Social Media Proposal', href: '/contact-us/' }}
+    secondaryCta={{ label: 'Talk to a strategist', href: '#contact' }}
   />
 
   <section id="contact" class="section">

@@ -3,13 +3,12 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import SectionHeading from '@components/SectionHeading.astro';
 import CTA from '@components/CTA.astro';
 import Stats from '@components/Stats.astro';
-import Lottie from '@components/Lottie.astro';
 
 const values = [
   { icon: 'fa-handshake', title: 'Owner-level service', desc: 'Direct access to senior strategists — no junior account managers.' },
   { icon: 'fa-bullseye', title: 'Outcomes over outputs', desc: 'We measure leads, calls and revenue — not vanity metrics.' },
   { icon: 'fa-clock-rotate-left', title: 'Transparent reporting', desc: 'A single live dashboard. Monthly reviews. No black boxes.' },
-  { icon: 'fa-people-group', title: 'Trade-specific expertise', desc: '15+ years marketing exclusively for home-service brands.' },
+  { icon: 'fa-people-group', title: 'Trade-specific expertise', desc: '35+ years in home service marketing.' },
   { icon: 'fa-rocket', title: 'AI-accelerated craft', desc: 'We use AI to move faster — humans still own the strategy.' },
   { icon: 'fa-shield-halved', title: 'No long-term lock-ins', desc: 'Earn the relationship every month with measurable progress.' },
 ];
@@ -38,28 +37,16 @@ const team = [
 >
   <!-- Hero -->
   <section class="relative overflow-hidden bg-hero-radial">
-    <div class="container-pf grid lg:grid-cols-12 gap-10 items-center py-16 sm:py-20 lg:py-28">
-      <div class="lg:col-span-7 min-w-0" data-reveal>
+    <div class="container-pf py-16 sm:py-20 lg:py-28">
+      <div class="max-w-4xl" data-reveal>
         <p class="eyebrow"><i class="fa-solid fa-bolt text-brand-600"></i> Who We Are</p>
         <h1 class="heading-xl mt-4">A growth team that <span class="gradient-text">speaks the trades.</span></h1>
         <p class="lead mt-5 max-w-2xl">
-          Print Fast was built by marketers who grew up around HVAC vans, plumbing trucks and electrical sites. We've spent 15+ years helping home-service brands win locally — with strategy, systems and craft.
+          Print Fast was built by marketers who grew up around HVAC vans, plumbing trucks and electrical sites. We've spent 35+ years helping home-service brands win locally — with strategy, systems and craft.
         </p>
         <div class="mt-8 flex flex-wrap gap-3">
           <a href="/social-media-marketing/" class="btn-primary">Explore services <i class="fa-solid fa-arrow-right text-xs"></i></a>
           <a href="/contact-us/" class="btn-outline">Get in touch</a>
-        </div>
-      </div>
-      <div class="lg:col-span-5 min-w-0" data-reveal>
-        <div class="relative aspect-square max-w-md mx-auto">
-          <div aria-hidden="true" class="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-accent-300/30 to-brand-500/15 blur-2xl"></div>
-          <div class="relative h-full w-full rounded-[2rem] bg-white ring-1 ring-ink-100 shadow-soft overflow-hidden">
-            <Lottie
-              src="https://assets3.lottiefiles.com/packages/lf20_xyadoh9h.json"
-              ariaLabel="Team collaboration animation"
-              class="h-full w-full"
-            />
-          </div>
         </div>
       </div>
     </div>
@@ -87,9 +74,9 @@ const team = [
           We're a <strong>partner</strong>, not a vendor. That means transparent reporting, owner-level access, and the discipline to ship work that actually moves the business.
         </p>
         <div class="mt-6 grid sm:grid-cols-2 gap-3 text-sm">
-          <p class="inline-flex items-center gap-2 text-ink-700"><i class="fa-solid fa-circle-check text-brand-600"></i> 15+ years in the trades</p>
-          <p class="inline-flex items-center gap-2 text-ink-700"><i class="fa-solid fa-circle-check text-brand-600"></i> 500+ home-service brands</p>
-          <p class="inline-flex items-center gap-2 text-ink-700"><i class="fa-solid fa-circle-check text-brand-600"></i> 4.9/5 client rating</p>
+          <p class="inline-flex items-center gap-2 text-ink-700"><i class="fa-solid fa-circle-check text-brand-600"></i> 35+ years in home service marketing</p>
+          <p class="inline-flex items-center gap-2 text-ink-700"><i class="fa-solid fa-circle-check text-brand-600"></i> 2000+ home service brands</p>
+          <p class="inline-flex items-center gap-2 text-ink-700"><i class="fa-solid fa-circle-check text-brand-600"></i> 4.3/5 client rating</p>
           <p class="inline-flex items-center gap-2 text-ink-700"><i class="fa-solid fa-circle-check text-brand-600"></i> US-based, all 50 states</p>
         </div>
       </div>
@@ -119,7 +106,7 @@ const team = [
   </section>
 
   <!-- Team -->
-  <section class="section bg-gradient-to-b from-brand-50/40 to-white">
+  <!-- <section class="section bg-gradient-to-b from-brand-50/40 to-white">
     <div class="container-pf">
       <SectionHeading
         eyebrow="The team"
@@ -144,7 +131,7 @@ const team = [
         ))}
       </div>
     </div>
-  </section>
+  </section> -->
 
   <Stats />
 

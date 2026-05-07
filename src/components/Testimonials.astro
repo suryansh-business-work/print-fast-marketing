@@ -1,13 +1,25 @@
 ---
 import { TESTIMONIALS } from '@data/site';
 import SectionHeading from './SectionHeading.astro';
+
+export interface Props {
+  eyebrow?: string;
+  title?: string;
+  description?: string;
+}
+
+const {
+  eyebrow = 'Trust signals',
+  title = 'What our clients say',
+  description = 'Real stories from home-service businesses growing with Print Fast.',
+} = Astro.props;
 ---
 <section class="section bg-ink-50/60">
   <div class="container-pf">
     <SectionHeading
-      eyebrow="Trust signals"
-      title="What our clients say"
-      description="Real stories from home-service businesses growing with Print Fast."
+      eyebrow={eyebrow}
+      title={title}
+      description={description}
     />
 
     <div class="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">

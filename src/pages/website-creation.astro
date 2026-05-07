@@ -8,43 +8,44 @@ import Testimonials from '@components/Testimonials.astro';
 import CTA from '@components/CTA.astro';
 import ContactForm from '@components/ContactForm.astro';
 import ClientLogos from '@components/ClientLogos.astro';
+import { SITE } from '@data/site';
 
 const principles = [
-  { icon: 'fa-gauge-high',     title: 'Speed by default',         description: 'Sub-2-second LCP, 95+ Lighthouse and Core Web Vitals "Good" — out of the box, not as a Phase 2.' },
-  { icon: 'fa-universal-access', title: 'WCAG 2.2 AA accessibility', description: 'ADA-aware design, keyboard navigation, screen-reader semantics — protecting you from the wave of U.S. ADA web lawsuits.' },
-  { icon: 'fa-mobile-screen',  title: 'Mobile-first',             description: 'Over 60% of U.S. service search is mobile. We design for the smallest screen, then scale up.' },
-  { icon: 'fa-magnifying-glass-chart', title: 'SEO-grade architecture', description: 'Clean URLs, semantic HTML, schema.org markup and sitemap automation built in from day one.' },
-  { icon: 'fa-bullseye',       title: 'Conversion-first design',  description: 'Every page has a primary action. Clear CTAs, sticky calls and forms designed to convert, not just look pretty.' },
-  { icon: 'fa-shield-halved',  title: 'Secure & compliant',       description: 'HTTPS, modern headers, CCPA / state-privacy banners and a stack you can pass a security review with.' },
+  { icon: 'fa-gauge-high',     title: 'Speed by default',         description: 'Sub-3-second load times, 80+ Lighthouse score, and Core Web Vitals "Good" — standard on every home service website we ship. Faster sites rank higher and convert more homeowners browsing on mobile.' },
+  { icon: 'fa-universal-access', title: 'WCAG 2.2 AA accessibility', description: 'Every ADA compliant website for contractors we build meets WCAG 2.2 AA accessibility standards — including keyboard navigation and screen-reader compatibility. This protects your home service business from the rising wave of U.S. ADA web lawsuits and keeps your site usable by every potential customer.' },
+  { icon: 'fa-mobile-screen',  title: 'Mobile-first design',      description: 'Over 60% of homeowners searching for HVAC, plumbing, and electrical services are on a mobile device. We design every mobile website for HVAC companies and other trades for the smallest screen first, then scale up, so you capture every call, regardless of how they find you.' },
+  { icon: 'fa-magnifying-glass-chart', title: 'SEO-grade architecture', description: 'Clean URLs, semantic HTML, schema.org LocalBusiness and Service markup, and automated sitemap submission — all built into your home service website from day one. This is the technical foundation behind a website that ranks on Google for home service businesses in HVAC, plumbing, and electrical markets.' },
+  { icon: 'fa-bullseye',       title: 'Conversion-first design',  description: 'Every page on your contractor website has one clear primary action — call, book, or request a quote. Sticky phone numbers, prominent CTAs, and lead capture forms are strategically placed to convert browsing homeowners into real service bookings.' },
+  { icon: 'fa-shield-halved',  title: 'Secure & compliant',       description: "HTTPS, secure headers, CCPA/state privacy banners, and a modern tech stack that passes any security review. Your home service website is protected from day one — and your customers' data is handled correctly under U.S. privacy law." },
 ];
 
 const stack = [
-  { name: 'Astro',      icon: 'fa-rocket',     desc: 'Content & marketing sites where speed and SEO win.' },
-  { name: 'Next.js',    icon: 'fa-react',      desc: 'Apps and complex sites with dynamic data.' },
-  { name: 'WordPress',  icon: 'fa-wordpress',  desc: 'Familiar editing for in-house marketing teams.' },
-  { name: 'Shopify',    icon: 'fa-bag-shopping', desc: 'E-commerce — Liquid themes or headless.' },
-  { name: 'Webflow',    icon: 'fa-paintbrush', desc: 'Designer-friendly CMS for fast iteration.' },
-  { name: 'HubSpot CMS', icon: 'fa-cubes',     desc: 'When sales + content live in the same place.' },
+  { name: 'Astro',       icon: 'fa-rocket',       desc: 'Ideal for home service marketing websites that prioritize page speed and local SEO rankings — extremely fast load times with minimal overhead.' },
+  { name: 'Next.js',     icon: 'fa-react',        desc: 'Best for multi-location home service companies needing dynamic service-area pages, customer portals, or booking integrations.' },
+  { name: 'WordPress',   icon: 'fa-wordpress',    desc: 'Perfect for home service businesses with an in-house coordinator who needs to update blog posts, seasonal promotions, and service pages without a developer.' },
+  { name: 'Shopify',     icon: 'fa-bag-shopping', desc: 'For home service businesses selling products, maintenance kits, or equipment online alongside their service offerings.' },
+  { name: 'Webflow',     icon: 'fa-paintbrush',   desc: 'Great for contractor companies that need a visually polished website with fast design iteration and no developer dependency for routine updates.' },
+  { name: 'HubSpot CMS', icon: 'fa-cubes',        desc: 'Best for home service companies already using HubSpot CRM — keeps your website, lead tracking, email marketing, and sales pipeline in one connected platform.' },
 ];
 
 const includes = [
-  { icon: 'fa-pen-ruler',         title: 'Custom design system',     description: 'A reusable component library that keeps every future page on-brand.' },
-  { icon: 'fa-code',              title: 'Hand-built code',          description: 'No bloated templates. Production code reviewed for performance and security.' },
-  { icon: 'fa-link',              title: 'Booking & CRM integrations', description: 'ServiceTitan, Housecall Pro, Jobber, HubSpot, Salesforce, Calendly — wired in correctly.' },
+  { icon: 'fa-pen-ruler',         title: 'Custom design system',       description: "A branded component library built around your home service company's colors, fonts, and visual identity — keeping every service page, location page, and seasonal promo consistent." },
+  { icon: 'fa-code',              title: 'Hand-built code',            description: "No page builder bloat or templates. Clean, production-grade code reviewed for speed, security, and search performance — the foundation your home service website's rankings depend on." },
+  { icon: 'fa-link',              title: 'Booking & CRM integrations', description: 'Native integrations with the tools home service companies actually use: ServiceTitan, Housecall Pro, Jobber, HubSpot, Salesforce, and Calendly — configured correctly so booked jobs flow directly into your dispatch system.' },
   { icon: 'fa-pen-to-square',     title: 'Easy CMS editing',         description: 'A friendly editor so your team can update copy and images without a developer.' },
-  { icon: 'fa-image',             title: 'Optimized media pipeline', description: 'Modern formats, responsive images and lazy loading — your site stays fast as it grows.' },
-  { icon: 'fa-chart-line',        title: 'Analytics & tag setup',    description: 'GA4, GTM, conversion events, call tracking and Search Console — all configured before launch.' },
-  { icon: 'fa-cookie-bite',       title: 'Privacy & consent',        description: 'CCPA/CPRA cookie consent, privacy policy review and data flow documentation.' },
-  { icon: 'fa-life-ring',         title: 'Post-launch care',         description: 'Monthly updates, monitoring and security patching to keep the site healthy long after go-live.' },
+  { icon: 'fa-image',             title: 'Optimized media pipeline',   description: 'Next-gen image formats, responsive sizing, and lazy loading keep your contractor website fast as you add new service photos, team headshots, and project galleries — without sacrificing Core Web Vitals scores.' },
+  { icon: 'fa-chart-line',        title: 'Analytics & tag setup',      description: "GA4, Google Tag Manager, call tracking, form conversion events, and Google Search Console — fully configured before your home service website goes live, so you're measuring real leads from day one." },
+  { icon: 'fa-cookie-bite',       title: 'Privacy & consent',          description: 'CCPA/CPRA-compliant cookie consent, privacy policy review, and data flow documentation — keeping your home service business legally protected under U.S. state privacy law.' },
+  { icon: 'fa-life-ring',         title: 'Post-launch care',           description: 'Monthly updates, uptime monitoring, and security patching — so your home service website keeps performing long after launch, without you worrying about it.' },
 ];
 
 const process = [
-  { n: '01', title: 'Discover',  desc: 'Goals, audience, competitor & analytics review. We define what success looks like before we design anything.', icon: 'fa-compass' },
-  { n: '02', title: 'Architect', desc: 'Sitemap, content model, technical spec and a clickable wireframe — approved before pixels are pushed.',         icon: 'fa-sitemap' },
-  { n: '03', title: 'Design',    desc: 'A design system and key page mockups in Figma, with a clear feedback loop and 2 revision rounds built in.',     icon: 'fa-pen-ruler' },
-  { n: '04', title: 'Build',     desc: 'Production code, CMS, integrations and content migration — reviewed weekly with you in a staging environment.', icon: 'fa-code' },
-  { n: '05', title: 'QA',        desc: 'Cross-browser, mobile, accessibility and performance testing. Real devices, real users — not just emulators.',  icon: 'fa-vial-circle-check' },
-  { n: '06', title: 'Launch',    desc: 'Zero-downtime cutover, redirect map, search-console verification and a 30-day stabilization window.',           icon: 'fa-rocket' },
+  { n: '01', title: 'Discover',  desc: 'We review your home service business goals, target service area, competitor websites, and existing analytics. We define what a successful contractor website looks like for your specific trade and market before a single pixel is placed.', icon: 'fa-compass' },
+  { n: '02', title: 'Architect', desc: 'We map out your sitemap — service pages, locally targeted location pages, blog structure, and conversion paths. A clickable wireframe is approved before design begins, so there are no surprises mid-project.', icon: 'fa-sitemap' },
+  { n: '03', title: 'Design',    desc: 'We create a custom design system and key page mockups in Figma that reflect your home service brand — colors, photography, trust signals, and local identity. Two structured revision rounds are built in so you get exactly what you envisioned.', icon: 'fa-pen-ruler' },
+  { n: '04', title: 'Build',     desc: 'We write production code, configure your CMS, wire in your booking and CRM integrations (ServiceTitan, Housecall Pro, Jobber, etc.), and migrate existing content — all reviewed in a weekly staging environment before anything goes live.', icon: 'fa-code' },
+  { n: '05', title: 'QA',        desc: 'Every home service website we ship is tested across browsers, real mobile devices, and screen readers — not just emulators. We check Core Web Vitals, ADA accessibility, form submissions, and call-tracking integrations before anything touches your live domain.', icon: 'fa-vial-circle-check' },
+  { n: '06', title: 'Launch',    desc: 'Zero-downtime cutover, a full redirect map to protect your existing SEO rankings, Google Search Console verification, and a 30-day stabilization window. Your home service business stays visible in local search throughout the transition.', icon: 'fa-rocket' },
 ];
 
 const plans = [
@@ -120,57 +121,102 @@ const plans = [
 
 const faqs = [
   { q: 'How long does a website take to build?',
-    a: 'Launchpad sites typically go live in 4–6 weeks, Growth Sites in 8–12 weeks, and custom builds in 12–20 weeks depending on scope. We share a week-by-week schedule on day one.' },
+    a: 'For home service businesses, our starter sites go live in 4–6 weeks, standard contractor sites in 8–12 weeks, and fully custom builds in 12–20 weeks. We share a week-by-week project schedule on kickoff day — no guessing, no surprises.' },
   { q: 'Do I own the website and the code?',
-    a: 'Yes. You own the design, the code, the CMS account and the domain. There is no proprietary lock-in — if you ever leave, the site comes with you.' },
+    a: 'Yes — always. Your home service business owns the design, code, CMS account, and domain. There is no proprietary lock-in. If you ever leave Print Fast, your entire website comes with you, including all files and login credentials.' },
   { q: 'Will the site be ADA accessible?',
-    a: 'Every site we ship targets WCAG 2.2 AA. We test with axe DevTools and a manual checklist covering keyboard, screen reader and color-contrast issues — important protection given the rise in U.S. ADA web lawsuits.' },
+    a: 'Yes. Every ADA compliant website for contractors we build targets WCAG 2.2 AA compliance — tested with axe DevTools and a manual checklist covering keyboard navigation, screen reader compatibility, and color contrast. This is critical protection for home service companies given the sharp rise in U.S. ADA web lawsuits.' },
   { q: 'Can you redesign without losing my SEO?',
-    a: 'Yes. Every redesign includes a content inventory, ranked-keyword preservation, a redirect map, structured data and Search Console submission. Most clients see organic traffic recover or improve within 60 days of launch.' },
+    a: 'Yes. Every home service website redesign we manage includes a full content inventory, preservation of your ranked local keywords, a complete redirect map, structured data migration, and Google Search Console resubmission. Most HVAC and plumbing clients see organic traffic recover or improve within 60 days of launch.' },
   { q: 'Do you handle hosting?',
-    a: 'We can — on Vercel, Netlify, Cloudflare or your preferred host — or we can set you up on your own account and just deploy to it. You always own the hosting account.' },
+    a: 'Yes. We can host your home service website on Vercel, Netlify, or Cloudflare, or deploy to your own preferred host. Either way, you always own the hosting account — we never hold it for you.' },
+  { q: 'Do you build websites specifically for HVAC, plumbing, and electrical companies?',
+    a: 'Yes. Print Fast specializes in website design for home service contractors — including HVAC website design, plumbing website design, electrician website projects, roofing company website builds, pest control, and landscaping businesses. We understand service-area targeting, seasonal content strategy, and the specific pages (service, location, blog) that help home service websites rank in local Google search.' },
+  { q: 'Will my new website rank on Google for local searches in my service area?',
+    a: 'Every home service website we build includes on-page SEO setup, schema.org markup, locally targeted service area pages, and Google Search Console integration — so your site is positioned to rank from day one. For contractors looking to accelerate results, we also offer dedicated Local SEO services that build authority over time.' },
 ];
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  '@id': `${SITE.url}/website-creation/#service`,
+  name: 'Website Design for Home Service Companies',
+  serviceType: 'Contractor website design and home service web design',
+  description: 'Fast-loading, ADA-compliant, lead-generating website design for HVAC, plumbing, electrical, roofing and home service contractors across the U.S.',
+  provider: { '@id': `${SITE.url}#organization` },
+  areaServed: { '@type': 'Country', name: 'United States' },
+  audience: {
+    '@type': 'Audience',
+    audienceType: 'HVAC, plumbing, electrical, roofing and home service contractors',
+  },
+  offers: [
+    { '@type': 'Offer', name: 'Essentials', price: '1499', priceCurrency: 'USD' },
+    { '@type': 'Offer', name: 'Standard', price: '2999', priceCurrency: 'USD' },
+    { '@type': 'Offer', name: 'Premium', price: '4999', priceCurrency: 'USD' },
+    { '@type': 'Offer', name: 'AI-Enabled', price: '9999', priceCurrency: 'USD' },
+  ],
+};
+
+const localBusinessSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  '@id': `${SITE.url}#localbusiness`,
+  name: SITE.fullName,
+  alternateName: SITE.name,
+  url: SITE.url,
+  logo: new URL(SITE.logo, SITE.url).toString(),
+  image: new URL(SITE.logo, SITE.url).toString(),
+  telephone: SITE.phone,
+  email: SITE.email,
+  priceRange: '$$',
+  openingHours: 'Mo-Fr 08:00-17:00',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: SITE.address.street,
+    addressLocality: SITE.address.city,
+    addressRegion: SITE.address.state,
+    postalCode: SITE.address.zip,
+    addressCountry: 'US',
+  },
+  areaServed: { '@type': 'Country', name: 'United States' },
+  sameAs: Object.values(SITE.social),
+};
 ---
 
 <BaseLayout
-  title="Website Creation & Web Design Services in the USA"
-  description="Custom website design and development for U.S. businesses. Fast, ADA-accessible, SEO-ready websites built on Astro, Next.js, WordPress, Shopify and Webflow."
+  title="Website Design for Home Service Companies | Print Fast"
+  appendSiteName={false}
+  description="Print Fast designs fast-loading, ADA-compliant, lead-generating websites for HVAC, plumbing, electrical, and roofing companies. Built to rank on Google and convert local homeowners. No contracts."
   keywords={[
-    'website creation services',
-    'web design agency USA',
-    'custom website development',
-    'ADA compliant website',
-    'WCAG 2.2 website',
-    'Core Web Vitals website',
-    'small business website design',
-    'home services website',
+    'website design for home service companies',
+    'contractor website design',
+    'home service web design agency',
+    'HVAC website design',
+    'plumbing website design',
+    'electrician website',
+    'roofing company website',
+    'web design for trades',
+    'local SEO website',
+    'ADA compliant website for contractors',
+    'mobile website for HVAC companies',
+    'website that ranks on Google for home service businesses',
   ]}
   breadcrumbs={[
     { name: 'Home', href: '/' },
+    { name: 'Services', href: '/#services' },
     { name: 'Website Creation', href: '/website-creation/' },
   ]}
-  schema={{
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    name: 'Website Creation',
-    serviceType: 'Web Design & Development',
-    provider: { '@type': 'Organization', name: 'Print Fast Digital Marketing' },
-    areaServed: { '@type': 'Country', name: 'United States' },
-    offers: [
-      { '@type': 'Offer', name: 'Launchpad',   price: '3900',  priceCurrency: 'USD' },
-      { '@type': 'Offer', name: 'Growth Site', price: '8900',  priceCurrency: 'USD' },
-      { '@type': 'Offer', name: 'Custom Build', price: '25000', priceCurrency: 'USD' },
-    ],
-  }}
+  schema={[serviceSchema, localBusinessSchema]}
 >
   <Hero
     variant="service"
     eyebrow="Website Creation"
-    title="Websites that"
-    highlight="load fast, rank well and convert."
-    description="Custom-designed, hand-built websites for U.S. businesses — ADA-ready, SEO-grade and engineered for Core Web Vitals from the first commit."
-    primaryCta={{ label: 'Get a quote', href: '/contact-us/' }}
+    title="Website Design for Home Service Companies That"
+    highlight="Loads Fast, Ranks, and Converts."
+    description="PrintFast builds custom websites for HVAC companies, plumbers, electricians, roofers, and home service contractors across the U.S. As a home service web design agency, our contractor website design process creates ADA-compliant, locally optimized sites engineered for Core Web Vitals — so they rank on Google and turn visitors into booked service calls."
+    primaryCta={{ label: 'Get a Website Design Proposal', href: '/contact-us/' }}
     secondaryCta={{ label: 'See pricing', href: '#pricing' }}
+    trustItems={['No long-term contracts', 'Built for HVAC, Plumbing & Home Services', 'Free website strategy call']}
   />
 
   <!-- Principles -->
@@ -178,8 +224,8 @@ const faqs = [
     <div class="container-pf">
       <SectionHeading
         eyebrow="What you can expect"
-        title="Six non-negotiables on every site we ship"
-        description="The fundamentals are not upsells. They are how we build."
+        title="Six Things Every Home Service Website We Build Includes — Without Exception"
+        description="We build every home service contractor website to the same uncompromising standard. Whether you're a solo plumber or a multi-location HVAC franchise, these are not add-ons. They are our baseline."
       />
       <div class="mt-14">
         <FeatureGrid items={principles} columns={3} />
@@ -192,8 +238,8 @@ const faqs = [
     <div class="container-pf">
       <SectionHeading
         eyebrow="Tech we work in"
-        title="The right tool for the job"
-        description="We pick the stack to match your team and goals — not to lock you in."
+        title="The Right Tech Stack for Your Home Service Website — We Match It to Your Goals"
+        description="Not every home service business needs the same platform. We recommend the right technology based on your team size, update frequency, CRM, and long-term growth goals — never to lock you in. You own everything."
       />
       <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {stack.map((s) => (
@@ -216,8 +262,8 @@ const faqs = [
     <div class="container-pf">
       <SectionHeading
         eyebrow="What's included"
-        title="A site that earns its keep — long after launch"
-        description="Every package ships with the integrations, analytics and accessibility work that most agencies leave for later."
+        title="Everything Included in Your Home Service Website — Long After Launch"
+        description="Every contractor website design package we deliver includes the integrations, analytics, accessibility, and post-launch care that most web agencies bill as expensive add-ons — or forget entirely. As a home service web design agency, this is our standard."
       />
       <div class="mt-14">
         <FeatureGrid items={includes} columns={4} />
@@ -230,8 +276,8 @@ const faqs = [
     <div class="container-pf">
       <SectionHeading
         eyebrow="Our process"
-        title="From kickoff to go-live in 6 phases"
-        description="A clear, weekly cadence — with you in every step."
+        title="How We Build Your Home Service Website — 6 Clear Phases, Zero Surprises"
+        description="We've refined our web design process specifically for home service companies — HVAC website design, plumbing website design, electrician website builds, and roofing businesses that need a site live fast, built correctly, and ranking locally. Weekly check-ins, clear milestones, and you in every decision."
       />
       <ol class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {process.map((p) => (
@@ -267,7 +313,7 @@ const faqs = [
   <!-- FAQs -->
   <section class="section bg-ink-50/60">
     <div class="container-pf max-w-4xl">
-      <SectionHeading eyebrow="FAQs" title="Common questions" />
+      <SectionHeading eyebrow="FAQs" title="Common Questions from Home Service Contractors About Our Website Design Service" />
       <div class="mt-10 space-y-3">
         {faqs.map((f) => (
           <details class="group card p-6 transition-colors hover:ring-brand-200">
@@ -282,20 +328,23 @@ const faqs = [
     </div>
   </section>
 
-  <Testimonials />
+  <Testimonials
+    title="What Home Service Contractors Say About Their Print Fast Website"
+    description="Real results from HVAC companies, plumbers, electricians, roofing company website clients, and home service contractors who trust Print Fast for web design for trades."
+  />
 
   <ClientLogos
     eyebrow="Selected work"
-    title="Brands we've built websites for"
-    description="A small selection from hundreds of U.S. home-service brands we serve."
+    title="Home service brands we've built websites for"
+    description="A small selection from HVAC, plumbing, electrical, roofing and contractor brands we serve."
     background="muted"
   />
 
   <CTA
-    eyebrow="Ready to ship a better site?"
-    title="Let's design a website that works as hard as you do."
-    description="Send a few details about your project and we'll come back with a tailored proposal and timeline within one business day."
-    primaryCta={{ label: 'Get a quote', href: '/contact-us/' }}
+    eyebrow="Website Design for Home Service Companies"
+    title="Let's Build a Roofing Company Website, Electrician Website, or Contractor Site That Ranks."
+    description="Send a few details about your trade, service area and current site. We'll come back with a tailored local SEO website proposal for web design for trades and a timeline within one business day."
+    primaryCta={{ label: 'Get a Website Design Proposal', href: '/contact-us/' }}
     secondaryCta={{ label: 'Talk to a strategist', href: '#contact' }}
   />
 

@@ -13,6 +13,7 @@ export interface FAQItem {
 
 export interface Props {
   title?: string;
+  appendSiteName?: boolean;
   description?: string;
   canonical?: string;
   ogImage?: string;
@@ -29,6 +30,7 @@ export interface Props {
 
 const {
   title,
+  appendSiteName = true,
   description = SITE.description,
   canonical,
   ogImage = SITE.defaultOgImage,
@@ -43,7 +45,7 @@ const {
   schema,
 } = Astro.props;
 
-const fullTitle = title ? `${title} · ${SITE.fullName}` : `${SITE.fullName} — ${SITE.tagline}`;
+const fullTitle = title ? (appendSiteName ? `${title} · ${SITE.fullName}` : title) : `${SITE.fullName} — ${SITE.tagline}`;
 const url = canonical ?? new URL(Astro.url.pathname, SITE.url).toString();
 const absoluteOg = ogImage.startsWith('http') ? ogImage : new URL(ogImage, SITE.url).toString();
 

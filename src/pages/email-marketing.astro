@@ -8,42 +8,43 @@ import Testimonials from '@components/Testimonials.astro';
 import CTA from '@components/CTA.astro';
 import ContactForm from '@components/ContactForm.astro';
 import ClientLogos from '@components/ClientLogos.astro';
+import { SITE } from '@data/site';
 
 const capabilities = [
-  { icon: 'fa-route',           title: 'Lifecycle automations',     description: 'Welcome series, post-purchase / post-job, win-back, abandoned cart and seasonal tune-up reminders.' },
-  { icon: 'fa-newspaper',       title: 'Branded newsletters',       description: 'Weekly or monthly newsletters with a content calendar that mirrors your real promotions and seasonality.' },
-  { icon: 'fa-list-check',      title: 'Segmentation & RFM',        description: 'Recency-frequency-monetary cohorts so the right offer hits the right customer at the right moment.' },
-  { icon: 'fa-flask-vial',      title: 'A/B & multivariate testing', description: 'Subject lines, preview text, send times, creative and offers — tested with statistical confidence, not gut feel.' },
-  { icon: 'fa-shield-check',    title: 'Deliverability engineering', description: 'SPF, DKIM, DMARC, BIMI, list hygiene and warm-up — the work that keeps you out of the Promotions tab and spam folder.' },
-  { icon: 'fa-handshake-angle', title: 'CAN-SPAM & CASL compliance', description: 'Clear opt-out, accurate sender info, U.S. physical address and consent records — handled correctly from day one.' },
-  { icon: 'fa-chart-line',      title: 'Revenue attribution',       description: 'Tie every send to revenue with first- and last-touch attribution, GA4 events and CRM sync.' },
+  { icon: 'fa-route',           title: 'Lifecycle automations',      description: 'Welcome series, post-job follow-up, win-back, quote recovery and seasonal tune-up reminders — built for HVAC, plumbing and home improvement service cycles.' },
+  { icon: 'fa-newspaper',       title: 'Branded newsletters',        description: 'Weekly or monthly contractor newsletters — with a content calendar aligned to your seasonal demand, real promotions and local service area.' },
+  { icon: 'fa-list-check',      title: 'Segmentation & RFM',         description: 'Recency-frequency-monetary cohorts for your home service customer list — so the right seasonal offer reaches the right customer at exactly the right moment.' },
+  { icon: 'fa-flask-vial',      title: 'A/B & multivariate testing', description: 'Subject lines, preview text, send times, creative and offers — tested against real homeowner response data, not gut feel.' },
+  { icon: 'fa-shield-check',    title: 'Deliverability engineering', description: 'SPF, DKIM, DMARC, BIMI, list hygiene and domain warm-up — the email deliverability engineering that keeps your contractor emails out of the spam folder and in front of homeowners.' },
+  { icon: 'fa-handshake-angle', title: 'CAN-SPAM & CASL compliance', description: 'Clear opt-out, accurate sender info, U.S. physical address and consent records — CAN-SPAM and CASL compliance handled correctly for your home service business from day one.' },
+  { icon: 'fa-chart-line',      title: 'Revenue attribution',        description: 'Tie every email send to booked jobs and revenue with first- and last-touch attribution, GA4 events and CRM sync — so you know exactly which campaigns are driving calls.' },
 ];
 
 const platforms = [
-  { name: 'Klaviyo',         icon: 'fa-bolt' },
-  { name: 'Mailchimp',       icon: 'fa-envelope' },
-  { name: 'HubSpot',         icon: 'fa-cubes' },
-  { name: 'ActiveCampaign',  icon: 'fa-circle-nodes' },
-  { name: 'Constant Contact', icon: 'fa-envelopes-bulk' },
-  { name: 'Customer.io',     icon: 'fa-user-gear' },
-  { name: 'Salesforce MC',   icon: 'fa-cloud' },
-  { name: 'ServiceTitan',    icon: 'fa-screwdriver-wrench' },
+  { name: 'Klaviyo',          icon: 'fa-bolt',                 description: 'Best-in-class lifecycle automations and segmentation for home service e-commerce and recurring service businesses.' },
+  { name: 'Mailchimp',        icon: 'fa-envelope',             description: 'Simple, reliable sending for home service businesses that want straightforward newsletter management without complexity.' },
+  { name: 'HubSpot',          icon: 'fa-cubes',                description: 'Ideal for home service companies that want email, CRM and sales pipeline in one platform.' },
+  { name: 'ActiveCampaign',   icon: 'fa-circle-nodes',         description: 'Flexible automations, tagging and lead nurturing for growing home service lists.' },
+  { name: 'Constant Contact', icon: 'fa-envelopes-bulk',       description: 'Straightforward seasonal campaigns and newsletters for contractors who need dependable sending.' },
+  { name: 'Customer.io',      icon: 'fa-user-gear',            description: 'Behavior-triggered journeys for high-volume customer databases and advanced lifecycle teams.' },
+  { name: 'Salesforce MC',    icon: 'fa-cloud',                description: 'Enterprise-grade email operations for multi-location home service and franchise teams.' },
+  { name: 'ServiceTitan',     icon: 'fa-screwdriver-wrench',   description: 'The leading FSM platform for HVAC, plumbing and electrical contractors — we sync your job data directly into your email automation flows.' },
 ];
 
 const stats = [
-  { stat: '$36',  label: 'returned per $1 spent on email (DMA)' },
-  { stat: '4.2%', label: 'average click-to-open rate across U.S. SMBs' },
-  { stat: '60%',  label: 'of consumers prefer email for promos & offers' },
-  { stat: '99%',  label: 'of email users check their inbox every day' },
+  { stat: '$36',  label: 'returned for every $1 spent — email delivers the highest ROI of any digital channel for home service companies (DMA, 2025)' },
+  { stat: '4.2%', label: 'average click-to-open rate — Print Fast home service email programs consistently outperform U.S. SMB benchmarks' },
+  { stat: '60%',  label: 'of homeowners prefer email for seasonal promotions, service reminders and contractor offers (Salesforce State of the Connected Customer)' },
+  { stat: '99%',  label: 'of email users check their inbox daily — making email the most reliable channel to reach homeowners between service calls' },
 ];
 
 const flows = [
-  { icon: 'fa-hand-wave',          title: 'Welcome series',        desc: '3–5 emails over 10 days that introduce your brand, set expectations and convert first-time buyers.' },
-  { icon: 'fa-rotate-right',       title: 'Post-job follow-up',    desc: 'Thank-you, review request and warranty info — automated 24, 48 hours and 30 days after service.' },
-  { icon: 'fa-snowflake',          title: 'Seasonal tune-up',      desc: 'Heating-season, cooling-season and storm-prep reminders timed to your service area.' },
-  { icon: 'fa-cart-shopping',      title: 'Quote / cart recovery', desc: 'Bring back people who got a quote or started checkout but never finished.' },
-  { icon: 'fa-arrows-rotate',      title: 'Win-back & re-engagement', desc: 'Re-activate dormant subscribers with offer ladders before suppression.' },
-  { icon: 'fa-cake-candles',       title: 'Loyalty & milestones',  desc: 'Birthday, anniversary and VIP tiers that quietly drive repeat revenue.' },
+  { icon: 'fa-hand-wave',          title: 'Welcome series',             desc: '3–5 emails over 10 days that introduce your home service brand, set expectations and convert first-time homeowner inquiries into booked service calls.' },
+  { icon: 'fa-rotate-right',       title: 'Post-job follow-up',         desc: 'Automated post-job follow-up email for contractors — thank-you note, review request and warranty info triggered 24, 48 hours and 30 days after every completed service call.' },
+  { icon: 'fa-snowflake',          title: 'Seasonal tune-up',           desc: 'Seasonal email marketing for HVAC and plumbing contractors — heating-season, cooling-season and storm-prep reminders timed precisely to your service area and local climate.' },
+  { icon: 'fa-cart-shopping',      title: 'Quote / cart recovery',      desc: 'Re-engage homeowners who requested a quote from your home service business but never booked — automated recovery sequences that bring them back before they call a competitor.' },
+  { icon: 'fa-arrows-rotate',      title: 'Win-back & re-engagement',   desc: 'Win-back email campaigns for HVAC, plumbing and home service companies — re-activate dormant customers with escalating offer ladders before list suppression removes them permanently.' },
+  { icon: 'fa-cake-candles',       title: 'Loyalty & milestones',       desc: 'Customer retention email marketing for contractors — birthday, anniversary and VIP tier milestones that quietly keep your home service brand top of mind and drive repeat bookings year-round.' },
 ];
 
 const plans = [
@@ -94,54 +95,98 @@ const plans = [
 
 const faqs = [
   { q: 'Which email platform do you recommend?',
-    a: 'It depends on your business. We work most often with Klaviyo (best for e-commerce and lifecycle), HubSpot (best for sales-led B2B) and Mailchimp/Constant Contact (best for simple newsletters). We will recommend the right tool, not the most expensive one.' },
+    a: 'It depends on your home service business. For HVAC and plumbing companies running lifecycle automations, we most often recommend Klaviyo. For home service businesses with active sales pipelines, HubSpot. For simple newsletters and seasonal campaigns, Mailchimp or Constant Contact. We recommend the right tool for your trade — not the most expensive one.' },
   { q: 'Will my emails actually reach the inbox?',
-    a: 'Deliverability is treated as a discipline here. We configure SPF, DKIM and DMARC, set up BIMI where eligible, warm new domains correctly and run continuous list hygiene. Most clients see inbox placement above 95% within 60 days.' },
+    a: 'Email deliverability for contractors is one of our core disciplines. We configure SPF, DKIM and DMARC, set up BIMI where eligible, warm new domains correctly and run continuous list hygiene on your home service customer database. Most clients see inbox placement above 95% within 60 days of onboarding.' },
   { q: 'Do you write the copy and design the emails?',
-    a: 'Yes. Our team writes every send, designs every template and produces every image — all reviewed and approved by you before it goes out.' },
+    a: 'Yes — completely. Our team writes every home service email campaign, designs every branded template and produces every image. All copy and creative is reviewed and approved by you before it goes out. You never have to write a single word.' },
   { q: 'Who owns the list and the data?',
-    a: 'You do. Lists, segments, templates and historical data live in your account and are exported to you on request, any time.' },
+    a: 'You do — 100%. Your home service customer list, segments, templates and historical campaign data live in your ESP account and can be exported to you on request, any time. No lock-in.' },
+  { q: 'How quickly can email drive results for my home service business?',
+    a: 'Most home service clients see measurable results — improved open rates, click-throughs and booked jobs attributed to email — within the first 60 days. Win-back flows in particular often generate revenue within the first 30 days by re-activating dormant customers already in your existing list.' },
 ];
+
+const faqSchemaItems = faqs.map((faq) => ({ question: faq.q, answer: faq.a }));
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  '@id': `${SITE.url}/email-marketing/#service`,
+  name: 'Email Marketing for Home Service Companies',
+  serviceType: 'Email Marketing',
+  description: 'Done-for-you email marketing for HVAC, plumbing and home service contractors, including automations, newsletters, deliverability, segmentation and revenue attribution.',
+  provider: { '@id': `${SITE.url}#organization` },
+  areaServed: { '@type': 'Country', name: 'United States' },
+  audience: {
+    '@type': 'Audience',
+    audienceType: 'HVAC, plumbing, electrical, roofing and home service contractors',
+  },
+  offers: [
+    { '@type': 'Offer', name: 'Foundations', price: '749',  priceCurrency: 'USD' },
+    { '@type': 'Offer', name: 'Growth',      price: '1499', priceCurrency: 'USD' },
+    { '@type': 'Offer', name: 'Lifecycle',   price: '2899', priceCurrency: 'USD' },
+  ],
+};
+
+const localBusinessSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  '@id': `${SITE.url}#localbusiness`,
+  name: SITE.fullName,
+  alternateName: SITE.name,
+  url: SITE.url,
+  logo: new URL(SITE.logo, SITE.url).toString(),
+  image: new URL(SITE.logo, SITE.url).toString(),
+  telephone: SITE.phone,
+  email: SITE.email,
+  priceRange: '$$',
+  openingHours: 'Mo-Fr 08:00-17:00',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: SITE.address.street,
+    addressLocality: SITE.address.city,
+    addressRegion: SITE.address.state,
+    postalCode: SITE.address.zip,
+    addressCountry: 'US',
+  },
+  areaServed: { '@type': 'Country', name: 'United States' },
+  sameAs: Object.values(SITE.social),
+};
 ---
 
 <BaseLayout
-  title="Email Marketing Services in the USA"
-  description="Email marketing services for U.S. businesses — lifecycle automations, newsletters and revenue attribution. CAN-SPAM compliant."
+  title="Email Marketing for Home Service Companies | Print Fast"
+  appendSiteName={false}
+  description="Done-for-you email marketing for HVAC, plumbing & home service contractors. Automations, newsletters & deliverability managed by trade specialists."
   keywords={[
-    'email marketing services',
-    'email marketing agency USA',
-    'lifecycle email marketing',
-    'Klaviyo agency',
-    'Mailchimp services',
-    'newsletter design and management',
-    'CAN-SPAM compliance',
+    'email marketing for home service companies',
+    'done-for-you email marketing for home service companies',
+    'home service email marketing',
+    'email marketing for HVAC contractors',
+    'email marketing for plumbing contractors',
+    'contractor newsletters',
+    'post-job follow-up email for contractors',
+    'seasonal email marketing for HVAC and plumbing contractors',
+    'email deliverability for contractors',
+    'customer retention email marketing for contractors',
   ]}
   breadcrumbs={[
     { name: 'Home', href: '/' },
+    { name: 'Services', href: '/#services' },
     { name: 'Email Marketing', href: '/email-marketing/' },
   ]}
-  schema={{
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    name: 'Email Marketing',
-    serviceType: 'Email Marketing',
-    provider: { '@type': 'Organization', name: 'Print Fast Digital Marketing' },
-    areaServed: { '@type': 'Country', name: 'United States' },
-    offers: [
-      { '@type': 'Offer', name: 'Foundations', price: '749',  priceCurrency: 'USD' },
-      { '@type': 'Offer', name: 'Growth',      price: '1499', priceCurrency: 'USD' },
-      { '@type': 'Offer', name: 'Lifecycle',   price: '2899', priceCurrency: 'USD' },
-    ],
-  }}
+  faqs={faqSchemaItems}
+  schema={[serviceSchema, localBusinessSchema]}
 >
   <Hero
     variant="service"
     eyebrow="Email Marketing"
-    title="Email that"
-    highlight="quietly compound revenue."
-    description="Done-for-you email programs — strategy, copy, design, automations and deliverability — engineered to become a top-three revenue channel for U.S. brands."
-    primaryCta={{ label: 'Request a proposal', href: '/contact-us/' }}
+    title="Email Marketing for Home Service Companies That"
+    highlight="Drives Repeat Revenue"
+    description="Done-for-you email marketing for home service companies — strategy, copy, design, automations and deliverability — engineered to quietly compound revenue and become a top-three channel for HVAC, plumbing, electrical and home improvement businesses across the U.S."
+    primaryCta={{ label: 'Request an Email Marketing Proposal', href: '/contact-us/' }}
     secondaryCta={{ label: 'See pricing', href: '#pricing' }}
+    trustItems={['No long-term contracts', 'Specialists in Home Service Email Marketing', 'Free strategy call for contractors']}
   />
 
   <!-- Stats -->
@@ -163,8 +208,8 @@ const faqs = [
     <div class="container-pf">
       <SectionHeading
         eyebrow="What's included"
-        title="A complete email program"
-        description="Strategy, creative, automations and deliverability — managed by senior operators, not a junior account team."
+        title="A Complete Home Service Email Marketing Program — Strategy to Deliverability, Fully Managed"
+        description="Every home service email marketing package includes strategy, creative, automations and deliverability — managed by senior operators who understand the trades, not a junior account team."
       />
       <div class="mt-14">
         <FeatureGrid items={capabilities} columns={4} />
@@ -177,8 +222,8 @@ const faqs = [
     <div class="container-pf">
       <SectionHeading
         eyebrow="The automations we build"
-        title="Six flows that pay for the program"
-        description="These are the core lifecycle journeys we deploy on every account, then customize to your offer and seasonality."
+        title="Six Email Automation Flows Built for Home Service Businesses"
+        description="These are the six core email automation flows we build for every home service contractor — then customize to your trade, service area and seasonal demand patterns."
       />
       <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {flows.map((f) => (
@@ -199,19 +244,38 @@ const faqs = [
     <div class="container-pf">
       <SectionHeading
         eyebrow="Platforms we work in"
-        title="Bring your stack — or let us recommend it"
-        description="We are platform-agnostic and certified across the major U.S. ESPs and CRMs."
+        title="Email Platforms We Use for Home Service Contractors — Bring Your Stack or Let Us Recommend One"
+        description="We are platform-agnostic and certified across the major U.S. ESPs and CRMs used by home service businesses — from Klaviyo to ServiceTitan."
       />
-      <ul class="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <ul class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {platforms.map((p) => (
-          <li class="flex flex-col items-center justify-center gap-3 rounded-2xl bg-white p-5 ring-1 ring-ink-100 hover:ring-brand-300 transition-all">
+          <li class="flex flex-col items-center justify-start gap-3 rounded-2xl bg-white p-5 text-center ring-1 ring-ink-100 hover:ring-brand-300 transition-all">
             <span class="grid h-12 w-12 place-items-center rounded-full bg-brand-50 text-brand-600 text-lg">
               <i class:list={['fa-solid', p.icon]}></i>
             </span>
             <span class="text-sm font-semibold text-ink-800 text-center">{p.name}</span>
+            <p class="text-xs leading-relaxed text-ink-500">{p.description}</p>
           </li>
         ))}
       </ul>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf max-w-4xl">
+      <SectionHeading eyebrow="FAQs" title="Common Questions About Our Home Service Email Marketing Services" />
+      <div class="mt-10 space-y-3">
+        {faqs.map((f) => (
+          <details class="group card p-6 transition-colors hover:ring-brand-200">
+            <summary class="flex cursor-pointer items-center justify-between gap-4 list-none">
+              <span class="font-semibold text-ink-900">{f.q}</span>
+              <i class="fa-solid fa-plus text-ink-400 group-open:rotate-45 transition-transform"></i>
+            </summary>
+            <p class="mt-4 text-ink-600 leading-relaxed">{f.a}</p>
+          </details>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -232,38 +296,20 @@ const faqs = [
     </div>
   </section>
 
-  <!-- FAQ -->
-  <section class="section bg-ink-50/60">
-    <div class="container-pf max-w-4xl">
-      <SectionHeading eyebrow="FAQs" title="Common questions" />
-      <div class="mt-10 space-y-3">
-        {faqs.map((f) => (
-          <details class="group card p-6 transition-colors hover:ring-brand-200">
-            <summary class="flex cursor-pointer items-center justify-between gap-4 list-none">
-              <span class="font-semibold text-ink-900">{f.q}</span>
-              <i class="fa-solid fa-plus text-ink-400 group-open:rotate-45 transition-transform"></i>
-            </summary>
-            <p class="mt-4 text-ink-600 leading-relaxed">{f.a}</p>
-          </details>
-        ))}
-      </div>
-    </div>
-  </section>
-
   <Testimonials />
 
   <ClientLogos
     eyebrow="Trusted partners"
     title="Email programs we've built"
-    description="A snapshot of the U.S. brands sending with Print Fast."
+    description="A snapshot of the U.S. home service brands sending with Print Fast."
     background="muted"
   />
 
   <CTA
-    eyebrow="Ready to send better email?"
-    title="Let's make email a top revenue channel."
-    description="Tell us about your list and goals — we'll send a 90-day plan and ROI projection within one business day."
-    primaryCta={{ label: 'Request a proposal', href: '/contact-us/' }}
+    eyebrow="Home Service Email Marketing"
+    title="Let's Make Email a Top Revenue Channel for Your Home Service Business."
+    description="Tell us about your list, ESP and service area — we'll send a 90-day home service email marketing plan and ROI projection within one business day."
+    primaryCta={{ label: 'Request an Email Marketing Proposal', href: '/contact-us/' }}
     secondaryCta={{ label: 'Talk to a strategist', href: '#contact' }}
   />
 

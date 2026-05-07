@@ -141,7 +141,7 @@ export const FOOTER_SERVICES: NavLink[] = [
   { label: 'Social Media Marketing', href: '/social-media-marketing/' },
   { label: 'Email Marketing', href: '/email-marketing/' },
   { label: 'Website Creation', href: '/website-creation/' },
-  { label: 'Search Engine Optimization', href: '/search-engine-optimization/' },
+  { label: 'SEO for Home Service Companies', href: '/search-engine-optimization/' },
   { label: 'Pay-Per-Click Advertising', href: '/pay-per-click-advertising/' },
 ];
 
@@ -261,8 +261,8 @@ export const TESTIMONIALS = [
 ];
 
 export const STATS = [
-  { value: '35+', label: 'Serving home service providers' },
-  { value: '500+', label: 'Home-service brands grown' },
-  { value: '4.9/5', label: 'Average client rating' },
+  { value: '35+', label: 'Years in home service marketing' },
+  { value: '2000+', label: 'Home service brands' },
+  { value: '4.3/5', label: 'Average client rating' },
   { value: '12M+', label: 'Leads generated for clients' },
 ];

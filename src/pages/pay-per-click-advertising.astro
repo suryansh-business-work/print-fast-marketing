@@ -8,41 +8,42 @@ import Testimonials from '@components/Testimonials.astro';
 import CTA from '@components/CTA.astro';
 import ContactForm from '@components/ContactForm.astro';
 import ClientLogos from '@components/ClientLogos.astro';
+import { SITE } from '@data/site';
 
 const channels = [
-  { icon: 'fa-google',          title: 'Google Ads — Search',        description: 'High-intent text ads on the queries that actually book jobs and revenue. Single-keyword ad groups, negatives that work and bid strategies tied to lead value.' },
-  { icon: 'fa-shop',            title: 'Google Local Services Ads',  description: 'Pay-per-lead, Google-Guaranteed badge, license & insurance verification, and dispute management — built for U.S. service-area businesses.' },
-  { icon: 'fa-bullseye',        title: 'Performance Max & Demand Gen', description: 'AI-driven Google campaigns with our manual guardrails: brand exclusions, asset groups by intent, and signal-rich audiences.' },
-  { icon: 'fa-meta',            title: 'Meta Ads (Facebook & Instagram)', description: 'Conversion-API-powered campaigns, creative testing frameworks and audience-by-zip targeting.' },
-  { icon: 'fa-youtube',         title: 'YouTube Ads',                description: 'Skippable, bumper and Shorts campaigns engineered to drive both reach and direct response.' },
-  { icon: 'fa-microsoft',       title: 'Microsoft (Bing) Ads',       description: 'Often 30–50% cheaper CPCs than Google for the same intent. We import, restructure and optimize.' },
-  { icon: 'fa-tiktok',          title: 'TikTok Ads',                 description: 'Spark Ads, lead-gen forms and creative-led campaigns for the fastest-growing local-discovery channel.' },
-  { icon: 'fa-list',            title: 'LinkedIn & B2B',             description: 'Account-based targeting, lead-gen forms and CRM integration for commercial / B2B service businesses.' },
+  { icon: 'fa-google',          title: 'Google Ads — Search',        description: 'High-intent Google Ads campaigns targeting the queries that book HVAC tune-ups, emergency plumbing calls and home service jobs. Single-keyword ad groups, exhaustive negative lists and automated bid strategies tied to real cost-per-lead targets.' },
+  { icon: 'fa-shop',            title: 'Google Local Services Ads',  description: "Pay-per-lead campaigns with Google-Guaranteed badge setup, license & insurance verification, and dispute management — engineered for U.S. home service area businesses seeking the top position in Google's local pack." },
+  { icon: 'fa-bullseye',        title: 'Performance Max & Demand Gen', description: 'AI-driven Performance Max campaigns with expert manual guardrails: brand exclusions, intent-segmented asset groups and signal-rich audience lists built from your CRM data — preventing wasted spend common in automated-only setups.' },
+  { icon: 'fa-meta',            title: 'Meta Ads (Facebook & Instagram)', description: 'Conversion-API-powered Meta advertising campaigns with creative testing frameworks, lookalike audiences and zip-code targeting — reaching homeowners in your service area before they hit Google.' },
+  { icon: 'fa-youtube',         title: 'YouTube Ads',                description: 'Skippable, bumper and YouTube Shorts campaigns engineered to build brand awareness among homeowners and drive direct response — remarketing to visitors who researched HVAC or plumbing services.' },
+  { icon: 'fa-microsoft',       title: 'Microsoft (Bing) Ads',       description: 'Bing Ads often deliver 30–50% cheaper cost-per-click than Google for the same contractor search intent — especially among homeowners 35+. We import, restructure and actively optimize for this underutilized channel.' },
+  { icon: 'fa-tiktok',          title: 'TikTok Ads',                 description: 'Spark Ads, native lead-gen forms and creative-led video campaigns that put your home service brand in front of local homeowners on the fastest-growing local discovery platform.' },
+  { icon: 'fa-list',            title: 'LinkedIn & B2B',             description: 'Account-based LinkedIn advertising, lead-gen form campaigns and CRM integration for commercial HVAC, roofing and facility-maintenance contractors targeting property managers, HOAs and commercial decision-makers.' },
 ];
 
 const stats = [
-  { stat: '$2',   label: 'average return per $1 spent on Google Search ads' },
-  { stat: '7×',   label: 'higher conversion when calls are properly tracked' },
-  { stat: '4.4×', label: 'lower CPL on properly structured Local Services Ads' },
-  { stat: '<24h', label: 'typical time-to-launch for a new PPC account with us' },
+  { stat: '$2+',  label: 'average return for every $1 spent on Google Search Ads — across home service accounts managed by Print Fast' },
+  { stat: '7×',   label: 'higher conversion rate when call tracking for contractors is fully integrated with Google Ads and CRM' },
+  { stat: '4.4×', label: 'lower cost per lead (CPL) on properly structured Google Local Services Ads (LSA) vs. standard Search alone' },
+  { stat: '<48h', label: 'typical time-to-launch for a new PPC management account — from signed agreement to live campaigns' },
 ];
 
 const whatYouGet = [
-  { icon: 'fa-folder-tree',     title: 'Account architecture',    description: 'Campaigns, ad groups, audiences and naming built for clarity and scale — no spaghetti accounts.' },
-  { icon: 'fa-pen-fancy',       title: 'Creative & copy',          description: 'Headlines, descriptions, RSA assets, image and short-form video creative produced in-house.' },
-  { icon: 'fa-flask',           title: 'Continuous testing',       description: 'Weekly creative, audience and bid experiments — wins scale, losers get cut, every test is logged.' },
-  { icon: 'fa-display',         title: 'Landing-page CRO',         description: 'Dedicated, fast landing pages with form, call and chat tracking. Average lift: 35–80% conversion-rate.' },
-  { icon: 'fa-phone-volume',    title: 'Call tracking & CRM',      description: 'CallRail / WhatConverts setup, call scoring, conversion API and CRM sync (HubSpot, Salesforce, ServiceTitan).' },
-  { icon: 'fa-shield-halved',   title: 'Click-fraud protection',   description: 'Live filtering of bot, competitor and accidental clicks so your budget reaches real prospects.' },
-  { icon: 'fa-chart-line',      title: 'Attribution & reporting',  description: 'GA4, server-side tagging, offline conversion import and a single dashboard tying spend to revenue.' },
-  { icon: 'fa-handshake',       title: 'Transparent fees',         description: 'You own the ad accounts and the data. Ad spend is billed directly by the platforms to your card — never marked up.' },
+  { icon: 'fa-folder-tree',     title: 'Account architecture',    description: 'Google Ads and Meta account architecture built for home service clarity and scale: logical campaign hierarchies, audience segmentation by service line and naming conventions your team can actually read — no spaghetti accounts.' },
+  { icon: 'fa-pen-fancy',       title: 'Creative & copy',          description: 'Responsive Search Ad (RSA) headlines and descriptions, display image creative and short-form video — all produced in-house by our paid-media team. Every asset is tested and optimized for your home service audience.' },
+  { icon: 'fa-flask',           title: 'Continuous testing',       description: 'Weekly creative, audience and bid strategy experiments — every winning variation is scaled, every underperformer is cut, and every test result is logged in your shared optimization log.' },
+  { icon: 'fa-display',         title: 'Landing-page CRO',         description: 'Dedicated, speed-optimized landing pages for each campaign with form submission, phone call and live chat tracking built in. Our clients see an average 35–80% lift in conversion rate after switching from generic website pages.' },
+  { icon: 'fa-phone-volume',    title: 'Call tracking & CRM',      description: 'CallRail or WhatConverts setup with dynamic number insertion, call scoring and recording, Meta Conversion API and CRM sync with HubSpot, Salesforce or ServiceTitan — so every inbound call is tied to the ad that drove it.' },
+  { icon: 'fa-shield-halved',   title: 'Click-fraud protection',   description: 'Live filtering of bot traffic, competitor clicks and accidental clicks via ClickCease or Clickguard — so your home service ad budget reaches real homeowners searching for your services, not wasted impressions.' },
+  { icon: 'fa-chart-line',      title: 'Attribution & reporting',  description: 'GA4 setup with server-side tagging, offline conversion import and a single real-time dashboard tying every dollar of ad spend to revenue — so you always know your true cost per booked job.' },
+  { icon: 'fa-handshake',       title: 'Transparent fees',         description: 'You own every ad account and every data point. Ad spend is billed directly by Google, Meta and Microsoft to your card — never marked up by us. Our management fee is the only cost you pay Print Fast.' },
 ];
 
 const process = [
-  { n: '01', title: 'Audit & forecast', desc: 'A 30-page audit of your current accounts plus a media plan with realistic CPL/CPA forecasts for your market.', icon: 'fa-magnifying-glass-chart' },
-  { n: '02', title: 'Build',            desc: 'Campaigns, conversions, tracking, landing pages and creative — built in your accounts under your ownership.',  icon: 'fa-screwdriver-wrench' },
-  { n: '03', title: 'Launch & learn',   desc: 'Soft launch + structured 14-day learning phase to validate signals and CPL before scaling spend.',              icon: 'fa-rocket' },
-  { n: '04', title: 'Scale',            desc: 'Geo, audience and creative expansion — paired with weekly tests and monthly executive reviews.',                 icon: 'fa-arrow-trend-up' },
+  { n: '01', title: 'Audit & forecast', desc: 'A comprehensive audit of your existing Google Ads, LSA and Meta accounts plus a custom media plan with realistic cost-per-lead (CPL) and cost-per-acquisition (CPA) forecasts for your specific home service market and geography.', icon: 'fa-magnifying-glass-chart' },
+  { n: '02', title: 'Build',            desc: 'Google Ads campaigns, LSA profiles, conversion tracking, call-tracking integration, dedicated landing pages and all ad creative — built inside your owned accounts by our senior paid-media team within 7 business days of kickoff.',  icon: 'fa-screwdriver-wrench' },
+  { n: '03', title: 'Launch & learn',   desc: 'Controlled soft launch followed by a structured 14-day machine-learning phase to validate conversion signals, quality score and CPL benchmarks before scaling your home service ad spend.',              icon: 'fa-rocket' },
+  { n: '04', title: 'Scale',            desc: 'Geographic expansion, audience scaling and creative production — paired with weekly A/B tests and monthly executive performance reviews that tie every PPC dollar to booked home service jobs.',                 icon: 'fa-arrow-trend-up' },
 ];
 
 const plans = [
@@ -93,61 +94,112 @@ const plans = [
 ];
 
 const faqs = [
-  { q: 'What is the minimum ad spend I need?',
-    a: 'For local Google Search and LSAs, we typically recommend at least $1,500–$2,500/mo of ad spend to gather enough data for optimization. Below that, organic and email usually deliver a better ROI.' },
-  { q: 'Do I own the ad accounts?',
-    a: 'Yes. We always build in your Google Ads, Meta Business, Microsoft and TikTok accounts. You retain full admin access and can revoke ours at any time — there is no platform lock-in.' },
-  { q: 'Are ad-spend dollars marked up?',
-    a: 'No. Ad spend is billed by the platforms directly to your card — we never touch the money. Our management fee is the only cost you pay us.' },
-  { q: 'How fast will I see leads?',
-    a: 'Search and LSA campaigns typically generate qualified leads within 7–14 days of launch. Meta and YouTube usually take 3–4 weeks to fully optimize. We share leading indicators every week.' },
-  { q: 'Will you write the ads and design the landing pages?',
-    a: 'Yes. Every plan includes copywriting, creative production and dedicated landing-page design. You approve everything before it goes live.' },
-  { q: 'Do you handle click fraud and bot traffic?',
-    a: 'Yes. We deploy click-fraud protection (such as ClickCease or Clickguard) on every Search and Display account, plus IP and device exclusions for known bad actors.' },
+  { q: 'What is the minimum ad spend for home service PPC advertising?',
+    a: 'For local Google Search Ads and Local Services Ads (LSA), we recommend a minimum of $1,500–$2,500/month of ad spend to gather enough conversion data for meaningful optimization. Below that threshold, home service SEO and email marketing typically deliver a stronger return on investment.',
+    link: { label: 'Review PPC plans', href: '#pricing' } },
+  { q: 'Do I own my Google Ads and Meta ad accounts when working with Print Fast?',
+    a: "Yes — always. We build every campaign inside your Google Ads, Meta Business Manager, Microsoft Advertising and TikTok for Business accounts. You retain full admin access at all times and can revoke our access immediately if needed. There is no platform lock-in and no proprietary account structures you can't take with you.",
+    link: { label: "See what's included", href: '#included' } },
+  { q: 'Does Print Fast mark up ad spend or take a percentage of my Google Ads budget?',
+    a: 'No — never. All ad spend is billed directly by Google, Meta, Microsoft and TikTok to your card. We never handle your ad budget or add a markup. The only payment you make to Print Fast is our transparent monthly PPC management fee.',
+    link: { label: 'Compare pricing', href: '#pricing' } },
+  { q: 'How quickly will I see leads from Google Ads and Local Services Ads?',
+    a: "Google Search Ads and Local Services Ads (LSA) typically generate qualified contractor leads within 7–14 days of campaign launch. Meta Ads and YouTube campaigns generally take 3–4 weeks to fully optimize through the learning phase. We share weekly leading indicators — impressions, calls, CPL — so you're never in the dark.",
+    link: { label: 'View the launch process', href: '#process' } },
+  { q: 'Does Print Fast write the ad copy and design dedicated landing pages for our PPC campaigns?',
+    a: 'Yes. Every PPC management plan includes professional ad copywriting, RSA asset creation, display and video creative production and dedicated landing page design optimized for home service conversions. You review and approve every piece of creative before it goes live — no surprises.',
+    link: { label: "See what's included", href: '#included' } },
+  { q: 'How does Print Fast protect my Google Ads budget from click fraud and bot traffic?',
+    a: 'Yes. We deploy dedicated click-fraud protection software (ClickCease or Clickguard) on every Google Search and Display campaign, combined with ongoing IP exclusion lists, device-level exclusions and placement blacklisting for known bad actors — keeping your home service ad spend working for real homeowners, not bots.',
+    link: { label: "See what's included", href: '#included' } },
 ];
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  '@id': `${SITE.url}/pay-per-click-advertising/#service`,
+  name: 'PPC Advertising for Home Service Contractors',
+  serviceType: 'Pay-per-click management for home services',
+  description: 'Google Ads, Local Services Ads, Meta Ads and Microsoft Ads management for home service contractors with call tracking, click-fraud protection, landing-page CRO and transparent ad spend management.',
+  provider: { '@id': `${SITE.url}#organization` },
+  areaServed: { '@type': 'Country', name: 'United States' },
+  audience: {
+    '@type': 'Audience',
+    audienceType: 'HVAC, plumbing, roofing, electrical and home service contractors',
+  },
+  offers: [
+    { '@type': 'Offer', name: 'Starter PPC', price: '899',  priceCurrency: 'USD' },
+    { '@type': 'Offer', name: 'Growth PPC',  price: '1899', priceCurrency: 'USD' },
+    { '@type': 'Offer', name: 'Scale PPC',   priceSpecification: { '@type': 'PriceSpecification', priceCurrency: 'USD', description: '12% of monthly ad spend' } },
+  ],
+};
+
+const localBusinessSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  '@id': `${SITE.url}#localbusiness`,
+  name: SITE.fullName,
+  alternateName: SITE.name,
+  url: SITE.url,
+  logo: new URL(SITE.logo, SITE.url).toString(),
+  image: new URL(SITE.logo, SITE.url).toString(),
+  telephone: SITE.phone,
+  email: SITE.email,
+  priceRange: '$$',
+  openingHours: 'Mo-Fr 08:00-17:00',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: SITE.address.street,
+    addressLocality: SITE.address.city,
+    addressRegion: SITE.address.state,
+    postalCode: SITE.address.zip,
+    addressCountry: 'US',
+  },
+  areaServed: { '@type': 'Country', name: 'United States' },
+  sameAs: Object.values(SITE.social),
+};
 ---
 
 <BaseLayout
-  title="Pay-Per-Click (PPC) Advertising Services in the USA"
-  description="PPC management for U.S. businesses — Google Ads, Local Services Ads, Microsoft Ads, Meta, YouTube and TikTok. Transparent fees, real call tracking, revenue-grade attribution."
+  title="PPC Advertising for Home Service Contractors | PrintFast"
+  appendSiteName={false}
+  description="Google Ads, LSAs, Meta & Microsoft PPC managed by a senior U.S. team. Click-fraud protection, call tracking and zero ad-spend markup for home service contractors."
   keywords={[
-    'pay-per-click advertising',
-    'PPC management services',
-    'Google Ads agency USA',
-    'Local Services Ads management',
-    'Meta Ads agency',
-    'Microsoft Ads management',
-    'YouTube advertising',
-    'paid search agency',
-    'PPC for small business',
+    'PPC advertising for home services',
+    'Google Ads for contractors',
+    'pay-per-click management for home services',
+    'Google Local Services Ads management',
+    'home service Google Ads agency',
+    'PPC for HVAC contractors',
+    'PPC for plumbers',
+    'Meta Ads for home services',
+    'click fraud protection for contractors',
+    'call tracking for contractors',
+    'local services ads LSA',
+    'ad spend management',
+    'landing page CRO',
+    'Performance Max campaigns',
+    'bid strategy optimization',
+    'Google-Guaranteed badge',
+    'PPC reporting dashboard',
+    'cost per lead CPL for home services',
   ]}
   breadcrumbs={[
     { name: 'Home', href: '/' },
+    { name: 'Services', href: '/#services' },
     { name: 'Pay-Per-Click Advertising', href: '/pay-per-click-advertising/' },
   ]}
-  schema={{
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    name: 'Pay-Per-Click Advertising (PPC)',
-    serviceType: 'Paid Search & Paid Social Management',
-    provider: { '@type': 'Organization', name: 'Print Fast Digital Marketing' },
-    areaServed: { '@type': 'Country', name: 'United States' },
-    offers: [
-      { '@type': 'Offer', name: 'Starter PPC', price: '899',  priceCurrency: 'USD' },
-      { '@type': 'Offer', name: 'Growth PPC',  price: '1899', priceCurrency: 'USD' },
-      { '@type': 'Offer', name: 'Scale PPC',   priceSpecification: { '@type': 'PriceSpecification', priceCurrency: 'USD', description: '12% of monthly ad spend' } },
-    ],
-  }}
+  schema={[serviceSchema, localBusinessSchema]}
 >
   <Hero
     variant="service"
     eyebrow="Pay-Per-Click Advertising (PPC)"
-    title="Paid ads tied to"
+    title="PPC advertising for home services tied to"
     highlight="real lead value — not vanity clicks."
-    description="A senior U.S. paid-media team manages Google, LSA, Meta, Microsoft, YouTube and TikTok in one accountable engagement. You own the accounts, the data and every dollar of spend."
-    primaryCta={{ label: 'Request a PPC proposal', href: '/contact-us/' }}
+    description="Our home service paid-media team manages Google Ads, Local Services Ads (LSAs), Meta ads, and Bing ads for HVAC, plumbing and home service contractors. You own the ad accounts, every data point and every dollar of ad spend — zero markup, zero lock-in."
+    primaryCta={{ label: 'Get My Free PPC Proposal', href: '/contact-us/' }}
     secondaryCta={{ label: 'See pricing', href: '#pricing' }}
+    trustItems={['No long-term contracts', 'Built for HVAC, Plumbing & Home Services', 'Free PPC strategy call']}
   />
 
   <!-- Stats -->
@@ -165,13 +217,16 @@ const faqs = [
   </section>
 
   <!-- Channels -->
-  <section class="section">
+  <section id="channels" class="section">
     <div class="container-pf">
       <SectionHeading
         eyebrow="Channels we manage"
-        title="Every paid channel that drives the phone to ring"
-        description="We manage them as one program — so budget flows to the channel and creative that actually performs this week."
+        title="Paid Advertising Channels We Manage for Home Service Contractors"
+        description="Every PPC channel that drives qualified calls and booked jobs for HVAC, plumbing and home service businesses"
       />
+      <p class="mx-auto mt-6 max-w-3xl text-center text-ink-600 leading-relaxed" data-reveal>
+        We manage Google Ads, LSAs, Meta, Bing, YouTube and TikTok as one unified PPC management program — so your ad spend flows to the channel and creative that generates the lowest cost per lead this week.
+      </p>
       <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {channels.map((c) => (
           <div class="card-hover p-6" data-reveal>
@@ -187,12 +242,12 @@ const faqs = [
   </section>
 
   <!-- What's included -->
-  <section class="section bg-ink-50/60">
+  <section id="included" class="section bg-ink-50/60">
     <div class="container-pf">
       <SectionHeading
         eyebrow="What's included"
-        title="A complete PPC operation, not just campaign launches"
-        description="Strategy, creative, tracking, landing pages, CRO and attribution — all in one engagement."
+        title="A complete PPC management operation — strategy, creative, tracking and attribution — not just campaign launches"
+        description="Every Print Fast PPC management plan includes strategy, ad creative, conversion tracking, dedicated landing pages, CRO and full attribution reporting — all in one accountable engagement for home service contractors."
       />
       <div class="mt-14">
         <FeatureGrid items={whatYouGet} columns={4} />
@@ -201,14 +256,14 @@ const faqs = [
   </section>
 
   <!-- Process -->
-  <section class="section">
+  <section id="process" class="section">
     <div class="container-pf">
       <div class="grid lg:grid-cols-12 gap-10 items-start">
         <div class="lg:col-span-5">
           <p class="eyebrow"><i class="fa-solid fa-bolt text-brand-600"></i> Our process</p>
-          <h2 class="heading-lg mt-4">From kickoff to first qualified lead in under 14 days.</h2>
+          <h2 class="heading-lg mt-4">Our PPC Management Process</h2>
           <p class="lead mt-5">
-            We never &ldquo;set and forget.&rdquo; Every account runs on a documented optimization cadence — and you see it.
+            We never &ldquo;set and forget&rdquo; your Google Ads or LSA campaigns. Every home service PPC account runs on a documented weekly optimization cadence — and you see every change in a shared log.
           </p>
           <a href="/contact-us/" class="btn-primary mt-8">Talk to a paid-media lead</a>
         </div>
@@ -250,7 +305,7 @@ const faqs = [
   <!-- FAQ -->
   <section class="section">
     <div class="container-pf max-w-4xl">
-      <SectionHeading eyebrow="FAQs" title="Common questions" />
+      <SectionHeading eyebrow="FAQs" title="Frequently Asked Questions About PPC Advertising for Home Service Contractors" />
       <div class="mt-10 space-y-3">
         {faqs.map((f) => (
           <details class="group card p-6 transition-colors hover:ring-brand-200">
@@ -259,6 +314,11 @@ const faqs = [
               <i class="fa-solid fa-plus text-ink-400 group-open:rotate-45 transition-transform"></i>
             </summary>
             <p class="mt-4 text-ink-600 leading-relaxed">{f.a}</p>
+            {f.link && (
+              <a href={f.link.href} class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand-700 hover:text-brand-800">
+                {f.link.label} <i class="fa-solid fa-arrow-right text-xs"></i>
+              </a>
+            )}
           </details>
         ))}
       </div>
@@ -275,11 +335,11 @@ const faqs = [
   />
 
   <CTA
-    eyebrow="Ready to stop wasting ad spend?"
-    title="Let's run paid media that pays you back."
-    description="Send us your current spend and goals — we'll respond with a no-nonsense audit and forecast within one business day."
-    primaryCta={{ label: 'Request a PPC proposal', href: '/contact-us/' }}
-    secondaryCta={{ label: 'Talk to a strategist', href: '#contact' }}
+    eyebrow="Ready to Stop Wasting Ad Spend?"
+    title="Let's Run PPC That Actually Pays You Back."
+    description="Send us your current Google Ads or Meta ad spend and goals — our home service PPC team will respond with a no-nonsense PPC audit and cost-per-lead forecast within one business day. No contracts required to get started."
+    primaryCta={{ label: 'Get My Free PPC Proposal', href: '/contact-us/' }}
+    secondaryCta={{ label: 'Talk to a Paid-Media Strategist', href: '#contact' }}
   />
 
   <section id="contact" class="section">
