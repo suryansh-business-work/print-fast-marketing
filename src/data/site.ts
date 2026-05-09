@@ -21,15 +21,15 @@ export interface ServiceCard {
 }
 
 export const SITE = {
-  name: 'Print Fast',
-  fullName: 'Print Fast Digital Marketing',
+  name: 'PrintFast',
+  fullName: 'PrintFast Digital Marketing',
   tagline: 'Performance marketing for U.S. home-service brands',
   description:
-    'Print Fast is a U.S. digital marketing agency for home-service and local brands. We deliver social media marketing, email marketing, website creation, search engine optimization (SEO), and pay-per-click (PPC) advertising under one accountable team.',
+    'PrintFast is a U.S. home service marketing agency delivering SEO, Google Ads (PPC), social media marketing, email marketing and website creation for HVAC, plumbing, roofing, electrical and home service contractors — all under one accountable team. Serving U.S. contractors nationwide from Middlesex, NJ.',
   url: 'https://marketing.print-fast.com',
   phone: '800-810-4818',
   phoneHref: 'tel:800-810-4818',
-  email: 'orders@print-fast.com',
+  email: 'marketing@print-fast.com',
   hours: 'Mon–Fri · 8 AM – 5 PM ET',
   address: {
     company: 'PrintFast',
@@ -60,11 +60,10 @@ export const SITE = {
     'PrintFast',
   ],
   social: {
-    facebook: 'https://facebook.com',
+    facebook: 'https://www.facebook.com/PrintFastLLC/',
     instagram: 'https://instagram.com',
-    linkedin: 'https://linkedin.com',
+    linkedin: 'https://www.linkedin.com/company/printfast',
     youtube: 'https://youtube.com',
-    twitter: 'https://twitter.com',
   },
 };
 
@@ -149,35 +148,35 @@ export const SERVICES: ServiceCard[] = [
   {
     title: 'Social Media Marketing',
     description:
-      'Strategy, content, posting and paid social on Facebook, Instagram, TikTok, LinkedIn and YouTube — built to grow brand and book jobs.',
+      'Full-service social media strategy, content creation, scheduling and paid social advertising across Facebook, Instagram, TikTok, LinkedIn and YouTube — built to grow your home service brand and convert followers into booked jobs.',
     icon: 'fa-share-nodes',
     href: '/social-media-marketing/',
   },
   {
     title: 'Email Marketing',
     description:
-      'CAN-SPAM-compliant email and SMS programs — newsletters, lifecycle automations and win-back flows that compound customer lifetime value.',
+      'CAN-SPAM-compliant email marketing - newsletters, seasonal lifecycle automations and win-back flows engineered to compound customer lifetime value for HVAC, plumbing and home service brands.',
     icon: 'fa-envelope-open-text',
     href: '/email-marketing/',
   },
   {
     title: 'Website Creation',
     description:
-      'Fast, mobile-first websites with ADA accessibility, Core Web Vitals and conversion-first design baked in from day one.',
+      'Fast-loading, mobile-first contractor websites with ADA accessibility compliance, Core Web Vitals optimization and conversion-first design — built to rank in local search and turn visitors into booked calls from day one.',
     icon: 'fa-globe',
     href: '/website-creation/',
   },
   {
     title: 'Search Engine Optimization (SEO)',
     description:
-      'Local SEO, technical SEO, content and AI-search optimization that puts you on page one when U.S. customers are ready to buy.',
+      'Local SEO, technical SEO, content marketing and AI-search optimization that puts your HVAC, plumbing or roofing company on page one of Google when U.S. homeowners are ready to book.',
     icon: 'fa-magnifying-glass-chart',
     href: '/search-engine-optimization/',
   },
   {
     title: 'Pay-Per-Click Advertising (PPC)',
     description:
-      'Google Ads, Local Services Ads, Microsoft Ads and Meta — managed with call tracking, CRO and revenue-grade attribution.',
+      'Google Ads, Local Services Ads (LSA), Bing Ads and Meta campaigns managed with full call tracking, landing page CRO and revenue-grade attribution — so every dollar of ad spend ties back to a booked job.',
     icon: 'fa-bullhorn',
     href: '/pay-per-click-advertising/',
   },
@@ -195,7 +194,7 @@ export const TRUST_LOGOS = [
 ];
 
 // Real client logos shown in the rotating client strip.
-// Hosted on Print Fast's CloudFront CDN.
+// Hosted on PrintFast's CloudFront CDN.
 const CLIENT_LOGO_BASE = 'https://dqj17tese79do.cloudfront.net/printfast/images/common';
 
 export interface ClientLogo {
@@ -246,7 +245,7 @@ export const TESTIMONIALS = [
   },
   {
     quote:
-      'Our calls doubled in 90 days. The Print Fast team treats our business like their own — strategy, content and reporting all flow from one place.',
+      'Our calls doubled in 90 days. The PrintFast team treats our business like their own — strategy, content and reporting all flow from one place.',
     name: 'Maria L.',
     role: 'Operations Manager, HVAC Co.',
     rating: 5,
@@ -261,8 +260,8 @@ export const TESTIMONIALS = [
 ];
 
 export const STATS = [
-  { value: '35+', label: 'Years in home service marketing' },
-  { value: '2000+', label: 'Home service brands' },
+  { value: '35+', label: 'Years of home service marketing experience' },
+  { value: '2,000+', label: 'U.S. home service brands' },
   { value: '4.3/5', label: 'Average client rating' },
-  { value: '12M+', label: 'Leads generated for clients' },
+  { value: '12M+', label: 'Qualified leads generated for U.S. home service contractors — calls, forms and booked jobs' },
 ];

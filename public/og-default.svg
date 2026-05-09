@@ -18,9 +18,9 @@
   <rect width="1200" height="630" fill="url(#glow2)"/>
   <g transform="translate(80,200)" font-family="Inter, system-ui, sans-serif" fill="#fff">
     <text x="0" y="0" font-size="36" font-weight="600" opacity="0.85">Print Fast Digital Marketing</text>
-    <text x="0" y="100" font-size="86" font-weight="800">Marketing built for</text>
-    <text x="0" y="190" font-size="86" font-weight="800" fill="#fcd116">home-service pros.</text>
-    <text x="0" y="270" font-size="28" opacity="0.85">Social · SEO · Video · Free Digital Review</text>
+    <text x="0" y="100" font-size="78" font-weight="800">Home Service</text>
+    <text x="0" y="185" font-size="78" font-weight="800" fill="#fcd116">Marketing Agency</text>
+    <text x="0" y="265" font-size="28" opacity="0.85">SEO · PPC · Social · Email · Websites</text>
   </g>
   <g transform="translate(1000,80)">
     <rect width="120" height="120" rx="28" fill="#fff" opacity="0.08"/>

@@ -2,13 +2,6 @@
 import { SITE, FOOTER_SERVICES } from '@data/site';
 import NewsletterForm from './NewsletterForm.tsx';
 const year = new Date().getFullYear();
-
-const certifications = [
-  { label: 'Google Partner', icon: 'fa-google' },
-  { label: 'Meta Business', icon: 'fa-meta' },
-  { label: 'HubSpot Certified', icon: 'fa-hubspot' },
-  { label: 'BBB Accredited', icon: 'fa-certificate', solid: true },
-];
 ---
 
 <footer class="relative mt-24 bg-ink-900 text-ink-100 overflow-hidden">
@@ -52,15 +45,6 @@ const certifications = [
         {SITE.description}
       </p>
 
-      <ul class="flex flex-wrap gap-2 pt-1" aria-label="Certifications">
-        {certifications.map((c) => (
-          <li class="inline-flex items-center gap-2 rounded-full bg-white/5 ring-1 ring-white/10 px-3 py-1.5 text-xs text-ink-200">
-            <i class:list={[c.solid ? 'fa-solid' : 'fa-brands', c.icon, 'text-brand-300']} aria-hidden="true"></i>
-            {c.label}
-          </li>
-        ))}
-      </ul>
-
       <div>
         <p class="text-xs font-semibold uppercase tracking-[0.18em] text-white/60 mb-3">Follow us</p>
         <div class="flex items-center gap-3">
@@ -69,7 +53,7 @@ const certifications = [
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`Print Fast on ${name}`}
+              aria-label={`PrintFast on ${name}`}
               class="grid h-10 w-10 place-items-center rounded-full bg-white/5 ring-1 ring-white/10 text-ink-300 hover:bg-brand-600 hover:text-white hover:ring-brand-500 hover:-translate-y-0.5 transition-all duration-200"
             >
               <i class:list={['fa-brands', `fa-${name}`]} aria-hidden="true"></i>
@@ -114,7 +98,7 @@ const certifications = [
             <i class="fa-solid fa-location-dot text-xs" aria-hidden="true"></i>
           </span>
           <div>
-            <p class="text-[11px] uppercase tracking-wider text-ink-400">Office</p>
+            <p class="text-[11px] uppercase tracking-wider text-ink-400">PrintFast Office</p>
             <address class="not-italic text-ink-200 leading-snug">
               {SITE.address.street}<br />
               {SITE.address.city}, {SITE.address.state} {SITE.address.zip}
@@ -135,8 +119,8 @@ const certifications = [
             <i class="fa-solid fa-envelope text-xs" aria-hidden="true"></i>
           </span>
           <div>
-            <p class="text-[11px] uppercase tracking-wider text-ink-400">Sales</p>
-            <a href="mailto:orders@print-fast.com" class="text-white hover:text-brand-300 break-all">orders@print-fast.com</a>
+            <p class="text-[11px] uppercase tracking-wider text-ink-400">Email</p>
+            <a href={`mailto:${SITE.email}`} class="text-white hover:text-brand-300 break-all">{SITE.email}</a>
           </div>
         </li>
         <li class="flex items-start gap-3">
@@ -144,7 +128,7 @@ const certifications = [
             <i class="fa-solid fa-clock text-xs" aria-hidden="true"></i>
           </span>
           <div>
-            <p class="text-[11px] uppercase tracking-wider text-ink-400">Hours</p>
+            <p class="text-[11px] uppercase tracking-wider text-ink-400">Office hours</p>
             <p class="text-ink-200">{SITE.hours}</p>
           </div>
         </li>
@@ -155,12 +139,11 @@ const certifications = [
   <!-- Bottom bar -->
   <div class="relative border-t border-white/10">
     <div class="container-pf py-6 flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between text-sm text-ink-400">
-      <p>© {year} <span class="text-white font-semibold">{SITE.fullName}</span>. All rights reserved.</p>
+      <p>© {year} <span class="text-white font-semibold">{SITE.fullName}</span>. U.S. home service marketing agency — SEO, PPC, social media & web. All rights reserved.</p>
       <nav class="flex flex-wrap items-center gap-x-6 gap-y-2" aria-label="Legal">
-        <a href="/" class="hover:text-white">Privacy Policy</a>
-        <a href="/" class="hover:text-white">Terms of Service</a>
-        <a href="/sitemap.xml" class="hover:text-white">Sitemap</a>
-        <a href="/" class="hover:text-white">Accessibility</a>
+        <a href="/privacy-policy/" class="hover:text-white">Privacy Policy</a>
+        <a href="/terms-of-use/" class="hover:text-white">Terms of Use</a>
+        <a href="/sitemap/" class="hover:text-white">Sitemap</a>
       </nav>
     </div>
   </div>

@@ -12,19 +12,26 @@ import ClientLogos from '@components/ClientLogos.astro';
 import { SERVICES } from '@data/site';
 
 const whyUs = [
-  { icon: 'fa-trophy', title: 'Trades-only experts', description: 'Years of focused work with HVAC, plumbing, electrical, roofing, cleaning and more.' },
-  { icon: 'fa-chart-line', title: 'Performance, not vanity', description: 'We obsess over qualified leads, calls and booked jobs — not impressions.' },
-  { icon: 'fa-handshake', title: 'No long-term contracts', description: 'Earn the relationship every month. Cancel any time, keep all your assets.' },
-  { icon: 'fa-bolt', title: 'Fast execution', description: 'A senior team that ships campaigns in days — not quarters.' },
-  { icon: 'fa-comments', title: 'Real humans', description: 'A dedicated strategist who knows your account, market and goals.' },
-  { icon: 'fa-lock', title: 'Transparent reporting', description: 'Live dashboards, monthly reviews and zero black-box metrics.' },
+  { icon: 'fa-trophy', title: 'Trades-only expertise', description: "35+ years of focused digital marketing work with HVAC, plumbing, electrical, roofing, lawn care, cleaning and home service contractors across the U.S. — we speak the trades, we don't just serve them." },
+  { icon: 'fa-chart-line', title: 'Performance focus', description: 'We obsess over qualified contractor leads, inbound calls and booked jobs — not impressions, likes or follower counts. Every campaign is measured against real revenue impact.' },
+  { icon: 'fa-handshake', title: 'No lock-in', description: "We earn the relationship every month. Cancel anytime with a 30-day notice and keep every asset we've built — your ad accounts, website, content and data are yours. No lock-in, no proprietary systems." },
+  { icon: 'fa-bolt', title: 'Fast execution', description: 'Our home service marketing team ships live campaigns within days of kickoff — not weeks of onboarding calls. New PPC accounts launch in under 48 hours. New websites go live in under 30 days.' },
+  { icon: 'fa-comments', title: 'Dedicated strategist', description: 'Every PrintFast client gets a named, senior strategist who knows your local market, your service area, your seasonality and your revenue goals — not a rotating junior account manager.' },
+  { icon: 'fa-lock', title: 'Transparent reporting', description: "Live KPI dashboards updated in real time, monthly executive performance reviews and zero black-box metrics. You always know exactly where your marketing budget is going and what it's returning." },
 ];
 ---
 
 <BaseLayout
-  title="Marketing for Home-Service Pros"
-  description="Print Fast is a U.S. digital marketing agency. Social media marketing, email marketing, website creation, SEO and PPC for home-service and local brands."
+  title="Home Service Marketing Agency | SEO, PPC & More | PrintFast"
+  appendSiteName={false}
+  description="Senior U.S. home service marketing agency — SEO, Google Ads, social media, email and websites for HVAC, plumbing, roofing and contractors. 12M+ leads generated."
   keywords={[
+    'home service marketing agency',
+    'home service digital marketing company',
+    'contractor marketing agency',
+    'HVAC marketing agency',
+    'plumbing marketing agency',
+    'roofing marketing agency',
     'digital marketing agency USA',
     'social media marketing services',
     'email marketing services',
@@ -38,7 +45,7 @@ const whyUs = [
   schema={{
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
-    name: 'Print Fast Digital Marketing',
+    name: 'PrintFast Digital Marketing',
     image: 'https://dqj17tese79do.cloudfront.net/printfast/images/websitelogos/retailer_site_logo776.png',
     priceRange: '$$',
     areaServed: 'United States',
@@ -46,11 +53,11 @@ const whyUs = [
   }}
 >
   <Hero
-    eyebrow="Print Fast Digital Marketing"
-    title="Marketing that books real jobs for"
-    highlight="U.S. home-service pros."
-    description="Social media marketing, email, websites, SEO and PPC — built and run by a senior U.S. team. Get more calls, more booked work and a brand customers trust."
-    primaryCta={{ label: 'Get a Quote', href: '/contact-us/' }}
+    eyebrow="PrintFast Digital Marketing"
+    title="Home Service Marketing That Books Real Jobs — SEO, PPC, Social & More for"
+    highlight="U.S. Contractors"
+    description="A full-service home service digital marketing company delivering social media, email marketing, websites, SEO and Google Ads. Get more qualified calls, more booked jobs and a contractor brand your customers trust."
+    primaryCta={{ label: 'Get Your Free Marketing Proposal', href: '/contact-us/' }}
     secondaryCta={{ label: 'Explore Services', href: '#services' }}
   />
 
@@ -58,16 +65,16 @@ const whyUs = [
 
   <ClientLogos
     eyebrow="Our clients"
-    title="Brands that trust Print Fast to grow their business"
-    description="From single-truck operators to multi-location brands, hundreds of U.S. home-service companies rely on us every month."
+    title="Home Service Contractors Who Trust PrintFast to Grow Their Business"
+    description="From single-truck HVAC operators to multi-location plumbing and roofing brands, hundreds of U.S. home service contractors rely on PrintFast for their digital marketing every month. We grow businesses at every stage — and we never work with your direct competitors."
   />
 
   <section id="services" class="section">
     <div class="container-pf">
       <SectionHeading
         eyebrow="What we do"
-        title="A growth stack tuned for the trades"
-        description="Pick a single service or combine them — every engagement starts with a strategy call and a clear plan."
+        title="Digital Marketing Services Built for Home Service Contractors"
+        description="A complete home service digital marketing stack tuned for the trades. Choose a single channel or combine SEO, PPC, social media, email and web — every engagement starts with a strategy call, a market audit and a clear plan tied to booked jobs."
       />
 
       {/* Layout: row 1 = first 3 services centered, row 2 = remaining 2 services centered. */}
@@ -101,9 +108,9 @@ const whyUs = [
   <section class="section bg-ink-50/60">
     <div class="container-pf">
       <SectionHeading
-        eyebrow="Why Print Fast"
-        title="The marketing partner the trades actually wanted"
-        description="We know the seasonality, the slow days, the truck-roll math — and we build campaigns that fit your business, not a generic playbook."
+        eyebrow="Why PrintFast"
+        title="Why Home Service Contractors Choose PrintFast Over Other Marketing Agencies"
+        description="We know HVAC seasonality, the slow weeks between plumbing calls and the truck-roll math that makes roofing jobs profitable. As a specialized home service digital marketing company, we build campaigns that fit your business model — not a generic agency playbook."
       />
       <div class="mt-14">
         <FeatureGrid items={whyUs} columns={3} />
@@ -115,9 +122,9 @@ const whyUs = [
 
   <CTA
     eyebrow="Free strategy session"
-    title="See what we'd do for your business."
-    description="Tell us your goals and we'll send a tailored proposal — covering the right mix of social, email, SEO, PPC and web — within one business day."
-    primaryCta={{ label: 'Request a proposal', href: '/contact-us/' }}
+    title="Get a Free Home Service Marketing Strategy Session — No Commitment Required"
+    description="Tell us your revenue goals and current marketing gaps — our home service digital marketing team will respond with a tailored proposal covering the right mix of social media, email, SEO, Google Ads and web design within 1-2 business days. No long-term commitment to get started."
+    primaryCta={{ label: 'Get My Free Marketing Proposal', href: '/contact-us/' }}
     secondaryCta={{ label: 'Talk to a strategist', href: '/contact-us/#contact-form' }}
   />
 
@@ -142,10 +149,10 @@ const whyUs = [
               <li>Trades-only — we won't work with your competitor</li>
             </ul>
           </div>
-          <div class="card p-7 bg-brand-900 text-white">
-            <h3 class="font-bold text-lg">Prefer to talk?</h3>
-            <p class="mt-2 text-white/80 text-sm">Mon–Fri · 8 AM – 5 PM ET</p>
-            <a href="tel:800-810-4818" class="btn-ghost mt-5">
+          <div class="card p-7 outline outline-1 outline-brand-300 text-black">
+            <h3 class="font-bold text-lg text-black">Prefer to talk?</h3>
+            <p class="mt-2 text-black/80 text-sm">Mon–Fri · 8 AM – 5 PM ET</p>
+            <a href="tel:800-810-4818" class="pt-5 block font-semibold text-brand-700 hover:text-brand-800">
               <i class="fa-solid fa-phone"></i> 800-810-4818
             </a>
           </div>

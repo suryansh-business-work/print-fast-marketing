@@ -1,0 +1,362 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { SITE } from '@data/site';
+
+const sections = [
+  {
+    title: 'Prices Are Subject to Change Without Notice',
+    paragraphs: [
+      'Published prices are subject to change without notice. Paper availability and pricing can change frequently, and PrintFast reserves the right to update published prices without notice.',
+      'If the price of an ordered product is no longer available and the current price is higher than expected, you may cancel the order and receive a full refund for monies paid at the time of order.',
+    ],
+  },
+  {
+    title: 'Terms of Use',
+    paragraphs: [
+      'Welcome to PrintFast LLC. PrintFast LLC and its affiliates provide products and services when you visit or shop at print-fast.com or use PrintFast products or services. These products and services are provided subject to these conditions.',
+    ],
+  },
+  {
+    title: 'Legal Claim',
+    paragraphs: [
+      'Please read these terms and conditions carefully. By accessing this website, you agree to be bound by the terms and conditions stated here. If you do not agree, please do not access this website.',
+      'PrintFast LLC reserves the right to change, modify or amend these terms and conditions at any time and without notice.',
+    ],
+  },
+  {
+    title: 'Disclaimer of Warranties',
+    paragraphs: [
+      'This site, including all content, functions and information made available on or accessed through the site, is provided on an as-is and as-available basis without representations or warranties of any kind, express or implied, including non-infringement, merchantability or fitness for a particular purpose.',
+      'PrintFast LLC does not warrant that the site or its functions, features or content will be timely, secure, uninterrupted or error free, or that defects will be corrected. Some jurisdictions do not allow the exclusion of certain warranties, so some exclusions may not apply to certain users.',
+    ],
+  },
+  {
+    title: 'Privacy',
+    paragraphs: [
+      'Please review our Privacy Policy, which regulates your use of PrintFast LLC services and explains our information practices.',
+    ],
+  },
+  {
+    title: 'App Permissions',
+    paragraphs: [
+      'When you use apps created by PrintFast LLC, you may grant certain permissions for your device. Most mobile devices provide information about these permissions.',
+    ],
+  },
+  {
+    title: 'Order Approval',
+    paragraphs: [
+      'The customer is fully responsible for content accuracy and final proof and layout approval before printing begins.',
+      'PrintFast LLC is not liable for product errors caused by misspellings, graphics, bleeds, grammar, damaged fonts, small fonts, orientation of files, punctuation, wrong cuts, incorrect or missing folds, or finished product size.',
+      'By approving and placing an order, you confirm that you verified the specifications, items, services, sizes, quantities, prices, spelling, content, layout, phone numbers, colors, graphics, license numbers and expiration dates. You understand that the document will print as approved and that changes cannot be made once the order is placed.',
+    ],
+  },
+  {
+    title: 'Order Pick-Up',
+    paragraphs: [
+      'Orders are typically delivered to the professional address provided by the customer. If an order is held for pickup, PrintFast LLC will make several attempts to contact the customer when packages are ready.',
+      'The customer has up to 15 days to pick up packages from PrintFast LLC facilities during pickup hours, Monday through Friday, 8 AM to 5 PM ET. If packages are not picked up in that period, they may be discarded and PrintFast LLC will not be liable for discarded items.',
+      'Signature and order number are required at pickup. Courier pickups are not permitted; customers must pick up their own orders.',
+    ],
+  },
+  {
+    title: 'Copyright',
+    paragraphs: [
+      'All material, software and creative designs are copyright PrintFast LLC. All rights are reserved worldwide. It is prohibited to redistribute, copy or republish materials or software contained on the PrintFast LLC website or licensed by PrintFast LLC.',
+      'You may not place or reproduce trademarks, service marks or logos that are not owned by you or licensed to you onto materials or merchandise printed through the PrintFast LLC service.',
+      'You cannot use unlicensed copyrighted materials from photographers, artists, publishers, composers, writers or other authors. By submitting artwork and logos, you represent that the artwork, logo and associated intellectual property rights belong to you. The customer assumes responsibility and liability for copyright, trademark, service mark and other intellectual property claims.',
+    ],
+  },
+  {
+    title: 'Customer Content',
+    paragraphs: [
+      'All information, data, text, photographs, graphics, messages or other materials are the sole responsibility of the person from whom the content originated. You are entirely responsible for all content you use, send, upload, post or transmit through the service.',
+      'You agree not to use the service to send, upload, post or transmit content that is indecent, obscene, threatening, defamatory, unlawful, infringing or otherwise objectionable. PrintFast LLC reserves the right to deny services for content deemed objectionable in its sole discretion.',
+      'You are responsible for protecting your password and controlling access to your registered account. You are responsible for orders placed and actions taken through your account.',
+      'PrintFast LLC may preserve or disclose content if required by law or if reasonably necessary to comply with legal process, enforce terms, respond to claims or protect the rights, property or safety of PrintFast LLC, users or the public.',
+    ],
+  },
+  {
+    title: 'Access to Content',
+    paragraphs: [
+      'You should keep copies of all files and content uploaded to PrintFast LLC, as files or content may not be available to send back at a later time.',
+      'After printing, uploaded content and proofs may be removed or deleted without notice. Proofs may remain available for a maximum of three months. Content and proofs created by PrintFast LLC design services may remain available for seven years, barring catastrophic data loss.',
+    ],
+  },
+  {
+    title: 'Governing Law',
+    paragraphs: [
+      'The internal laws of the State of New Jersey govern the performance of the agreement, including these terms and conditions, without regard to conflict-of-laws principles.',
+      'You consent to the exclusive jurisdiction and venue of courts located in Middlesex County, New Jersey for disputes arising out of or relating to these terms, the agreement or use of this site.',
+    ],
+  },
+  {
+    title: 'Legal Fees',
+    paragraphs: [
+      'If any suit, action or proceeding is commenced to enforce or interpret the terms of this agreement, the prevailing party is entitled to reasonable attorney fees and costs incurred at trial and on appeal.',
+    ],
+  },
+  {
+    title: 'Limitation of Liability',
+    paragraphs: [
+      'To the fullest extent permitted by law, PrintFast LLC and its officers, directors, employees, representatives, successors, assigns and affiliates will not be liable for any injury, death, loss, claim, damage, act of God, accident, delay, or special, exemplary, punitive, incidental or consequential damages arising out of use of this site or inability to use this site.',
+      'In no event will the covered parties total liability for damages, losses and causes of action arising from this agreement or use of the site exceed the amount paid by you to PrintFast LLC.',
+    ],
+  },
+  {
+    title: 'Indemnification',
+    paragraphs: [
+      'You agree to defend, indemnify and hold harmless the covered parties and all parties from whom PrintFast LLC has licensed content from claims, damages, costs and expenses, including attorney fees, arising from your use of the site, breach of terms, dispute with another user, unauthorized access to protected areas, or images or content reproduced as part of your order.',
+    ],
+  },
+  {
+    title: 'Your Account',
+    paragraphs: [
+      'If you use any PrintFast LLC service, you are responsible for maintaining the confidentiality of your account and password and restricting access to your computer. You accept responsibility for all activities that occur under your account or password.',
+      'PrintFast LLC sells products only to adults who can purchase with a credit card or other permitted payment method. Users under 18 may use PrintFast LLC services only with the involvement of a parent or guardian.',
+      'PrintFast LLC reserves the right to refuse service, terminate accounts, remove or edit content, or cancel orders in its sole discretion.',
+    ],
+  },
+  {
+    title: 'Website Migration Disclaimer',
+    paragraphs: [
+      'PrintFast LLC aims to make website transitions seamless and simple. To the fullest extent permitted by law, PrintFast LLC is not liable for issues that may arise from migration, including loss of data, order issues, customer issues, inability to understand new website functionality, technical issues or missing website features, graphics, copy, links or data.',
+      'If you have orders, marketing orders, mailing orders, design orders or other orders not yet delivered, PrintFast LLC advises waiting until they are complete before migrating. Once migration occurs, access to the old website may no longer be available.',
+    ],
+  },
+  {
+    title: 'Product Safety',
+    paragraphs: [
+      'Puzzles contain small parts and are not intended for children under 3 years of age because they may be a choking hazard. Aluminum boards may have sharp edges and should be handled with care.',
+      'Car magnets are for surfaces containing ferromagnetic materials such as iron or steel. PrintFast LLC is not liable for vehicle or surface damage when using car magnets, adhesive-backed stickers, vinyls, polyesters or similar products.',
+    ],
+  },
+  {
+    title: 'Designing Files',
+    paragraphs: [
+      'PrintFast LLC does not provide native design files.',
+    ],
+  },
+  {
+    title: 'Customer Submitted Artwork or Graphics',
+    paragraphs: [
+      'Artwork, designs and images must be provided in CMYK format unless the product states otherwise. PrintFast LLC is not responsible for color shifts that occur when converting RGB to CMYK or CMYK to RGB, or for Pantone colors dropping out or converting incorrectly.',
+      'Artwork, designs and images must be provided at a minimum resolution of 300 DPI at 100 percent print size and in CMYK color mode unless otherwise stated. PrintFast LLC is not responsible for fuzzy, distorted or pixelated images caused by low-resolution, RGB or incorrectly prepared files.',
+      'PrintFast LLC is not responsible for production delays caused by customer file errors, including delays caused by requests or needs to re-upload files that do not meet specifications.',
+    ],
+  },
+  {
+    title: 'Additional Fees for Fixed Rate Design',
+    paragraphs: [
+      'For creative design services under fixed rate pricing, the first and second proof for each order are included in the quoted fixed rate. Additional change requests after the second proof that require a third proof or more will be billed at $125.00 per hour or portion thereof.',
+      'Replacing files after the second proof has been sent will result in additional charges because files must be reprocessed.',
+    ],
+  },
+  {
+    title: 'Creative Design Subscription Services',
+    paragraphs: [
+      'PrintFast LLC offers creative design services on a monthly subscription basis. While unlimited requests may be accepted, output volume depends on request volume and complexity. Work is handled one job at a time, with proofs sent for review at each stage.',
+      'Although PrintFast works to minimize mistakes, creative design output cannot be guaranteed to be 100 percent error free. You agree to review delivered files and notify the team of needed changes or corrections. PrintFast is not responsible for losses or expenses from errors or omissions.',
+      'Native files created under subscription services remain the property of PrintFast LLC. Subscription services are billed monthly in advance and can be canceled by emailing subscription@print-fast.com at least seven days before the monthly renewal date. Partial-month refunds are not provided.',
+    ],
+  },
+  {
+    title: 'Color Proofing, Matching and Printing',
+    paragraphs: [
+      'PrintFast LLC is not liable for color matching or ink density on screen proofs approved by customers. Screen proofs predict design layout, text accuracy, image proportion and placement, but not color or density.',
+      'Gang-run printing combines multiple customer jobs on a large print sheet and runs them at the same time. High Gloss UV coating may affect or change the appearance of printed colors, and PrintFast LLC is not liable for final color appearance of UV-coated products.',
+    ],
+  },
+  {
+    title: 'Envelopes and Letterheads Paper Effect Due to Color',
+    paragraphs: [
+      'Because letterhead and envelope paper stock is uncoated, PrintFast does not recommend using colors with high color density. Dark color pigments can soak into paper if color values are too high. For best results, use light colors.',
+    ],
+  },
+  {
+    title: 'Stickers and Roll Labels',
+    paragraphs: [
+      'Stickers and roll labels have not been approved for safety for use on food packaging or direct contact with food. Do not apply stickers or roll labels to already frozen materials.',
+    ],
+  },
+  {
+    title: 'Order Cancellation',
+    paragraphs: [
+      'PrintFast LLC allows order cancellation before approval to print. The customer service team will inform you of cancellation charges depending on the order stage.',
+      'If a job is canceled before completion, labor hours and administrative fees may be subtracted from any refund or invoiced and due upon receipt. Cancellation fees before approval may be 15 percent to 30 percent of the transaction amount, depending on labor hours and administrative fees. The minimum cancellation fee before approval is $25.',
+      'Refunds cannot be issued once an order has been sent to print because production has begun. Logo and graphic design service orders are non-refundable once placed. Native design files are never given, sold or shared with customers.',
+    ],
+  },
+  {
+    title: 'Returns and Refunds',
+    paragraphs: [
+      'Because each order is unique to the customer and has no resale value, all sales are final. If PrintFast verifies that it made an error, PrintFast will reprint the order. No refunds or credits are issued.',
+      'The customer must notify PrintFast LLC within five business days of order acceptance of any defects. To receive replacement, the customer must return 100 percent of the received product within 15 days at the customer expense.',
+      'All charges related to expedited printing or shipping are not refundable, including for returned orders.',
+    ],
+  },
+  {
+    title: 'Coupons',
+    paragraphs: [
+      'Coupons cannot be applied to orders containing custom quotes, direct marketing, postage or mailing services. Discounts must be applied at the time of ordering unless otherwise stated.',
+      'Coupon codes are for one-time use only, valid for a limited time, and cannot be combined with another offer or discount. Discounts apply to printing cost only and not postage, tax, shipping or handling charges.',
+    ],
+  },
+  {
+    title: 'Prizes and Giveaways',
+    paragraphs: [
+      'PrintFast LLC contests are open only to U.S. residents who are at least 18 years old at the time of entry unless otherwise stated. No purchase is necessary unless stated.',
+      'By participating, you permit PrintFast LLC to print, publish, broadcast, distribute and use your entry, name, business name and biographical information for promotional purposes without further compensation, review or consent. Contests and giveaways are void where prohibited.',
+    ],
+  },
+  {
+    title: 'User-Generated Social Media Content',
+    paragraphs: [
+      'Customers may share photos and videos of PrintFast LLC orders online. If you tag or mention PrintFast LLC, PrintFast may contact you for permission to use, share or repost your photos, videos, reviews or other content.',
+      'By granting permission, you represent that you own or have permission to publish the content and grant PrintFast LLC permission to use it in websites, social media, blogs, videos, email, print and web publications without payment or royalties. Image or content credit is not guaranteed.',
+    ],
+  },
+  {
+    title: 'Order Shipping and Delivery',
+    paragraphs: [
+      'PrintFast LLC will make every effort to ensure production difficulties do not delay delivery schedules. PrintFast LLC is not liable for direct, indirect, consequential or incidental damages from shipment or delivery delays by carriers, weather, customs issues or circumstances beyond direct control.',
+      'For shipped orders, allow one additional business day for receipt of labeling and billing information before counting turnaround time for shipping. Some items may ship separately due to gang-run printing and production timing.',
+      'Shipping suggestions are estimates and cannot be guaranteed. Due to size limitations, PrintFast does not ship to PO Boxes.',
+    ],
+  },
+  {
+    title: 'Next Day Service Shipping Method',
+    paragraphs: [
+      'Next Day delivery is available to all 50 states and Puerto Rico, with some limitations in Alaska and Hawaii.',
+    ],
+  },
+  {
+    title: 'Customs, Duties and Taxes for International Orders',
+    paragraphs: [
+      'Orders shipped outside the United States may be subject to customs duties and fees levied by the destination country. The customer is responsible for all customs clearance charges and for checking destination country requirements before placing an order.',
+      'Customs clearance procedures can cause delays beyond original delivery estimates. Canadian shipments may be subject to clearance fees and Canadian taxes such as HST, GST, EST and QST depending on ship-to address.',
+    ],
+  },
+  {
+    title: 'Shipping Delays, Shipping Errors and Lost Packages',
+    paragraphs: [
+      'PrintFast LLC is not responsible for delays or damages during transit or delivery, or for charges or fees from packages lost or damaged in transit.',
+      'For time-sensitive orders, customers are responsible for allowing enough time for processing, approval, printing and shipping. Lost or damaged claims can only be filed for shipments over $50.00 in value and within 30 days from package shipment.',
+    ],
+  },
+  {
+    title: 'Customer Supplied Incorrect Address',
+    paragraphs: [
+      'When a package is not delivered due to a customer error in the shipping address, PrintFast LLC will reship the package with the corrected address and charge an additional shipping fee. It is the customer responsibility to notify PrintFast LLC of location moves or new shipping addresses.',
+    ],
+  },
+  {
+    title: 'Mailing Services',
+    paragraphs: [
+      'Multiple mailings can be held in-house for no more than two months. Because PrintFast LLC permit information may be printed on mail pieces, remaining pieces of a marketing or mailing order generally cannot be sent to the customer, though five samples may be provided.',
+      'Mailing list data is sold strictly as-is. PrintFast LLC does not assure or warrant the correctness, comprehensiveness or completeness of the data. Customer-supplied mailing lists remain the property of that customer and will not be sold, shared or distributed.',
+    ],
+  },
+  {
+    title: 'Direct Marketing Services',
+    paragraphs: [
+      'For expedited processing and service level provided by the marketing department, marketing orders and packages include a 10 percent markup on products and services excluding postage.',
+      'PrintFast LLC permit indicia is the property of PrintFast LLC and can only be used by PrintFast LLC. Misuse is prohibited and may result in cancellation, charges and postage fees.',
+    ],
+  },
+  {
+    title: 'Every Door Direct Mail',
+    paragraphs: [
+      'Once an Every Door Direct Mail order has left the facility, PrintFast LLC is not responsible for lost, delayed or damaged postcards, mailings or packages, or for issues that occur in transit or after USPS has taken possession of the order.',
+    ],
+  },
+  {
+    title: 'Design Services',
+    paragraphs: [
+      'If you provide text, images, designs or other content for design services, you agree that you have the right and authority to use that content and that its use does not conflict with trademark, copyright or other rights.',
+      'PrintFast LLC reserves the right to refuse or cancel a design services order at any time for any reason and may use designs or finished design service products as sample work for advertising, promotional and internal purposes.',
+      'Design service concepts are generally provided within four business days after order placement and receipt of necessary content. Final designs are delivered in web preview format by email, and customers have four days to request revisions.',
+    ],
+  },
+  {
+    title: 'Logo Services',
+    paragraphs: [
+      'Payment for creative design services must be provided before work begins. PrintFast LLC provides creative design services only and does not provide legal advice regarding branding, trademark or related matters.',
+      'It is solely the customer responsibility to determine whether design content is suitable for use or distribution. Once paid in full, PrintFast LLC will provide image artwork for royalty-free use and reserves the right to display or use the creative design for advertising, promotional and internal purposes.',
+    ],
+  },
+  {
+    title: 'Credit Card Charges',
+    paragraphs: [
+      'PrintFast LLC accepts payment by Visa, MasterCard and American Express. Postage paid by credit card may include a 3.5 percent surcharge to cover merchant service processing fees.',
+    ],
+  },
+  {
+    title: 'Checks',
+    paragraphs: [
+      `PrintFast does not accept checks from first-time customers. Orders are not processed until payment is received. Questions can be sent to ${SITE.email}.`,
+    ],
+  },
+  {
+    title: 'Terms and Late Fees',
+    paragraphs: [
+      'At the sole discretion of PrintFast LLC, terms may be granted for client invoices. Invoices beyond terms are subject to a finance charge of 1.5 percent on the outstanding balance per month, or 18 percent per year. Returned checks are subject to a $50 fee.',
+    ],
+  },
+];
+
+const slugify = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+---
+
+<BaseLayout
+  title="Terms of Use"
+  description="Read the PrintFast terms of use, including order approval, artwork, copyright, shipping, returns, design services, payment and liability terms."
+  keywords={['PrintFast terms of use', 'terms and conditions', 'order approval', 'shipping terms', 'design services terms']}
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Terms of Use', href: '/terms-of-use/' },
+  ]}
+>
+  <section class="relative overflow-hidden bg-hero-radial">
+    <div class="container-pf py-16 sm:py-20 lg:py-24">
+      <div class="max-w-4xl" data-reveal>
+        <p class="eyebrow"><i class="fa-solid fa-file-contract text-brand-600"></i> Legal</p>
+        <h1 class="heading-xl mt-4">Terms of Use</h1>
+        <p class="lead mt-5 max-w-2xl">
+          These terms cover use of PrintFast products, services and website features, including order approval, artwork, shipping, returns, design services and payment rules.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-pf grid gap-8 lg:grid-cols-12 lg:items-start">
+      <aside class="hidden lg:block lg:col-span-3">
+        <nav class="card sticky top-24 max-h-[calc(100vh-8rem)] overflow-auto p-6" aria-label="Terms of use sections">
+          <p class="text-xs font-semibold uppercase tracking-[0.18em] text-ink-500">On this page</p>
+          <ul class="mt-4 space-y-2">
+            {sections.map((section) => (
+              <li>
+                <a href={`#${slugify(section.title)}`} class="text-sm font-medium text-ink-600 hover:text-brand-700 transition-colors">
+                  {section.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </aside>
+
+      <article class="lg:col-span-9 card p-6 sm:p-8 lg:p-10">
+        <div class="space-y-10">
+          {sections.map((section) => (
+            <section id={slugify(section.title)} class="scroll-mt-28 border-t border-ink-100 pt-8 first:border-t-0 first:pt-0" data-reveal>
+              <h2 class="text-2xl font-display font-bold text-ink-900">{section.title}</h2>
+              <div class="mt-4 space-y-4 text-ink-700 leading-relaxed">
+                {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+              </div>
+            </section>
+          ))}
+        </div>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

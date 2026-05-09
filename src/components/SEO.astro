@@ -48,6 +48,7 @@ const {
 const fullTitle = title ? (appendSiteName ? `${title} · ${SITE.fullName}` : title) : `${SITE.fullName} — ${SITE.tagline}`;
 const url = canonical ?? new URL(Astro.url.pathname, SITE.url).toString();
 const absoluteOg = ogImage.startsWith('http') ? ogImage : new URL(ogImage, SITE.url).toString();
+const absoluteLogo = SITE.logo.startsWith('http') ? SITE.logo : new URL(SITE.logo, SITE.url).toString();
 
 // --- JSON-LD ---
 const schemas: Record<string, unknown>[] = [];
@@ -58,9 +59,10 @@ schemas.push({
   '@type': 'Organization',
   '@id': `${SITE.url}#organization`,
   name: SITE.fullName,
+  alternateName: SITE.name,
   url: SITE.url,
-  logo: SITE.logo,
-  image: SITE.logo,
+  logo: absoluteLogo,
+  image: absoluteLogo,
   telephone: SITE.phone,
   email: SITE.email,
   description: SITE.description,
@@ -81,7 +83,7 @@ schemas.push({
   contactPoint: {
     '@type': 'ContactPoint',
     telephone: SITE.phone,
-    contactType: 'customer service',
+    contactType: 'sales',
     email: SITE.email,
     areaServed: 'US',
     availableLanguage: ['English'],

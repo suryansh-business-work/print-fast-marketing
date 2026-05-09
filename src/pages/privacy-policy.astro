@@ -1,0 +1,124 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { SITE } from '@data/site';
+
+const sections = [
+  {
+    title: 'What We Collect',
+    paragraphs: [
+      'We collect information such as your name, email address, mailing address, phone number and payment information when you place an order, save your information with us or participate in a contest, promotion or survey.',
+      'We may also maintain a record of your product interests and purchases online and in our stores. Information we collect is shared with third parties only when those parties are involved in completing your order or providing requested services.',
+    ],
+  },
+  {
+    title: 'How We Use Your Information',
+    paragraphs: [
+      'When you make an online purchase from PrintFast, we use your information to process your order, confirm your order and contact you by phone, postal mail or email if we have questions about your order.',
+      'You may receive email updates about products, services, contests and promotions. From time to time, we may also send emails to learn more about shopping preferences or use product interest and purchase information to improve the site experience.',
+      'We may combine information you provide online and in stores with publicly available demographic information so we can personalize your shopping experience and communicate with you about products, services and promotions that may interest you.',
+    ],
+  },
+  {
+    title: 'Third Party Transactions',
+    paragraphs: [
+      'We contract with third parties to help maintain and manage customer information, fulfill promotions and communicate with customers. We do not authorize those third parties to make any other use of your information.',
+      'When we team with another company to offer products, services, contests or promotions, customer information may be used by PrintFast and the partner company to fulfill promotional or contractual obligations.',
+      'We may share aggregate, non-personally identifiable information, such as age, gender or product categories purchased, with business partners. Except as described in this policy, we do not share, rent or sell online information to unaffiliated third parties.',
+    ],
+  },
+  {
+    title: 'Accessing Your Information',
+    paragraphs: [
+      'To access your information online, sign in to your account and choose the appropriate section to review, edit or delete your personal information.',
+      'Requests to change email frequency or remove your information from email or postal mailing lists may take up to eight weeks. Please include your full name, email address and any relevant account information when contacting us.',
+    ],
+  },
+  {
+    title: 'Removing Yourself From Mailouts',
+    paragraphs: [
+      'We want to communicate with you only if you want to hear from us. If you prefer not to receive information from us through email, postal mail or phone, please contact PrintFast customer service.',
+      'Requests may take six to eight weeks to become effective. If you ask us to remove your name and address from mailing lists, we may maintain your name in a do-not-mail file so we can honor the request.',
+      'When you make a purchase, we will still send order confirmation emails and may contact you if we have questions regarding your order.',
+    ],
+  },
+  {
+    title: "Children's Privacy",
+    paragraphs: [
+      "PrintFast is concerned about children's safety online. Consistent with the Children's Online Privacy Protection Act of 1998, we do not knowingly request personally identifiable information from anyone under 13 without verifiable parental consent.",
+      'If we become aware that a subscriber under 13 has signed up without verifiable parental consent, we will remove that personally identifiable information from our files.',
+    ],
+  },
+  {
+    title: 'Cookies',
+    paragraphs: [
+      'A cookie is a small data file that websites often store on your computer when you visit them. A cookie may contain information such as a unique user ID used to track pages visited on the site.',
+      'We use cookies to improve your shopping experience, keep track of orders as you shop and recognize returning users who have saved account information.',
+      'If you have not saved information with us or ordered from us, we may monitor site use in a way that does not identify you. This helps us improve site design, products, services, contests and promotions.',
+      'You can refuse cookies by turning them off in your browser. If you turn off cookies, we may not be able to track your order, enable purchases or recognize you as a signed-in user.',
+    ],
+  },
+  {
+    title: 'Policy Updates and Contact',
+    paragraphs: [
+      'If our information practices change, we will post policy changes on our website or communicate directly with you. Where required, we will notify you before using information in a way not previously disclosed and provide an opportunity to opt out.',
+      `Questions about this privacy policy can be sent to ${SITE.email} or by calling ${SITE.phone}.`,
+    ],
+  },
+];
+
+const slugify = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+---
+
+<BaseLayout
+  title="Privacy Policy"
+  description="Read the PrintFast privacy policy, including what information we collect, how we use it, third-party sharing, cookies and opt-out choices."
+  keywords={['PrintFast privacy policy', 'privacy policy', 'customer information', 'cookies']}
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Privacy Policy', href: '/privacy-policy/' },
+  ]}
+>
+  <section class="relative overflow-hidden bg-hero-radial">
+    <div class="container-pf py-16 sm:py-20 lg:py-24">
+      <div class="max-w-4xl" data-reveal>
+        <p class="eyebrow"><i class="fa-solid fa-shield-halved text-brand-600"></i> Legal</p>
+        <h1 class="heading-xl mt-4">Privacy Policy</h1>
+        <p class="lead mt-5 max-w-2xl">
+          Effective January 1, 2007. PrintFast values its customers and respects their privacy. This policy explains what information we collect, why we collect it and how it may be shared.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-pf grid gap-8 lg:grid-cols-12 lg:items-start">
+      <aside class="hidden lg:block lg:col-span-3">
+        <nav class="card sticky top-24 p-6" aria-label="Privacy policy sections">
+          <p class="text-xs font-semibold uppercase tracking-[0.18em] text-ink-500">On this page</p>
+          <ul class="mt-4 space-y-2">
+            {sections.map((section) => (
+              <li>
+                <a href={`#${slugify(section.title)}`} class="text-sm font-medium text-ink-600 hover:text-brand-700 transition-colors">
+                  {section.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </aside>
+
+      <article class="lg:col-span-9 card p-6 sm:p-8 lg:p-10">
+        <div class="space-y-10">
+          {sections.map((section) => (
+            <section id={slugify(section.title)} class="scroll-mt-28 border-t border-ink-100 pt-8 first:border-t-0 first:pt-0" data-reveal>
+              <h2 class="text-2xl font-display font-bold text-ink-900">{section.title}</h2>
+              <div class="mt-4 space-y-4 text-ink-700 leading-relaxed">
+                {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+              </div>
+            </section>
+          ))}
+        </div>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

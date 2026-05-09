@@ -1,0 +1,81 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { FOOTER_SERVICES } from '@data/site';
+
+const pageGroups = [
+  {
+    title: 'Main Pages',
+    icon: 'fa-compass',
+    links: [
+      { label: 'Home', href: '/' },
+      { label: 'Who We Are', href: '/who-we-are/' },
+      { label: 'Contact Us', href: '/contact-us/' },
+    ],
+  },
+  {
+    title: 'Services',
+    icon: 'fa-briefcase',
+    links: FOOTER_SERVICES,
+  },
+  {
+    title: 'Legal and Utility',
+    icon: 'fa-scale-balanced',
+    links: [
+      { label: 'Privacy Policy', href: '/privacy-policy/' },
+      { label: 'Terms of Use', href: '/terms-of-use/' },
+      { label: 'XML Sitemap', href: '/sitemap.xml' },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Sitemap"
+  description="Browse the PrintFast Digital Marketing sitemap, including main pages, service pages, legal pages and the XML sitemap."
+  keywords={['PrintFast sitemap', 'website sitemap', 'home service marketing pages']}
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Sitemap', href: '/sitemap/' },
+  ]}
+>
+  <section class="relative overflow-hidden bg-hero-radial">
+    <div class="container-pf py-16 sm:py-20 lg:py-24">
+      <div class="max-w-4xl" data-reveal>
+        <p class="eyebrow"><i class="fa-solid fa-sitemap text-brand-600"></i> Sitemap</p>
+        <h1 class="heading-xl mt-4">Find every important page.</h1>
+        <p class="lead mt-5 max-w-2xl">
+          Use this sitemap to browse PrintFast Digital Marketing pages, service pages and legal resources. Search engines can also use the XML sitemap.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/contact-us/" class="btn-primary">Contact PrintFast <i class="fa-solid fa-arrow-right text-xs"></i></a>
+          <!-- <a href="/sitemap.xml" class="btn-outline" target="_blank">View XML Sitemap</a> -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-pf">
+      <div class="grid gap-6 lg:grid-cols-3">
+        {pageGroups.map((group) => (
+          <section class="card-hover p-6 sm:p-8" data-reveal>
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-brand-50 text-brand-600 text-lg">
+              <i class:list={['fa-solid', group.icon]} aria-hidden="true"></i>
+            </span>
+            <h2 class="mt-5 text-xl font-bold text-ink-900">{group.title}</h2>
+            <ul class="mt-5 space-y-3">
+              {group.links.map((link) => (
+                <li>
+                  <a href={link.href} class="group inline-flex items-center text-sm font-semibold text-ink-700 hover:text-brand-700 transition-colors">
+                    <i class="fa-solid fa-arrow-right text-[11px] text-brand-500 mr-2 group-hover:translate-x-0.5 transition-transform" aria-hidden="true"></i>
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
