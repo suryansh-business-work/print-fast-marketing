@@ -2,7 +2,7 @@
 
 This project deploys on every push to `main` using GitHub Actions.
 
-The workflow builds the Astro site into a Docker image, pushes the image to Docker Hub, then SSHes into the VPS at `31.220.49.107` and runs the image behind host Nginx.
+The workflow builds the Astro site into a Docker image, pushes the image to Docker Hub, then SSHes into the VPS at `31.220.49.107` and runs the image behind host Nginx for `marketing.print-fast.com`.
 
 ## Files
 
@@ -24,6 +24,7 @@ git push main
   -> install Docker, Nginx, Certbot if needed
   -> docker pull and restart container on 127.0.0.1:8080
   -> host Nginx reverse proxies public HTTP traffic to the container
+  -> Certbot issues HTTPS for marketing.print-fast.com
 ```
 
 ## GitHub Actions secrets
@@ -35,18 +36,23 @@ Create these in GitHub under **Settings -> Secrets and variables -> Actions -> N
 | `DOCKERHUB_USERNAME` | Yes | Docker Hub username, for example `exyconnprintfast` |
 | `DOCKERHUB_TOKEN` | Yes | Docker Hub access token or PAT |
 | `SSH_PASSWORD` | Yes | VPS root SSH password |
-| `SITE_DOMAIN` | Optional | Domain for HTTPS, for example `marketing.print-fast.com` |
-| `CERTBOT_EMAIL` | Optional | Email used by Let's Encrypt when `SITE_DOMAIN` is set |
+| `CERTBOT_EMAIL` | Optional | Email used by Let's Encrypt. If omitted, Certbot registers without email. |
 
-## HTTPS note
+## DNS and HTTPS note
 
-Certbot/Let's Encrypt cannot issue a valid TLS certificate for a bare IP address. Without `SITE_DOMAIN` and `CERTBOT_EMAIL`, the workflow still deploys to the VPS and serves the site at:
+Certbot/Let's Encrypt cannot issue a valid TLS certificate for a bare IP address. The workflow always keeps the site available by IP at:
 
 ```text
 http://31.220.49.107
 ```
 
-To enable HTTPS, point a domain's DNS `A` record to `31.220.49.107`, add `SITE_DOMAIN` and `CERTBOT_EMAIL` secrets, then push to `main` again or run the workflow manually.
+For `https://marketing.print-fast.com` to work, the authoritative DNS provider for `print-fast.com` must have this record:
+
+```text
+marketing.print-fast.com.  A  31.220.49.107
+```
+
+If public DNS shows `ns1.messagingengine.com` and `ns2.messagingengine.com` as the nameservers, add the A record in the Messaging Engine/Fastmail DNS panel. Adding it only in NameSecure's zone will not publish the record unless NameSecure is the active nameserver provider.
 
 ## Manual run
 
@@ -59,6 +65,8 @@ On the VPS:
 ```bash
 docker ps --filter name=print-fast-marketing
 curl -I http://127.0.0.1:8080/healthz
+curl -I http://31.220.49.107/healthz
+curl -I https://marketing.print-fast.com/healthz
 nginx -t
 systemctl status nginx
 ```
