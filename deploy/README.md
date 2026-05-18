@@ -52,6 +52,8 @@ For `https://marketing.print-fast.com` to work, the authoritative DNS provider f
 marketing.print-fast.com.  A  31.220.49.107
 ```
 
+If the A record is not ready yet, the deployment workflow still publishes the container and verifies the IP route. Certbot and public domain checks are skipped until DNS points to the VPS.
+
 If public DNS shows `ns1.messagingengine.com` and `ns2.messagingengine.com` as the nameservers, add the A record in the Messaging Engine/Fastmail DNS panel. Adding it only in NameSecure's zone will not publish the record unless NameSecure is the active nameserver provider.
 
 ## Manual run

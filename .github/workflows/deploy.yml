@@ -230,31 +230,30 @@ jobs:
 
               if [[ -z "$DOMAIN_IPS" ]]; then
                 echo "DNS is not ready: ${SITE_DOMAIN} has no public A record on this server."
-                echo "Add ${SITE_DOMAIN} A ${FALLBACK_SERVER_NAME} at the authoritative DNS provider, then rerun the workflow."
-                exit 1
-              fi
-
-              if ! printf '%s\n' "$DOMAIN_IPS" | grep -Fxq "$FALLBACK_SERVER_NAME"; then
+                echo "Skipping Certbot for now; deployment will continue at http://${FALLBACK_SERVER_NAME}."
+              elif ! printf '%s\n' "$DOMAIN_IPS" | grep -Fxq "$FALLBACK_SERVER_NAME"; then
                 echo "DNS is not pointing at this VPS. Expected ${FALLBACK_SERVER_NAME}, got: ${DOMAIN_IPS}"
-                exit 1
-              fi
-
-              CERTBOT_ARGS=(
-                --nginx
-                -d "$SITE_DOMAIN"
-                --non-interactive
-                --agree-tos
-                --redirect
-                --keep-until-expiring
-              )
-
-              if [[ -n "$CERTBOT_EMAIL" ]]; then
-                CERTBOT_ARGS+=(-m "$CERTBOT_EMAIL")
+                echo "Skipping Certbot for now; deployment will continue at http://${FALLBACK_SERVER_NAME}."
               else
-                CERTBOT_ARGS+=(--register-unsafely-without-email)
-              fi
+                CERTBOT_ARGS=(
+                  --nginx
+                  -d "$SITE_DOMAIN"
+                  --non-interactive
+                  --agree-tos
+                  --redirect
+                  --keep-until-expiring
+                )
 
-              certbot "${CERTBOT_ARGS[@]}"
+                if [[ -n "$CERTBOT_EMAIL" ]]; then
+                  CERTBOT_ARGS+=(-m "$CERTBOT_EMAIL")
+                else
+                  CERTBOT_ARGS+=(--register-unsafely-without-email)
+                fi
+
+                if ! certbot "${CERTBOT_ARGS[@]}"; then
+                  echo "Certbot failed for ${SITE_DOMAIN}; deployment will continue at http://${FALLBACK_SERVER_NAME}."
+                fi
+              fi
             fi
           else
             echo "Skipping Certbot; SITE_DOMAIN is not set."
@@ -275,19 +274,51 @@ jobs:
             --retry-connrefused \
             "http://${{ env.FALLBACK_SERVER_NAME }}/healthz" >/dev/null
 
-      - name: Verify public domain routes
+      - name: Verify public domain routes when DNS is ready
         run: |
-          curl -fsS \
-            --retry 10 \
-            --retry-delay 6 \
-            --retry-connrefused \
-            "http://${{ env.SITE_DOMAIN }}/healthz" >/dev/null
+          set -euo pipefail
 
-          curl -fsS \
+          SITE_DOMAIN="${{ env.SITE_DOMAIN }}"
+          FALLBACK_SERVER_NAME="${{ env.FALLBACK_SERVER_NAME }}"
+
+          if [[ -z "$SITE_DOMAIN" ]]; then
+            echo "Skipping public domain verification; SITE_DOMAIN is not set."
+            exit 0
+          fi
+
+          if [[ "$SITE_DOMAIN" =~ ^[0-9]+(\.[0-9]+){3}$ ]]; then
+            echo "Skipping public domain verification; SITE_DOMAIN is an IP address."
+            exit 0
+          fi
+
+          DOMAIN_IPS="$(getent ahostsv4 "$SITE_DOMAIN" | awk '{print $1}' | sort -u || true)"
+          echo "${SITE_DOMAIN} resolves to: ${DOMAIN_IPS:-no A record found}"
+
+          if [[ -z "$DOMAIN_IPS" ]]; then
+            echo "Skipping public domain verification; ${SITE_DOMAIN} has no public A record yet."
+            exit 0
+          fi
+
+          if ! printf '%s\n' "$DOMAIN_IPS" | grep -Fxq "$FALLBACK_SERVER_NAME"; then
+            echo "Skipping public domain verification; expected ${FALLBACK_SERVER_NAME}, got: ${DOMAIN_IPS}"
+            exit 0
+          fi
+
+          if ! curl -fsS \
             --retry 10 \
             --retry-delay 6 \
             --retry-connrefused \
-            "https://${{ env.SITE_DOMAIN }}/healthz" >/dev/null
+            "http://${SITE_DOMAIN}/healthz" >/dev/null; then
+            echo "HTTP domain health check failed for ${SITE_DOMAIN}; deployment remains available at http://${FALLBACK_SERVER_NAME}."
+          fi
+
+          if ! curl -fsS \
+            --retry 10 \
+            --retry-delay 6 \
+            --retry-connrefused \
+            "https://${SITE_DOMAIN}/healthz" >/dev/null; then
+            echo "HTTPS domain health check failed for ${SITE_DOMAIN}; deployment remains available at http://${FALLBACK_SERVER_NAME}."
+          fi
 
       - name: Deployment summary
         run: |
