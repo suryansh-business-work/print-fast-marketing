@@ -10,6 +10,7 @@ const pages = [
   '/pay-per-click-advertising/',
   '/who-we-are/',
   '/contact-us/',
+  '/checkout/',
   '/privacy-policy/',
   '/terms-of-use/',
   '/sitemap/',

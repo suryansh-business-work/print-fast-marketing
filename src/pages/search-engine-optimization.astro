@@ -3,7 +3,6 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import Hero from '@components/Hero.astro';
 import SectionHeading from '@components/SectionHeading.astro';
 import FeatureGrid from '@components/FeatureGrid.astro';
-import PricingCard from '@components/PricingCard.astro';
 import Testimonials from '@components/Testimonials.astro';
 import CTA from '@components/CTA.astro';
 import ContactForm from '@components/ContactForm.astro';
@@ -47,52 +46,6 @@ const process = [
   { n: '04', title: 'Measure',   desc: 'Live contractor SEO dashboard with rankings, traffic, leads and booked jobs — reviewed in monthly working sessions so you always know exactly what the SEO program is delivering.', icon: 'fa-chart-line' },
 ];
 
-const plans = [
-  {
-    name: 'Local',
-    price: '$1,299',
-    description: 'For single-location home service businesses ready to dominate the local map pack.',
-    features: [
-      'Google Business Profile optimization for contractors & weekly posts',
-      'Citation audit + 50 listings cleaned',
-      'On-page SEO for 10 core service pages',
-      '1 cornerstone article / month',
-      'Review monitoring & response templates',
-      'Monthly geo-grid rank report',
-    ],
-    cta: { label: 'Start with Local', href: '/contact-us/' },
-  },
-  {
-    name: 'Growth',
-    price: '$2,899',
-    description: 'For growing contractor brands competing across multiple cities.',
-    popular: true,
-    features: [
-      'Everything in Local',
-      'Up to 3 locations',
-      'Technical SEO for contractor websites (CWV, schema, JS)',
-      '4 articles / month + content SEO optimization',
-      '4 high-quality backlinks / month',
-      'GA4 + GSC + call-tracking dashboard',
-    ],
-    cta: { label: 'Choose Growth', href: '/contact-us/' },
-  },
-  {
-    name: 'Authority',
-    price: '$5,499',
-    description: 'For home service market leaders investing in long-term organic dominance.',
-    features: [
-      'Everything in Growth',
-      'Unlimited locations / service-area pages',
-      'Digital PR + 8 backlinks / month',
-      '8 articles + topical cluster builds',
-      'AI search optimization for home service companies',
-      'Dedicated SEO lead + bi-weekly reviews',
-    ],
-    cta: { label: 'Build authority', href: '/contact-us/' },
-  },
-];
-
 const faqs = [
   { q: 'How long until SEO starts working?',
     a: "For home service companies, local SEO and technical wins often show inside 60–90 days. Sustained organic traffic growth for HVAC, plumbing and home service contractors typically lifts in months 3–6, with compounding gains beyond month 6. We share weekly leading indicators — rankings, impressions, indexation — so you're never in the dark." },
@@ -121,11 +74,6 @@ const serviceSchema = {
     '@type': 'Audience',
     audienceType: 'HVAC, plumbing, electrical, roofing and home service contractors',
   },
-  offers: [
-    { '@type': 'Offer', name: 'Local',     price: '1299', priceCurrency: 'USD' },
-    { '@type': 'Offer', name: 'Growth',    price: '2899', priceCurrency: 'USD' },
-    { '@type': 'Offer', name: 'Authority', price: '5499', priceCurrency: 'USD' },
-  ],
 };
 
 const localBusinessSchema = {
@@ -193,7 +141,7 @@ const localBusinessSchema = {
     highlight="AI Search"
     description="SEO that wins Google, Bing and AI search for home service companies — from map pack to organic rankings to AI Overviews. Our team handles the audit, the engineering, the content and the links — so your HVAC, plumbing, electrical or home improvement business shows up first when ready-to-buy customers search."
     primaryCta={{ label: 'Request an SEO Proposal', href: '/contact-us/' }}
-    secondaryCta={{ label: 'See pricing', href: '#pricing' }}
+    secondaryCta={{ label: 'Talk to a strategist', href: '#contact' }}
     trustItems={['No long-term contracts', 'Specialists in Home Service SEO', 'Free strategy call for contractors']}
   />
 
@@ -298,23 +246,6 @@ const localBusinessSchema = {
           </details>
         ))}
       </div>
-    </div>
-  </section>
-
-  <!-- Pricing -->
-  <section id="pricing" class="section bg-ink-50/60">
-    <div class="container-pf">
-      <SectionHeading
-        eyebrow="Plans & pricing"
-        title="Month-to-month pricing in USD"
-        description="All retainers include strategy, engineering, content and reporting. No hidden tool fees or per-keyword markups."
-      />
-      <div class="mt-14 grid gap-6 lg:grid-cols-3">
-        {plans.map((p) => <PricingCard {...p} />)}
-      </div>
-      <p class="mt-8 text-center text-sm text-ink-500">
-        <span class="font-semibold text-brand-700">Save 10% on annual prepay.</span> Multi-location and enterprise pricing available on request.
-      </p>
     </div>
   </section>
 

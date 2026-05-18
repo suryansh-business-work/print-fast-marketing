@@ -1,6 +1,11 @@
 import { Formik, Form, Field, ErrorMessage, type FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-import { useState } from 'react';
+import { useEffect, useState, type ChangeEvent } from 'react';
+import {
+  CONTACT_SERVICE_OPTIONS,
+  findContactPlanOption,
+  findContactServiceOption,
+} from '@data/pricing';
 
 export interface ContactFormReactProps {
   variant?: 'general' | 'review';
@@ -19,24 +24,28 @@ interface FormValues {
   website: string;
   contactMethod: 'Email' | 'Phone' | 'Either';
   service: string;
+  plan: string;
   message: string;
   consent: boolean;
 }
 
 const phoneRegex = /^[+]?[\s.\-()0-9]{7,20}$/;
 
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const emptyToUndefined = (value: unknown, originalValue: unknown) => (originalValue === '' ? undefined : value);
 const buildSchema = (variant: 'general' | 'review') =>
   Yup.object({
     name: Yup.string().trim().min(2, 'Please enter your full name').max(80, 'Name is too long').required('Name is required'),
-    email: Yup.string().trim().email('Enter a valid email address').required('Email is required'),
-    phone: Yup.string().trim().matches(phoneRegex, 'Enter a valid phone number').notRequired(),
+    email: Yup.string().trim().email('Enter a valid email address').matches(emailRegex, 'Enter a valid email address').required('Email is required'),
+    phone: Yup.string().transform(emptyToUndefined).trim().matches(phoneRegex, 'Enter a valid phone number').notRequired(),
     company: Yup.string().trim().min(2, 'Company name is too short').max(120, 'Company name is too long').required('Company is required'),
     website:
       variant === 'review'
         ? Yup.string().trim().url('Enter a valid URL (include https://)').required('Website URL is required for the review')
-        : Yup.string().trim().url('Enter a valid URL (include https://)').notRequired(),
+        : Yup.string().transform(emptyToUndefined).trim().url('Enter a valid URL (include https://)').notRequired(),
     contactMethod: Yup.mixed<'Email' | 'Phone' | 'Either'>().oneOf(['Email', 'Phone', 'Either']).required(),
     service: Yup.string().required('Please pick a service'),
+    plan: Yup.string().notRequired(),
     message: Yup.string().trim().min(10, 'Tell us a bit more (10+ chars)').max(2000, 'Please keep it under 2000 chars').required('Message is required'),
     consent: Yup.boolean().oneOf([true], 'Please accept the privacy notice'),
   });
@@ -47,14 +56,23 @@ const inputErrorClass = 'border-red-400 focus:border-red-500 focus:ring-red-500'
 const labelClass = 'text-sm font-medium text-ink-800';
 const errorClass = 'mt-1 text-xs font-medium text-red-600';
 
-const services = [
-  'Digital Marketing Services',
-  'Managed Social Media',
-  'Organic Digital Marketing',
-  'Video Marketing',
-  'Free Digital Review',
-  'Other / Not sure',
-];
+const services = CONTACT_SERVICE_OPTIONS.map((service) => service.label);
+
+const createInitialValues = (variant: 'general' | 'review'): FormValues => ({
+  name: '',
+  email: '',
+  phone: '',
+  company: '',
+  website: '',
+  contactMethod: 'Email',
+  service: variant === 'review' ? 'Free Digital Review' : '',
+  plan: '',
+  message: '',
+  consent: false,
+});
+
+const getPlanOptionsForService = (serviceLabel: string) =>
+  CONTACT_SERVICE_OPTIONS.find((service) => service.label === serviceLabel)?.plans ?? [];
 
 export default function ContactFormReact({
   variant = 'general',
@@ -65,18 +83,21 @@ export default function ContactFormReact({
   email,
 }: ContactFormReactProps) {
   const [submitted, setSubmitted] = useState(false);
+  const [initialValues, setInitialValues] = useState<FormValues>(() => createInitialValues(variant));
 
-  const initialValues: FormValues = {
-    name: '',
-    email: '',
-    phone: '',
-    company: '',
-    website: '',
-    contactMethod: 'Email',
-    service: variant === 'review' ? 'Free Digital Review' : '',
-    message: '',
-    consent: false,
-  };
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const serviceOption = findContactServiceOption(params.get('service'));
+    const planOption = findContactPlanOption(serviceOption, params.get('plan'));
+
+    if (!serviceOption && !planOption) return;
+
+    setInitialValues((current) => ({
+      ...current,
+      service: serviceOption?.label ?? current.service,
+      plan: planOption?.label ?? '',
+    }));
+  }, []);
 
   const handleSubmit = async (values: FormValues, helpers: FormikHelpers<FormValues>) => {
     // Replace with real endpoint when ready (e.g., /api/lead, HubSpot, Formspree)
@@ -139,10 +160,11 @@ export default function ContactFormReact({
         )}
       </div>
 
-      <Formik initialValues={initialValues} validationSchema={buildSchema(variant)} onSubmit={handleSubmit}>
-        {({ isSubmitting, errors, touched }) => {
+      <Formik enableReinitialize initialValues={initialValues} validationSchema={buildSchema(variant)} onSubmit={handleSubmit}>
+        {({ isSubmitting, errors, touched, values, setFieldValue }) => {
           const cls = (field: keyof FormValues) =>
             `${inputClass} ${touched[field] && errors[field] ? inputErrorClass : ''}`;
+          const planOptions = getPlanOptionsForService(values.service);
           return (
             <Form className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2" noValidate>
               <label className="block">
@@ -196,7 +218,15 @@ export default function ContactFormReact({
                 <span className={labelClass}>
                   Service of interest<span className="text-brand-600">*</span>
                 </span>
-                <Field as="select" name="service" className={cls('service')}>
+                <Field
+                  as="select"
+                  name="service"
+                  className={cls('service')}
+                  onChange={(event: ChangeEvent<HTMLSelectElement>) => {
+                    setFieldValue('service', event.target.value);
+                    setFieldValue('plan', '');
+                  }}
+                >
                   <option value="">Select a service…</option>
                   {services.map((s) => (
                     <option key={s} value={s}>
@@ -206,6 +236,34 @@ export default function ContactFormReact({
                 </Field>
                 <ErrorMessage name="service" component="p" className={errorClass} />
               </label>
+
+              {planOptions.length > 0 && (
+                <div className="block sm:col-span-2">
+                  <span className={labelClass}>Pricing plan</span>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {planOptions.map((plan) => {
+                      const selected = values.plan === plan.label;
+                      return (
+                        <button
+                          key={plan.slug}
+                          type="button"
+                          onClick={() => setFieldValue('plan', plan.label)}
+                          className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition-all ${
+                            selected
+                              ? 'bg-brand-600 text-white shadow-soft'
+                              : 'bg-ink-50 text-ink-700 ring-1 ring-ink-200 hover:bg-brand-50 hover:text-brand-700 hover:ring-brand-200'
+                          }`}
+                          aria-pressed={selected}
+                        >
+                          {selected && <i className="fa-solid fa-check text-xs" aria-hidden="true"></i>}
+                          {plan.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  <Field type="hidden" name="plan" />
+                </div>
+              )}
 
               <label className="block sm:col-span-2">
                 <span className={labelClass}>

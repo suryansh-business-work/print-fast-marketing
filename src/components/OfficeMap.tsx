@@ -63,6 +63,9 @@ export default function OfficeMap({
           width: 100%; height: 100%;
           background: #e8f0e3;
           font-family: inherit;
+          position: relative;
+          z-index: 0;
+          isolation: isolate;
         }
         .leaflet-popup-content-wrapper {
           border-radius: 12px;

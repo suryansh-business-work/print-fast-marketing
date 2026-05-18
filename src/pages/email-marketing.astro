@@ -7,6 +7,7 @@ import PricingCard from '@components/PricingCard.astro';
 import Testimonials from '@components/Testimonials.astro';
 import CTA from '@components/CTA.astro';
 import ContactForm from '@components/ContactForm.astro';
+import { getContactHref } from '@data/pricing';
 import ClientLogos from '@components/ClientLogos.astro';
 import { SITE } from '@data/site';
 
@@ -60,7 +61,7 @@ const plans = [
       'Segmentation foundations',
       'Monthly performance report',
     ],
-    cta: { label: 'Start with Foundations', href: '/contact-us/' },
+    cta: { label: 'Start with Foundations', href: getContactHref('email-marketing', 'foundations') },
   },
   {
     name: 'Growth',
@@ -75,7 +76,7 @@ const plans = [
       'Advanced segmentation & A/B tests',
       'Revenue attribution + GA4 reporting',
     ],
-    cta: { label: 'Choose Growth', href: '/contact-us/' },
+    cta: { label: 'Choose Growth', href: getContactHref('email-marketing', 'growth') },
   },
   {
     name: 'Lifecycle',
@@ -89,7 +90,7 @@ const plans = [
       'Dedicated email strategist',
       'Bi-weekly review + custom dashboards',
     ],
-    cta: { label: 'Build my lifecycle', href: '/contact-us/' },
+    cta: { label: 'Build my lifecycle', href: getContactHref('email-marketing', 'lifecycle') },
   },
 ];
 
@@ -280,7 +281,7 @@ const localBusinessSchema = {
   </section>
 
   <!-- Pricing -->
-  <section id="pricing" class="section">
+  <!-- <section id="pricing" class="section">
     <div class="container-pf">
       <SectionHeading
         eyebrow="Plans & pricing"
@@ -294,7 +295,7 @@ const localBusinessSchema = {
         <span class="font-semibold text-brand-700">Save 10% on annual prepay.</span> List size up to 50,000 contacts; larger lists priced per send.
       </p>
     </div>
-  </section>
+  </section> -->
 
   <Testimonials />
 

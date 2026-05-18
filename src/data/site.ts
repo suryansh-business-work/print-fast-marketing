@@ -25,7 +25,7 @@ export const SITE = {
   fullName: 'PrintFast Digital Marketing',
   tagline: 'Performance marketing for U.S. home-service brands',
   description:
-    'PrintFast is a U.S. home service marketing agency delivering SEO, Google Ads (PPC), social media marketing, email marketing and website creation for HVAC, plumbing, roofing, electrical and home service contractors — all under one accountable team. Serving U.S. contractors nationwide from Middlesex, NJ.',
+    'PrintFast is a U.S. home service marketing agency delivering SEO, Google Ads (PPC), social media marketing, email marketing and website creation for HVAC, plumbing, roofing, electrical and home service contractors — all under one accountable team. Serving contractors nationwide from Middlesex, NJ.',
   url: 'https://marketing.print-fast.com',
   phone: '800-810-4818',
   phoneHref: 'tel:800-810-4818',

@@ -1,0 +1,262 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import SectionHeading from '@components/SectionHeading.astro';
+import { SITE } from '@data/site';
+import { SOCIAL_MEDIA_PLANS, getContactHref } from '@data/pricing';
+
+const planMeta = [
+  { bestFor: 'Startups & small businesses', setup: '$999.99 waived for annual plans', posts: '8', boost: '2 boosted posts + $100 boost spend', accent: 'bg-brand-600' },
+  { bestFor: 'Growing businesses', setup: '$2,999.99 waived for annual plans', posts: '12', boost: '2 boosted posts + $200 boost spend', accent: 'bg-blue-600' },
+  { bestFor: 'Established & expanding brands', setup: '$4,999.99 waived for annual plans', posts: '15', boost: '3-4 boosted posts + $400 boost spend', accent: 'bg-purple-700' },
+  { bestFor: 'Multi-location & enterprise brands', setup: '$750+ waived for annual plans', posts: '20+', boost: 'Custom boosted posts and budget', accent: 'bg-orange-600' },
+];
+
+const plans = SOCIAL_MEDIA_PLANS.map((plan, index) => ({ ...plan, ...planMeta[index] }));
+
+const platforms = [
+  { name: 'Facebook', icon: 'fa-facebook' },
+  { name: 'Instagram', icon: 'fa-instagram' },
+  { name: 'Google', icon: 'fa-google' },
+  { name: 'LinkedIn', icon: 'fa-linkedin' },
+  { name: 'YouTube', icon: 'fa-youtube' },
+  { name: 'TikTok', icon: 'fa-tiktok' },
+  { name: 'X', icon: 'fa-x-twitter' },
+  { name: 'Pinterest', icon: 'fa-pinterest' },
+  { name: 'Threads', icon: 'fa-threads' },
+  { name: 'Bluesky', icon: 'fa-bluesky' },
+  { name: 'Reddit', icon: 'fa-reddit' },
+];
+
+const matrixRows = [
+  { icon: 'fa-bullseye', label: 'Best for', values: plans.map((plan) => plan.bestFor) },
+  { icon: 'fa-layer-group', label: 'Branded posts per month', values: plans.map((plan) => plan.posts) },
+  { icon: 'fa-network-wired', label: 'Number of networks', values: ['10', '10', '10', '10'] },
+  { icon: 'fa-share-nodes', label: 'Cross-posting', values: [true, true, true, true] },
+  { icon: 'fa-chess-board', label: 'Social media marketing strategy', values: ['1 - 30 min session', '2 - 30 min sessions', '2 - 30 min sessions', '2 - 30 min sessions'] },
+  { icon: 'fa-magnifying-glass-chart', label: 'Social audit + recommendations', values: [true, true, true, true] },
+  { icon: 'fa-image', label: 'Cover/profile photo optimization', values: [true, true, true, true] },
+  { icon: 'fa-chart-simple', label: 'Standard monthly reporting', values: [true, true, true, true] },
+  { icon: 'fa-calendar-days', label: 'Content calendar', values: [true, true, true, true] },
+  { icon: 'fa-comments', label: 'Monthly strategy session', values: ['1 - 30 min session', '1 - 60 min session', '1 - 60 min session', '2 - 60 min sessions'] },
+  { icon: 'fa-hashtag', label: 'Hashtag research', values: [true, true, true, true] },
+  { icon: 'fa-tags', label: 'Keyword/tagging research', values: [true, true, true, true] },
+  { icon: 'fa-video', label: '1 post w/video compliment', values: ['Available as add-on', '1 included', '1 included', '1 included'] },
+  { icon: 'fa-handshake-angle', label: 'Engagement', values: ['2x', '2x', '4x', '4x+'] },
+  { icon: 'fa-bolt', label: 'Boosted posts per month', values: plans.map((plan) => plan.boost) },
+];
+
+const addOns = [
+  { icon: 'fa-square-plus', name: 'Additional branded post', price: '$39.99 / each' },
+  { icon: 'fa-video', name: 'Video creation under 20 seconds', price: '$249 / each' },
+  { icon: 'fa-pen-ruler', name: 'Custom ad design', price: '$99 / each' },
+  { icon: 'fa-photo-film', name: 'Image / video creation', price: '$49 / each' },
+  { icon: 'fa-filter-circle-dollar', name: 'Additional sticky funnel campaign strategy', price: '$249' },
+  { icon: 'fa-user-plus', name: 'Additional team logins', price: '$10 / user per month' },
+  { icon: 'fa-envelopes-bulk', name: 'Direct mail postcards', price: 'Custom pricing' },
+  { icon: 'fa-location-crosshairs', name: 'Local list building', price: '$99 / campaign' },
+  { icon: 'fa-star', name: 'Review generation campaign', price: '$199 / month' },
+  { icon: 'fa-window-maximize', name: 'Landing pages', price: '$99 / each' },
+  { icon: 'fa-envelope-open-text', name: 'Email marketing / newsletter campaign', price: '$149 / month' },
+  { icon: 'fa-shield-heart', name: 'Reputation management', price: '$199 / month' },
+];
+
+const industries = [
+  { icon: 'fa-snowflake', name: 'HVAC' },
+  { icon: 'fa-wrench', name: 'Plumbing' },
+  { icon: 'fa-bolt', name: 'Electrical' },
+  { icon: 'fa-house-chimney', name: 'Roofing' },
+  { icon: 'fa-leaf', name: 'Landscaping' },
+  { icon: 'fa-broom', name: 'Cleaning' },
+  { icon: 'fa-paint-roller', name: 'Painting' },
+  { icon: 'fa-helmet-safety', name: 'Contractors' },
+  { icon: 'fa-warehouse', name: 'Garage Doors' },
+  { icon: 'fa-truck-moving', name: 'Moving' },
+  { icon: 'fa-bug', name: 'Pest Control' },
+  { icon: 'fa-house-user', name: 'Home Services' },
+];
+---
+
+<BaseLayout
+  title="Complete Social Media Plan | PrintFast"
+  appendSiteName={false}
+  description="Complete PFA social media pricing plan with Foundation, Growth, Authority and Enterprise plans, included services, add-ons and industry coverage."
+  keywords={['complete social media plan', 'PFA social media pricing', 'social media management pricing', 'PrintFast social media plans']}
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Social Media Marketing', href: '/social-media-marketing/' },
+    { name: 'Complete Social Media Plan', href: '/complete-social-media-plan/' },
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'OfferCatalog',
+    name: 'PrintFast Complete Social Media Plan',
+    url: `${SITE.url}/complete-social-media-plan/`,
+    itemListElement: plans.map((plan) => ({
+      '@type': 'Offer',
+      name: plan.name,
+      price: plan.price.replace(/[^0-9.]/g, '') || undefined,
+      priceCurrency: 'USD',
+      url: `${SITE.url}${plan.cta.href}`,
+    })),
+  }}
+>
+  <section class="relative overflow-hidden bg-hero-radial">
+    <div class="container-pf py-16 sm:py-20 lg:py-24">
+      <div class="max-w-4xl" data-reveal>
+        <p class="eyebrow"><i class="fa-solid fa-table-list text-brand-600"></i> PFA Pricing List</p>
+        <h1 class="heading-xl mt-4">Complete Social Media Plan</h1>
+        <p class="lead mt-5 max-w-3xl">
+          Compare the full PrintFast social growth system: plan pricing, setup fees, included services, monthly posts, boosted post budgets, add-ons and supported home-service industries.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="#plan-matrix" class="btn-primary">Compare plans <i class="fa-solid fa-arrow-down text-xs"></i></a>
+          <a href={getContactHref('managed-social-media')} class="btn-outline">Talk to a strategist <i class="fa-solid fa-arrow-right text-xs"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight border-y border-ink-100 bg-white">
+    <div class="container-pf">
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {plans.map((plan) => (
+          <article class="card-hover overflow-hidden" data-reveal>
+            <div class:list={['h-2', plan.accent]}></div>
+            <div class="p-6">
+              <p class="text-xs font-semibold uppercase tracking-[0.18em] text-ink-500">{plan.bestFor}</p>
+              <h2 class="mt-3 text-xl font-bold text-ink-900">{plan.name}</h2>
+              <p class="mt-4 flex items-end gap-1">
+                <span class="text-3xl font-display font-extrabold text-ink-900">{plan.price}</span>
+                {plan.period !== '' && <span class="pb-1 text-sm text-ink-500">{plan.period ?? '/mo'}</span>}
+              </p>
+              <p class="mt-3 text-sm text-ink-600">{plan.setup}</p>
+              <a href={plan.cta.href} class="btn-outline mt-6 w-full justify-center">Select plan</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="plan-matrix" class="section bg-ink-50/60">
+    <div class="container-pf">
+      <SectionHeading
+        eyebrow="Core services included"
+        title="Full plan comparison"
+        description="Scroll horizontally on smaller screens to compare every plan side by side."
+      />
+
+      <div class="mt-8 flex flex-wrap justify-center gap-3 text-sm text-ink-600">
+        {platforms.map((platform) => (
+          <span class="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 ring-1 ring-ink-100 shadow-soft">
+            <i class:list={['fa-brands text-brand-600', platform.icon]} aria-hidden="true"></i>
+            {platform.name}
+          </span>
+        ))}
+      </div>
+
+      <div class="mt-10 overflow-x-auto pb-4" aria-label="Complete social media pricing comparison">
+        <table class="min-w-[1120px] w-full border-separate border-spacing-0 text-left text-sm">
+          <thead>
+            <tr>
+              <th class="sticky left-0 z-10 w-64 rounded-tl-2xl bg-ink-900 p-4 text-xs font-semibold uppercase tracking-[0.18em] text-white">Plan details</th>
+              {plans.map((plan, index) => (
+                <th class:list={['w-56 p-4 text-white', plan.accent, index === plans.length - 1 && 'rounded-tr-2xl']}>
+                  <span class="block text-xs font-semibold uppercase tracking-[0.18em] text-white/80">Tier {index + 1}</span>
+                  <span class="mt-1 block text-lg font-bold">{plan.name}</span>
+                  <span class="mt-2 block text-2xl font-extrabold">{plan.price}</span>
+                  {plan.period !== '' && <span class="block text-xs text-white/80">per month</span>}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th class="sticky left-0 z-10 border-b border-ink-100 bg-white p-4 font-semibold text-ink-900">
+                <span class="inline-flex items-center gap-2"><i class="fa-solid fa-screwdriver-wrench text-brand-600"></i> Setup fee</span>
+              </th>
+              {plans.map((plan) => <td class="border-b border-ink-100 bg-white p-4 text-ink-700">{plan.setup}</td>)}
+            </tr>
+            {matrixRows.map((row) => (
+              <tr>
+                <th class="sticky left-0 z-10 border-b border-ink-100 bg-white p-4 font-semibold text-ink-900">
+                  <span class="inline-flex items-center gap-2"><i class:list={['fa-solid text-brand-600', row.icon]}></i> {row.label}</span>
+                </th>
+                {row.values.map((value) => (
+                  <td class="border-b border-ink-100 bg-white p-4 text-ink-700">
+                    {value === true ? (
+                      <span class="inline-flex items-center gap-2 font-semibold text-brand-700"><i class="fa-solid fa-check"></i> Yes</span>
+                    ) : (
+                      value
+                    )}
+                  </td>
+                ))}
+              </tr>
+            ))}
+            <tr>
+              <th class="sticky left-0 z-10 rounded-bl-2xl bg-white p-4 font-semibold text-ink-900">Select a plan</th>
+              {plans.map((plan, index) => (
+                <td class:list={['bg-white p-4', index === plans.length - 1 && 'rounded-br-2xl']}>
+                  <a href={plan.cta.href} class="btn-primary w-full justify-center">{plan.cta.label}</a>
+                </td>
+              ))}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-pf">
+      <SectionHeading
+        eyebrow="Spare parts menu"
+        title="Add-ons for campaigns that need more firepower"
+        description="Use these add-ons to expand production, funnels, review generation, landing pages, direct mail and reputation support."
+      />
+      <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {addOns.map((addOn) => (
+          <article class="card-hover p-5" data-reveal>
+            <span class="grid h-11 w-11 place-items-center rounded-xl bg-brand-50 text-brand-600">
+              <i class:list={['fa-solid', addOn.icon]} aria-hidden="true"></i>
+            </span>
+            <h3 class="mt-4 font-bold text-ink-900">{addOn.name}</h3>
+            <p class="mt-1 text-sm font-semibold text-brand-700">{addOn.price}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight bg-ink-900 text-white">
+    <div class="container-pf">
+      <div class="grid gap-10 lg:grid-cols-12 lg:items-center">
+        <div class="lg:col-span-4">
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-brand-300">Industries we serve</p>
+          <h2 class="mt-3 text-3xl font-display font-bold text-white">Built for local service brands.</h2>
+          <p class="mt-4 text-ink-300">The plan structure is tuned for industries where visibility, trust, reviews and repeat calls decide growth.</p>
+        </div>
+        <div class="lg:col-span-8 grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-4">
+          {industries.map((industry) => (
+            <div class="rounded-xl bg-white/5 p-4 ring-1 ring-white/10">
+              <i class:list={['fa-solid text-brand-300 text-lg', industry.icon]} aria-hidden="true"></i>
+              <p class="mt-2 text-sm font-semibold text-white">{industry.name}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-pf text-center">
+      <p class="eyebrow"><i class="fa-solid fa-bolt text-brand-600"></i> Let's grow your business together</p>
+      <h2 class="heading-lg mt-4">More visibility. More leads. More customers.</h2>
+      <p class="lead mx-auto mt-5 max-w-2xl">Choose a plan or request a custom plan for multi-location, franchise or enterprise social media operations.</p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a href={getContactHref('managed-social-media', 'growth-plan')} class="btn-primary">Get started today <i class="fa-solid fa-circle-play text-xs"></i></a>
+        <a href="/social-media-marketing/" class="btn-outline">Back to social media marketing</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

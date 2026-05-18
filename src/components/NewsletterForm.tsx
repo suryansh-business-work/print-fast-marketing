@@ -2,8 +2,10 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useState } from 'react';
 
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
 const schema = Yup.object({
-  email: Yup.string().trim().email('Enter a valid email').required('Email is required'),
+  email: Yup.string().trim().email('Enter a valid email').matches(emailRegex, 'Enter a valid email').required('Email is required'),
 });
 
 export default function NewsletterForm() {

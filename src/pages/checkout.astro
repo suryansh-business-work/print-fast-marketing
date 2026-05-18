@@ -1,0 +1,32 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import CheckoutStepper from '@components/CheckoutStepper.tsx';
+---
+
+<BaseLayout
+  title="Checkout"
+  description="Select a PrintFast marketing service, confirm contact and billing details, and prepare for payment setup."
+  keywords={['PrintFast checkout', 'marketing service checkout', 'select marketing plan']}
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Checkout', href: '/checkout/' },
+  ]}
+>
+  <section class="relative overflow-hidden bg-hero-radial">
+    <div class="container-pf py-16 sm:py-20 lg:py-24">
+      <div class="max-w-4xl" data-reveal>
+        <p class="eyebrow"><i class="fa-solid fa-cart-shopping text-brand-600"></i> Checkout</p>
+        <h1 class="heading-xl mt-4">Choose your marketing plan.</h1>
+        <p class="lead mt-5 max-w-3xl">
+          Start with a service and plan, add contact and billing details, confirm the request, then hold the checkout ID until the payment gateway is connected.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-ink-50/60">
+    <div class="container-pf max-w-5xl">
+      <CheckoutStepper client:load />
+    </div>
+  </section>
+</BaseLayout>

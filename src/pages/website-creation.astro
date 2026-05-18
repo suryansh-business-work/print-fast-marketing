@@ -7,6 +7,7 @@ import PricingCard from '@components/PricingCard.astro';
 import Testimonials from '@components/Testimonials.astro';
 import CTA from '@components/CTA.astro';
 import ContactForm from '@components/ContactForm.astro';
+import { getContactHref } from '@data/pricing';
 import ClientLogos from '@components/ClientLogos.astro';
 import { SITE } from '@data/site';
 
@@ -63,7 +64,7 @@ const plans = [
       'Basic on-page SEO setup',
       '30 days of post-launch support',
     ],
-    cta: { label: 'Start with Essentials', href: '/contact-us/' },
+    cta: { label: 'Start with Essentials', href: getContactHref('website-creation', 'essentials') },
   },
   {
     name: 'Standard',
@@ -79,7 +80,7 @@ const plans = [
       'Hosting, email & domain setup',
       '60 days of post-launch support',
     ],
-    cta: { label: 'Choose Standard', href: '/contact-us/' },
+    cta: { label: 'Choose Standard', href: getContactHref('website-creation', 'standard') },
   },
   {
     name: 'Premium',
@@ -97,7 +98,7 @@ const plans = [
       'Custom SEO-rich content',
       '1 "launch" blog article per service',
     ],
-    cta: { label: 'Choose Premium', href: '/contact-us/' },
+    cta: { label: 'Choose Premium', href: getContactHref('website-creation', 'premium') },
   },
   {
     name: 'AI-Enabled',
@@ -115,7 +116,7 @@ const plans = [
       '2 "launch" blog articles per service',
       'FAQs AI Bot — answers customer questions 24/7',
     ],
-    cta: { label: 'Choose AI-Enabled', href: '/contact-us/' },
+    cta: { label: 'Choose AI-Enabled', href: getContactHref('website-creation', 'ai-enabled') },
   },
 ];
 
