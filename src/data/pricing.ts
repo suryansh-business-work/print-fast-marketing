@@ -23,10 +23,19 @@ export const CONTACT_SERVICE_OPTIONS: ContactServiceOption[] = [
     slug: 'managed-social-media',
     label: 'Managed Social Media',
     plans: [
-      { slug: 'foundation-plan', label: 'Foundation Plan', price: '$499.99', amount: 499.99, period: '/mo', description: '8 branded posts per month with starter boost budget.' },
-      { slug: 'growth-plan', label: 'Growth Plan', price: '$699.99', amount: 699.99, period: '/mo', description: '12 branded posts per month for growing brands.' },
-      { slug: 'authority-plan', label: 'Authority Plan', price: '$1,049.99', amount: 1049.99, period: '/mo', description: '15 branded posts per month with deeper strategy.' },
+      { slug: 'foundation-plan', label: 'Foundation Plan', price: '$299', amount: 299, period: '/mo', description: '8 branded posts per month with starter boost budget.' },
+      { slug: 'growth-plan', label: 'Growth Plan', price: '$399', amount: 399, period: '/mo', description: '12 branded posts per month for growing brands.' },
+      { slug: 'authority-plan', label: 'Authority Plan', price: '$699', amount: 699, period: '/mo', description: '15 branded posts per month with deeper strategy.' },
       { slug: 'enterprise-plan', label: 'Enterprise Plan', price: 'Call for pricing', amount: null, period: '', description: 'Custom social media plan for enterprise operations.' },
+    ],
+  },
+  {
+    slug: 'direct-mail-digital-combined',
+    label: 'Direct Mail & Digital Combined',
+    plans: [
+      { slug: 'basic-plan', label: 'Basic Plan', price: '$895', amount: 895, period: '/mo', description: '2,500 postcards + 8 social posts.' },
+      { slug: 'essentials-plan', label: 'Essentials Plan', price: '$1,395', amount: 1395, period: '/mo', description: '4,000 postcards + 12 social posts + Technical SEO.' },
+      { slug: 'premium-plan', label: 'Premium Plan', price: '$1,995', amount: 1995, period: '/mo', description: '6,000 postcards + 12 social posts + Email newsletters + SEO.' },
     ],
   },
   {
@@ -86,12 +95,13 @@ export const CONTACT_SERVICE_OPTIONS: ContactServiceOption[] = [
 export const SOCIAL_MEDIA_PLANS = [
   {
     name: 'Foundation Plan',
-    price: '$499.99',
+    price: '$299',
     description: 'Best for startups and small businesses building a consistent presence.',
     features: [
       '8 branded posts per month',
       '10 networks: Facebook, Instagram, GBP, LinkedIn, YouTube, TikTok, X, Pinterest, Threads, Bluesky and Reddit',
-      '1x setup fee: $999.99, waived for annual plans',
+      '1 login',
+      'Brand audit & setup',
       '1 - 30 min social strategy session',
       'Monthly reporting, content calendar and hashtag research',
       '2 boosted posts/month with +$100 boost spend',
@@ -100,14 +110,15 @@ export const SOCIAL_MEDIA_PLANS = [
   },
   {
     name: 'Growth Plan',
-    price: '$699.99',
+    price: '$399',
     description: 'Best for growing businesses that need stronger creative and strategy cadence.',
     popular: true,
     features: [
       '12 branded posts per month',
       '10 networks with branded platform optimization',
-      '1x setup fee: $2,999.99, waived for annual plans',
-      '2 - 30 min social strategy sessions',
+      'Upto 3 logins',
+      '1 sticky funnel strategy',
+      'Advanced keyword research',
       '1 - 60 min monthly strategy session plus standard reporting',
       '2 boosted posts/month with +$200 boost spend',
     ],
@@ -115,13 +126,14 @@ export const SOCIAL_MEDIA_PLANS = [
   },
   {
     name: 'Authority Plan',
-    price: '$1,049.99',
+    price: '$699',
     description: 'Best for established and expanding brands that need more publishing velocity.',
     features: [
       '15 branded posts per month',
       '10 networks plus social audit and recommendations',
-      '1x setup fee: $4,999.99, waived for annual plans',
-      '2 - 30 min social strategy sessions',
+      'Upto 5 logins',
+      '2 sticky funnel strategies',
+      'Hyper-local market targeting',
       '1 - 60 min monthly strategy session with keyword/tagging research',
       '3-4 boosted posts/month with +$400 boost spend',
     ],
@@ -135,8 +147,9 @@ export const SOCIAL_MEDIA_PLANS = [
     features: [
       '20+ branded posts per month',
       '10 networks with multi-brand planning support',
-      '1x setup fee: $750+, waived for annual plans',
-      '2 - 30 min social strategy sessions',
+      'Unlimited logins',
+      'Dedicated account manager',
+      'Unlimited funnel strategies',
       '2 - 60 min monthly strategy sessions and expanded reporting',
       'Custom boosted-post budget and enterprise publishing workflow',
     ],

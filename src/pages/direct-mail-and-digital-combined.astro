@@ -1,0 +1,348 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import SectionHeading from '@components/SectionHeading.astro';
+import FeatureGrid from '@components/FeatureGrid.astro';
+import PricingCard from '@components/PricingCard.astro';
+import Testimonials from '@components/Testimonials.astro';
+import CTA from '@components/CTA.astro';
+import ContactForm from '@components/ContactForm.astro';
+import ClientLogos from '@components/ClientLogos.astro';
+import { getContactHref } from '@data/pricing';
+
+const proofPoints = [
+  { stat: '2.1×', label: 'higher conversion rates when digital campaigns are combined with direct mail postcards (Source: ANA/DMA Study)' },
+  { stat: '39%', label: 'lift in brand awareness and digital search volumes when print ads run in local trade areas (Source: USPS Marketing Insights)' },
+  { stat: '87%', label: 'of homeowners trust combined print and digital campaigns when hiring a local contractor (Source: BrightLocal Review)' },
+  { stat: '#1', label: 'recommended omni-channel system for local HVAC, plumbing, electrical, and roofing companies (Source: TradeInsider)' },
+];
+
+const whyChooseUs = [
+  {
+    icon: 'fa-envelope-open-text',
+    title: 'Integrated Solutions',
+    description: 'No need to juggle between multiple design or marketing agencies. Experience seamless multi-channel campaigns that transition smoothly from digital to print.',
+  },
+  {
+    icon: 'fa-shield-halved',
+    title: 'Expertise in the Trades',
+    description: 'We understand the unique challenges of running a home service company. Our specialized strategies are tailored to book calls for HVAC, plumbing, and trade businesses.',
+  },
+  {
+    icon: 'fa-earth-americas',
+    title: 'Nationwide Reach',
+    description: 'Our solutions are built to serve home service providers nationwide. No matter your location, we design, target, print, and track all campaigns under one roof.',
+  },
+];
+
+const coordinatedStrategy = [
+  {
+    n: '1',
+    title: 'Constant Competition',
+    description: 'Your competitors are always vying for your local customers\' attention while simultaneously expanding their market presence. Standing out requires physical and digital dominance.',
+    icon: 'fa-solid fa-ranking-star',
+  },
+  {
+    n: '2',
+    title: 'Fight Back',
+    description: 'Establish absolute authority in your local service areas. By pairing hyper-targeted direct mail postcards with matching social and search ads, you target the same homeowners in print and on their devices.',
+    icon: 'fa-solid fa-hand-fist',
+  },
+  {
+    n: '3',
+    title: 'Nurture & Close',
+    description: 'Use the physical postcard as a trust-builder, backed by dynamic social proof and local organic visibility that makes booking your technicians the only logical choice.',
+    icon: 'fa-solid fa-circle-check',
+  },
+];
+
+const plans = [
+  {
+    name: 'Basic Plan',
+    price: '$895',
+    period: '/mo',
+    description: 'Foundational omni-channel reach combining high-impact print campaigns and starter social media.',
+    features: [
+      '2,500 direct mail postcards/mo',
+      '8 custom social posts/mo (2/week)',
+      'Full PrintFast.social platform access',
+      'Unlimited DIY social posts',
+      'Web analytics & monthly reporting',
+      'Billed monthly ($845/mo billed annually)',
+    ],
+    cta: { label: 'Start Basic', href: getContactHref('direct-mail-digital-combined', 'basic-plan') },
+  },
+  {
+    name: 'Essentials Plan',
+    price: '$1,395',
+    period: '/mo',
+    popular: true,
+    description: 'Expanded campaign frequency, targeted mailing list, and professional Local SEO support.',
+    features: [
+      '4,000 direct mail postcards/mo',
+      '12 custom social posts/mo (3/week)',
+      'Full PrintFast.social platform access',
+      'Unlimited DIY social posts',
+      'Technical Local SEO foundations',
+      'Web analytics & monthly reporting',
+      'Billed monthly ($1,299/mo billed annually)',
+    ],
+    cta: { label: 'Choose Essentials', href: getContactHref('direct-mail-digital-combined', 'essentials-plan') },
+  },
+  {
+    name: 'Premium Plan',
+    price: '$1,995',
+    period: '/mo',
+    description: 'Market dominance package incorporating active email newsletters and expanded SEO campaigns.',
+    features: [
+      '6,000 direct mail postcards/mo',
+      '12 custom social posts/mo (3/week)',
+      'Done-for-you email newsletters/mo',
+      'Full PrintFast.social platform access',
+      'Unlimited DIY social posts',
+      'Technical Local SEO & content SEO',
+      'Web analytics & monthly reporting',
+      'Billed monthly ($1,895/mo billed annually)',
+    ],
+    cta: { label: 'Build Dominance', href: getContactHref('direct-mail-digital-combined', 'premium-plan') },
+  },
+];
+
+const capabilities = [
+  {
+    icon: 'fa-bullseye',
+    title: 'Precision Mailing Lists',
+    description: 'We filter prospects by home value, zip code, home age, and homeowner demographics to target only your most profitable customers.',
+  },
+  {
+    icon: 'fa-rectangle-ad',
+    title: 'Ad Match Guarantee',
+    description: 'Our digital team builds social and search ads that exactly match your direct mail design to build powerful local brand recognition.',
+  },
+  {
+    icon: 'fa-qrcode',
+    title: 'QR Code Tracking',
+    description: 'Postcards feature custom QR codes and call-tracking numbers to trace every visitor and phone call directly back to your print campaign.',
+  },
+  {
+    icon: 'fa-chart-line',
+    title: 'Attribution Dashboard',
+    description: 'See print response, digital ad click-throughs, and phone calls side-by-side in one unified monthly performance report.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'How does combined direct mail and digital marketing work?',
+    a: 'We design your postcard campaign and simultaneously run matching digital ads on Facebook, Instagram, and Google targeting the exact same neighborhoods or demographic profile. Homeowners see your physical offer in their mailbox and your matching digital ad on their phone, multiplying response rates.',
+  },
+  {
+    q: 'Can we target specific neighborhoods or customer demographics?',
+    a: 'Absolutely. We filter mailing lists and ad targeting by radius, zip code, home age (perfect for HVAC replacement offers), home value, household income, and occupant demographics.',
+  },
+  {
+    q: 'Are design and print costs included in the pricing?',
+    a: 'Yes, full custom postcard design, professional copy, premium cardstock printing, and postage costs are completely bundled into the monthly flat plan price. There are no hidden fees.',
+  },
+  {
+    q: 'How do you track the success of the print campaigns?',
+    a: 'We use custom, dynamic QR codes, campaign-specific landing pages, and dedicated call-tracking numbers. When a homeowner scans the card or calls the number, it is recorded in your attribution dashboard so you know exactly which jobs came from the mailer.',
+  },
+  {
+    q: 'What is the commitment term for these combined campaigns?',
+    a: 'Our combined print and digital plans are offered on a month-to-month basis. However, because coordinated campaigns compound brand equity over time, we highly recommend a 3-month commitments to see optimal trade velocity and repeat booking trends.',
+  },
+];
+---
+
+<BaseLayout
+  title="Direct Mail & Digital Combined | Done-For-You Contractor Marketing"
+  appendSiteName={true}
+  description="Supercharge your local trade growth by integrating high-impact direct mail postcards with coordinated digital search and social ads targeting the same homeowners."
+  keywords={[
+    'direct mail and digital combined',
+    'omnichannel contractor marketing',
+    'done-for-you direct mail for HVAC',
+    'plumbing direct mail agency',
+    'roofing postcard campaigns',
+    'integrated print and digital marketing',
+  ]}
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Services', href: '/#services' },
+    { name: 'Direct Mail & Digital Combined', href: '/direct-mail-and-digital-combined/' },
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Direct Mail & Digital Combined Marketing Programs',
+    serviceType: 'Done-for-you integrated print and digital marketing',
+    description: 'Complete multi-channel campaigns combining physical trade postcards with coordinated paid and organic digital marketing.',
+    provider: { '@type': 'Organization', name: 'PrintFast Digital Marketing' },
+    areaServed: { '@type': 'Country', name: 'United States' },
+    audience: {
+      '@type': 'Audience',
+      audienceType: 'HVAC, plumbing, electrical, roofing, and home service businesses',
+    },
+    offers: [
+      { '@type': 'Offer', name: 'Basic Combined Plan', price: '895.00', priceCurrency: 'USD' },
+      { '@type': 'Offer', name: 'Essentials Combined Plan', price: '1395.00', priceCurrency: 'USD' },
+      { '@type': 'Offer', name: 'Premium Combined Plan', price: '1995.00', priceCurrency: 'USD' },
+    ],
+  }}
+>
+  <Hero
+    variant="service"
+    eyebrow="Direct Mail & Digital Combined"
+    title="Integrate Print & Digital to Supercharge Your"
+    highlight="Local Territory Dominance"
+    description="Stop choosing between physical mailers and online ads. PrintFast merges targeted direct mail postcards with matching search and social media campaigns to target the exact same high-value local homeowners in print and on their devices simultaneously. Experience the powerful dynamic synergy of combined digital and print marketing!"
+    primaryCta={{ label: 'Get a Coordinated Campaign Proposal', href: getContactHref('direct-mail-digital-combined') }}
+    secondaryCta={{ label: 'View Plans & Pricing', href: '#pricing' }}
+    imageSrc="/images/direct-mail-digital.png"
+    trustItems={['All-in-one print, post & digital design', 'Targeted mailing list included', 'Custom trackable QR codes']}
+  />
+
+  <!-- Stats Grid -->
+  <section class="section-tight bg-ink-900 text-white">
+    <div class="container-pf">
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {proofPoints.map((p) => (
+          <div class="card bg-ink-800 border-white/10 p-7 text-center" data-reveal>
+            <p class="font-display text-4xl font-extrabold text-brand-400">{p.stat}</p>
+            <p class="mt-2 text-xs text-ink-300 leading-relaxed">{p.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="section">
+    <div class="container-pf">
+      <SectionHeading
+        eyebrow="Why Choose PrintFast?"
+        title="Physical mail trust meets digital search speed"
+        description="Juggling multiple agencies is exhausting. We handle design, copywriting, precise mailing lists, printing, ad operations, and reporting under one unified contractor marketing package."
+      />
+      <div class="mt-12 grid gap-8 md:grid-cols-3">
+        {whyChooseUs.map((w) => (
+          <div class="card p-8 flex flex-col items-center text-center shadow-soft hover:ring-brand-200 transition-all" data-reveal>
+            <span class="grid h-16 w-16 place-items-center rounded-2xl bg-brand-50 text-brand-600 text-2xl mb-6">
+              <i class:list={['fa-solid', w.icon]}></i>
+            </span>
+            <h3 class="text-xl font-bold text-ink-900">{w.title}</h3>
+            <p class="mt-4 text-sm text-ink-600 leading-relaxed">{w.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Coordinated Strategy Process -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <SectionHeading
+        eyebrow="Integrated Campaign Strategy"
+        title="Let's create a coordinated marketing plan"
+        description="Physical presence meets digital scale. We map out campaigns so your message is impossible to ignore in your core zip codes."
+      />
+      <div class="mt-14 grid gap-6 md:grid-cols-3">
+        {coordinatedStrategy.map((step) => (
+          <div class="card p-8 flex flex-col justify-between hover:ring-brand-200 transition-all relative overflow-hidden" data-reveal>
+            <div>
+              <div class="flex items-center justify-between mb-6">
+                <span class="grid h-12 w-12 place-items-center rounded-xl bg-brand-50 text-brand-600 text-lg">
+                  <i class:list={[step.icon]}></i>
+                </span>
+                <span class="text-3xl font-extrabold text-brand-100 font-display">0{step.n}</span>
+              </div>
+              <h3 class="text-xl font-bold text-ink-900">{step.title}</h3>
+              <p class="mt-4 text-sm text-ink-600 leading-relaxed">{step.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Cards -->
+  <section id="pricing" class="section">
+    <div class="container-pf">
+      <SectionHeading
+        eyebrow="Plans & Pricing"
+        title="Transparent monthly service packages — no hidden fees"
+        description="All pricing packages include professional custom graphic design, copywriting, high-quality gloss print, demographics-based mailing lists, and target postal routing."
+      />
+      <div class="mt-14 grid gap-8 lg:grid-cols-3 max-w-5xl mx-auto">
+        {plans.map((p) => <PricingCard {...p} />)}
+      </div>
+      <div class="mt-10 flex flex-col items-center gap-3 text-center text-sm text-ink-500 max-w-2xl mx-auto">
+        <p>
+          All packages include full access to the PrintFast.social scheduling calendar, analytics suite, and unlimited DIY social publishing tools. Additional team logins and customized ad designs are available as premium add-ons.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comprehensive Capabilities Breakdown -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <SectionHeading
+        eyebrow="Comprehensive Services"
+        title="State-of-the-art campaign execution & tracking"
+        description="We couple traditional physical marketing with modern web analytical attribution so you see exactly where your marketing dollars return local profit."
+      />
+      <div class="mt-14">
+        <FeatureGrid items={capabilities} columns={4} />
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="section">
+    <div class="container-pf max-w-4xl">
+      <SectionHeading eyebrow="FAQs" title="Common questions" />
+      <div class="mt-10 space-y-4">
+        {faqs.map((f) => (
+          <details class="group card p-6 transition-colors hover:ring-brand-200">
+            <summary class="flex cursor-pointer items-center justify-between gap-4 list-none">
+              <span class="font-semibold text-ink-900">{f.q}</span>
+              <i class="fa-solid fa-plus text-ink-400 group-open:rotate-45 transition-transform"></i>
+            </summary>
+            <p class="mt-4 text-ink-600 leading-relaxed text-sm">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Testimonials
+    title="What Tradesmen Say About Our Coordinated Programs"
+    description="Read real reviews from plumbing, HVAC, and roofing companies who scaled their business using combined direct mail campaigns."
+  />
+
+  <ClientLogos
+    eyebrow="Trusted contractors"
+    title="Backed by local brand leaders"
+    description="Hundreds of HVAC, plumbing, electrical, and roofing business owners nationwide rely on PrintFast."
+    background="muted"
+  />
+
+  <CTA
+    eyebrow="Ready to dominate your zip codes?"
+    title="Work with a done-for-you combined print & digital specialist."
+    description="Tell us about your home service business, trade categories, and targeted service area. We'll send a fully customized omnichannel marketing plan within one business day."
+    primaryCta={{ label: 'Get A Coordinated Marketing Proposal', href: getContactHref('direct-mail-digital-combined') }}
+    secondaryCta={{ label: 'Talk to a strategist', href: '#contact' }}
+  />
+
+  <section id="contact" class="section">
+    <div class="container-pf max-w-4xl">
+      <ContactForm
+        title="Book your territory review"
+        subtitle="Provide a few details about your contractor service area and trade focus. We'll verify local list counts and present an omni-channel plan."
+      />
+    </div>
+  </section>
+</BaseLayout>

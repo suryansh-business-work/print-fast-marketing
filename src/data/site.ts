@@ -101,6 +101,12 @@ export const NAV_LINKS: NavLink[] = [
         icon: 'fa-share-nodes',
       },
       {
+        label: 'Direct Mail & Digital Combined',
+        href: '/direct-mail-and-digital-combined/',
+        description: 'Synergize digital reach with tactile postcard campaigns.',
+        icon: 'fa-envelopes-bulk',
+      },
+      {
         label: 'Email Marketing',
         href: '/email-marketing/',
         description: 'Lifecycle automations, newsletters & SMS that drive repeat revenue.',
@@ -138,6 +144,7 @@ export const NAV_LINKS: NavLink[] = [
 
 export const FOOTER_SERVICES: NavLink[] = [
   { label: 'Social Media Marketing', href: '/social-media-marketing/' },
+  { label: 'Direct Mail & Digital Combined', href: '/direct-mail-and-digital-combined/' },
   { label: 'Email Marketing', href: '/email-marketing/' },
   { label: 'Website Creation', href: '/website-creation/' },
   { label: 'SEO for Home Service Companies', href: '/search-engine-optimization/' },
@@ -151,6 +158,13 @@ export const SERVICES: ServiceCard[] = [
       'Full-service social media strategy, content creation, scheduling and paid social advertising across Facebook, Instagram, TikTok, LinkedIn and YouTube — built to grow your home service brand and convert followers into booked jobs.',
     icon: 'fa-share-nodes',
     href: '/social-media-marketing/',
+  },
+  {
+    title: 'Direct Mail & Digital Combined',
+    description:
+      'Integrate direct mail with high-impact organic & paid digital channels. Drive double the response rate by targeting the exact same local homeowners in print and on their devices simultaneously.',
+    icon: 'fa-envelopes-bulk',
+    href: '/direct-mail-and-digital-combined/',
   },
   {
     title: 'Email Marketing',
