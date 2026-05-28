@@ -11,14 +11,14 @@ import ClientLogos from '@components/ClientLogos.astro';
 import { SOCIAL_MEDIA_PLANS, getContactHref } from '@data/pricing';
 
 const platforms = [
-  { name: 'Facebook',  icon: 'fa-facebook',  note: '#1 home service lead-gen channel for adults 35+' },
-  { name: 'Instagram', icon: 'fa-instagram', note: 'Reels & Stories for local homeowners' },
-  { name: 'TikTok',    icon: 'fa-tiktok',    note: 'Fastest-growing local discovery channel' },
-  { name: 'YouTube',   icon: 'fa-youtube',   note: 'Long-form trust + Shorts reach' },
-  { name: 'LinkedIn',  icon: 'fa-linkedin',  note: 'B2B, commercial & recruiting' },
-  { name: 'Pinterest', icon: 'fa-pinterest', note: 'High-intent home & lifestyle search' },
-  { name: 'X / Twitter', icon: 'fa-x-twitter', note: 'Real-time customer service' },
-  { name: 'Google Business', icon: 'fa-google', note: 'Posts that support local contractor rankings' },
+  { name: 'Facebook',  icon: 'fa-facebook',  note: '#1 home service lead-gen channel for adults 35+', color: '#1877F2', bg: '#E8F3FF' },
+  { name: 'Instagram', icon: 'fa-instagram', note: 'Reels & Stories for local homeowners', color: '#E4405F', bg: '#FCE9EE' },
+  { name: 'TikTok',    icon: 'fa-tiktok',    note: 'Fastest-growing local discovery channel', color: '#000000', bg: '#F4F4F5' },
+  { name: 'YouTube',   icon: 'fa-youtube',   note: 'Long-form trust + Shorts reach', color: '#FF0000', bg: '#FFEDEE' },
+  { name: 'LinkedIn',  icon: 'fa-linkedin',  note: 'B2B, commercial & recruiting', color: '#0A66C2', bg: '#E7F1FF' },
+  { name: 'Pinterest', icon: 'fa-pinterest', note: 'High-intent home & lifestyle search', color: '#BD081C', bg: '#FBECEE' },
+  { name: 'X / Twitter', icon: 'fa-x-twitter', note: 'Real-time customer service', color: '#1DA1F2', bg: '#E8F5FD' },
+  { name: 'Google Business', icon: 'fa-google', note: 'Posts that support local contractor rankings', color: '#4285F4', bg: '#E8F3FF' },
 ];
 
 const whatYouGet = [
@@ -49,18 +49,54 @@ const process = [
 const plans = SOCIAL_MEDIA_PLANS;
 
 const faqs = [
-  { q: 'Do I keep ownership of my content and ad accounts?',
-    a: 'Always. Every account, asset and creative we produce for your done-for-you social media for home services program is owned by you and lives in your business accounts — not ours.' },
-  { q: 'How long until I see results?',
-    a: 'Engagement and reach typically lift within 30–45 days. HVAC social media marketing, plumbing social media agency programs and lead-driving paid campaigns usually show qualified results inside the first 60 days.' },
-  { q: 'Do you run Facebook ads for HVAC and plumbing companies?',
-    a: 'Yes. We build Facebook ads for HVAC, plumbing, electrical, roofing and other home service brands with service-area targeting, call-focused creative, retargeting audiences and performance reporting.' },
-  { q: 'Will you respond to my reviews and DMs?',
-    a: 'Yes. On Growth and Scale plans we monitor and respond on your behalf within two business hours during U.S. business hours, with escalation rules you set.' },
-  { q: 'Are contracts month-to-month?',
-    a: 'Yes. We earn the relationship every month. There are no long-term commitments or cancellation fees for contractors who need flexible social media support.' },
-  { q: 'Do you handle TCPA, FTC and platform compliance?',
-    a: 'Yes — including endorsement and testimonial disclosures (FTC), platform-specific ad policies, and proper opt-in language for any SMS or paid social promotions.' },
+  {
+    q: 'Does social media actually generate leads for home service businesses?',
+    a: 'Yes. But only when done consistently and with real strategy. Organic social media builds brand recognition that shortens your sales cycle. Homeowners who\'ve seen your content are more likely to call you first, trust your pricing, and refer you to neighbors. When paired with targeted advertising, the lead volume becomes measurable and scalable. We track results for every client.',
+  },
+  {
+    q: 'How many posts per month do I actually need?',
+    a: 'Minimum for local contractors is 8 to 12 posts per month across your main platforms. Below that, the algorithm stops prioritizing your page. The sweet spot for real growth is 16 to 20 posts per month mixing educational content, seasonal offers, before and after photos, and community posts. More is better, but consistency matters more than volume.',
+  },
+  {
+    q: 'Will the content sound professional or generic?',
+    a: 'Professional. Every post is written with your brand voice, your service area, and your specific trade in mind. We don\'t use the same template for an HVAC company in Chicago and an electrician in Tampa. Every piece goes through our team before it launches.',
+  },
+  {
+    q: 'How does social media improve my Google rankings?',
+    a: 'Social activity reinforces your authority to Google. More importantly, an active Google Business Profile with weekly posts and fresh photos directly impacts your position in local search results. This is one of the most underused levers in local marketing.',
+  },
+  {
+    q: 'Which platforms should I be on?',
+    a: 'For residential contractors: Facebook (primary), Instagram (brand building), and Google Business Profile (local search). For commercial work, add LinkedIn. For younger homeowners, add TikTok and Instagram Reels. YouTube is essential if you\'re serious about establishing authority.',
+  },
+  {
+    q: 'Can I review posts before they go live?',
+    a: 'Yes. Every plan includes a content approval workflow. You see it first. You approve it. It only posts when you give the green light. You\'ll never be surprised by a post that doesn\'t represent your company correctly.',
+  },
+  {
+    q: 'Does social media actually generate leads for home service businesses?',
+    a: 'Yes. But only when done consistently and with real strategy. Organic social media builds brand recognition that shortens your sales cycle. Homeowners who\'ve seen your content are more likely to call you first, trust your pricing, and refer you to neighbors. When paired with targeted advertising, the lead volume becomes measurable and scalable. We track results for every client.',
+  },
+  {
+    q: 'How many posts per month do I actually need?',
+    a: 'Minimum for local contractors is 8 to 12 posts per month across your main platforms. Below that, the algorithm stops prioritizing your page. The sweet spot for real growth is 16 to 20 posts per month mixing educational content, seasonal offers, before and after photos, and community posts. More is better, but consistency matters more than volume.',
+  },
+  {
+    q: 'Will the content sound professional or generic?',
+    a: 'Professional. Every post is written with your brand voice, your service area, and your specific trade in mind. We don\'t use the same template for an HVAC company in Chicago and an electrician in Tampa. Every piece goes through our team before it launches.',
+  },
+  {
+    q: 'How does social media improve my Google rankings?',
+    a: 'Social activity reinforces your authority to Google. More importantly, an active Google Business Profile with weekly posts and fresh photos directly impacts your position in local search results. This is one of the most underused levers in local marketing.',
+  },
+  {
+    q: 'Which platforms should I be on?',
+    a: 'For residential contractors: Facebook (primary), Instagram (brand building), and Google Business Profile (local search). For commercial work, add LinkedIn. For younger homeowners, add TikTok and Instagram Reels. YouTube is essential if you\'re serious about establishing authority.',
+  },
+  {
+    q: 'Can I review posts before they go live?',
+    a: 'Yes. Every plan includes a content approval workflow. You see it first. You approve it. It only posts when you give the green light. You\'ll never be surprised by a post that doesn\'t represent your company correctly.',
+  },
 ];
 ---
 
@@ -131,12 +167,12 @@ const faqs = [
   <!-- Platforms -->
   <section class="section-tight">
     <div class="container-pf">
-      <SectionHeading eyebrow="Where we'll show up" title="Every channel your U.S. customers use" />
+      <SectionHeading eyebrow="Where we'll show up" title="We Manage Every Platform Where Home Service Customers Actually Spend Time" />
       <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {platforms.map((p) => (
           <div class="card p-5 flex items-center gap-4" data-reveal>
-            <span class="grid h-12 w-12 place-items-center rounded-xl bg-brand-50 text-brand-600 text-xl">
-              <i class:list={[p.icon.startsWith('fa-google') ? 'fa-brands' : 'fa-brands', p.icon]}></i>
+            <span class="grid h-12 w-12 place-items-center rounded-xl text-xl" style={`background-color: ${p.bg}; color: ${p.color}`}>
+              <i class:list={['fa-brands', p.icon]}></i>
             </span>
             <div class="min-w-0">
               <p class="font-semibold text-ink-900">{p.name}</p>
@@ -144,6 +180,62 @@ const faqs = [
             </div>
           </div>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why not generic agency -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="grid gap-12 lg:grid-cols-[1fr_420px] items-center">
+        <div>
+          <p class="eyebrow">Why not just hire a generic agency?</p>
+          <h2 class="heading-lg mt-4">Why Not Just Hire a Generic Social Media Agency?</h2>
+          <p class="lead mt-5 text-ink-600">
+            Because a generic agency doesn't know the trades. They don't understand why plumbers get slammed in January and slow in July. They don't know that HVAC season is different in Minnesota than in Florida. They don't understand that homeowners in Atlanta respond differently to messaging than homeowners in rural Texas. They post pretty pictures and chase vanity metrics like follows and likes. But follows don't pay your technicians. Likes don't schedule service calls. Calls do.
+          </p>
+          <p class="lead mt-5 text-ink-600">
+            PrintFast has spent 35 years in trades marketing. We know the language. We know the seasonal swings. We know what moves customers in your market because we've been doing this since before Facebook existed. When you hire PrintFast, you're not getting a generalist with a Canva account. You're getting a team that already won in your industry.
+          </p>
+        </div>
+        <div class="overflow-hidden rounded-[2rem] bg-brand-950/5 p-6 shadow-soft ring-1 ring-ink-100">
+          <div class="relative mx-auto max-w-[340px]">
+            <svg viewBox="0 0 360 320" class="w-full">
+              <defs>
+                <linearGradient id="socialGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#e0f2fe" />
+                  <stop offset="100%" stop-color="#eef2ff" />
+                </linearGradient>
+              </defs>
+              <rect x="10" y="16" width="340" height="280" rx="40" fill="url(#socialGradient)" />
+              <rect x="36" y="52" width="136" height="22" rx="11" fill="#ffffff" opacity="0.9" />
+              <rect x="36" y="88" width="88" height="14" rx="7" fill="#ffffff" opacity="0.7" />
+              <rect x="36" y="112" width="192" height="16" rx="8" fill="#ffffff" opacity="0.7" />
+              <rect x="36" y="146" width="308" height="14" rx="7" fill="#ffffff" opacity="0.7" />
+              <path d="M64 220c0-24 20-44 44-44h40c24 0 44 20 44 44v28H64v-28Z" fill="#fff" opacity="0.95" />
+              <g class="animate-float" transform="translate(190 200)">
+                <circle cx="0" cy="0" r="34" fill="#1877F2" />
+                <text x="0" y="6" text-anchor="middle" font-size="28" font-weight="700" fill="#fff">f</text>
+              </g>
+              <g class="animate-float delay-1" transform="translate(280 126)">
+                <circle cx="0" cy="0" r="30" fill="#E4405F" />
+                <text x="0" y="6" text-anchor="middle" font-size="22" font-weight="700" fill="#fff">IG</text>
+              </g>
+              <g class="animate-float delay-2" transform="translate(89 190)">
+                <circle cx="0" cy="0" r="30" fill="#FF0000" />
+                <text x="0" y="6" text-anchor="middle" font-size="22" font-weight="700" fill="#fff">YT</text>
+              </g>
+              <g class="animate-float delay-3" transform="translate(108 112)">
+                <circle cx="0" cy="0" r="28" fill="#0A66C2" />
+                <text x="0" y="6" text-anchor="middle" font-size="20" font-weight="700" fill="#fff">in</text>
+              </g>
+              <path d="M112 72c10-12 26-18 42-16 18 2 32 14 38 30" stroke="#0A66C2" stroke-width="4" fill="none" stroke-linecap="round" />
+              <path d="M90 193c22 2 44 12 56 30" stroke="#1877F2" stroke-width="4" fill="none" stroke-linecap="round" />
+              <path d="M242 178c16 14 40 18 60 8" stroke="#FF0000" stroke-width="4" fill="none" stroke-linecap="round" />
+              <circle cx="272" cy="244" r="18" fill="#0A66C2" opacity="0.35" />
+            </svg>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -214,7 +306,7 @@ const faqs = [
   <!-- FAQs -->
   <section class="section">
     <div class="container-pf max-w-4xl">
-      <SectionHeading eyebrow="FAQs" title="Common questions" />
+      <SectionHeading eyebrow="FAQs" title="Questions Home Service Contractors Ask" />
       <div class="mt-10 space-y-3">
         {faqs.map((f) => (
           <details class="group card p-6 transition-colors hover:ring-brand-200">
@@ -267,4 +359,12 @@ const faqs = [
       </div>
     </div>
   </section>
+
+  <style is:global>{`
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    .animate-float { animation: float 5s ease-in-out infinite; }
+    .delay-1 { animation-delay: 0.4s; }
+    .delay-2 { animation-delay: 0.8s; }
+    .delay-3 { animation-delay: 1.2s; }
+  `}</style>
 </BaseLayout>

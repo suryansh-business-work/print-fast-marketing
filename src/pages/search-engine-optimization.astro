@@ -145,6 +145,50 @@ const localBusinessSchema = {
     trustItems={['No long-term contracts', 'Specialists in Home Service SEO', 'Free strategy call for contractors']}
   />
 
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="grid gap-10 lg:grid-cols-[1fr_460px] items-center">
+        <div>
+          <p class="eyebrow">SEO visual</p>
+          <h2 class="heading-lg mt-4">Fast loading websites that rank on Google and turn visitors into customers</h2>
+          <p class="lead mt-5 text-ink-600">
+            A high-performance website, strong search visibility and a clear conversion path are the three pillars of contractor SEO. This animated graphic shows desktop and mobile speed, Google ranking momentum, and customer actions coming together.
+          </p>
+        </div>
+        <div class="overflow-hidden rounded-[2rem] bg-white p-6 shadow-soft ring-1 ring-ink-100">
+          <svg viewBox="0 0 460 320" class="w-full">
+            <rect x="16" y="16" width="276" height="220" rx="28" fill="#eef2ff" />
+            <rect x="36" y="42" width="220" height="22" rx="11" fill="#fff" />
+            <rect x="36" y="80" width="180" height="14" rx="7" fill="#fff" opacity="0.8" />
+            <rect x="36" y="108" width="152" height="14" rx="7" fill="#fff" opacity="0.8" />
+            <rect x="36" y="136" width="212" height="14" rx="7" fill="#fff" opacity="0.8" />
+            <rect x="36" y="168" width="240" height="14" rx="7" fill="#fff" opacity="0.8" />
+            <rect x="320" y="42" width="100" height="184" rx="24" fill="#fff" stroke="#dbeafe" stroke-width="2" />
+            <rect x="338" y="62" width="64" height="16" rx="8" fill="#e2e8f0" />
+            <rect x="338" y="88" width="64" height="12" rx="6" fill="#f8fafc" />
+            <rect x="338" y="110" width="64" height="12" rx="6" fill="#f8fafc" />
+            <rect x="338" y="144" width="64" height="12" rx="6" fill="#f8fafc" />
+            <g class="animate-float">
+              <circle cx="380" cy="260" r="22" fill="#4285F4" opacity="0.95" />
+              <text x="380" y="266" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">G</text>
+            </g>
+            <g class="animate-float delay-1">
+              <circle cx="280" cy="268" r="18" fill="#34A853" opacity="0.95" />
+              <text x="280" y="272" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">LSA</text>
+            </g>
+            <g class="animate-float delay-2">
+              <rect x="258" y="204" width="72" height="38" rx="18" fill="#f7f7f7" />
+              <text x="294" y="228" text-anchor="middle" font-size="12" font-weight="700" fill="#1f2937">SEO</text>
+            </g>
+            <path d="M94 250c18-16 38-24 62-24 22 0 42 10 58 26" stroke="#0A66C2" stroke-width="4" fill="none" stroke-linecap="round" />
+            <path d="M160 92c10-20 32-34 56-34 26 0 48 18 56 42" stroke="#1877F2" stroke-width="4" fill="none" stroke-linecap="round" />
+            <circle cx="118" cy="216" r="16" fill="#0A66C2" opacity="0.2" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Stats -->
   <section class="section-tight">
     <div class="container-pf">
@@ -274,4 +318,11 @@ const localBusinessSchema = {
       />
     </div>
   </section>
+
+  <style is:global>{`
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    .animate-float { animation: float 5s ease-in-out infinite; }
+    .delay-1 { animation-delay: 0.3s; }
+    .delay-2 { animation-delay: 0.6s; }
+  `}</style>
 </BaseLayout>

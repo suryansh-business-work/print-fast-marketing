@@ -252,23 +252,23 @@ export const CLIENT_LOGOS: ClientLogo[] = CLIENT_LOGO_FILES.map((file) => {
 export const TESTIMONIALS = [
   {
     quote:
-      'Great Company all around! From people taking orders to the editing/proof team — I would not go with anyone else. We got into a bind and the team did not hesitate getting our material out fast and ready for our show!',
-    name: 'Derek B.',
-    role: 'Owner, Home Services',
+      "We weren't even trying with social before. Six months in, we're booking jobs directly from Facebook DMs and comments. This is the first time that's ever happened.",
+    name: 'Plumbing company',
+    role: 'Phoenix AZ',
     rating: 5,
   },
   {
     quote:
-      'Our calls doubled in 90 days. The PrintFast team treats our business like their own — strategy, content and reporting all flow from one place.',
-    name: 'Maria L.',
-    role: 'Operations Manager, HVAC Co.',
+      "They made us look like the biggest HVAC operation in our market. The content is professional. It sounds like us. We don't have to touch it. That time saved alone paid for the service.",
+    name: 'HVAC contractor',
+    role: 'Dallas TX',
     rating: 5,
   },
   {
     quote:
-      'Finally a marketing partner who actually understands the trades. The free digital review alone gave us a six-month roadmap.',
-    name: 'James R.',
-    role: 'Founder, Plumbing Services',
+      "Homeowners keep telling us 'I see you guys everywhere.' That visibility didn't happen by accident. That's PrintFast.",
+    name: 'Electrical contractor',
+    role: 'Atlanta GA',
     rating: 5,
   },
 ];
