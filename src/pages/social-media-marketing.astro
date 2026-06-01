@@ -202,43 +202,16 @@ const faqs = [
             PrintFast has spent 35 years in trades marketing. We know the language. We know the seasonal swings. We know what moves customers in your market because we've been doing this since before Facebook existed. When you hire PrintFast, you're not getting a generalist with a Canva account. You're getting a team that already won in your industry.
           </p>
         </div>
-        <div class="overflow-hidden rounded-[2rem] bg-brand-950/5 p-6 shadow-soft ring-1 ring-ink-100">
-          <div class="relative mx-auto max-w-[340px]">
-            <svg viewBox="0 0 360 320" class="w-full">
-              <defs>
-                <linearGradient id="socialGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#e0f2fe" />
-                  <stop offset="100%" stop-color="#eef2ff" />
-                </linearGradient>
-              </defs>
-              <rect x="10" y="16" width="340" height="280" rx="40" fill="url(#socialGradient)" />
-              <rect x="36" y="52" width="136" height="22" rx="11" fill="#ffffff" opacity="0.9" />
-              <rect x="36" y="88" width="88" height="14" rx="7" fill="#ffffff" opacity="0.7" />
-              <rect x="36" y="112" width="192" height="16" rx="8" fill="#ffffff" opacity="0.7" />
-              <rect x="36" y="146" width="308" height="14" rx="7" fill="#ffffff" opacity="0.7" />
-              <path d="M64 220c0-24 20-44 44-44h40c24 0 44 20 44 44v28H64v-28Z" fill="#fff" opacity="0.95" />
-              <g class="animate-float" transform="translate(190 200)">
-                <circle cx="0" cy="0" r="34" fill="#1877F2" />
-                <text x="0" y="6" text-anchor="middle" font-size="28" font-weight="700" fill="#fff">f</text>
-              </g>
-              <g class="animate-float delay-1" transform="translate(280 126)">
-                <circle cx="0" cy="0" r="30" fill="#E4405F" />
-                <text x="0" y="6" text-anchor="middle" font-size="22" font-weight="700" fill="#fff">IG</text>
-              </g>
-              <g class="animate-float delay-2" transform="translate(89 190)">
-                <circle cx="0" cy="0" r="30" fill="#FF0000" />
-                <text x="0" y="6" text-anchor="middle" font-size="22" font-weight="700" fill="#fff">YT</text>
-              </g>
-              <g class="animate-float delay-3" transform="translate(108 112)">
-                <circle cx="0" cy="0" r="28" fill="#0A66C2" />
-                <text x="0" y="6" text-anchor="middle" font-size="20" font-weight="700" fill="#fff">in</text>
-              </g>
-              <path d="M112 72c10-12 26-18 42-16 18 2 32 14 38 30" stroke="#0A66C2" stroke-width="4" fill="none" stroke-linecap="round" />
-              <path d="M90 193c22 2 44 12 56 30" stroke="#1877F2" stroke-width="4" fill="none" stroke-linecap="round" />
-              <path d="M242 178c16 14 40 18 60 8" stroke="#FF0000" stroke-width="4" fill="none" stroke-linecap="round" />
-              <circle cx="272" cy="244" r="18" fill="#0A66C2" opacity="0.35" />
-            </svg>
-          </div>
+        <div class="overflow-hidden rounded-[2rem] bg-brand-950/5 p-4 shadow-soft ring-1 ring-ink-100">
+          <img
+            src="/images/pf-expertise.webp"
+            alt="PrintFast trades marketing expertise — 35 years serving home service companies"
+            width="1200"
+            height="849"
+            class="w-full h-auto rounded-[1.5rem]"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
       </div>
     </div>
@@ -363,12 +336,4 @@ const faqs = [
       </div>
     </div>
   </section>
-
-  <style is:global>
-    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-    .animate-float { animation: float 5s ease-in-out infinite; }
-    .delay-1 { animation-delay: 0.4s; }
-    .delay-2 { animation-delay: 0.8s; }
-    .delay-3 { animation-delay: 1.2s; }
-  </style>
 </BaseLayout>
