@@ -1,0 +1,352 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ContactForm from '@components/ContactForm.astro';
+import { getContactHref } from '@data/pricing';
+
+const ctaHref = getContactHref('direct-mail-digital-combined');
+
+const heroBullets = [
+  'Targeted Direct Mail',
+  'Facebook & Instagram Retargeting',
+  'Google Display Network',
+  'More Visibility. More Trust. More Calls.',
+];
+
+const trust = [
+  { icon: 'fa-location-crosshairs', title: 'Hyper-Targeted', note: 'Reach the right neighborhoods.' },
+  { icon: 'fa-display', title: 'Multi-Channel', note: 'Mailbox, social, display, mobile & more.' },
+  { icon: 'fa-people-group', title: 'Build Trust', note: 'Stay top-of-mind with repeated exposure.' },
+  { icon: 'fa-arrow-trend-up', title: 'More Leads', note: 'More visibility leads to more calls & booked jobs.' },
+  { icon: 'fa-trophy', title: 'Beat the Competition', note: 'Show up more often. Win more often.' },
+];
+
+const omnipresenceChecks = [
+  'Your postcard hits the mailbox.',
+  'Your ad shows up on Facebook.',
+  'They see you on Instagram.',
+  'They notice you on local websites and apps.',
+  "When they need you, you're the one they call.",
+];
+
+const imgBase = '/images/direct-plus-page';
+
+const why = [
+  { img: `${imgBase}/local-visibility.png`, title: 'Local Visibility', description: 'Target the right neighborhoods with precision.' },
+  { img: `${imgBase}/repeated-exposure.png`, title: 'Repeated Exposure', description: 'More impressions mean more brand recognition and trust.' },
+  { img: `${imgBase}/increased-trust.png`, title: 'Increased Trust', description: 'Familiarity builds confidence when homeowners need service.' },
+  { img: `${imgBase}/more-calls.png`, title: 'More Calls', description: "Top-of-mind = first call when it's time to hire." },
+  { img: `${imgBase}/dominate-your-market.png`, title: 'Dominate Your Market', description: 'Out-market, out-brand, and out-perform your competition.' },
+];
+
+const steps = [
+  { n: '1', icon: 'fa-bullseye', title: 'We Target', description: 'We identify the best neighborhoods for your business.' },
+  { n: '2', icon: 'fa-envelope', title: 'We Deliver', description: 'Your postcards hit mailboxes with a powerful offer.' },
+  { n: '3', icon: 'fa-mobile-screen-button', title: 'We Retarget', description: 'We retarget those homes across multiple platforms.' },
+  { n: '4', icon: 'fa-eye', title: 'We Stay Visible', description: 'We keep your brand in front of them day after day.' },
+  { n: '5', icon: 'fa-phone', title: 'You Get Calls', description: 'More visibility leads to more calls and booked jobs.' },
+];
+
+const industries = [
+  'HVAC Tune-Up & Maintenance',
+  'AC & Furnace Replacement',
+  'Plumbing Services & Water Heaters',
+  'Electrical Panel & Safety Upgrades',
+  'Drain Cleaning & Sewer Services',
+  'Emergency Service Campaigns',
+  'Maintenance Membership Programs',
+  'And More...',
+];
+
+const benefits = [
+  { icon: 'fa-envelope-open-text', label: 'Mailbox + Digital', value: 'Maximum Impact' },
+  { icon: 'fa-users', label: 'More Visibility', value: 'More Trust' },
+  { icon: 'fa-chart-line', label: 'More Trust', value: 'More Jobs' },
+];
+---
+
+<BaseLayout
+  title="Direct Mail Plus | Direct Mail + Digital Retargeting for Contractors"
+  appendSiteName={true}
+  description="Direct Mail Plus combines targeted direct mail with Facebook, Instagram and Google Display retargeting — so your HVAC, plumbing or home service brand stays in front of homeowners everywhere they look."
+  keywords={[
+    'direct mail plus',
+    'direct mail retargeting',
+    'direct mail and digital marketing',
+    'omnipresence marketing for contractors',
+    'HVAC direct mail',
+    'plumbing direct mail marketing',
+    'home service postcard marketing',
+  ]}
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Services', href: '/#services' },
+    { name: 'Direct Mail Plus', href: '/direct-mail-plus/' },
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Direct Mail Plus',
+    serviceType: 'Direct mail with digital retargeting',
+    description:
+      'Omnipresence marketing that pairs targeted direct mail with Facebook, Instagram and Google Display retargeting for home service contractors.',
+    provider: { '@type': 'Organization', name: 'PrintFast Digital Marketing' },
+    areaServed: { '@type': 'Country', name: 'United States' },
+    audience: {
+      '@type': 'Audience',
+      audienceType: 'HVAC, plumbing, electrical, roofing and home service contractors',
+    },
+  }}
+>
+  <!-- ===================== HERO BANNER ===================== -->
+  <section class="relative overflow-hidden bg-[#0f2747]">
+    <!-- Background photo (right side) -->
+    <img
+      src="/images/direct-plus-page/banner-image-blue.png"
+      alt="Homeowner holding an HVAC postcard at the mailbox while a service van is parked on the street"
+      class="absolute inset-y-0 right-0 h-full w-full object-cover object-center lg:w-3/5 lg:object-right"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+    />
+    <!-- Navy overlay for text legibility -->
+    <div aria-hidden="true" class="absolute inset-0 bg-gradient-to-r from-[#0f2747] from-30% via-[#0f2747]/95 via-55% to-[#0f2747]/30 lg:to-transparent"></div>
+    <div aria-hidden="true" class="absolute inset-0 bg-[#0f2747]/40 lg:hidden"></div>
+
+    <div class="container-pf relative py-14 sm:py-16 lg:py-24">
+      <div class="max-w-xl lg:max-w-2xl">
+        <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+          Dominate Your Market
+        </p>
+
+        <h1 class="mt-5 font-display text-5xl font-extrabold uppercase leading-[0.95] tracking-tight text-white sm:text-6xl lg:text-7xl">
+          Direct Mail <span class="text-[#ED1C24]">Plus</span>
+        </h1>
+
+        <p class="mt-4 font-display text-xl font-bold text-white sm:text-2xl">
+          Mailbox Today, <span class="text-[#ED1C24]">Screens Tomorrow,</span> Calls Forever.
+        </p>
+
+        <p class="mt-5 max-w-lg text-sm leading-relaxed text-white/80 sm:text-base">
+          We combine powerful direct mail with digital retargeting that keeps your HVAC, Plumbing,
+          Electrical, or Home Service business in front of homeowners everywhere they look.
+        </p>
+
+        <ul class="mt-6 space-y-3">
+          {heroBullets.map((b) => (
+            <li class="flex items-center gap-3 text-sm font-medium text-white sm:text-base">
+              <i class="fa-solid fa-circle-check text-[#ED1C24]"></i> {b}
+            </li>
+          ))}
+        </ul>
+
+        <a
+          href={ctaHref}
+          class="mt-8 inline-flex items-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+        >
+          Get My Direct Mail Plus Strategy <i class="fa-solid fa-arrow-right text-xs"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TRUST STRIP ===================== -->
+  <section class="bg-[#16335c]">
+    <div class="container-pf">
+      <div class="grid divide-white/10 sm:grid-cols-2 lg:grid-cols-5 lg:divide-x">
+        {trust.map((t) => (
+          <div class="flex flex-col items-center gap-3 px-4 py-8 text-center" data-reveal>
+            <span class="text-3xl text-white">
+              <i class:list={['fa-solid', t.icon]}></i>
+            </span>
+            <p class="text-sm font-bold uppercase tracking-wide text-white">{t.title}</p>
+            <p class="text-xs leading-relaxed text-white/65">{t.note}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== OMNIPRESENCE ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="grid items-center gap-14 lg:grid-cols-2">
+        <div>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-bolt"></i> Omnipresence Marketing
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">
+            The Power of <span class="text-[#ED1C24]">Omnipresence Marketing</span>
+          </h2>
+          <p class="lead mt-5">
+            Homeowners don't just see your postcard once and call. They need to see your brand
+            multiple times across multiple channels before they're ready to act.
+          </p>
+          <ul class="mt-8 space-y-4">
+            {omnipresenceChecks.map((c) => (
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+                  <i class="fa-solid fa-check text-[10px]"></i>
+                </span>
+                <span class="text-ink-700">{c}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Omnipresence diagram -->
+        <div class="relative" data-reveal>
+          <img
+            src="/images/direct-plus-page/direct-mail-plus-four-in-one.png"
+            alt="The same Direct Mail Plus postcard offer shown across direct mail, Facebook, Instagram and Google Display — keeping your brand top of mind"
+            width="1312"
+            height="1199"
+            class="mx-auto h-auto w-full max-w-xl"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHY IT WORKS ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-bolt"></i> Why it works
+        </p>
+        <h2 class="heading-lg mt-4 uppercase text-[#0f2747]">Why Direct Mail <span class="text-[#ED1C24]">Plus</span> Works for Home Service Contractors</h2>
+      </div>
+      <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+        {why.map((w) => (
+          <div class="group flex flex-col overflow-hidden rounded-2xl bg-white ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <div class="overflow-hidden">
+              <img
+                src={w.img}
+                alt={`${w.title} — Direct Mail Plus for home service contractors`}
+                width="1360"
+                height="1020"
+                class="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="flex flex-1 flex-col p-5 text-center">
+              <h3 class="text-sm font-extrabold uppercase tracking-wide text-[#0f2747]">{w.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-ink-600">{w.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== HOW IT WORKS ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-bolt"></i> The process
+        </p>
+        <h2 class="heading-lg mt-4 uppercase text-[#0f2747]">How Direct Mail <span class="text-[#ED1C24]">Plus</span> Works</h2>
+      </div>
+      <div class="mt-12 rounded-3xl border border-ink-200 bg-white p-6 shadow-soft sm:p-10" data-reveal>
+        <ol class="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-2">
+          {steps.map((s, i) => (
+            <Fragment>
+              <li class="flex flex-1 flex-col items-center text-center">
+                <span class="grid h-20 w-20 place-items-center rounded-full bg-[#ED1C24] text-3xl text-white shadow-lg">
+                  <i class:list={['fa-solid', s.icon]}></i>
+                </span>
+                <p class="mt-4 text-sm font-extrabold uppercase tracking-[0.16em] text-[#0f2747]">Step {s.n}</p>
+                <h3 class="text-base font-extrabold uppercase text-[#0f2747]">{s.title}</h3>
+                <p class="mx-auto mt-2 max-w-[12rem] text-sm leading-relaxed text-ink-600">{s.description}</p>
+              </li>
+              {i < steps.length - 1 && (
+                <li aria-hidden="true" class="flex shrink-0 items-center justify-center lg:pt-7">
+                  <i class="fa-solid fa-arrow-right rotate-90 text-2xl text-[#ED1C24] lg:rotate-0"></i>
+                </li>
+              )}
+            </Fragment>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== INDUSTRIES + FINAL CTA ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="grid items-stretch gap-8 lg:grid-cols-2">
+
+        <!-- Campaigns Built for Your Industry -->
+        <div class="overflow-hidden rounded-2xl bg-white ring-1 ring-ink-100 shadow-soft" data-reveal>
+          <div class="bg-[#0f2747] px-6 py-4">
+            <h2 class="font-display text-base font-extrabold uppercase tracking-wide text-white sm:text-lg">
+              Campaigns Built for Your Industry
+            </h2>
+          </div>
+          <div class="grid sm:grid-cols-2">
+            <ul class="space-y-3 p-6">
+              {industries.map((i) => (
+                <li class="flex items-center gap-3 text-sm font-medium text-ink-700">
+                  <i class="fa-solid fa-circle-check text-[#ED1C24]"></i> {i}
+                </li>
+              ))}
+            </ul>
+            <div class="min-h-[15rem] sm:min-h-full">
+              <img
+                src="/images/direct-plus-page/fixing.png"
+                alt="HVAC unit, water heater and electrical panel service work — campaigns built for every home service trade"
+                width="1405"
+                height="1120"
+                class="h-full w-full object-cover"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Stop Hoping They Remember You -->
+        <div class="flex flex-col justify-center rounded-2xl bg-white p-8 ring-1 ring-ink-100 shadow-soft sm:p-10" data-reveal>
+          <h2 class="font-display text-2xl font-extrabold uppercase leading-tight sm:text-3xl">
+            <span class="text-[#0f2747]">Stop Hoping They Remember You.</span>
+            <span class="text-[#ED1C24]"> Make Sure They Do.</span>
+          </h2>
+          <p class="mt-4 leading-relaxed text-ink-600">
+            Direct Mail PLUS keeps your business in front of homeowners everywhere they look — so
+            you're the one they call when it matters most.
+          </p>
+          <ul class="mt-6 space-y-4">
+            {benefits.map((item) => (
+              <li class="flex items-center gap-3">
+                <span class="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-[#fde8e9] text-[#ED1C24]">
+                  <i class:list={['fa-solid', item.icon]}></i>
+                </span>
+                <span class="font-bold text-[#0f2747]">{item.label} = {item.value}</span>
+              </li>
+            ))}
+          </ul>
+          <a
+            href={ctaHref}
+            class="mt-8 inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+          >
+            Dominate My Local Market <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section pt-0">
+    <div class="container-pf max-w-4xl">
+      <ContactForm
+        title="Get your Direct Mail Plus strategy"
+        subtitle="Tell us about your service area and trade. We'll map a direct mail + retargeting plan and send it within one business day."
+      />
+    </div>
+  </section>
+</BaseLayout>

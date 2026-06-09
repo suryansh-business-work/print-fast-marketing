@@ -4,6 +4,7 @@ import { SITE } from '@data/site';
 const pages = [
   '/',
   '/social-media-marketing/',
+  '/direct-mail-plus/',
   '/email-marketing/',
   '/website-creation/',
   '/search-engine-optimization/',
