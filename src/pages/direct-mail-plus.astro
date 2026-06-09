@@ -62,6 +62,29 @@ const benefits = [
   { icon: 'fa-users', label: 'More Visibility', value: 'More Trust' },
   { icon: 'fa-chart-line', label: 'More Trust', value: 'More Jobs' },
 ];
+
+const faqs = [
+  {
+    q: 'How does Direct Mail PLUS work?',
+    a: 'Direct Mail PLUS combines targeted direct mail campaigns with digital advertising and retargeting strategies that continue displaying your business to homeowners online after they receive your postcard.',
+  },
+  {
+    q: 'Does direct mail still work for HVAC companies?',
+    a: 'Yes. Direct mail still performs extremely well for HVAC companies, especially when combined with digital reinforcement, social media visibility, and neighborhood targeting strategies.',
+  },
+  {
+    q: 'Can plumbers and electricians use Direct Mail PLUS?',
+    a: 'Absolutely. Direct Mail PLUS works for plumbing, electrical, roofing, garage door, landscaping, pest control, and nearly every home service industry that depends on local brand visibility.',
+  },
+  {
+    q: 'Why is repeated visibility important in contractor marketing?',
+    a: 'Homeowners are more likely to trust and remember companies they repeatedly see across multiple channels and platforms. Familiarity strongly influences who homeowners contact during service emergencies and replacement situations.',
+  },
+  {
+    q: 'What neighborhoods should contractors target?',
+    a: 'The best neighborhoods often include high-equity homeowners, aging HVAC systems, older plumbing infrastructure, higher household income areas, and fast-growing residential communities.',
+  },
+];
 ---
 
 <BaseLayout
@@ -216,7 +239,7 @@ const benefits = [
         <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
           <i class="fa-solid fa-bolt"></i> Why it works
         </p>
-        <h2 class="heading-lg mt-4 uppercase text-[#0f2747]">Why Direct Mail <span class="text-[#ED1C24]">Plus</span> Works for Home Service Contractors</h2>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Why Direct Mail <span class="text-[#ED1C24]">Plus</span> works for home service contractors</h2>
       </div>
       <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
         {why.map((w) => (
@@ -249,7 +272,7 @@ const benefits = [
         <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
           <i class="fa-solid fa-bolt"></i> The process
         </p>
-        <h2 class="heading-lg mt-4 uppercase text-[#0f2747]">How Direct Mail <span class="text-[#ED1C24]">Plus</span> Works</h2>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">How Direct Mail <span class="text-[#ED1C24]">Plus</span> works</h2>
       </div>
       <div class="mt-12 rounded-3xl border border-ink-200 bg-white p-6 shadow-soft sm:p-10" data-reveal>
         <ol class="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-2">
@@ -337,6 +360,67 @@ const benefits = [
           </a>
         </div>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="section">
+    <div class="container-pf max-w-4xl">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-circle-question"></i> FAQs
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Frequently asked questions by home service contractors</h2>
+      </div>
+      <div class="mt-10 space-y-4">
+        {faqs.map((f) => (
+          <details class="group rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft transition-colors hover:ring-[#ED1C24]/40" data-reveal>
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
+              <span class="font-bold text-[#0f2747]">{f.q}</span>
+              <i class="fa-solid fa-plus text-[#ED1C24] transition-transform group-open:rotate-45"></i>
+            </summary>
+            <p class="mt-4 text-sm leading-relaxed text-ink-600">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FINAL CTA ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-20" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+
+        <div class="relative max-w-3xl">
+          <p class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-white ring-1 ring-white/20">
+            <i class="fa-solid fa-bolt"></i> Be everywhere they look
+          </p>
+          <h2 class="heading-lg mt-5 text-white">
+            Stop Letting Competitors <span class="text-[#ED1C24]">Own the Neighborhood</span>
+          </h2>
+          <p class="mt-5 text-lg leading-relaxed text-white/85">
+            One-touch marketing is easy to ignore. Direct Mail PLUS helps keep your brand visible
+            across the channels homeowners use every day — increasing recognition, response rates,
+            and your share of the neighborhoods that matter most.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={ctaHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Get My Direct Mail PLUS Plan <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href="#contact"
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              Speak With a Specialist
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
