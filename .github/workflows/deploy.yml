@@ -57,7 +57,25 @@ jobs:
       - name: Trust VPS SSH host key
         run: |
           mkdir -p ~/.ssh
-          ssh-keyscan -H "${{ env.REMOTE_HOST }}" >> ~/.ssh/known_hosts
+          chmod 700 ~/.ssh
+
+          # ssh-keyscan exits non-zero (failing this `bash -e` step) when the VPS
+          # is briefly slow to answer on port 22 within its default 5s timeout.
+          # Retry with a longer timeout so a transient blip doesn't break deploy.
+          for attempt in 1 2 3 4 5 6; do
+            if ssh-keyscan -T 20 -H "${{ env.REMOTE_HOST }}" > /tmp/vps_known_hosts 2>/dev/null \
+              && [ -s /tmp/vps_known_hosts ]; then
+              cat /tmp/vps_known_hosts >> ~/.ssh/known_hosts
+              chmod 600 ~/.ssh/known_hosts
+              echo "Collected SSH host key for ${{ env.REMOTE_HOST }} on attempt ${attempt}."
+              exit 0
+            fi
+            echo "ssh-keyscan attempt ${attempt}/6 returned no host key; retrying in 10s..."
+            sleep 10
+          done
+
+          echo "::error::Could not retrieve SSH host key for ${{ env.REMOTE_HOST }} after 6 attempts."
+          exit 1
 
       - name: Deploy container on VPS
         env:
