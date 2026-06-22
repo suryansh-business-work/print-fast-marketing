@@ -1,14 +1,10 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import Hero from '@components/Hero.astro';
-import SectionHeading from '@components/SectionHeading.astro';
-import FeatureGrid from '@components/FeatureGrid.astro';
-import PricingCard from '@components/PricingCard.astro';
-import Testimonials from '@components/Testimonials.astro';
-import CTA from '@components/CTA.astro';
 import ContactForm from '@components/ContactForm.astro';
-import ClientLogos from '@components/ClientLogos.astro';
 import { SOCIAL_MEDIA_PLANS, getContactHref } from '@data/pricing';
+import { TESTIMONIALS, CLIENT_LOGOS } from '@data/site';
+
+const trustItems = ['Built for HVAC, Plumbing & Home Services', 'Done-for-you social media', 'Free strategy call'];
 
 const platforms = [
   { name: 'Facebook',  icon: 'fa-facebook',  note: '#1 home service lead-gen channel for adults 35+', color: '#1877F2', bg: '#E8F3FF' },
@@ -98,6 +94,18 @@ const faqs = [
     a: 'Yes. Every plan includes a content approval workflow. You see it first. You approve it. It only posts when you give the green light. You\'ll never be surprised by a post that doesn\'t represent your company correctly.',
   },
 ];
+
+// Shared theme tokens (matching the Direct Mail Plus page)
+const eyebrowPill = 'inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]';
+const btnPrimary = 'inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px';
+const btnPrimaryFull = `w-full ${btnPrimary}`;
+const btnOutlineDark = 'inline-flex w-full items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-[#0f2747] ring-1 ring-ink-200 transition-all hover:text-[#ED1C24] hover:ring-[#ED1C24]';
+const cardBase = 'rounded-2xl bg-white ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40';
+
+// Client logo marquee (two opposite-direction rows, seamless loop)
+const rotate = (arr: typeof CLIENT_LOGOS, n: number) => arr.slice(n).concat(arr.slice(0, n));
+const rowA = CLIENT_LOGOS;
+const rowB = rotate(CLIENT_LOGOS, Math.floor(CLIENT_LOGOS.length / 2));
 ---
 
 <BaseLayout
@@ -139,28 +147,60 @@ const faqs = [
     ],
   }}
 >
-  <Hero
-    variant="service"
-    eyebrow="Social Media Marketing"
-    title="Social Media Marketing for Home Service Companies That"
-    highlight="Books Real Jobs"
-    description="PrintFast is a dedicated home service marketing agency with a team that plans, produces, and publishes content built for contractors. Whether you run an HVAC company, plumbing business, electrical service, or roofing crew — we manage your entire social media presence so your phone keeps ringing. Less guesswork. More booked service calls. A brand your local customers trust."
-    primaryCta={{ label: 'Get My Social Media Proposal', href: getContactHref('managed-social-media') }}
-    secondaryCta={{ label: 'See pricing', href: '#pricing' }}
-    trustItems={['Built for HVAC, Plumbing & Home Services', 'Done-for-you social media', 'Free strategy call']}
-    image={{
-      src: '/images/social-media-banner.webp',
-      alt: 'Social media marketing for home service companies — PrintFast',
-    }}
-  />
+  <!-- ===================== HERO BANNER ===================== -->
+  <section class="relative overflow-hidden bg-[#0f2747]">
+    <img
+      src="/images/social-media-banner.webp"
+      alt="Social media marketing for home service companies — PrintFast"
+      class="absolute inset-y-0 right-0 h-full w-full object-cover object-center lg:w-3/5 lg:object-right"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+    />
+    <div aria-hidden="true" class="absolute inset-0 bg-gradient-to-r from-[#0f2747] from-30% via-[#0f2747]/95 via-55% to-[#0f2747]/30 lg:to-transparent"></div>
+    <div aria-hidden="true" class="absolute inset-0 bg-[#0f2747]/40 lg:hidden"></div>
 
-  <!-- Stats -->
+    <div class="container-pf relative py-16 sm:py-20 lg:py-28">
+      <div class="max-w-xl lg:max-w-2xl">
+        <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+          Social Media Marketing
+        </p>
+
+        <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[1.03] tracking-tight text-white sm:text-5xl lg:text-6xl">
+          Social Media Marketing for Home Service Companies That <span class="text-[#ED1C24]">Books Real Jobs</span>
+        </h1>
+
+        <p class="mt-6 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+          PrintFast is a dedicated home service marketing agency with a team that plans, produces, and publishes content built for contractors. Whether you run an HVAC company, plumbing business, electrical service, or roofing crew — we manage your entire social media presence so your phone keeps ringing. Less guesswork. More booked service calls. A brand your local customers trust.
+        </p>
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href={getContactHref('managed-social-media')} class={btnPrimary}>
+            Get My Social Media Proposal <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+          <a href="#pricing" class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10">
+            See pricing
+          </a>
+        </div>
+
+        <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+          {trustItems.map((item) => (
+            <span class="inline-flex items-center gap-2 text-sm font-medium text-white/80">
+              <i class="fa-solid fa-circle-check text-[#ED1C24]"></i> {item}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== STATS ===================== -->
   <section class="section-tight">
     <div class="container-pf">
       <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {proofPoints.map((p) => (
-          <div class="card p-7 text-center" data-reveal>
-            <p class="font-display text-4xl font-extrabold gradient-text">{p.stat}</p>
+          <div class="rounded-2xl bg-white p-7 text-center ring-1 ring-ink-100 shadow-soft" data-reveal>
+            <p class="font-display text-4xl font-extrabold text-[#ED1C24]">{p.stat}</p>
             <p class="mt-2 text-sm text-ink-600">{p.label}</p>
           </div>
         ))}
@@ -168,19 +208,22 @@ const faqs = [
     </div>
   </section>
 
-  <!-- Platforms -->
+  <!-- ===================== PLATFORMS ===================== -->
   <section class="section-tight">
     <div class="container-pf">
-      <SectionHeading eyebrow="Where we'll show up" title="We Manage Every Platform Where Home Service Customers Actually Spend Time" />
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class={eyebrowPill}><i class="fa-solid fa-bolt"></i> Where we'll show up</p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">We Manage Every Platform Where Home Service Customers Actually Spend Time</h2>
+      </div>
       <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {platforms.map((p) => (
-          <div class="card p-5 flex items-center gap-4" data-reveal>
-            <span class="grid h-12 w-12 place-items-center rounded-xl text-xl" style={`background-color: ${p.bg}; color: ${p.color}`}>
+          <div class="flex items-center gap-4 rounded-2xl bg-white p-5 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <span class="grid h-12 w-12 shrink-0 place-items-center rounded-xl text-xl" style={`background-color: ${p.bg}; color: ${p.color}`}>
               <i class:list={['fa-brands', p.icon]}></i>
             </span>
             <div class="min-w-0">
-              <p class="font-semibold text-ink-900">{p.name}</p>
-              <p class="text-xs text-ink-500 mt-0.5">{p.note}</p>
+              <p class="font-semibold text-[#0f2747]">{p.name}</p>
+              <p class="mt-0.5 text-xs text-ink-500">{p.note}</p>
             </div>
           </div>
         ))}
@@ -188,27 +231,27 @@ const faqs = [
     </div>
   </section>
 
-  <!-- Why not generic agency -->
+  <!-- ===================== WHY NOT A GENERIC AGENCY ===================== -->
   <section class="section">
     <div class="container-pf">
-      <div class="grid gap-12 lg:grid-cols-[1fr_550px] items-center">
-        <div>
-          <p class="eyebrow">Why not just hire a generic agency?</p>
-          <h2 class="heading-lg mt-4">Why Not Just Hire a Generic Social Media Agency?</h2>
-          <p class="lead mt-5 text-ink-600">
+      <div class="grid items-center gap-12 lg:grid-cols-[1fr_550px]">
+        <div data-reveal>
+          <p class={eyebrowPill}><i class="fa-solid fa-bolt"></i> Why not just hire a generic agency?</p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">Why Not Just Hire a Generic Social Media Agency?</h2>
+          <p class="lead mt-5">
             Because a generic agency doesn't know the trades. They don't understand why plumbers get slammed in January and slow in July. They don't know that HVAC season is different in Minnesota than in Florida. They don't understand that homeowners in Atlanta respond differently to messaging than homeowners in rural Texas. They post pretty pictures and chase vanity metrics like follows and likes. But follows don't pay your technicians. Likes don't schedule service calls. Calls do.
           </p>
-          <p class="lead mt-5 text-ink-600">
+          <p class="lead mt-5">
             PrintFast has spent 35 years in trades marketing. We know the language. We know the seasonal swings. We know what moves customers in your market because we've been doing this since before Facebook existed. When you hire PrintFast, you're not getting a generalist with a Canva account. You're getting a team that already won in your industry.
           </p>
         </div>
-        <div class="overflow-hidden rounded-[2rem] bg-brand-950/5 p-4 shadow-soft ring-1 ring-ink-100">
+        <div class="overflow-hidden rounded-[2rem] bg-ink-50 p-4 shadow-soft ring-1 ring-ink-100" data-reveal>
           <img
             src="/images/pf-expertise.webp"
             alt="PrintFast trades marketing expertise — 35 years serving home service companies"
             width="1200"
             height="849"
-            class="w-full h-auto rounded-[1.5rem]"
+            class="h-auto w-full rounded-[1.5rem]"
             loading="lazy"
             decoding="async"
           />
@@ -217,32 +260,77 @@ const faqs = [
     </div>
   </section>
 
-  <!-- What you get -->
+  <!-- ===================== WHAT YOU GET ===================== -->
   <section class="section bg-ink-50/60">
     <div class="container-pf">
-      <SectionHeading
-        eyebrow="What's included"
-        title="A full social team — without the overhead"
-        description="Strategy, production, publishing, paid and reputation for social media marketing for home service companies. One contract, one accountable team, one dashboard."
-      />
-      <div class="mt-14">
-        <FeatureGrid items={whatYouGet} columns={4} />
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class={eyebrowPill}><i class="fa-solid fa-bolt"></i> What's included</p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">A full social team — without the overhead</h2>
+        <p class="lead mt-5">Strategy, production, publishing, paid and reputation for social media marketing for home service companies. One contract, one accountable team, one dashboard.</p>
+      </div>
+      <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {whatYouGet.map((item) => (
+          <div class:list={['flex flex-col p-6', cardBase]} data-reveal>
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-[#fde8e9] text-xl text-[#ED1C24]">
+              <i class:list={['fa-solid', item.icon]}></i>
+            </span>
+            <h3 class="mt-5 text-lg font-extrabold text-[#0f2747]">{item.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-600">{item.description}</p>
+          </div>
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- Pricing -->
+  <!-- ===================== PRICING ===================== -->
   <section id="pricing" class="section bg-ink-50/60">
     <div class="container-pf">
-      <SectionHeading
-        eyebrow="Plans & pricing"
-        title="Transparent monthly pricing — no hidden fees"
-        description="PFA social growth plans are month-to-month and billed in USD. Annual plans waive the one-time setup fee."
-      />
-      <div class="mt-14 grid gap-6 lg:grid-cols-2 xl:grid-cols-4">
-        {plans.map((p) => <PricingCard {...p} />)}
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class={eyebrowPill}><i class="fa-solid fa-bolt"></i> Plans & pricing</p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Transparent monthly pricing — no hidden fees</h2>
+        <p class="lead mt-5">PFA social growth plans are month-to-month and billed in USD. Annual plans waive the one-time setup fee.</p>
       </div>
-      <div class="mt-8 flex flex-col items-center gap-3 text-center text-sm text-ink-500 max-w-2xl mx-auto">
+      <div class="mt-12 grid gap-6 lg:grid-cols-2 xl:grid-cols-4">
+        {plans.map((p) => (
+          <article
+            class:list={[
+              'relative flex flex-col rounded-2xl bg-white p-7 transition-all sm:p-8',
+              p.popular
+                ? 'ring-2 ring-[#ED1C24] shadow-xl lg:-translate-y-2'
+                : 'ring-1 ring-ink-100 shadow-soft hover:-translate-y-1 hover:ring-[#ED1C24]/40',
+            ]}
+            data-reveal
+          >
+            {p.popular && (
+              <span class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[#ED1C24] px-4 py-1 text-[0.7rem] font-extrabold uppercase tracking-wider text-white shadow-lg">Popular</span>
+            )}
+
+            <header>
+              <h3 class="font-display text-lg font-extrabold text-[#0f2747]">{p.name}</h3>
+              {p.description && <p class="mt-2 text-sm text-ink-500">{p.description}</p>}
+            </header>
+
+            <div class="mt-6 flex items-baseline gap-1">
+              <span class="font-display text-4xl font-extrabold text-[#0f2747]">{p.price}</span>
+              <span class="text-sm text-ink-500">{p.period ?? '/mo'}</span>
+            </div>
+
+            <ul class="mt-6 flex-1 space-y-3">
+              {p.features.map((f) => (
+                <li class="flex items-start gap-3 text-sm text-ink-700">
+                  <i class="fa-solid fa-circle-check mt-0.5 text-[#ED1C24]"></i>
+                  <span>{f}</span>
+                </li>
+              ))}
+            </ul>
+
+            <a href={p.cta.href} class:list={['mt-8', p.popular ? btnPrimaryFull : btnOutlineDark]}>
+              {p.cta.label} <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+          </article>
+        ))}
+      </div>
+      <div class="mx-auto mt-8 flex max-w-2xl flex-col items-center gap-3 text-center text-sm text-ink-500">
         <p>
           All plans include: PrintFast.social platform access, Canva integration, syndicated image/GIF library, month-ahead content planning, brand templates, local market alignment, keyword research, and audience growth setup. Additional team logins available at $10/month each.
         </p>
@@ -250,28 +338,30 @@ const faqs = [
     </div>
   </section>
 
-  <!-- Process -->
+  <!-- ===================== PROCESS ===================== -->
   <section class="section">
     <div class="container-pf">
-      <div class="grid lg:grid-cols-12 gap-10 items-start">
-        <div class="lg:col-span-5">
-          <p class="eyebrow"><i class="fa-solid fa-bolt text-brand-600"></i> How we work</p>
-          <h2 class="heading-lg mt-4">Your Home Service Social Media Program — Live in 14 Days</h2>
+      <div class="grid items-start gap-10 lg:grid-cols-12">
+        <div class="lg:col-span-5" data-reveal>
+          <p class={eyebrowPill}><i class="fa-solid fa-bolt"></i> How we work</p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">Your Home Service Social Media Program — Live in 14 Days</h2>
           <p class="lead mt-5">
             We replace the chaos of agency hand-offs with one team, one plan and clear weekly progress — designed for contractors and home service brands.
           </p>
-          <a href={getContactHref('managed-social-media')} class="btn-primary mt-8">Talk to a strategist</a>
+          <a href={getContactHref('managed-social-media')} class:list={['mt-8', btnPrimary]}>
+            Talk to a strategist <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
         </div>
-        <ol class="lg:col-span-7 grid sm:grid-cols-2 gap-5">
+        <ol class="grid gap-5 sm:grid-cols-2 lg:col-span-7">
           {process.map((p) => (
-            <li class="card p-6" data-reveal>
+            <li class:list={['p-6', cardBase]} data-reveal>
               <div class="flex items-center justify-between">
-                <span class="grid h-11 w-11 place-items-center rounded-xl bg-brand-50 text-brand-600">
+                <span class="grid h-12 w-12 place-items-center rounded-full bg-[#ED1C24] text-lg text-white shadow-lg">
                   <i class:list={['fa-solid', p.icon]}></i>
                 </span>
-                <span class="text-xs font-mono text-ink-400">{p.n}</span>
+                <span class="font-display text-sm font-extrabold tracking-[0.16em] text-[#ED1C24]">{p.n}</span>
               </div>
-              <h3 class="mt-4 text-lg font-bold text-ink-900">{p.title}</h3>
+              <h3 class="mt-4 text-lg font-extrabold uppercase text-[#0f2747]">{p.title}</h3>
               <p class="mt-2 text-sm text-ink-600">{p.desc}</p>
             </li>
           ))}
@@ -280,43 +370,124 @@ const faqs = [
     </div>
   </section>
 
-  <!-- FAQs -->
+  <!-- ===================== FAQ ===================== -->
   <section class="section">
     <div class="container-pf max-w-4xl">
-      <SectionHeading eyebrow="FAQs" title="Questions Home Service Contractors Ask" />
-      <div class="mt-10 space-y-3">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class={eyebrowPill}><i class="fa-solid fa-circle-question"></i> FAQs</p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Questions Home Service Contractors Ask</h2>
+      </div>
+      <div class="mt-10 space-y-4">
         {faqs.map((f) => (
-          <details class="group card p-6 transition-colors hover:ring-brand-200">
-            <summary class="flex cursor-pointer items-center justify-between gap-4 list-none">
-              <span class="font-semibold text-ink-900">{f.q}</span>
-              <i class="fa-solid fa-plus text-ink-400 group-open:rotate-45 transition-transform"></i>
+          <details class="group rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft transition-colors hover:ring-[#ED1C24]/40" data-reveal>
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
+              <span class="font-bold text-[#0f2747]">{f.q}</span>
+              <i class="fa-solid fa-plus text-[#ED1C24] transition-transform group-open:rotate-45"></i>
             </summary>
-            <p class="mt-4 text-ink-600 leading-relaxed">{f.a}</p>
+            <p class="mt-4 text-sm leading-relaxed text-ink-600">{f.a}</p>
           </details>
         ))}
       </div>
     </div>
   </section>
 
-  <Testimonials
-    title="What Home Service Business Owners Say About PrintFast"
-    description="Real stories from contractors using PrintFast as their home service marketing agency."
-  />
+  <!-- ===================== TESTIMONIALS ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class={eyebrowPill}><i class="fa-solid fa-bolt"></i> Trust signals</p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">What Home Service Business Owners Say About PrintFast</h2>
+        <p class="lead mt-5">Real stories from contractors using PrintFast as their home service marketing agency.</p>
+      </div>
+      <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {TESTIMONIALS.map((t) => (
+          <figure class="flex flex-col gap-5 rounded-2xl bg-white p-7 ring-1 ring-ink-100 shadow-soft sm:p-8" data-reveal>
+            <div class="flex items-center gap-1 text-[#ED1C24]">
+              {Array.from({ length: t.rating }).map(() => (
+                <i class="fa-solid fa-star text-sm"></i>
+              ))}
+            </div>
+            <blockquote class="leading-relaxed text-ink-800">
+              <i class="fa-solid fa-quote-left mr-2 text-[#ED1C24]/30"></i>
+              {t.quote}
+            </blockquote>
+            <figcaption class="mt-auto flex items-center gap-3 border-t border-ink-100 pt-4">
+              <span class="grid h-10 w-10 place-items-center rounded-full bg-[#fde8e9] font-bold text-[#ED1C24]">
+                {t.name.charAt(0)}
+              </span>
+              <span>
+                <span class="block text-sm font-semibold text-[#0f2747]">{t.name}</span>
+                <span class="block text-xs text-ink-500">{t.role}</span>
+              </span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <ClientLogos
-    eyebrow="Trusted partners"
-    title="In good company"
-    description="Hundreds of U.S. home service brands trust PrintFast to run their social."
-    background="muted"
-  />
+  <!-- ===================== CLIENT LOGOS ===================== -->
+  <section class="section border-y border-ink-100 bg-ink-50/60" aria-label="Our clients">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class={eyebrowPill}><i class="fa-solid fa-bolt"></i> Trusted partners</p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">In good company</h2>
+        <p class="lead mt-5">Hundreds of U.S. home service brands trust PrintFast to run their social.</p>
+      </div>
 
-  <CTA
-    eyebrow="Ready to grow your local brand?"
-    title="Work With a Home Service Marketing Agency That Knows the Trades."
-    description="Tell us about your HVAC, plumbing, electrical or roofing company and we'll send a done-for-you social media plan within one business day."
-    primaryCta={{ label: 'Get My Social Media Proposal', href: getContactHref('managed-social-media') }}
-    secondaryCta={{ label: 'Talk to a strategist', href: '#contact' }}
-  />
+      <div class="mt-10 space-y-6">
+        <div class="pf-marquee pf-marquee--logos">
+          <div class="pf-marquee__track">
+            {[...rowA, ...rowA].map((logo, i) => (
+              <div class="pf-logo-cell" aria-hidden={i >= rowA.length ? 'true' : 'false'}>
+                <img src={logo.src} alt={logo.name} loading="lazy" decoding="async" width="180" height="80" class="pf-logo-img" />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="pf-marquee pf-marquee--logos">
+          <div class="pf-marquee__track pf-marquee__track--reverse">
+            {[...rowB, ...rowB].map((logo, i) => (
+              <div class="pf-logo-cell" aria-hidden={i >= rowB.length ? 'true' : 'false'}>
+                <img src={logo.src} alt={logo.name} loading="lazy" decoding="async" width="180" height="80" class="pf-logo-img" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FINAL CTA ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-20" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+
+        <div class="relative max-w-3xl">
+          <p class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-white ring-1 ring-white/20">
+            <i class="fa-solid fa-bolt"></i> Ready to grow your local brand?
+          </p>
+          <h2 class="heading-lg mt-5 text-white">
+            Work With a Home Service Marketing Agency That <span class="text-[#ED1C24]">Knows the Trades.</span>
+          </h2>
+          <p class="mt-5 text-lg leading-relaxed text-white/85">
+            Tell us about your HVAC, plumbing, electrical or roofing company and we'll send a done-for-you social media plan within one business day.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href={getContactHref('managed-social-media')} class={btnPrimary}>
+              Get My Social Media Proposal <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a href="#contact" class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10">
+              Talk to a strategist
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section id="contact" class="section">
     <div class="container-pf max-w-4xl">
@@ -329,7 +500,7 @@ const faqs = [
 
   <section class="section-tight pt-0">
     <div class="container-pf">
-      <div class="rounded-2xl bg-ink-900 p-6 sm:p-8 text-sm leading-relaxed text-ink-200 ring-1 ring-white/10 shadow-soft" data-reveal>
+      <div class="rounded-2xl bg-[#0f2747] p-6 text-sm leading-relaxed text-white/80 ring-1 ring-white/10 shadow-soft sm:p-8" data-reveal>
         <p>
           <strong class="text-white">All plans include:</strong> PrintFast.social platform access, Canva integration, syndicated image/GIF library, month-ahead content planning, brand templates, local market alignment, keyword research, and audience growth setup. Additional team logins available at $10/month each.
         </p>
