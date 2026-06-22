@@ -1,15 +1,10 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import Hero from '@components/Hero.astro';
-import SectionHeading from '@components/SectionHeading.astro';
-import FeatureGrid from '@components/FeatureGrid.astro';
-import PricingCard from '@components/PricingCard.astro';
-import Testimonials from '@components/Testimonials.astro';
-import CTA from '@components/CTA.astro';
 import ContactForm from '@components/ContactForm.astro';
 import { getContactHref } from '@data/pricing';
-import ClientLogos from '@components/ClientLogos.astro';
-import { SITE } from '@data/site';
+import { SITE, TESTIMONIALS, CLIENT_LOGOS } from '@data/site';
+
+const trustItems = ['No long-term contracts', 'Built for HVAC, Plumbing & Home Services', 'Free website strategy call'];
 
 const principles = [
   { icon: 'fa-gauge-high',     title: 'Speed by default',         description: 'Sub-3-second load times, 80+ Lighthouse score, and Core Web Vitals "Good" — standard on every home service website we ship. Faster sites rank higher and convert more homeowners browsing on mobile.' },
@@ -182,6 +177,18 @@ const localBusinessSchema = {
   areaServed: { '@type': 'Country', name: 'United States' },
   sameAs: Object.values(SITE.social),
 };
+
+// Shared theme tokens (matching the Direct Mail Plus page)
+const eyebrowPill = 'inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]';
+const btnPrimary = 'inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px';
+const btnPrimaryFull = `w-full ${btnPrimary}`;
+const btnOutlineDark = 'inline-flex w-full items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-[#0f2747] ring-1 ring-ink-200 transition-all hover:text-[#ED1C24] hover:ring-[#ED1C24]';
+const cardBase = 'rounded-2xl bg-white ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40';
+
+// Client logo marquee (two opposite-direction rows, seamless loop)
+const rotate = (arr: typeof CLIENT_LOGOS, n: number) => arr.slice(n).concat(arr.slice(0, n));
+const rowA = CLIENT_LOGOS;
+const rowB = rotate(CLIENT_LOGOS, Math.floor(CLIENT_LOGOS.length / 2));
 ---
 
 <BaseLayout
@@ -209,48 +216,84 @@ const localBusinessSchema = {
   ]}
   schema={[serviceSchema, localBusinessSchema]}
 >
-  <Hero
-    variant="service"
-    eyebrow="Website Creation"
-    title="Website Design for Home Service Companies That"
-    highlight="Loads Fast, Ranks, and Converts."
-    description="PrintFast builds custom websites for HVAC companies, plumbers, electricians, roofers, and home service contractors across the U.S. As a home service web design agency, our contractor website design process creates ADA-compliant, locally optimized sites engineered for Core Web Vitals — so they rank on Google and turn visitors into booked service calls."
-    primaryCta={{ label: 'Get a Website Design Proposal', href: '/contact-us/' }}
-    secondaryCta={{ label: 'See pricing', href: '#pricing' }}
-    trustItems={['No long-term contracts', 'Built for HVAC, Plumbing & Home Services', 'Free website strategy call']}
-  />
+  <!-- ===================== HERO BANNER ===================== -->
+  <section class="relative overflow-hidden bg-[#0f2747]">
+    <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+    <span aria-hidden="true" class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
 
-  <!-- Principles -->
-  <section class="section">
-    <div class="container-pf">
-      <SectionHeading
-        eyebrow="What you can expect"
-        title="Six Things Every Home Service Website We Build Includes — Without Exception"
-        description="We build every home service contractor website to the same uncompromising standard. Whether you're a solo plumber or a multi-location HVAC franchise, these are not add-ons. They are our baseline."
-      />
-      <div class="mt-14">
-        <FeatureGrid items={principles} columns={3} />
+    <div class="container-pf relative py-16 sm:py-20 lg:py-28">
+      <div class="max-w-3xl">
+        <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+          Website Creation
+        </p>
+
+        <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[1.03] tracking-tight text-white sm:text-5xl lg:text-6xl">
+          Website Design for Home Service Companies That <span class="text-[#ED1C24]">Loads Fast, Ranks, and Converts.</span>
+        </h1>
+
+        <p class="mt-6 max-w-2xl text-sm leading-relaxed text-white/80 sm:text-base">
+          PrintFast builds custom websites for HVAC companies, plumbers, electricians, roofers, and home service contractors across the U.S. As a home service web design agency, our contractor website design process creates ADA-compliant, locally optimized sites engineered for Core Web Vitals — so they rank on Google and turn visitors into booked service calls.
+        </p>
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/contact-us/" class={btnPrimary}>
+            Get a Website Design Proposal <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+          <a href="#pricing" class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10">
+            See pricing
+          </a>
+        </div>
+
+        <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+          {trustItems.map((item) => (
+            <span class="inline-flex items-center gap-2 text-sm font-medium text-white/80">
+              <i class="fa-solid fa-circle-check text-[#ED1C24]"></i> {item}
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Stack -->
+  <!-- ===================== PRINCIPLES ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class={eyebrowPill}><i class="fa-solid fa-bolt"></i> What you can expect</p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Six Things Every Home Service Website We Build Includes — Without Exception</h2>
+        <p class="lead mt-5">We build every home service contractor website to the same uncompromising standard. Whether you're a solo plumber or a multi-location HVAC franchise, these are not add-ons. They are our baseline.</p>
+      </div>
+      <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {principles.map((item) => (
+          <div class:list={['flex flex-col p-6 sm:p-7', cardBase]} data-reveal>
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-[#fde8e9] text-xl text-[#ED1C24]">
+              <i class:list={['fa-solid', item.icon]}></i>
+            </span>
+            <h3 class="mt-5 text-lg font-extrabold text-[#0f2747]">{item.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-600">{item.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TECH STACK ===================== -->
   <section class="section bg-ink-50/60">
     <div class="container-pf">
-      <SectionHeading
-        eyebrow="Tech we work in"
-        title="The Right Tech Stack for Your Home Service Website — We Match It to Your Goals"
-        description="Not every home service business needs the same platform. We recommend the right technology based on your team size, update frequency, CRM, and long-term growth goals — never to lock you in. You own everything."
-      />
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class={eyebrowPill}><i class="fa-solid fa-bolt"></i> Tech we work in</p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">The Right Tech Stack for Your Home Service Website — We Match It to Your Goals</h2>
+        <p class="lead mt-5">Not every home service business needs the same platform. We recommend the right technology based on your team size, update frequency, CRM, and long-term growth goals — never to lock you in. You own everything.</p>
+      </div>
       <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {stack.map((s) => (
-          <div class="card p-6 flex gap-5" data-reveal>
-            <span class="grid h-12 w-12 place-items-center rounded-xl bg-brand-50 text-brand-600 text-xl">
+          <div class:list={['flex gap-5 p-6', cardBase]} data-reveal>
+            <span class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#fde8e9] text-xl text-[#ED1C24]">
               <i class:list={[s.icon.startsWith('fa-react') || s.icon.startsWith('fa-wordpress') ? 'fa-brands' : 'fa-solid', s.icon]}></i>
             </span>
             <div>
-              <h3 class="font-bold text-ink-900">{s.name}</h3>
-              <p class="text-sm text-ink-600 mt-1">{s.desc}</p>
+              <h3 class="font-extrabold text-[#0f2747]">{s.name}</h3>
+              <p class="mt-1 text-sm text-ink-600">{s.desc}</p>
             </div>
           </div>
         ))}
@@ -258,98 +301,224 @@ const localBusinessSchema = {
     </div>
   </section>
 
-  <!-- What's included -->
+  <!-- ===================== WHAT'S INCLUDED ===================== -->
   <section class="section">
     <div class="container-pf">
-      <SectionHeading
-        eyebrow="What's included"
-        title="Everything Included in Your Home Service Website — Long After Launch"
-        description="Every contractor website design package we deliver includes the integrations, analytics, accessibility, and post-launch care that most web agencies bill as expensive add-ons — or forget entirely. As a home service web design agency, this is our standard."
-      />
-      <div class="mt-14">
-        <FeatureGrid items={includes} columns={4} />
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class={eyebrowPill}><i class="fa-solid fa-bolt"></i> What's included</p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Everything Included in Your Home Service Website — Long After Launch</h2>
+        <p class="lead mt-5">Every contractor website design package we deliver includes the integrations, analytics, accessibility, and post-launch care that most web agencies bill as expensive add-ons — or forget entirely. As a home service web design agency, this is our standard.</p>
+      </div>
+      <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {includes.map((item) => (
+          <div class:list={['flex flex-col p-6', cardBase]} data-reveal>
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-[#fde8e9] text-xl text-[#ED1C24]">
+              <i class:list={['fa-solid', item.icon]}></i>
+            </span>
+            <h3 class="mt-5 text-lg font-extrabold text-[#0f2747]">{item.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-600">{item.description}</p>
+          </div>
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- Process -->
+  <!-- ===================== PROCESS ===================== -->
   <section class="section bg-ink-50/60">
     <div class="container-pf">
-      <SectionHeading
-        eyebrow="Our process"
-        title="How We Build Your Home Service Website — 6 Clear Phases, Zero Surprises"
-        description="We've refined our web design process specifically for home service companies — HVAC website design, plumbing website design, electrician website builds, and roofing businesses that need a site live fast, built correctly, and ranking locally. Weekly check-ins, clear milestones, and you in every decision."
-      />
-      <ol class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class={eyebrowPill}><i class="fa-solid fa-bolt"></i> Our process</p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">How We Build Your Home Service Website — 6 Clear Phases, Zero Surprises</h2>
+        <p class="lead mt-5">We've refined our web design process specifically for home service companies — HVAC website design, plumbing website design, electrician website builds, and roofing businesses that need a site live fast, built correctly, and ranking locally. Weekly check-ins, clear milestones, and you in every decision.</p>
+      </div>
+      <ol class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {process.map((p) => (
-          <li class="card p-6" data-reveal>
+          <li class:list={['p-6', cardBase]} data-reveal>
             <div class="flex items-center justify-between">
-              <span class="grid h-11 w-11 place-items-center rounded-xl bg-brand-50 text-brand-600">
+              <span class="grid h-12 w-12 place-items-center rounded-full bg-[#ED1C24] text-lg text-white shadow-lg">
                 <i class:list={['fa-solid', p.icon]}></i>
               </span>
-              <span class="text-xs font-mono text-ink-400">{p.n}</span>
+              <span class="font-display text-sm font-extrabold tracking-[0.16em] text-[#ED1C24]">{p.n}</span>
             </div>
-            <h3 class="mt-4 text-lg font-bold text-ink-900">{p.title}</h3>
-            <p class="mt-2 text-sm text-ink-600">{p.desc}</p>
+            <h3 class="mt-4 text-lg font-extrabold uppercase text-[#0f2747]">{p.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-600">{p.desc}</p>
           </li>
         ))}
       </ol>
     </div>
   </section>
 
-  <!-- Pricing -->
+  <!-- ===================== PRICING ===================== -->
   <section id="pricing" class="section">
     <div class="container-pf">
-      <SectionHeading
-        eyebrow="Our Plans for Your Digital Growth"
-        title="Website plans built for home-service brands"
-        description="Choose any plan that fits your business. All prices in USD, one-time project fee. Optional monthly care plans available from $249/mo."
-      />
-      <div class="mt-14 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-        {plans.map((p) => <PricingCard {...p} />)}
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class={eyebrowPill}><i class="fa-solid fa-bolt"></i> Our Plans for Your Digital Growth</p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Website plans built for home-service brands</h2>
+        <p class="lead mt-5">Choose any plan that fits your business. All prices in USD, one-time project fee. Optional monthly care plans available from $249/mo.</p>
+      </div>
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+        {plans.map((p) => (
+          <article
+            class:list={[
+              'relative flex flex-col rounded-2xl bg-white p-7 transition-all sm:p-8',
+              p.popular
+                ? 'ring-2 ring-[#ED1C24] shadow-xl lg:-translate-y-2'
+                : 'ring-1 ring-ink-100 shadow-soft hover:-translate-y-1 hover:ring-[#ED1C24]/40',
+            ]}
+            data-reveal
+          >
+            {p.popular && (
+              <span class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[#ED1C24] px-4 py-1 text-[0.7rem] font-extrabold uppercase tracking-wider text-white shadow-lg">Popular</span>
+            )}
+
+            <header>
+              <h3 class="font-display text-lg font-extrabold text-[#0f2747]">{p.name}</h3>
+              {p.description && <p class="mt-2 text-sm text-ink-500">{p.description}</p>}
+            </header>
+
+            <div class="mt-6 flex items-baseline gap-1">
+              <span class="font-display text-4xl font-extrabold text-[#0f2747]">{p.price}</span>
+              <span class="text-sm text-ink-500">{p.period}</span>
+            </div>
+
+            <ul class="mt-6 flex-1 space-y-3">
+              {p.features.map((f) => (
+                <li class="flex items-start gap-3 text-sm text-ink-700">
+                  <i class="fa-solid fa-circle-check mt-0.5 text-[#ED1C24]"></i>
+                  <span>{f}</span>
+                </li>
+              ))}
+            </ul>
+
+            <a href={p.cta.href} class:list={['mt-8', p.popular ? btnPrimaryFull : btnOutlineDark]}>
+              {p.cta.label} <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+          </article>
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- FAQs -->
+  <!-- ===================== FAQ ===================== -->
   <section class="section bg-ink-50/60">
     <div class="container-pf max-w-4xl">
-      <SectionHeading eyebrow="FAQs" title="Common Questions from Home Service Contractors About Our Website Design Service" />
-      <div class="mt-10 space-y-3">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class={eyebrowPill}><i class="fa-solid fa-circle-question"></i> FAQs</p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Common Questions from Home Service Contractors About Our Website Design Service</h2>
+      </div>
+      <div class="mt-10 space-y-4">
         {faqs.map((f) => (
-          <details class="group card p-6 transition-colors hover:ring-brand-200">
-            <summary class="flex cursor-pointer items-center justify-between gap-4 list-none">
-              <span class="font-semibold text-ink-900">{f.q}</span>
-              <i class="fa-solid fa-plus text-ink-400 group-open:rotate-45 transition-transform"></i>
+          <details class="group rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft transition-colors hover:ring-[#ED1C24]/40" data-reveal>
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
+              <span class="font-bold text-[#0f2747]">{f.q}</span>
+              <i class="fa-solid fa-plus text-[#ED1C24] transition-transform group-open:rotate-45"></i>
             </summary>
-            <p class="mt-4 text-ink-600 leading-relaxed">{f.a}</p>
+            <p class="mt-4 text-sm leading-relaxed text-ink-600">{f.a}</p>
           </details>
         ))}
       </div>
     </div>
   </section>
 
-  <Testimonials
-    title="What Home Service Contractors Say About Their PrintFast Website"
-    description="Real results from HVAC companies, plumbers, electricians, roofing company website clients, and home service contractors who trust PrintFast for web design for trades."
-  />
+  <!-- ===================== TESTIMONIALS ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class={eyebrowPill}><i class="fa-solid fa-bolt"></i> Trust signals</p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">What Home Service Contractors Say About Their PrintFast Website</h2>
+        <p class="lead mt-5">Real results from HVAC companies, plumbers, electricians, roofing company website clients, and home service contractors who trust PrintFast for web design for trades.</p>
+      </div>
+      <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {TESTIMONIALS.map((t) => (
+          <figure class="flex flex-col gap-5 rounded-2xl bg-white p-7 ring-1 ring-ink-100 shadow-soft sm:p-8" data-reveal>
+            <div class="flex items-center gap-1 text-[#ED1C24]">
+              {Array.from({ length: t.rating }).map(() => (
+                <i class="fa-solid fa-star text-sm"></i>
+              ))}
+            </div>
+            <blockquote class="leading-relaxed text-ink-800">
+              <i class="fa-solid fa-quote-left mr-2 text-[#ED1C24]/30"></i>
+              {t.quote}
+            </blockquote>
+            <figcaption class="mt-auto flex items-center gap-3 border-t border-ink-100 pt-4">
+              <span class="grid h-10 w-10 place-items-center rounded-full bg-[#fde8e9] font-bold text-[#ED1C24]">
+                {t.name.charAt(0)}
+              </span>
+              <span>
+                <span class="block text-sm font-semibold text-[#0f2747]">{t.name}</span>
+                <span class="block text-xs text-ink-500">{t.role}</span>
+              </span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
 
-  <ClientLogos
-    eyebrow="Selected work"
-    title="Home service brands we've built websites for"
-    description="A small selection from HVAC, plumbing, electrical, roofing and contractor brands we serve."
-    background="muted"
-  />
+  <!-- ===================== CLIENT LOGOS ===================== -->
+  <section class="section border-y border-ink-100 bg-ink-50/60" aria-label="Our clients">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class={eyebrowPill}><i class="fa-solid fa-bolt"></i> Selected work</p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Home service brands we've built websites for</h2>
+        <p class="lead mt-5">A small selection from HVAC, plumbing, electrical, roofing and contractor brands we serve.</p>
+      </div>
 
-  <CTA
-    eyebrow="Website Design for Home Service Companies"
-    title="Let's Build a Roofing Company Website, Electrician Website, or Contractor Site That Ranks."
-    description="Send a few details about your trade, service area and current site. We'll come back with a tailored local SEO website proposal for web design for trades and a timeline within one business day."
-    primaryCta={{ label: 'Get a Website Design Proposal', href: '/contact-us/' }}
-    secondaryCta={{ label: 'Talk to a strategist', href: '#contact' }}
-  />
+      <div class="mt-10 space-y-6">
+        <div class="pf-marquee pf-marquee--logos">
+          <div class="pf-marquee__track">
+            {[...rowA, ...rowA].map((logo, i) => (
+              <div class="pf-logo-cell" aria-hidden={i >= rowA.length ? 'true' : 'false'}>
+                <img src={logo.src} alt={logo.name} loading="lazy" decoding="async" width="180" height="80" class="pf-logo-img" />
+              </div>
+            ))}
+          </div>
+        </div>
 
-  <section id="contact" class="section">
+        <div class="pf-marquee pf-marquee--logos">
+          <div class="pf-marquee__track pf-marquee__track--reverse">
+            {[...rowB, ...rowB].map((logo, i) => (
+              <div class="pf-logo-cell" aria-hidden={i >= rowB.length ? 'true' : 'false'}>
+                <img src={logo.src} alt={logo.name} loading="lazy" decoding="async" width="180" height="80" class="pf-logo-img" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FINAL CTA ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-20" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+
+        <div class="relative max-w-3xl">
+          <p class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-white ring-1 ring-white/20">
+            <i class="fa-solid fa-bolt"></i> Website Design for Home Service Companies
+          </p>
+          <h2 class="heading-lg mt-5 text-white">
+            Let's Build a Roofing Company Website, Electrician Website, or Contractor Site <span class="text-[#ED1C24]">That Ranks.</span>
+          </h2>
+          <p class="mt-5 text-lg leading-relaxed text-white/85">
+            Send a few details about your trade, service area and current site. We'll come back with a tailored local SEO website proposal for web design for trades and a timeline within one business day.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="/contact-us/" class={btnPrimary}>
+              Get a Website Design Proposal <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a href="#contact" class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10">
+              Talk to a strategist
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section pt-0">
     <div class="container-pf max-w-4xl">
       <ContactForm
         title="Tell us about your project"
