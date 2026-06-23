@@ -56,12 +56,12 @@
   }
 
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold tracking-wide
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-extrabold uppercase tracking-wide
            transition-all duration-200 will-change-transform focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
   }
 
   .btn-primary {
-    @apply btn bg-brand-600 text-white shadow-soft hover:bg-brand-700 hover:shadow-glow active:translate-y-px;
+    @apply btn bg-brand-500 text-white shadow-soft hover:bg-brand-600 hover:shadow-glow active:translate-y-px;
   }
 
   .btn-accent {
@@ -78,9 +78,9 @@
   }
 
   .eyebrow {
-    @apply inline-flex items-center gap-2 rounded-full border border-brand-100 bg-brand-50 px-3 py-1
-           text-xs font-semibold uppercase tracking-[0.18em] text-brand-700
-           dark:border-brand-900/60 dark:bg-brand-950/40 dark:text-brand-300;
+    @apply inline-flex items-center gap-2 rounded-full bg-brand-100 px-3 py-1
+           text-xs font-bold uppercase tracking-[0.18em] text-brand-700
+           dark:bg-brand-950/40 dark:text-brand-300;
   }
 
   .section {
@@ -119,7 +119,7 @@
   }
 
   .gradient-text {
-    @apply bg-gradient-to-r from-brand-600 via-brand-500 to-accent-500 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent;
   }
 
   .check-list li {
@@ -165,12 +165,12 @@
   .dark .divide-ink-100 > :not([hidden]) ~ :not([hidden]) { border-color: theme('colors.ink.800'); }
 
   /* Soft brand tints stay legible on dark */
-  .dark .bg-brand-50              { background-color: rgba(111, 209, 46, 0.10); }
-  .dark .bg-brand-100             { background-color: rgba(111, 209, 46, 0.18); }
+  .dark .bg-brand-50              { background-color: rgba(237, 28, 36, 0.10); }
+  .dark .bg-brand-100             { background-color: rgba(237, 28, 36, 0.18); }
   .dark .text-brand-700           { color: theme('colors.brand.300'); }
   .dark .text-brand-600           { color: theme('colors.brand.400'); }
-  .dark .border-brand-100         { border-color: rgba(111, 209, 46, 0.30); }
-  .dark .border-brand-200         { border-color: rgba(111, 209, 46, 0.40); }
+  .dark .border-brand-100         { border-color: rgba(237, 28, 36, 0.30); }
+  .dark .border-brand-200         { border-color: rgba(237, 28, 36, 0.40); }
 
   /* Accent (orange) tints */
   .dark .bg-accent-50             { background-color: rgba(245, 158, 11, 0.12); }
@@ -180,13 +180,13 @@
   /* Hero / decorative backgrounds */
   .dark .bg-hero-radial {
     background-image:
-      radial-gradient(1200px 600px at 80% -10%, rgba(111,209,46,0.18), transparent 60%),
-      radial-gradient(900px 500px at 0% 20%, rgba(252,209,22,0.10), transparent 60%);
+      radial-gradient(1200px 600px at 80% -10%, rgba(237,28,36,0.16), transparent 60%),
+      radial-gradient(900px 500px at 0% 20%, rgba(15,39,71,0.18), transparent 60%);
   }
   .dark .bg-grid-light {
     background-image:
-      linear-gradient(rgba(111,209,46,0.10) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(111,209,46,0.10) 1px, transparent 1px);
+      linear-gradient(rgba(237,28,36,0.10) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(237,28,36,0.10) 1px, transparent 1px);
   }
 
   /* Footer is already navy; keep it darker in dark mode */

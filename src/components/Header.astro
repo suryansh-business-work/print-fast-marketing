@@ -116,11 +116,11 @@ function isActive(href: string) {
                     {link.featured && (
                       <aside class="relative p-6 bg-gradient-to-br from-ink-900 via-ink-800 to-ink-900 text-white overflow-hidden">
                         <div aria-hidden="true" class="absolute -top-10 -right-10 h-40 w-40 rounded-full bg-brand-500/25 blur-2xl"></div>
-                        <div aria-hidden="true" class="absolute -bottom-12 -left-8 h-32 w-32 rounded-full bg-accent-500/15 blur-2xl"></div>
+                        <div aria-hidden="true" class="absolute -bottom-12 -left-8 h-32 w-32 rounded-full bg-brand-500/15 blur-2xl"></div>
                         <p class="relative text-[11px] uppercase tracking-[0.2em] text-brand-300">Featured</p>
                         <h3 class="relative mt-2 text-lg font-display font-bold text-white">{link.featured.title}</h3>
                         <p class="relative mt-1.5 text-sm text-ink-200">{link.featured.description}</p>
-                        <a href={link.featured.href} class="relative mt-4 inline-flex items-center gap-2 rounded-full bg-brand-500 px-4 py-2 text-sm font-semibold text-ink-900 hover:bg-brand-400 transition-colors shadow-glow">
+                        <a href={link.featured.href} class="relative mt-4 inline-flex items-center gap-2 rounded-full bg-brand-500 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-600 transition-colors shadow-glow">
                           {link.featured.cta} <i class="fa-solid fa-arrow-right text-xs" aria-hidden="true"></i>
                         </a>
                       </aside>

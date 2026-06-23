@@ -5,19 +5,19 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Brand green (anchored on #6FD12E)
+        // Brand red (anchored on #ED1C24 — PrintFast red)
         brand: {
-          50:  '#f3fbe8',
-          100: '#e2f7c8',
-          200: '#c8ee98',
-          300: '#a8e264',
-          400: '#8bd942',
-          500: '#6FD12E',
-          600: '#58b022',
-          700: '#44881d',
-          800: '#366d1d',
-          900: '#2d5a1c',
-          950: '#14310a',
+          50:  '#fef2f2',
+          100: '#fde8e9',
+          200: '#fbd0d3',
+          300: '#f6a9ae',
+          400: '#ef6f78',
+          500: '#ED1C24',
+          600: '#d11620',
+          700: '#af121b',
+          800: '#901419',
+          900: '#78161a',
+          950: '#41080b',
         },
         // Vibrant accent (yellow from rainbow bar)
         accent: {
@@ -48,9 +48,9 @@ export default {
           500: '#677188',
           600: '#525a70',
           700: '#43495b',
-          800: '#2a2f3d',
-          900: '#16181f',
-          950: '#0b0d13',
+          800: '#1b3354',
+          900: '#0f2747',
+          950: '#0a1c34',
         },
       },
       fontFamily: {
@@ -58,12 +58,12 @@ export default {
         display: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
-        'soft': '0 10px 30px -12px rgba(111, 209, 46, 0.20)',
-        'glow': '0 20px 60px -20px rgba(111, 209, 46, 0.55)',
+        'soft': '0 10px 30px -12px rgba(237, 28, 36, 0.20)',
+        'glow': '0 20px 60px -20px rgba(237, 28, 36, 0.45)',
       },
       backgroundImage: {
-        'grid-light': "linear-gradient(rgba(111,209,46,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(111,209,46,0.07) 1px, transparent 1px)",
-        'hero-radial': 'radial-gradient(1200px 600px at 80% -10%, rgba(111,209,46,0.22), transparent 60%), radial-gradient(900px 500px at 0% 20%, rgba(252,209,22,0.18), transparent 60%)',
+        'grid-light': "linear-gradient(rgba(237,28,36,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(237,28,36,0.06) 1px, transparent 1px)",
+        'hero-radial': 'radial-gradient(1200px 600px at 80% -10%, rgba(237,28,36,0.20), transparent 60%), radial-gradient(900px 500px at 0% 20%, rgba(15,39,71,0.12), transparent 60%)',
         'spectrum': 'linear-gradient(90deg,#fcd116 0%,#6FD12E 35%,#1e88e5 70%,#7e57c2 100%)',
       },
       backgroundSize: {

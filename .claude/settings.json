@@ -1,7 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "PowerShell(npx astro check 2>&1)"
+      "PowerShell(npx astro check 2>&1)",
+      "Read(//c/Users/Suryansh/.claude/projects/c--Users-Suryansh-Desktop-Projects-print-fast-com-marketing-website/memory/**)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\Suryansh\\.claude\\projects\\c--Users-Suryansh-Desktop-Projects-print-fast-com-marketing-website\\memory"
     ]
   }
 }

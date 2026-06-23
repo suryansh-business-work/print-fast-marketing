@@ -44,74 +44,124 @@ const process = [
   { n: '06', title: 'Launch',    desc: 'Zero-downtime cutover, a full redirect map to protect your existing SEO rankings, Google Search Console verification, and a 30-day stabilization window. Your home service business stays visible in local search throughout the transition.', icon: 'fa-rocket' },
 ];
 
-const plans = [
+const tiers = [
+  { name: 'Starter', price: '$895', period: '/mo', target: 'Small crews / first-time advertisers', slug: 'starter' },
+  { name: 'Van Visibility System™', price: '$1,395', period: '/mo', target: '1–4 vehicles', slug: 'van-visibility-system' },
+  { name: 'Growth Acceleration System™', price: '$3,000', period: '/mo', target: '5–15 vehicles', slug: 'growth-acceleration-system', popular: true },
+  { name: 'Market Domination System™', price: '$7,000', period: '/mo', target: '15–100 vehicles', slug: 'market-domination-system' },
+  { name: 'Enterprise Territory System™', price: 'Custom', period: '', target: 'Enterprise / PE groups', slug: 'enterprise-territory-system' },
+];
+
+// Comparison matrix. Each cell: '✔' = included, '-' = not included, any other string renders as text.
+// Columns map 1:1 to `tiers` above (Starter, Van Visibility, Growth Acceleration, Market Domination, Enterprise Territory).
+const comparison = [
   {
-    name: 'Essentials',
-    price: '$1,499',
-    period: ' one-time',
-    description: 'A clean, professional starter site for small home-service businesses.',
-    features: [
-      '5-page website',
-      'Mobile responsive design',
-      '1 contact form included',
-      'Home, About, Services, Promotions & Contact pages',
-      'Brand-aligned design system',
-      'Basic on-page SEO setup',
-      '30 days of post-launch support',
+    group: 'Core Visibility & Growth',
+    rows: [
+      { label: 'Recommended markets', cells: ['Small to mid markets', 'Small to mid markets', 'Competitive local markets', 'Major metro expansion', 'Multi-market / national'] },
+      { label: 'Monthly boost budget (included)', cells: ['$295', '$295', '$500', '$1,000', 'Custom scalable'] },
+      { label: 'Google Business Profile optimization', cells: ['✔', '✔', '✔', '✔', '✔'] },
+      { label: 'AI search visibility optimization', cells: ['✔', '✔', '✔', '✔', '✔'] },
+      { label: 'Local SEO optimization', cells: ['✔', '✔', '✔', '✔', '✔'] },
+      { label: 'Directory synchronization', cells: ['✔', '✔', '✔', '✔', '✔'] },
+      { label: 'Review generation system', cells: ['✔', '✔', '✔', '✔', '✔'] },
+      { label: 'Review response assistance', cells: ['✔', '✔', '✔', '✔', '✔'] },
+      { label: 'Monthly visibility reporting', cells: ['✔', '✔', '✔', '✔', '✔'] },
+      { label: 'Social media visibility', cells: ['8 posts', '12 posts', '20 posts', '30 posts', 'Custom'] },
+      { label: 'AI-assisted content creation', cells: ['✔', '✔', '✔', '✔', '✔'] },
+      { label: 'Seasonal marketing campaigns', cells: ['✔', '✔', '✔', '✔', '✔'] },
+      { label: 'Retargeting setup', cells: ['-', 'Basic', 'Advanced', 'Advanced', 'Enterprise'] },
+      { label: 'Call tracking', cells: ['-', '-', '✔', '✔', '✔'] },
+      { label: 'Lead attribution tracking', cells: ['-', '-', '✔', '✔', '✔'] },
+      { label: 'Email marketing campaigns', cells: ['-', '-', '✔', '✔', '✔'] },
+      { label: 'SMS follow-up campaigns', cells: ['-', '-', '✔', '✔', '✔'] },
+      { label: 'CRM integration assistance', cells: ['-', '-', '✔', '✔', '✔'] },
+      { label: 'Neighborhood market penetration', cells: ['-', '-', '✔', '✔', '✔'] },
+      { label: 'Competitor visibility monitoring', cells: ['Basic', 'Basic', '✔', '✔', '✔'] },
+      { label: 'Video content repurposing', cells: ['-', '-', '✔', '✔', '✔'] },
+      { label: 'Recruitment marketing campaigns', cells: ['-', '-', '✔', '✔', '✔'] },
+      { label: 'Advanced reporting dashboards', cells: ['-', '-', '-', '✔', '✔'] },
+      { label: 'Heatmap tracking', cells: ['-', '-', '-', '✔', '✔'] },
+      { label: 'Multi-location SEO', cells: ['-', '-', '-', '✔', '✔'] },
+      { label: 'Territory expansion strategy', cells: ['-', '-', '-', '✔', '✔'] },
+      { label: 'AI chat integration assistance', cells: ['-', '-', '-', '✔', '✔'] },
+      { label: 'Booking automation assistance', cells: ['-', '-', '-', '✔', '✔'] },
+      { label: 'LSA optimization guidance', cells: ['-', '-', '-', '✔', '✔'] },
+      { label: 'Executive strategy sessions', cells: ['-', '-', 'Quarterly', 'Quarterly', 'Monthly'] },
+      { label: 'Cross-brand analytics', cells: ['-', '-', '-', '-', '✔'] },
+      { label: 'Franchise visibility systems', cells: ['-', '-', '-', '-', '✔'] },
+      { label: 'Centralized reputation management', cells: ['-', '-', '-', '-', '✔'] },
+      { label: 'Enterprise automation systems', cells: ['-', '-', '-', '-', '✔'] },
+      { label: 'Acquisition rollout campaigns', cells: ['-', '-', '-', '-', '✔'] },
+      { label: 'Dedicated strategic account team', cells: ['-', '-', '-', '✔', '✔'] },
+      { label: 'Direct mail integration', cells: ['Optional', 'Optional', '✔', '✔', '✔'] },
+      { label: 'Voice search optimization', cells: ['✔', '✔', '✔', '✔', '✔'] },
+      { label: 'AI citation optimization', cells: ['-', '-', '✔', '✔', '✔'] },
+      { label: 'Service area expansion', cells: ['-', '-', '✔', '✔', '✔'] },
+      { label: 'Additional boost budget upsell', cells: ['-', 'Add up to $1,000 before extra management fees', 'Add up to $2,500 before extra management fees', 'Add up to $5,000 before extra management fees', 'Custom scalable enterprise media buying'] },
     ],
-    cta: { label: 'Start with Essentials', href: getContactHref('website-creation', 'essentials') },
   },
   {
-    name: 'Standard',
-    price: '$2,999',
-    period: ' one-time',
-    description: 'Built for HVAC, plumbing and electrical brands ready to grow online.',
-    features: [
-      '10-page website',
-      'Mobile responsive design',
-      '1 contact form included',
-      'Home, About, Services, Heating, Cooling, Plumbing, Blog & Contact pages',
-      '5 locally-targeted pages',
-      'Hosting, email & domain setup',
-      '60 days of post-launch support',
+    group: 'AI Search, AEO, GEO & LLM Visibility',
+    rows: [
+      { label: 'AI visibility baseline audit', cells: ['Included', 'Included', 'Included', 'Included', 'Included'] },
+      { label: 'Prompt tracking library', cells: ['10 prompts quarterly', '25 prompts monthly', '50–100 prompts monthly', 'Custom multi-market library', 'Custom by brand, market, service & competitor'] },
+      { label: 'AI Answer Engine Optimization (AEO)', cells: ['Basic FAQ & service-answer structure', 'Included on core pages', 'Advanced across service & city pages', 'Advanced by market & category', 'Enterprise by brand, location & territory'] },
+      { label: 'Generative Engine Optimization (GEO)', cells: ['Foundational site signals', 'Included with content & schema', 'Advanced content, citation & authority', 'Multi-market GEO system', 'Enterprise GEO governance & rollout'] },
+      { label: 'LLM entity optimization', cells: ['Name, services, locations & proof cleaned up', 'Entity consistency across site, GBP, directories & social', 'Advanced entity mapping by service, city, brand & tech proof', 'Regional entity architecture', 'Enterprise entity system by brand, acquisition & territory'] },
+      { label: 'AI citation readiness', cells: ['Basic service proof & FAQ cleanup', 'Structured citations, sources & answer-ready pages', 'Advanced source-worthy content & third-party proof', 'Market-level citation strategy', 'Enterprise citation governance'] },
+      { label: 'AI overview content refresh', cells: ['Quarterly priority page refresh', 'Monthly content refresh', '2–4 refreshes monthly', '4–8 refreshes monthly', 'Custom refresh calendar'] },
+      { label: 'AI search competitor gap report', cells: ['Quarterly', 'Monthly', 'Monthly by priority service', 'Monthly by territory', 'Custom executive reporting'] },
+      { label: 'AI risk monitoring', cells: ['Basic brand answer check', 'Monthly incorrect-answer check', 'Monthly brand, service & competitor scan', 'Advanced risk & misinformation monitoring', 'Enterprise protocol'] },
+      { label: 'Schema expansion for AI search', cells: ['Basic LocalBusiness & Service review', 'LocalBusiness, Service, FAQ, Review where valid', 'Advanced multi-service schema expansion', 'Multi-location schema governance', 'Enterprise schema governance'] },
+      { label: 'Conversational search FAQ expansion', cells: ['5 questions / quarter', '10 questions / month', '25 questions / month', '50 questions / month', 'Custom by brand & market'] },
+      { label: 'People, proof & E-E-A-T signals', cells: ['Basic about/team proof cleanup', 'Owner, team, licenses & service proof', 'Advanced proof system across pages & posts', 'Territory proof & case-study system', 'Enterprise credibility framework'] },
+      { label: 'AI visibility tool cost handling', cells: ['Not included unless approved', 'One small tool budget may pass through', 'Tool budget passed through or bundled', 'Advanced tool stack by agreement', 'Enterprise tool stack by agreement'] },
     ],
-    cta: { label: 'Choose Standard', href: getContactHref('website-creation', 'standard') },
   },
   {
-    name: 'Premium',
-    price: '$4,999',
-    period: ' one-time',
-    description: 'Our most popular package — full site, local SEO and content baked in.',
-    popular: true,
-    features: [
-      'Full site with services pages',
-      'Mobile responsive design',
-      '2 contact forms included',
-      'Home, About, Services, Heating, Cooling, Plumbing, 3 local, Blog & Contact pages',
-      '20 locally-targeted pages',
-      'Hosting, email, domain, GBP & Google Analytics setup',
-      'Custom SEO-rich content',
-      '1 "launch" blog article per service',
+    group: 'Website, Content & Conversion',
+    rows: [
+      { label: 'Website care & security coordination', cells: ['Basic updates if hosted/managed', 'Included care coordination', 'Advanced care & performance monitoring', 'Priority care & staging coordination', 'Enterprise governance'] },
+      { label: 'Core Web Vitals & speed review', cells: ['Quarterly', 'Monthly', 'Monthly with priority fixes', 'Advanced by template & landing page', 'Enterprise monitoring'] },
+      { label: 'Conversion path review', cells: ['Quarterly', 'Monthly', 'Monthly with landing-page recommendations', 'Advanced testing roadmap', 'Enterprise conversion governance'] },
+      { label: 'Service page buildout', cells: ['Optional add-on', '1–2 pages / month', '2–4 pages / month', '4–8 pages / month', 'Custom'] },
+      { label: 'City & town page buildout', cells: ['Optional add-on', '1–2 pages / month when justified', '2–6 pages / month when justified', '6–12 pages / month when justified', 'Custom rollout, no thin pages'] },
+      { label: 'Offer & promotion landing pages', cells: ['Optional', 'Quarterly', 'Monthly', '2–4 monthly', 'Custom campaign library'] },
+      { label: 'Financing, rebates & specials pages', cells: ['Basic cleanup', 'Included when relevant', 'Advanced seasonal updates', 'Market-specific updates', 'Custom by brand & utility territory'] },
+      { label: 'Trust asset development', cells: ['Basic review & credential placement', 'Reviews, badges, license, financing & warranty proof', 'Case studies & job proof system', 'Market proof library', 'Enterprise proof governance'] },
     ],
-    cta: { label: 'Choose Premium', href: getContactHref('website-creation', 'premium') },
   },
   {
-    name: 'AI-Enabled',
-    price: '$9,999',
-    period: ' one-time',
-    description: 'Top-tier site with built-in AI assistant for 24/7 customer engagement.',
-    features: [
-      'Full site with services pages',
-      'Mobile responsive design',
-      '2 contact forms included',
-      'Home, About, Services, Heating, Cooling, Plumbing, 8 local, Blog & Contact pages',
-      '50 locally-targeted pages',
-      'Hosting, email, domain, GBP & Google Analytics setup',
-      'Custom SEO-rich content',
-      '2 "launch" blog articles per service',
-      'FAQs AI Bot — answers customer questions 24/7',
+    group: 'CRM, Automation & Customer Lifecycle',
+    rows: [
+      { label: 'Missed-call text-back coordination', cells: ['Optional', 'Platform-dependent setup support', 'Included if platform allows', 'Advanced workflow coordination', 'Enterprise workflow governance'] },
+      { label: 'Unsold estimate follow-up', cells: ['Optional', 'Basic campaign', 'Monthly campaign', 'Segmented by service line', 'Enterprise lifecycle library'] },
+      { label: 'Maintenance agreement campaigns', cells: ['Optional', 'Basic email campaign', 'Email & SMS coordination', 'Advanced lifecycle campaigns', 'Enterprise lifecycle library'] },
+      { label: 'Win-back & reactivation campaigns', cells: ['Optional', 'Quarterly', 'Monthly', 'Segmented monthly', 'Custom by brand, region & trade'] },
+      { label: 'Storm, heat-wave & seasonal trigger campaigns', cells: ['Optional', 'Included planning', 'Included campaign support', 'Advanced regional response', 'Enterprise response protocol'] },
     ],
-    cta: { label: 'Choose AI-Enabled', href: getContactHref('website-creation', 'ai-enabled') },
+  },
+  {
+    group: 'Hyperlocal Market Penetration Mailer™',
+    rows: [
+      { label: 'Purpose', cells: ['-', 'Break into local neighborhoods', 'Expand ZIP code visibility', 'Dominate target territories', 'Multi-market saturation campaigns'] },
+      { label: 'Includes', cells: ['-', '2,500 seasonal postcards', '5,000–10,000 postcards', '10,000–25,000+ postcards', 'Enterprise multi-market deployments'] },
+      { label: 'Neighborhood targeting', cells: ['-', '✔', '✔', '✔', '✔'] },
+      { label: 'Demographic & income targeting', cells: ['-', '✔', '✔', '✔', '✔'] },
+      { label: 'Radius & ZIP code targeting', cells: ['-', '✔', '✔', '✔', '✔'] },
+      { label: 'Custom direct mail design', cells: ['-', '✔', '✔', '✔', '✔'] },
+      { label: 'Full-color printing', cells: ['-', '✔', '✔', '✔', '✔'] },
+      { label: 'USPS processing & delivery coordination', cells: ['-', '✔', '✔', '✔', '✔'] },
+      { label: 'Integrated digital reinforcement', cells: ['-', 'Basic', 'Advanced', 'Advanced', 'Enterprise'] },
+      { label: 'Social feed reinforcement', cells: ['-', '✔', '✔', '✔', '✔'] },
+      { label: 'Retargeting coordination', cells: ['-', 'Basic', '✔', '✔', '✔'] },
+      { label: 'Seasonal campaign planning', cells: ['-', '✔', '✔', '✔', '✔'] },
+      { label: 'Market penetration strategy', cells: ['-', 'Local neighborhood focus', 'ZIP code expansion', 'Regional market domination', 'National territory expansion'] },
+      { label: 'Recommended add-on budget', cells: ['-', '$750–$1,500/mo', '$1,500–$4,000/mo', '$5,000–$15,000+/mo', 'Custom enterprise budget'] },
+      { label: 'Positioning statement', cells: ['-', 'Own your neighborhood before competitors show up.', 'Dominate your ZIP codes and local service areas.', 'Flood your markets with synchronized visibility.', 'Control regional visibility at enterprise scale.'] },
+      { label: 'Direct mail + AI search tie-in', cells: ['-', 'Mailer mirrored on GBP, social, service page & FAQs', 'Mailer tied to local landing page & AI-ready FAQ', 'Mailer + territory pages, retargeting & AI prompt tracking', 'Enterprise mailbox-to-search-to-call reporting'] },
+    ],
   },
 ];
 
@@ -146,10 +196,11 @@ const serviceSchema = {
     audienceType: 'HVAC, plumbing, electrical, roofing and home service contractors',
   },
   offers: [
-    { '@type': 'Offer', name: 'Essentials', price: '1499', priceCurrency: 'USD' },
-    { '@type': 'Offer', name: 'Standard', price: '2999', priceCurrency: 'USD' },
-    { '@type': 'Offer', name: 'Premium', price: '4999', priceCurrency: 'USD' },
-    { '@type': 'Offer', name: 'AI-Enabled', price: '9999', priceCurrency: 'USD' },
+    { '@type': 'Offer', name: 'Starter', price: '895', priceCurrency: 'USD' },
+    { '@type': 'Offer', name: 'Van Visibility System', price: '1395', priceCurrency: 'USD' },
+    { '@type': 'Offer', name: 'Growth Acceleration System', price: '3000', priceCurrency: 'USD' },
+    { '@type': 'Offer', name: 'Market Domination System', price: '7000', priceCurrency: 'USD' },
+    { '@type': 'Offer', name: 'Enterprise Territory System', priceCurrency: 'USD' },
   ],
 };
 
@@ -352,50 +403,81 @@ const rowB = rotate(CLIENT_LOGOS, Math.floor(CLIENT_LOGOS.length / 2));
   <section id="pricing" class="section">
     <div class="container-pf">
       <div class="mx-auto max-w-3xl text-center" data-reveal>
-        <p class={eyebrowPill}><i class="fa-solid fa-bolt"></i> Our Plans for Your Digital Growth</p>
-        <h2 class="heading-lg mt-4 text-[#0f2747]">Website plans built for home-service brands</h2>
-        <p class="lead mt-5">Choose any plan that fits your business. All prices in USD, one-time project fee. Optional monthly care plans available from $249/mo.</p>
+        <p class={eyebrowPill}><i class="fa-solid fa-bolt"></i> Plans & pricing</p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Compare our visibility & growth systems</h2>
+        <p class="lead mt-5">Five systems built around your fleet size and market. All prices in USD, billed monthly, with your monthly boost budget included as shown.</p>
       </div>
-      <div class="mt-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-        {plans.map((p) => (
-          <article
-            class:list={[
-              'relative flex flex-col rounded-2xl bg-white p-7 transition-all sm:p-8',
-              p.popular
-                ? 'ring-2 ring-[#ED1C24] shadow-xl lg:-translate-y-2'
-                : 'ring-1 ring-ink-100 shadow-soft hover:-translate-y-1 hover:ring-[#ED1C24]/40',
-            ]}
-            data-reveal
-          >
-            {p.popular && (
-              <span class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[#ED1C24] px-4 py-1 text-[0.7rem] font-extrabold uppercase tracking-wider text-white shadow-lg">Popular</span>
-            )}
 
-            <header>
-              <h3 class="font-display text-lg font-extrabold text-[#0f2747]">{p.name}</h3>
-              {p.description && <p class="mt-2 text-sm text-ink-500">{p.description}</p>}
-            </header>
-
-            <div class="mt-6 flex items-baseline gap-1">
-              <span class="font-display text-4xl font-extrabold text-[#0f2747]">{p.price}</span>
-              <span class="text-sm text-ink-500">{p.period}</span>
-            </div>
-
-            <ul class="mt-6 flex-1 space-y-3">
-              {p.features.map((f) => (
-                <li class="flex items-start gap-3 text-sm text-ink-700">
-                  <i class="fa-solid fa-circle-check mt-0.5 text-[#ED1C24]"></i>
-                  <span>{f}</span>
-                </li>
+      <div class="mt-12 overflow-x-auto rounded-2xl ring-1 ring-ink-100 shadow-soft" data-reveal>
+        <table class="w-full min-w-[1040px] border-collapse text-left">
+          <thead>
+            <tr class="bg-[#0f2747] text-white">
+              <th scope="col" class="sticky left-0 z-20 bg-[#0f2747] px-5 py-5 text-left text-xs font-bold uppercase tracking-wider text-white/70">
+                Service / feature
+              </th>
+              {tiers.map((t) => (
+                <th scope="col" class:list={['px-4 py-5 text-center align-top', t.popular && 'bg-white/10']}>
+                  {t.popular && <span class="mb-2 inline-block rounded-full bg-[#ED1C24] px-2.5 py-0.5 text-[0.6rem] font-extrabold uppercase tracking-wider text-white">Popular</span>}
+                  <span class="block text-sm font-extrabold leading-tight">{t.name}</span>
+                  <span class="mt-2 block font-display text-2xl font-extrabold">{t.price}<span class="text-xs font-medium text-white/60">{t.period}</span></span>
+                  <span class="mt-1 block text-[0.7rem] font-medium text-white/60">{t.target}</span>
+                </th>
               ))}
-            </ul>
-
-            <a href={p.cta.href} class:list={['mt-8', p.popular ? btnPrimaryFull : btnOutlineDark]}>
-              {p.cta.label} <i class="fa-solid fa-arrow-right text-xs"></i>
-            </a>
-          </article>
-        ))}
+            </tr>
+          </thead>
+          <tbody class="text-sm">
+            {comparison.map((section) => (
+              <Fragment>
+                <tr>
+                  <th scope="colgroup" colspan={tiers.length + 1} class="bg-[#fde8e9] px-5 py-2.5 text-left text-xs font-extrabold uppercase tracking-[0.14em] text-[#c01620]">
+                    {section.group}
+                  </th>
+                </tr>
+                {section.rows.map((row, i) => (
+                  <tr class:list={['border-t border-ink-100', i % 2 === 1 && 'bg-ink-50/50']}>
+                    <th scope="row" class:list={['sticky left-0 z-10 px-5 py-3 text-left font-semibold text-[#0f2747]', i % 2 === 1 ? 'bg-[#f4f5f7]' : 'bg-white']}>
+                      {row.label}
+                    </th>
+                    {row.cells.map((cell, ci) => (
+                      <td class:list={['px-4 py-3 text-center', tiers[ci].popular && 'bg-[#fde8e9]/40']}>
+                        {cell === '✔'
+                          ? <i class="fa-solid fa-circle-check text-base text-[#ED1C24]" aria-label="Included"></i>
+                          : (cell === '-' || cell === '')
+                            ? <span class="text-ink-300" aria-label="Not included">–</span>
+                            : <span class="text-ink-600">{cell}</span>}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </Fragment>
+            ))}
+          </tbody>
+          <tfoot>
+            <tr class="border-t-2 border-ink-200">
+              <td class="sticky left-0 z-10 bg-white px-5 py-5"></td>
+              {tiers.map((t) => (
+                <td class:list={['px-3 py-5 text-center align-top', t.popular ? 'bg-[#fde8e9]/40' : 'bg-white']}>
+                  <a
+                    href={getContactHref('website-creation', t.slug)}
+                    class:list={[
+                      'inline-flex w-full items-center justify-center gap-1 rounded-md px-3 py-2.5 text-[0.7rem] font-extrabold uppercase tracking-wide transition-all',
+                      t.popular
+                        ? 'bg-[#ED1C24] text-white shadow-lg hover:bg-[#c8161d]'
+                        : 'text-[#0f2747] ring-1 ring-ink-200 hover:text-[#ED1C24] hover:ring-[#ED1C24]',
+                    ]}
+                  >
+                    {t.price === 'Custom' ? 'Contact us' : 'Get started'}
+                  </a>
+                </td>
+              ))}
+            </tr>
+          </tfoot>
+        </table>
       </div>
+
+      <p class="mx-auto mt-6 max-w-3xl text-center text-xs leading-relaxed text-ink-500">
+        Boost budget is ad spend included with each plan; additional boost budget is available as an upsell. ™ Van Visibility System, Growth Acceleration System, Market Domination System, Enterprise Territory System and Hyperlocal Market Penetration Mailer are PrintFast service systems.
+      </p>
     </div>
   </section>
 

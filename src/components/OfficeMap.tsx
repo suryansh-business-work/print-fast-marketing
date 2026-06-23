@@ -45,13 +45,13 @@ export default function OfficeMap({
         .pf-pin__dot {
           position: absolute; inset: 0; margin: auto;
           width: 18px; height: 18px; border-radius: 9999px;
-          background: #6FD12E; box-shadow: 0 0 0 4px #fff, 0 8px 16px -4px rgba(0,0,0,.35);
+          background: #ED1C24; box-shadow: 0 0 0 4px #fff, 0 8px 16px -4px rgba(0,0,0,.35);
           z-index: 2;
         }
         .pf-pin__pulse {
           position: absolute; inset: 0; margin: auto;
           width: 18px; height: 18px; border-radius: 9999px;
-          background: #6FD12E; opacity: .6;
+          background: #ED1C24; opacity: .6;
           animation: pf-pulse 2s ease-out infinite;
         }
         @keyframes pf-pulse {
