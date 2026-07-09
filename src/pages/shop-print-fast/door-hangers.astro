@@ -1,0 +1,303 @@
+---
+import ShopLayout from '@layouts/ShopLayout.astro';
+import { shopHref } from '@data/shop';
+import { getContactHref } from '@data/pricing';
+
+const contactHref = getContactHref('digital-marketing-services');
+
+// Original PrintFast image assets (served from the same CDN/S3 the live store uses).
+const S3 = 'https://nklopsouqd.s3.us-west-1.amazonaws.com/printfast/images/common';
+const heroImg = `${S3}/Door-hangers_new_banner.png?1700844348`;
+
+const whyChoose = [
+  {
+    img: `${S3}/Multiple_Size_Options.png?1700583800`,
+    title: 'Multiple Size Options',
+    description:
+      'Choose the size that fits your budget — available in three different sizes to match your offer.',
+    icon: 'fa-ruler-combined',
+  },
+  {
+    img: `${S3}/Full_Color_Print.png?1700583800`,
+    title: 'High Gloss Full-Color Print',
+    description:
+      'Attract potential customers with our high glossy card stock, printed in vibrant full color.',
+    icon: 'fa-palette',
+  },
+  {
+    img: `${S3}/Professional_Editable.png?1700583800`,
+    title: 'Professional & Editable',
+    description:
+      'All our door hangers are professionally designed and can be customized as per your needs.',
+    icon: 'fa-pen-ruler',
+  },
+];
+
+const sizes = [
+  {
+    size: '3.5" × 8.5"',
+    label: 'Compact',
+    description:
+      'The economical size — perfect for a single offer or a clean call-to-action left after a service call.',
+  },
+  {
+    size: '4.25" × 11"',
+    label: 'Standard',
+    description:
+      'Room for a headline offer plus a couple of coupons on the backside to strengthen your value proposition.',
+  },
+  {
+    size: '4.25" × 14"',
+    label: 'Large',
+    description:
+      'Maximum real estate for multiple coupons — the more offers you present, the better your chance of a call.',
+  },
+];
+
+const didYouKnow = [
+  'Your door hangers will cost as low as 7¢ each including delivery to your office for a minimum quantity of 1,000.',
+  'No contracts or commitments — order what you need, when you need it.',
+  'Feel free to contact us for more information and pricing.',
+];
+---
+
+<ShopLayout
+  title="Custom Door Hangers | Full-Color Door Hanger Printing for Home Service Pros"
+  crumb="Door Hangers"
+  description="Custom full-color door hangers from PrintFast turn every service call into a new lead. Three sizes, high-gloss stock and editable designs — as low as 7¢ each per 1,000."
+  keywords={[
+    'custom door hangers',
+    'door hanger printing',
+    'full color door hangers',
+    'home service door hangers',
+    'door hanger marketing',
+    'HVAC door hangers',
+    'neighborhood marketing door hangers',
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: 'PrintFast Custom Door Hangers',
+    description:
+      'Custom full-color door hangers for home service professionals, available in three sizes with editable designs — as low as 7¢ each per 1,000.',
+    brand: { '@type': 'Brand', name: 'PrintFast' },
+    category: 'Door Hangers',
+  }}
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="relative overflow-hidden bg-[#0f2747]">
+    <span aria-hidden="true" class="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+    <span aria-hidden="true" class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></span>
+
+    <div class="container-pf relative py-14 sm:py-16 lg:py-24">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+            Neighborhood Marketing
+          </p>
+          <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Door <span class="text-[#ED1C24]">Hangers</span>
+          </h1>
+          <p class="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Are you missing marketing opportunities with every service call? If you are not placing
+            door hangers on nearby homes after each service call, you are missing out. Our custom
+            door hangers introduce your business to people in every neighborhood — hang them on
+            doorknobs to let potential customers know about your products and services.
+          </p>
+          <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Remember the rule in marketing: if you do not ask for work you will not receive any work.
+            Door hangers are a low-tech, yet highly effective way to ask for it.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Contact Us <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('all-products')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              View All Products
+            </a>
+          </div>
+        </div>
+
+        <div class="relative" data-reveal>
+          <img
+            src={heroImg}
+            alt="PrintFast custom full-color door hangers for home service marketing"
+            class="mx-auto h-auto w-full max-w-lg rounded-2xl shadow-glow"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== INTRO / VALUE ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-door-open"></i> A Great Marketing Tool
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Turn every service call into a new lead</h2>
+        <p class="lead mt-5 text-ink-600">
+          Our custom door hangers are a great marketing tool that allows you to introduce your
+          business to people in every neighborhood after a service call. The more coupons you present
+          to homeowners, the better your value proposition — and the better your chances for a phone
+          call to schedule service.
+        </p>
+        <p class="mt-4 text-sm leading-relaxed text-ink-600">
+          To obtain detailed product information and pricing, and access to our complete online store
+          with hundreds of products for the home service professional, please
+          <a href={contactHref} class="font-bold text-[#ED1C24] underline-offset-2 hover:underline">create an account or log in</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SIZES ===================== -->
+  <section class="section bg-ink-50/60 pt-0">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-ruler-combined"></i> Three Sizes
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Pick the size that fits your offer</h2>
+        <p class="lead mt-5 text-ink-600">
+          Our door hangers are available in three sizes. The size you choose depends on the number of
+          offers (coupons) you want to feature on the backside.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {sizes.map((s) => (
+          <div class="flex flex-col rounded-2xl bg-white p-7 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <span class="inline-flex w-fit rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-[#c01620]">
+              {s.label}
+            </span>
+            <p class="mt-4 font-display text-3xl font-extrabold tracking-tight text-[#0f2747]">{s.size}</p>
+            <p class="mt-3 flex-1 text-sm leading-relaxed text-ink-600">{s.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHY CHOOSE PRINTFAST ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-bolt"></i> Why PrintFast
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Why choose PrintFast for door hangers?</h2>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {whyChoose.map((w) => (
+          <div class="flex flex-col items-center rounded-2xl bg-white p-8 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <img
+              src={w.img}
+              alt={w.title}
+              width="120"
+              height="120"
+              class="h-20 w-20 object-contain"
+              loading="lazy"
+              decoding="async"
+            />
+            <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{w.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-600">{w.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DID YOU KNOW + TESTIMONIAL ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="grid items-center gap-10 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-lightbulb"></i> Did You Know?
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">Low-tech, low-cost, high impact</h2>
+          <ul class="mt-8 space-y-4">
+            {didYouKnow.map((d) => (
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+                  <i class="fa-solid fa-check text-[10px]"></i>
+                </span>
+                <span class="text-ink-700">{d}</span>
+              </li>
+            ))}
+          </ul>
+          <a
+            href={contactHref}
+            class="mt-8 inline-flex items-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+          >
+            Get More Information <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Testimonial -->
+        <div class="relative rounded-3xl bg-[#0f2747] p-8 shadow-soft sm:p-10" data-reveal>
+          <i class="fa-solid fa-quote-left text-4xl text-[#ED1C24]"></i>
+          <blockquote class="mt-4 text-lg leading-relaxed text-white/90">
+            PrintFast is absolutely the BEST! We&rsquo;ve been working with Bill and his team for a
+            long time and they are always helpful, responsive and provide quality work. Thank you for
+            always going above and beyond!
+          </blockquote>
+          <div class="mt-6 flex items-center gap-3">
+            <span class="grid h-11 w-11 place-items-center rounded-full bg-[#ED1C24] font-display text-lg font-bold text-white">S</span>
+            <div>
+              <p class="font-bold text-white">Sandy B.</p>
+              <p class="text-sm text-white/60">PrintFast client</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== EXPLORE MORE / CTA ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-20" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+        <div class="relative max-w-3xl">
+          <h2 class="heading-lg text-white">
+            Want to explore our <span class="text-[#ED1C24]">other products?</span>
+          </h2>
+          <p class="mt-5 text-lg leading-relaxed text-white/85">
+            Visit our online store with 100+ marketing products for the home service professional.
+            We&rsquo;re available 8 AM&ndash;5 PM ET, Monday to Friday — call
+            <a href="tel:8008104818" class="font-bold text-white underline underline-offset-2">800-810-4818</a>
+            and our team is here to help.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={shopHref('all-products')}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Browse All Products <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              Register for Access
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ShopLayout>

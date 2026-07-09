@@ -1,0 +1,452 @@
+---
+import ShopLayout from '@layouts/ShopLayout.astro';
+import { shopHref } from '@data/shop';
+import { getContactHref } from '@data/pricing';
+
+const contactHref = getContactHref('digital-marketing-services');
+
+// Original PrintFast image assets (served from the same CDN/S3 the live store uses).
+const S3 = 'https://nklopsouqd.s3.us-west-1.amazonaws.com/printfast/images/common';
+
+const heroImg = `${S3}/Mailing_lists_banner.png?1706549049`;
+
+const whyChoose = [
+  {
+    img: `${S3}/Focused_Email_Marketing.png?1706547755`,
+    title: 'Focused Email Marketing',
+    description:
+      'Ditch mass mail and ignite your ROI. Laser-target ideal homeowners with PrintFast’s focused email marketing.',
+  },
+  {
+    img: `${S3}/Free_Demographic_Reports.png?1706547779`,
+    title: 'Free Demographic Reports',
+    description:
+      'Unlock your audience’s secrets — age, income, interests and more. Craft campaigns that resonate and win every heart.',
+  },
+  {
+    img: `${S3}/Personalized_targets.png?1706548240`,
+    title: 'Target Your Ideal Audience',
+    description:
+      'PrintFast homes in on your ideal audience. Income, age, occupied homes only. Say goodbye to renters and hello to conversions.',
+  },
+  {
+    img: `${S3}/PF_Detailed_Information.png?1706548338`,
+    title: 'Personalized Postcards',
+    description:
+      'Transform your mailing list into a personalized powerhouse with our Variable Data Printing (VDP) technology. Add individual names and details to each piece.',
+  },
+  {
+    img: `${S3}/Increased_Conversions.png?1706547848`,
+    title: 'Increased Conversions',
+    description:
+      'PrintFast delivers your message to decision-makers, not just mailboxes. Amplify your voice and watch conversions ignite.',
+  },
+];
+
+const howItWorks = [
+  {
+    title: 'Define Your Target',
+    description:
+      'Tell us the homeowners you want to reach — income, age, home ownership, ZIP codes and more. We pinpoint the decision-makers that matter.',
+  },
+  {
+    title: 'Pull the Data',
+    description:
+      'We source precise, occupied-homeowner data and provide a free demographic report so you know exactly who your campaign is speaking to.',
+  },
+  {
+    title: 'Personalize Every Piece',
+    description:
+      'Our Variable Data Printing technology drops individual names and details into each mailer for impactful one-to-one connections.',
+  },
+  {
+    title: 'Convert & Repeat',
+    description:
+      'Stop wasting postage on marketing misses. Land your message with the right people, every time, and watch your conversions grow.',
+  },
+];
+
+const didYouKnow = [
+  'Precise homeowner data ensures your message lands with the right people, every time — not just random mailboxes.',
+  'Free demographic reports reveal age, income and interests so you can craft campaigns that resonate.',
+  'Variable Data Printing personalizes each piece with individual names and details for one-to-one impact.',
+  'No wasted postage on renters or bad addresses — we target occupied homes and qualified homeowners only.',
+];
+
+const relatedProducts = [
+  {
+    title: 'Postcards',
+    href: shopHref('printfast-postcards'),
+    icon: 'fa-envelope-open-text',
+    description:
+      'Jumbo 6” × 11” direct mail postcards that stand out in the mailbox and put your brand in the homeowner’s hands.',
+  },
+  {
+    title: 'Referral Mailers',
+    href: shopHref('referral-mailers'),
+    icon: 'fa-share-nodes',
+    description:
+      'Turn happy customers into your best marketers with mailers designed to spark word-of-mouth referrals.',
+  },
+  {
+    title: 'Membership Mailings',
+    href: shopHref('membership-mailings'),
+    icon: 'fa-id-card',
+    description:
+      'Keep loyal homeowners engaged with recurring membership and maintenance-plan mailings.',
+  },
+  {
+    title: 'Direct Mail PLUS',
+    href: shopHref('direct-mail-plus'),
+    icon: 'fa-layer-group',
+    description:
+      'Combine direct mail with digital touchpoints for a multi-channel campaign that surrounds your prospects.',
+  },
+];
+
+const faqs = [
+  {
+    question: 'What is a targeted mailing list?',
+    answer:
+      'A targeted mailing list is a curated set of homeowner data — filtered by income, age, home ownership, location and more — so your direct mail reaches qualified decision-makers instead of random mailboxes.',
+  },
+  {
+    question: 'Do you provide demographic reports?',
+    answer:
+      'Yes. PrintFast provides free demographic reports that reveal your audience’s age, income, interests and other insights, helping you craft campaigns that resonate and convert.',
+  },
+  {
+    question: 'Can each mail piece be personalized?',
+    answer:
+      'Absolutely. Our Variable Data Printing (VDP) technology adds individual names and details to every piece, creating impactful one-to-one connections that get results.',
+  },
+  {
+    question: 'How do I get started with a mailing list?',
+    answer:
+      'Contact our marketing experts to schedule a free consultation. We’ll help you define your ideal audience, pull the data and launch a precision direct mail campaign — call 800-810-4818, 8 AM–5 PM ET, Monday to Friday.',
+  },
+];
+---
+
+<ShopLayout
+  title="Targeted Mailing Lists | Homeowner Direct Mail Data & VDP Personalization"
+  crumb="Mailing Lists"
+  description="PrintFast targeted mailing lists deliver precise homeowner data so your direct mail lands with qualified decision-makers. Free demographic reports plus Variable Data Printing personalization."
+  keywords={[
+    'targeted mailing lists',
+    'homeowner mailing lists',
+    'direct mail data',
+    'demographic reports',
+    'variable data printing',
+    'direct mail targeting',
+    'home service marketing lists',
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'PrintFast Mailing Lists',
+    description:
+      'Targeted homeowner mailing lists with free demographic reports and Variable Data Printing personalization for direct mail campaigns.',
+    brand: { '@type': 'Brand', name: 'PrintFast' },
+    serviceType: 'Direct Mail Data & Targeting',
+  }}
+  faqs={faqs}
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="relative overflow-hidden bg-[#0f2747]">
+    <span aria-hidden="true" class="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+    <span aria-hidden="true" class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></span>
+
+    <div class="container-pf relative py-14 sm:py-16 lg:py-24">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+            Direct Mail Data
+          </p>
+          <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Mailing <span class="text-[#ED1C24]">Lists</span>
+          </h1>
+          <p class="mt-5 max-w-xl text-base font-semibold text-white/90">
+            Target the bullseye, every time. Convert qualified homeowners with laser-focused marketing.
+          </p>
+          <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Tired of sending direct mail into the void? PrintFast delivers precise homeowner data to
+            ensure your message lands with the right people, every time. We have the expertise to
+            pinpoint the decision-makers you need to reach.
+          </p>
+          <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Transform your mailing list into a personalized powerhouse. Our Variable Data Printing
+            technology adds individual names and details to each piece, creating impactful one-to-one
+            connections that resonate. It’s easy, effective and gets results.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Contact Us <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('all-products')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              View All Products
+            </a>
+          </div>
+        </div>
+
+        <div class="relative" data-reveal>
+          <img
+            src={heroImg}
+            alt="PrintFast targeted homeowner mailing lists banner"
+            class="mx-auto h-auto w-full max-w-lg rounded-2xl shadow-soft"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== INTRO / PRECISION ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-bullseye"></i> Precision Targeting
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Stop wasting postage on marketing misses</h2>
+        <p class="lead mt-5">
+          Start converting with PrintFast. Sign up today and unleash the power of precision — deliver
+          the right message to the right homeowner, every single time.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-3">
+        <div class="rounded-2xl bg-white p-8 text-center ring-1 ring-ink-100 shadow-soft" data-reveal>
+          <span class="grid h-14 w-14 mx-auto place-items-center rounded-full bg-[#fde8e9] text-2xl text-[#ED1C24]">
+            <i class="fa-solid fa-crosshairs"></i>
+          </span>
+          <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">Right People</h3>
+          <p class="mt-2 text-sm leading-relaxed text-ink-600">
+            Precise homeowner data ensures your message lands with qualified decision-makers, not
+            random mailboxes.
+          </p>
+        </div>
+        <div class="rounded-2xl bg-white p-8 text-center ring-1 ring-ink-100 shadow-soft" data-reveal>
+          <span class="grid h-14 w-14 mx-auto place-items-center rounded-full bg-[#fde8e9] text-2xl text-[#ED1C24]">
+            <i class="fa-solid fa-user-pen"></i>
+          </span>
+          <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">Personalized</h3>
+          <p class="mt-2 text-sm leading-relaxed text-ink-600">
+            Variable Data Printing adds individual names and details to each piece for impactful
+            one-to-one connections.
+          </p>
+        </div>
+        <div class="rounded-2xl bg-white p-8 text-center ring-1 ring-ink-100 shadow-soft" data-reveal>
+          <span class="grid h-14 w-14 mx-auto place-items-center rounded-full bg-[#fde8e9] text-2xl text-[#ED1C24]">
+            <i class="fa-solid fa-arrow-trend-up"></i>
+          </span>
+          <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">Proven Results</h3>
+          <p class="mt-2 text-sm leading-relaxed text-ink-600">
+            It’s easy, effective and gets results — impactful connections that resonate and convert.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHY CHOOSE PRINTFAST ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-bolt"></i> Why PrintFast
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Why choose PrintFast for Mailing Lists?</h2>
+      </div>
+
+      <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+        {whyChoose.map((w) => (
+          <div class="flex flex-col items-center rounded-2xl bg-white p-6 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <img
+              src={w.img}
+              alt={w.title}
+              width="120"
+              height="120"
+              class="h-20 w-20 object-contain"
+              loading="lazy"
+              decoding="async"
+            />
+            <h3 class="mt-4 text-sm font-extrabold uppercase tracking-wide text-[#0f2747]">{w.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-600">{w.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== HOW IT WORKS ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-list-check"></i> How It Works
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">From data to conversions in four steps</h2>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {howItWorks.map((s, i) => (
+          <div class="relative rounded-2xl bg-white p-7 ring-1 ring-ink-100 shadow-soft" data-reveal>
+            <span class="grid h-11 w-11 place-items-center rounded-full bg-[#ED1C24] font-display text-lg font-bold text-white">
+              {i + 1}
+            </span>
+            <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{s.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-600">{s.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DID YOU KNOW + TESTIMONIAL ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="grid items-center gap-10 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-lightbulb"></i> Did You Know?
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">Precision beats guesswork</h2>
+          <ul class="mt-8 space-y-4">
+            {didYouKnow.map((d) => (
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+                  <i class="fa-solid fa-check text-[10px]"></i>
+                </span>
+                <span class="text-ink-700">{d}</span>
+              </li>
+            ))}
+          </ul>
+          <a
+            href={contactHref}
+            class="mt-8 inline-flex items-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+          >
+            Get More Information <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Testimonial -->
+        <div class="relative rounded-3xl bg-[#0f2747] p-8 shadow-soft sm:p-10" data-reveal>
+          <i class="fa-solid fa-quote-left text-4xl text-[#ED1C24]"></i>
+          <blockquote class="mt-4 text-lg leading-relaxed text-white/90">
+            Great company all around!!! From people taking orders to the editing proof team making
+            sure it’s correct — I would not go with anyone else!! We got into a bind with a backdrop
+            we needed and the team did not hesitate getting our backdrop out fast and ready for our
+            show!!! Thanks team!!
+          </blockquote>
+          <div class="mt-6 flex items-center gap-3">
+            <span class="grid h-11 w-11 place-items-center rounded-full bg-[#ED1C24] font-display text-lg font-bold text-white">D</span>
+            <div>
+              <p class="font-bold text-white">Derek B.</p>
+              <p class="text-sm text-white/60">PrintFast client</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== RELATED PRODUCTS ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-layer-group"></i> Pairs Well With
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Put your mailing list to work</h2>
+        <p class="lead mt-5">
+          A targeted list is the foundation — combine it with these direct mail programs to maximize
+          your reach and results.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {relatedProducts.map((p) => (
+          <div class="group flex flex-col rounded-2xl bg-white p-7 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-[#fde8e9] text-xl text-[#ED1C24]">
+              <i class={`fa-solid ${p.icon}`}></i>
+            </span>
+            <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{p.title}</h3>
+            <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-600">{p.description}</p>
+            <a href={p.href} class="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#ED1C24]">
+              View More <i class="fa-solid fa-arrow-right text-xs transition-transform group-hover:translate-x-0.5"></i>
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-circle-question"></i> FAQs
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Mailing list questions, answered</h2>
+      </div>
+
+      <div class="mx-auto mt-10 max-w-3xl space-y-4">
+        {faqs.map((f) => (
+          <details class="group rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft" data-reveal>
+            <summary class="flex cursor-pointer items-center justify-between gap-4 text-base font-bold text-[#0f2747] marker:content-none">
+              {f.question}
+              <span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24] transition-transform group-open:rotate-45">
+                <i class="fa-solid fa-plus text-xs"></i>
+              </span>
+            </summary>
+            <p class="mt-4 text-sm leading-relaxed text-ink-600">{f.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FINAL CTA ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-20" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+        <div class="relative max-w-3xl">
+          <h2 class="heading-lg text-white">
+            Not sure if Mailing Lists is <span class="text-[#ED1C24]">right for you?</span>
+          </h2>
+          <p class="mt-5 text-lg leading-relaxed text-white/85">
+            Schedule a free consultation with our marketing experts. Let us demonstrate the impact
+            that Mailing Lists will have when combined with your next marketing campaign. We’re
+            available from 8 AM to 5 PM ET, Monday to Friday — our team is here to help!
+          </p>
+          <div class="mt-8 flex flex-wrap items-center gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Schedule a Call <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href="tel:800-810-4818"
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              <i class="fa-solid fa-phone text-xs"></i> Call 800-810-4818
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ShopLayout>

@@ -1,0 +1,528 @@
+---
+import ShopLayout from '@layouts/ShopLayout.astro';
+import { shopHref } from '@data/shop';
+import { getContactHref } from '@data/pricing';
+import ContactForm from '@components/ContactForm.astro';
+
+const contactHref = getContactHref('digital-marketing-services');
+
+// Original PrintFast content image (served from the same CDN the live store uses).
+const heroImg =
+  'https://dqj17tese79do.cloudfront.net/printfast/images/contentimages/images/download_1_.png';
+
+// The five printing capabilities the original page presents as tabs.
+const capabilities = [
+  {
+    id: 'digital-printing',
+    icon: 'fa-print',
+    title: 'Digital Printing',
+    blurb:
+      'On-demand small-run printing with dry-toner presses — high quality, fast turnaround and Variable Data Printing.',
+  },
+  {
+    id: 'offset-printing',
+    icon: 'fa-newspaper',
+    title: 'Offset Printing',
+    blurb:
+      'Traditional oil-based ink presses built for high-quantity, long press runs at the lowest per-sheet cost.',
+  },
+  {
+    id: 'large-format-printing',
+    icon: 'fa-expand',
+    title: 'Large Format Printing',
+    blurb:
+      'Short-run printing on oversized sheets and materials — paper, plastic sheeting and polyester fabrics.',
+  },
+  {
+    id: 'bindery',
+    icon: 'fa-scissors',
+    title: 'Bindery & Finishing',
+    blurb:
+      'Cutting, folding, collating, binding, numbering and shrink wrapping that turn flat sheets into finished goods.',
+  },
+  {
+    id: 'specialized',
+    icon: 'fa-industry',
+    title: 'Specialized Marketing Materials',
+    blurb:
+      'Over 150 custom products built for HVAC, plumbing and electrical home-service pros over 25+ years.',
+  },
+];
+
+const digitalBenefits = [
+  'Print on demand small quantity projects',
+  'Very high degree of quality and consistency',
+  'Fast turnaround time',
+  'Variable Data Printing to personalize postcards and other forms of marketing',
+];
+const digitalProducts = [
+  'Postcards',
+  'Letters and envelopes',
+  'Brochures and flyers',
+  'Stickers',
+  'Any product that utilizes Variable Data Printing customization',
+];
+
+const offsetBenefits = [
+  'Very economical per sheet (unit) costs for longer press runs as compared to digital',
+  'The ability to print larger products like Presentation Folders, multiple page booklets and magazines',
+  'A much wider range of available printing substrates (papers)',
+  'UV gloss coatings can be applied to the sheets during the press run',
+];
+const offsetProducts = [
+  'Multiple page booklets and magazines',
+  'Presentation folders',
+  'Brochures and flyers (higher quantity)',
+];
+
+const largeBenefits = [
+  'Very economical per sheet (unit) costs for short runs',
+  'The ability to produce larger items like posters, banners and yard signs',
+  'A much wider range of available printing substrates (papers/plastics/fabrics)',
+];
+const largeProducts = ['Yard signs', 'Banners', 'Event tents'];
+
+const faqs = [
+  {
+    question: 'What is the difference between digital and offset printing?',
+    answer:
+      'Digital printing uses dry-toner pigment presses and is ideal for on-demand, small-run projects with fast turnaround and Variable Data Printing. Offset printing uses oil-based inks and is best for high-quantity, long press runs where the per-sheet cost becomes very low and larger products like booklets and magazines are possible.',
+  },
+  {
+    question: 'What is Variable Data Printing (VDP)?',
+    answer:
+      'Variable Data Printing lets each press sheet change from sheet to sheet. In direct mail, for example, each postcard or letter can print not only the homeowner’s name and address but also individually reflect other data points such as coupon offers and the HVAC equipment they own.',
+  },
+  {
+    question: 'What can you produce with large format printing?',
+    answer:
+      'Large format printing uses the same dry-toner technology as our digital presses but prints on oversized sheets and a wide range of substrates — paper, plastic sheeting and polyester fabrics. It is ideal for short runs of posters, banners, yard signs and event tents.',
+  },
+  {
+    question: 'Do you handle finishing and binding in-house?',
+    answer:
+      'Yes. Our bindery and finishing department transforms flat printed sheets into finished products with cutting, folding, collating, inserting, sealing, numbering, plastic binding, stapling, bundling, shrink wrapping and hole punching — all under one roof.',
+  },
+  {
+    question: 'Who does PrintFast serve?',
+    answer:
+      'We have over 25 years of experience as custom product manufacturers serving the HVAC, plumbing and electrical home-service trades. We have developed over 150 products, from every form of marketing material up to stickers, ID badges, brochures and Homeowner Experience Packs.',
+  },
+];
+
+const printingSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Full Service Printing',
+  serviceType: 'Commercial Printing',
+  description:
+    'Digital, offset and large format printing plus bindery and finishing for home service marketing materials.',
+  provider: { '@type': 'Organization', name: 'PrintFast', telephone: '800-810-4818' },
+  areaServed: 'US',
+};
+---
+
+<ShopLayout
+  title="Full Service Printing | Digital, Offset & Large Format Printing"
+  crumb="Full Service Printing"
+  description="PrintFast is a full service printer with state-of-the-art digital, offset and large format presses plus in-house bindery. 25+ years serving home service pros."
+  keywords={[
+    'full service printing',
+    'digital printing',
+    'offset printing',
+    'large format printing',
+    'variable data printing',
+    'bindery and finishing',
+    'commercial printing HVAC',
+  ]}
+  schema={printingSchema}
+  faqs={faqs}
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="relative overflow-hidden bg-[#0f2747]">
+    <span aria-hidden="true" class="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+    <span aria-hidden="true" class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></span>
+
+    <div class="container-pf relative py-14 sm:py-16 lg:py-24">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+            Full Service Printing
+          </p>
+          <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            We Do It <span class="text-[#ED1C24]">All</span>
+          </h1>
+          <p class="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            We have state-of-the-art equipment and a well-experienced team that can create hundreds
+            of products and services for you. And since everything we do is custom-made, our
+            solutions will always make you look your best&hellip;not like the rest.
+          </p>
+          <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Our goal is to help grow your business. When you have a project in mind and just need
+            some guidance, give us a call. We&rsquo;ll be happy to share our knowledge to achieve a
+            product that not only makes you look good, but is a good value too.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Start a Project <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href="tel:800-810-4818"
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              <i class="fa-solid fa-phone text-xs"></i> Call 800-810-4818
+            </a>
+          </div>
+        </div>
+
+        <div class="relative" data-reveal>
+          <img
+            src={heroImg}
+            alt="PrintFast full service printing equipment and finished marketing products"
+            class="mx-auto h-auto w-full rounded-2xl shadow-soft"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CAPABILITIES OVERVIEW ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-layer-group"></i> Our Capabilities
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">One shop for every kind of print</h2>
+        <p class="lead mt-4">
+          From on-demand digital runs to long-run offset and oversized large format work &mdash;
+          plus a full bindery under the same roof.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {capabilities.map((c) => (
+          <a
+            href={`#${c.id}`}
+            class="group flex flex-col rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40"
+            data-reveal
+          >
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-[#fde8e9] text-xl text-[#ED1C24]">
+              <i class={`fa-solid ${c.icon}`}></i>
+            </span>
+            <h3 class="mt-4 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{c.title}</h3>
+            <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-600">{c.blurb}</p>
+            <span class="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#ED1C24]">
+              Learn More <i class="fa-solid fa-arrow-right text-xs transition-transform group-hover:translate-x-0.5"></i>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DIGITAL PRINTING ===================== -->
+  <section id="digital-printing" class="section scroll-mt-24 bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-print"></i> Digital Printing
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">On-demand printing with Variable Data</h2>
+      </div>
+      <p class="mx-auto mt-6 max-w-4xl text-center text-ink-700">
+        Our state-of-the-art digital presses using dry toner pigments give us the ability to print
+        small-run jobs with a high degree of quality and accuracy on a variety of media. Commonly
+        referred to as on-demand printing, we can produce only the quantity that you need with a very
+        fast turnaround time. Digital printing also lets us offer Variable Data Printing (VDP), where
+        each press sheet&rsquo;s content can change from sheet to sheet &mdash; for instance, each
+        postcard or letter printed with the homeowner&rsquo;s name and address plus coupon offers and
+        the HVAC equipment they own.
+      </p>
+
+      <div class="mx-auto mt-10 grid max-w-5xl gap-6 sm:grid-cols-2">
+        <div class="rounded-2xl bg-white p-7 ring-1 ring-ink-100 shadow-soft" data-reveal>
+          <h3 class="text-sm font-extrabold uppercase tracking-wide text-[#0f2747]">Digital Printing Benefits</h3>
+          <ul class="mt-5 space-y-3">
+            {digitalBenefits.map((b) => (
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+                  <i class="fa-solid fa-check text-[10px]"></i>
+                </span>
+                <span class="text-sm text-ink-700">{b}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="rounded-2xl bg-white p-7 ring-1 ring-ink-100 shadow-soft" data-reveal>
+          <h3 class="text-sm font-extrabold uppercase tracking-wide text-[#0f2747]">Products Include</h3>
+          <ul class="mt-5 space-y-3">
+            {digitalProducts.map((p) => (
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#0f2747] text-white">
+                  <i class="fa-solid fa-box text-[10px]"></i>
+                </span>
+                <span class="text-sm text-ink-700">{p}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== OFFSET PRINTING ===================== -->
+  <section id="offset-printing" class="section scroll-mt-24">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-newspaper"></i> Offset Printing
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Long-run printing at the lowest per-sheet cost</h2>
+      </div>
+      <p class="mx-auto mt-6 max-w-4xl text-center text-ink-700">
+        Our traditional offset presses use oil-based inks &mdash; a technology that has been around
+        for over one hundred years and is the foundation of the print and marketing industry. Offset
+        printing is best-suited for high-quantity projects that require long press runs. While the
+        initial setup can be time-consuming and costly, the price per printed sheet becomes very low
+        with longer press runs. Offset presses also handle larger press sheets, allowing more complex
+        projects such as multiple-page booklets and magazines that cannot be easily produced on
+        digital presses.
+      </p>
+
+      <div class="mx-auto mt-10 grid max-w-5xl gap-6 sm:grid-cols-2">
+        <div class="rounded-2xl bg-ink-50/60 p-7 ring-1 ring-ink-100 shadow-soft" data-reveal>
+          <h3 class="text-sm font-extrabold uppercase tracking-wide text-[#0f2747]">Offset Printing Benefits</h3>
+          <ul class="mt-5 space-y-3">
+            {offsetBenefits.map((b) => (
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+                  <i class="fa-solid fa-check text-[10px]"></i>
+                </span>
+                <span class="text-sm text-ink-700">{b}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="rounded-2xl bg-ink-50/60 p-7 ring-1 ring-ink-100 shadow-soft" data-reveal>
+          <h3 class="text-sm font-extrabold uppercase tracking-wide text-[#0f2747]">Products Include</h3>
+          <ul class="mt-5 space-y-3">
+            {offsetProducts.map((p) => (
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#0f2747] text-white">
+                  <i class="fa-solid fa-box text-[10px]"></i>
+                </span>
+                <span class="text-sm text-ink-700">{p}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== LARGE FORMAT PRINTING ===================== -->
+  <section id="large-format-printing" class="section scroll-mt-24 bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-expand"></i> Large Format Printing
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Oversized printing on almost any material</h2>
+      </div>
+      <p class="mx-auto mt-6 max-w-4xl text-center text-ink-700">
+        Large format printing uses the same dry-toner pigment technology as our digital presses. In
+        this workflow, typically one or very few pieces are produced &mdash; but, as the name
+        implies, we can print on a wide range of materials that can be very large in size. It combines
+        the benefits of digital and offset printing, where short-run production meets larger sheet
+        sizes, on substrates ranging from paper to plastic sheeting to polyester fabrics.
+      </p>
+
+      <div class="mx-auto mt-10 grid max-w-5xl gap-6 sm:grid-cols-2">
+        <div class="rounded-2xl bg-white p-7 ring-1 ring-ink-100 shadow-soft" data-reveal>
+          <h3 class="text-sm font-extrabold uppercase tracking-wide text-[#0f2747]">Large Format Benefits</h3>
+          <ul class="mt-5 space-y-3">
+            {largeBenefits.map((b) => (
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+                  <i class="fa-solid fa-check text-[10px]"></i>
+                </span>
+                <span class="text-sm text-ink-700">{b}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="rounded-2xl bg-white p-7 ring-1 ring-ink-100 shadow-soft" data-reveal>
+          <h3 class="text-sm font-extrabold uppercase tracking-wide text-[#0f2747]">Products Include</h3>
+          <ul class="mt-5 space-y-3">
+            {largeProducts.map((p) => (
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#0f2747] text-white">
+                  <i class="fa-solid fa-box text-[10px]"></i>
+                </span>
+                <span class="text-sm text-ink-700">{p}</span>
+              </li>
+            ))}
+          </ul>
+          <a href={shopHref('yard-signs')} class="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#ED1C24]">
+            Explore Yard Signs <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== BINDERY & SPECIALIZED ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="grid gap-8 lg:grid-cols-2">
+        <div id="bindery" class="scroll-mt-24 rounded-3xl bg-white p-8 ring-1 ring-ink-100 shadow-soft sm:p-10" data-reveal>
+          <span class="grid h-12 w-12 place-items-center rounded-xl bg-[#fde8e9] text-xl text-[#ED1C24]">
+            <i class="fa-solid fa-scissors"></i>
+          </span>
+          <h2 class="heading-md mt-5 text-[#0f2747]">Bindery &amp; Finishing</h2>
+          <p class="mt-4 text-sm leading-relaxed text-ink-700">
+            Our bindery and finishing department is where our hands-on expertise comes in. Here we
+            take the flat printed sheets from our digital, offset and wide-format presses and
+            transform them into the final products you ordered. Many machine and hand processes occur
+            &mdash; cutting, folding, collating, inserting, sealing, numbering, plastic binding,
+            stapling, bundling, shrink wrapping and hole punching. As custom manufacturers, this is
+            the department where all of the initial product planning, design and production come
+            together into high-quality finished goods.
+          </p>
+        </div>
+
+        <div id="specialized" class="scroll-mt-24 rounded-3xl bg-[#0f2747] p-8 shadow-soft sm:p-10" data-reveal>
+          <span class="grid h-12 w-12 place-items-center rounded-xl bg-[#ED1C24] text-xl text-white">
+            <i class="fa-solid fa-industry"></i>
+          </span>
+          <h2 class="heading-md mt-5 text-white">Specialized Marketing Materials</h2>
+          <p class="mt-4 text-sm leading-relaxed text-white/85">
+            We have over 25 years of experience as custom product manufacturers serving the HVAC,
+            plumbing and electrical home-service trades. We speak your language and know the
+            challenges you face as you market to and provide services to homeowners. As a result, we
+            have developed over 150 products that serve you at the highest level &mdash; from all
+            forms of marketing materials up to stickers, ID badges, brochures and Homeowner Experience
+            Packs.
+          </p>
+          <p class="mt-4 text-sm font-semibold text-white/90">
+            Our motto is &ldquo;Your success is our business&rdquo; and we live by it every day.
+          </p>
+          <a href={shopHref('all-products')} class="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#ED1C24]">
+            Browse All Products <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-circle-question"></i> FAQs
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Full service printing questions</h2>
+      </div>
+
+      <div class="mx-auto mt-10 max-w-3xl space-y-4">
+        {faqs.map((f) => (
+          <details class="group rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft" data-reveal>
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
+              <span class="text-base font-bold text-[#0f2747]">{f.question}</span>
+              <span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24] transition-transform group-open:rotate-45">
+                <i class="fa-solid fa-plus text-xs"></i>
+              </span>
+            </summary>
+            <p class="mt-4 text-sm leading-relaxed text-ink-700">{f.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONNECT / CONTACT ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="grid items-start gap-10 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-headset"></i> Connect With Us
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">We&rsquo;re here to help!</h2>
+          <p class="lead mt-4">
+            Have a project in mind and just need some guidance? We&rsquo;re available from 8 AM to
+            5 PM ET, Monday to Friday &mdash; our team is here to help.
+          </p>
+          <div class="mt-8 space-y-4">
+            <a href="tel:800-810-4818" class="flex items-center gap-4 rounded-2xl bg-white p-5 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40">
+              <span class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#fde8e9] text-xl text-[#ED1C24]">
+                <i class="fa-solid fa-phone"></i>
+              </span>
+              <span>
+                <span class="block text-xs font-bold uppercase tracking-[0.18em] text-ink-500">Call Us</span>
+                <span class="block text-lg font-extrabold text-[#0f2747]">800-810-4818</span>
+              </span>
+            </a>
+            <a href="mailto:info@print-fast.com" class="flex items-center gap-4 rounded-2xl bg-white p-5 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40">
+              <span class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#fde8e9] text-xl text-[#ED1C24]">
+                <i class="fa-solid fa-envelope"></i>
+              </span>
+              <span>
+                <span class="block text-xs font-bold uppercase tracking-[0.18em] text-ink-500">Email Us</span>
+                <span class="block text-lg font-extrabold text-[#0f2747]">info@print-fast.com</span>
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <div data-reveal>
+          <ContactForm
+            title="Start your printing project"
+            subtitle="Tell us what you need and our team will help you achieve a product that looks great and is a good value too."
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FINAL CTA ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-20" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+        <div class="relative max-w-3xl">
+          <h2 class="heading-lg text-white">
+            Let&rsquo;s make you look your best&hellip; <span class="text-[#ED1C24]">not like the rest.</span>
+          </h2>
+          <p class="mt-5 text-lg leading-relaxed text-white/85">
+            State-of-the-art presses, in-house bindery and a team with 25+ years serving home service
+            pros. Give us a call and let&rsquo;s build something great together.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Get Started <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('creative-design')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              Explore Creative Design
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ShopLayout>

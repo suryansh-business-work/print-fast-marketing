@@ -1,0 +1,328 @@
+---
+import ShopLayout from '@layouts/ShopLayout.astro';
+import { shopHref } from '@data/shop';
+import { getContactHref } from '@data/pricing';
+import ContactForm from '@components/ContactForm.astro';
+
+const contactHref = getContactHref('digital-marketing-services');
+
+// Original PrintFast image assets (served from the same CDN/S3 the live store uses).
+const S3 = 'https://nklopsouqd.s3.us-west-1.amazonaws.com/printfast/images/common';
+const CF = 'https://dqj17tese79do.cloudfront.net/printfast/images/common';
+
+const heroImg = `${CF}/Membership_Mailers.png?1695494868`;
+
+const benefits = [
+  {
+    img: `${S3}/PF_Clear_Information.png?1700248572`,
+    title: 'Clear Information',
+    description:
+      'Membership kits provide homeowners with comprehensive information about their plan, reducing confusion and ensuring they understand the services they have access to.',
+  },
+  {
+    img: `${S3}/PF_Improved_Customer_Experience.png?1700248615`,
+    title: 'Improved Customer Experience',
+    description:
+      'It enhances the onboarding process, making homeowners feel valued and appreciated from the start, leading to higher customer satisfaction.',
+  },
+  {
+    img: `${S3}/PF_Increased_Engagement.png?1700248664`,
+    title: 'Increased Engagement',
+    description:
+      'The kits can include tips, guides, or resources that engage homeowners and help them make the most of their service plan.',
+  },
+  {
+    img: `${S3}/PF_subtle_marketing.png?1700247105`,
+    title: 'Promotion of Additional Services',
+    description:
+      'Membership kits can introduce homeowners to other services or upgrades they might be interested in, potentially increasing revenue for the provider.',
+  },
+  {
+    img: `${S3}/PF_Enhanced_Loyalty.png?1700248694`,
+    title: 'Enhanced Loyalty',
+    description:
+      'By showcasing the benefits of the plan and offering a tangible welcome, membership kits can foster long-term loyalty among homeowners.',
+  },
+  {
+    img: `${S3}/PF_Branding_Recognition.png?1700248717`,
+    title: 'Branding and Recognition',
+    description:
+      'These kits reinforce the brand identity of the home service provider, helping homeowners remember and trust the company for future needs.',
+  },
+];
+
+const didYouKnow = [
+  'Our Membership Mailers are thoroughly custom and will be designed to deliver your brand’s customer experience to the homeowner.',
+  'Product development and pricing is custom.',
+  'Feel free to contact us for more information.',
+];
+
+const relatedProducts = [
+  {
+    title: 'Referral Mailers',
+    href: shopHref('referral-mailers'),
+    description:
+      'Turn happy homeowners into your best sales force with mailers designed to generate word-of-mouth referrals.',
+  },
+  {
+    title: 'Thank You Mailers',
+    href: shopHref('thank-you-mailers'),
+    description:
+      'Show appreciation and stay top of mind with personalized thank you mailers sent after every job.',
+  },
+  {
+    title: 'Newsletters',
+    href: shopHref('newsletters-new'),
+    description:
+      'Keep your brand in front of homeowners month after month with professionally designed newsletters.',
+  },
+];
+---
+
+<ShopLayout
+  title="Membership Mailings | Custom Membership Kits for Home Service Plans"
+  crumb="Membership Mailings"
+  description="PrintFast Membership Mailings deliver custom welcome kits to new home service plan members — clear plan info, better onboarding, and lasting homeowner loyalty. Fully custom design & pricing."
+  keywords={[
+    'membership mailings',
+    'membership mailers',
+    'home service plan welcome kit',
+    'membership kits',
+    'homeowner onboarding',
+    'service plan marketing',
+    'customer loyalty mailers',
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'PrintFast Membership Mailings',
+    description:
+      'Custom membership kits mailed to new home service plan members to improve onboarding, engagement and long-term loyalty.',
+    brand: { '@type': 'Brand', name: 'PrintFast' },
+    serviceType: 'Direct Mail Membership Kits',
+    provider: { '@type': 'Organization', name: 'PrintFast', telephone: '800-810-4818' },
+  }}
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="relative overflow-hidden bg-[#0f2747]">
+    <span aria-hidden="true" class="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+    <span aria-hidden="true" class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></span>
+
+    <div class="container-pf relative py-14 sm:py-16 lg:py-24">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+            Direct Mail Marketing
+          </p>
+          <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Membership <span class="text-[#ED1C24]">Mailings</span>
+          </h1>
+          <p class="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Sending a membership kit to new home service plan members is invaluable. It provides vital
+            plan info, enhances onboarding, fosters belonging, and includes resources — promoting
+            long-term satisfaction and loyalty.
+          </p>
+          <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            This tangible welcome strengthens the homeowner–provider relationship, ensuring clarity and
+            convenience while making members feel valued and committed.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Contact Us <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('all-products')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              View All Products
+            </a>
+          </div>
+        </div>
+
+        <div class="relative" data-reveal>
+          <img
+            src={heroImg}
+            alt="PrintFast membership mailing welcome kit for home service plan members"
+            class="mx-auto h-auto w-full max-w-md rounded-2xl"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHY CHOOSE PRINTFAST ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-bolt"></i> Why PrintFast
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">
+          Why choose PrintFast for sending your <span class="text-[#ED1C24]">membership mailings?</span>
+        </h2>
+        <p class="lead mt-4">
+          A well-crafted membership kit does more than welcome new members — it sets the tone for a
+          lasting relationship. Here is what your custom mailings deliver.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {benefits.map((b) => (
+          <div class="flex flex-col items-center rounded-2xl bg-white p-7 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <img
+              src={b.img}
+              alt={b.title}
+              width="120"
+              height="120"
+              class="h-20 w-20 object-contain"
+              loading="lazy"
+              decoding="async"
+            />
+            <h3 class="mt-4 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{b.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-600">{b.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DID YOU KNOW + TESTIMONIAL ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="grid items-center gap-10 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-lightbulb"></i> Did You Know?
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">Fully custom, built around your brand</h2>
+          <ul class="mt-8 space-y-4">
+            {didYouKnow.map((d) => (
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+                  <i class="fa-solid fa-check text-[10px]"></i>
+                </span>
+                <span class="text-ink-700">{d}</span>
+              </li>
+            ))}
+          </ul>
+          <a
+            href={contactHref}
+            class="mt-8 inline-flex items-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+          >
+            Get More Information <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Testimonial -->
+        <div class="relative rounded-3xl bg-[#0f2747] p-8 shadow-soft sm:p-10" data-reveal>
+          <i class="fa-solid fa-quote-left text-4xl text-[#ED1C24]"></i>
+          <blockquote class="mt-4 text-lg leading-relaxed text-white/90">
+            Great company all around!!! From people taking orders to the editing proof team making sure
+            it’s correct — I would not go with anyone else!! We got into a bind with a backdrop we needed
+            and the team did not hesitate getting our backdrop out fast and ready for our show!!! Thanks
+            team!!
+          </blockquote>
+          <div class="mt-6 flex items-center gap-3">
+            <span class="grid h-11 w-11 place-items-center rounded-full bg-[#ED1C24] font-display text-lg font-bold text-white">D</span>
+            <div>
+              <p class="font-bold text-white">Derek B.</p>
+              <p class="text-sm text-white/60">PrintFast client</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FREE CONSULTATION CTA ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-20" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+        <div class="relative max-w-3xl">
+          <h2 class="heading-lg text-white">
+            Not sure if Membership Mailers are <span class="text-[#ED1C24]">right for you?</span>
+          </h2>
+          <p class="mt-5 text-lg leading-relaxed text-white/85">
+            Schedule a free consultation with our marketing experts. Let us demonstrate the impact that
+            Membership Mailers will have when combined with your next marketing campaign.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Schedule a Call <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href="tel:800-810-4818"
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              <i class="fa-solid fa-phone text-xs"></i> Call 800-810-4818
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== RELATED PRODUCTS ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-envelopes-bulk"></i> Explore More
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">More direct mail programs</h2>
+        <p class="lead mt-4">
+          Pair your membership kits with these homeowner-focused mailings to build loyalty at every
+          stage of the customer journey.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {relatedProducts.map((p) => (
+          <div class="group flex flex-col rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <h3 class="text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{p.title}</h3>
+            <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-600">{p.description}</p>
+            <a href={p.href} class="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#ED1C24]">
+              View More <i class="fa-solid fa-arrow-right text-xs transition-transform group-hover:translate-x-0.5"></i>
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONNECT WITH US ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-headset"></i> Connect With Us
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">We’re here to help!</h2>
+        <p class="lead mt-4">
+          Have questions about Membership Mailers? We’re available from 8 AM to 5 PM ET, Monday to
+          Friday — our team is here to help. Call us at
+          <a href="tel:800-810-4818" class="font-bold text-[#ED1C24]">800-810-4818</a> or email
+          <a href="mailto:info@print-fast.com" class="font-bold text-[#ED1C24]">info@print-fast.com</a>.
+        </p>
+      </div>
+
+      <div class="mt-12" data-reveal>
+        <ContactForm
+          title="Send us a message"
+          subtitle="Tell us about your membership program and we’ll build a custom kit for your brand."
+        />
+      </div>
+    </div>
+  </section>
+</ShopLayout>

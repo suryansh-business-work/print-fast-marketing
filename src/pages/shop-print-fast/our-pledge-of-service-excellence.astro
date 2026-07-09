@@ -1,0 +1,362 @@
+---
+import ShopLayout from '@layouts/ShopLayout.astro';
+import { shopHref } from '@data/shop';
+import { getContactHref } from '@data/pricing';
+
+const contactHref = getContactHref('digital-marketing-services');
+
+// The seven commitments that make up the PrintFast Pledge of Service Excellence,
+// faithful to the original print-fast.com page copy.
+const pledges = [
+  {
+    icon: 'fa-handshake',
+    title: 'We Pledge Our Complete Honesty',
+    description:
+      'The cornerstone of every relationship is honesty, which fosters trust. Conducting business in an honest, ethical and open forum is the only way we operate. We regard our customers as family and recognize that you are the source of our success.',
+  },
+  {
+    icon: 'fa-comments',
+    title: 'You Can Count On Regular Communication',
+    description:
+      'As your printing and mailing projects move through the many stages of manufacturing, we will update you on their progress. Our production updates instill confidence that your project is on track and in good hands — and we are proud of our on-time performance.',
+  },
+  {
+    icon: 'fa-gem',
+    title: 'We Pledge Professionalism And Good Value',
+    description:
+      'Since 1903, PrintFast has operated with the highest production standards. Commercial printing is a custom manufacturing process for each client — we pledge not to cut corners or sacrifice quality just to save a few dollars. In fact, we will regularly recommend ways you can save on printing without reducing quality or results. Our long history means exceptional value and expertise.',
+  },
+  {
+    icon: 'fa-circle-check',
+    title: 'You Will Be 100% Satisfied — Guaranteed',
+    description:
+      'You will be thrilled with the quality of our products and services. Every product we make is backed by our 100% Satisfaction Guarantee.',
+  },
+  {
+    icon: 'fa-shield-halved',
+    title: 'Your Mailing Lists Are Protected',
+    description:
+      'When you send us your client list for a mailing, we protect that information. Your client list is crucial to the success of your business, so we pledge that your list will never be shared, sold, rented or put at risk. Your client lists are highly respected and will be protected by us — always.',
+  },
+  {
+    icon: 'fa-user-lock',
+    title: 'Your Information Is Confidential',
+    description:
+      'In doing business together we will exchange proprietary information. The details of your company, marketing campaigns and ongoing projects are valuable and need to be protected. We honor your trust by never discussing your business with anyone outside our respective companies. If asked, we will only acknowledge that we have a working relationship with you — nothing more, period.',
+  },
+  {
+    icon: 'fa-medal',
+    title: 'We Pledge To Deliver Exceptional Service',
+    description:
+      'For more than 120 years we have been exceeding the expectations of our clients. Our third-generation owner, Bill McGowan, personally guarantees the quality of our products and services — and always invites your comments and suggestions.',
+  },
+];
+
+// The principles that sit behind the pledge — why it matters to you.
+const values = [
+  {
+    icon: 'fa-heart',
+    title: 'Customers Treated Like Family',
+    description:
+      'We regard every customer as family and recognize that you are the source of our success. That belief shapes every conversation and every decision.',
+  },
+  {
+    icon: 'fa-clock',
+    title: 'Proud Of Our On-Time Performance',
+    description:
+      'From proof to press to the mailbox, we keep your project moving and keep you informed at every stage of manufacturing — no guesswork, no surprises.',
+  },
+  {
+    icon: 'fa-user-shield',
+    title: 'Personally Guaranteed',
+    description:
+      'Third-generation owner Bill McGowan personally stands behind the quality of everything we produce for you, and welcomes your feedback directly.',
+  },
+];
+
+const faqs = [
+  {
+    question: 'What is the PrintFast Pledge of Service Excellence?',
+    answer:
+      'It is our written commitment to every client — a promise of complete honesty, regular communication, professionalism and good value, a 100% Satisfaction Guarantee, protection of your mailing lists, confidentiality of your information, and exceptional service backed personally by our third-generation owner.',
+  },
+  {
+    question: 'How does PrintFast protect my client mailing lists?',
+    answer:
+      'When you send us your client list for a mailing, we protect that information. Your list will never be shared, sold, rented or put at risk — your client lists are respected and protected by us, always.',
+  },
+  {
+    question: 'Will the details of my business be kept confidential?',
+    answer:
+      'Yes. We never discuss the details of your company, marketing campaigns or projects with anyone outside our respective companies. If asked, we will only acknowledge that we have a working relationship with you — nothing more.',
+  },
+  {
+    question: 'Who stands behind the quality of my order?',
+    answer:
+      'Our third-generation owner, Bill McGowan, personally guarantees the quality of our products and services, and every order is backed by our 100% Satisfaction Guarantee. He always welcomes your comments and suggestions.',
+  },
+];
+---
+
+<ShopLayout
+  title="Our Pledge of Service Excellence | The PrintFast Commitment to You"
+  crumb="Our Pledge of Service Excellence"
+  description="PrintFast's Pledge of Service Excellence — our commitment to honesty, regular communication, protected mailing lists, confidentiality and 100% satisfaction, serving clients since 1903."
+  keywords={[
+    'printfast pledge of service excellence',
+    'service excellence pledge',
+    'printing service commitment',
+    'mailing list protection',
+    'confidential printing services',
+    '100% satisfaction guarantee',
+    'on-time printing service',
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    name: 'Our Pledge of Service Excellence — PrintFast',
+    description:
+      'The PrintFast Pledge of Service Excellence: our commitment to honesty, regular communication, protected mailing lists, confidentiality, exceptional service and a 100% Satisfaction Guarantee, from a company serving clients since 1903.',
+    publisher: {
+      '@type': 'Organization',
+      name: 'PrintFast',
+      foundingDate: '1903',
+      telephone: '800-810-4818',
+    },
+  }}
+  faqs={faqs}
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="relative overflow-hidden bg-[#0f2747]">
+    <span aria-hidden="true" class="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+    <span aria-hidden="true" class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></span>
+
+    <div class="container-pf relative py-14 sm:py-16 lg:py-24">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+            Our Pledge of Service Excellence
+          </p>
+          <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            A Pledge of <span class="text-[#ED1C24]">Service Excellence</span>
+          </h1>
+          <p class="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Thank you for your decision to partner with us for your printing, mailing and online
+            projects. We know you have many choices for service providers, and we are honored by the
+            trust you place in us.
+          </p>
+          <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            As our companies embark on a working relationship, we pledge our Service Excellence to
+            you — in writing, on every project.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href="#pledge"
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Read Our Pledge <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              Talk To Our Team
+            </a>
+          </div>
+        </div>
+
+        <!-- Pledge seal motif -->
+        <div class="relative" data-reveal>
+          <div class="mx-auto grid aspect-square w-full max-w-sm place-items-center rounded-full bg-white/5 ring-1 ring-white/10">
+            <div class="grid aspect-square w-3/4 place-items-center rounded-full bg-[#ED1C24]/10 ring-2 ring-[#ED1C24]/40">
+              <div class="text-center">
+                <i class="fa-solid fa-handshake text-5xl text-[#ED1C24]"></i>
+                <p class="mt-4 font-display text-2xl font-extrabold uppercase leading-none text-white">Our Pledge</p>
+                <p class="mt-2 text-xs font-bold uppercase tracking-[0.2em] text-white/70">Service<br />Excellence</p>
+                <p class="mt-4 text-[11px] font-semibold uppercase tracking-widest text-[#ED1C24]">Since 1903</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PLEDGE COMMITMENTS ===================== -->
+  <section id="pledge" class="section scroll-mt-28">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-hand-holding-heart"></i> Our Commitment To You
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">The promises behind every project</h2>
+        <p class="lead mt-5 text-ink-600">
+          When you work with PrintFast you are working with a company that has served its clients
+          since 1903. Here is exactly what we pledge — from complete honesty to protecting your
+          data, delivering high-quality work and standing behind everything we do.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {pledges.map((p) => (
+          <div class="group flex flex-col rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-[#fde8e9] text-[#ED1C24] transition-colors group-hover:bg-[#ED1C24] group-hover:text-white">
+              <i class:list={['fa-solid', p.icon, 'text-lg']} aria-hidden="true"></i>
+            </span>
+            <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{p.title}</h3>
+            <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-600">{p.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHY IT MATTERS / VALUES ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-heart"></i> Why It Matters
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">A pledge is only as good as the people behind it</h2>
+        <p class="lead mt-5 text-ink-600">
+          Products and technology change, but the principles behind our pledge are the same ones we
+          started with more than 120 years ago.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-3">
+        {values.map((v) => (
+          <div class="flex flex-col items-center rounded-2xl bg-white p-8 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <span class="grid h-14 w-14 place-items-center rounded-full bg-[#0f2747] text-white">
+              <i class:list={['fa-solid', v.icon, 'text-xl']} aria-hidden="true"></i>
+            </span>
+            <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{v.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-600">{v.description}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mx-auto mt-10 max-w-3xl text-center" data-reveal>
+        <p class="text-sm leading-relaxed text-ink-600">
+          This pledge works hand in hand with our{' '}
+          <a href={shopHref('satisfaction-guarantee')} class="font-bold text-[#ED1C24] hover:text-[#c8161d]">
+            100% Satisfaction Guarantee
+          </a>. Want to know the team behind it?{' '}
+          <a href={shopHref('who-we-are')} class="font-bold text-[#0f2747] hover:text-[#ED1C24]">
+            Meet the people who make it happen
+          </a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TESTIMONIAL + HELP ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="grid items-center gap-10 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-headset"></i> Have Questions?
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">We’re here to help</h2>
+          <p class="lead mt-5 text-ink-600">
+            We’re available from 8 AM to 5 PM ET, Monday to Friday. Our team is here to answer your
+            questions and stand behind every promise in our pledge.
+          </p>
+          <div class="mt-8 flex flex-wrap items-center gap-4">
+            <a
+              href="tel:8008104818"
+              class="inline-flex items-center gap-3 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              <i class="fa-solid fa-phone"></i> Call 800-810-4818
+            </a>
+            <a
+              href={contactHref}
+              class="inline-flex items-center gap-2 text-sm font-bold text-[#0f2747] hover:text-[#ED1C24]"
+            >
+              Contact Us <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Testimonial -->
+        <div class="relative rounded-3xl bg-[#0f2747] p-8 shadow-soft sm:p-10" data-reveal>
+          <i class="fa-solid fa-quote-left text-4xl text-[#ED1C24]"></i>
+          <blockquote class="mt-4 text-lg leading-relaxed text-white/90">
+            As a third-generation owner, I personally guarantee the quality of our products and
+            services. We regard our customers as family — and I always invite your comments and
+            suggestions.
+          </blockquote>
+          <div class="mt-6 flex items-center gap-3">
+            <span class="grid h-11 w-11 place-items-center rounded-full bg-[#ED1C24] font-display text-lg font-bold text-white">B</span>
+            <div>
+              <p class="font-bold text-white">Bill McGowan</p>
+              <p class="text-sm text-white/60">President, CEO — PrintFast</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-circle-question"></i> FAQ
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Questions about our pledge</h2>
+      </div>
+
+      <div class="mx-auto mt-10 max-w-3xl space-y-4">
+        {faqs.map((f) => (
+          <details class="group rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft" data-reveal>
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
+              <span class="text-base font-bold text-[#0f2747]">{f.question}</span>
+              <span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24] transition-transform group-open:rotate-45">
+                <i class="fa-solid fa-plus text-sm"></i>
+              </span>
+            </summary>
+            <p class="mt-4 text-sm leading-relaxed text-ink-600">{f.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FINAL CTA ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-20" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+        <div class="relative max-w-3xl">
+          <h2 class="heading-lg text-white">
+            Partner with a company that puts it in <span class="text-[#ED1C24]">writing</span>
+          </h2>
+          <p class="mt-5 text-lg leading-relaxed text-white/85">
+            Every project is backed by our Pledge of Service Excellence and our 100% Satisfaction
+            Guarantee. Let’s put more than 120 years of experience to work on your next printing,
+            mailing or marketing project.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Get Started <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('satisfaction-guarantee')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              See Our Guarantee
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ShopLayout>

@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { SITE } from '@data/site';
+import { SHOP_BASE, SHOP_PAGES, shopHref } from '@data/shop';
 
 const pages = [
   '/',
@@ -15,6 +16,9 @@ const pages = [
   '/privacy-policy/',
   '/terms-of-use/',
   '/sitemap/',
+  // Shop PrintFast — legacy storefront pages ported into the marketing theme.
+  `${SHOP_BASE}/`,
+  ...SHOP_PAGES.map((p) => shopHref(p.slug)),
 ];
 
 const escapeXml = (value: string) =>

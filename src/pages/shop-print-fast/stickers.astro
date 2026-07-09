@@ -1,0 +1,369 @@
+---
+import ShopLayout from '@layouts/ShopLayout.astro';
+import { shopHref } from '@data/shop';
+import { getContactHref } from '@data/pricing';
+
+const contactHref = getContactHref('digital-marketing-services');
+
+// Original PrintFast image assets (served from the same CDN/S3 the live store uses).
+const S3 = 'https://nklopsouqd.s3.us-west-1.amazonaws.com/printfast/images/common';
+const heroImg = 'https://dqj17tese79do.cloudfront.net/printfast/images/common/PF_StickerImage_9_17.jpg?1643384518';
+
+const variants = [
+  {
+    title: 'Paper Indoor Stickers',
+    img: `${S3}/paper_indoor.png?1701100483`,
+    description:
+      'Our Paper Stickers with UV gloss coating are best suited for indoor, dry placement. Bright and shiny stickers, with the lowest cost that will last for many, many years.',
+  },
+  {
+    title: 'Vinyl Indoor Stickers',
+    img: `${S3}/vinyl_indoor.png?1701100483`,
+    description:
+      'Our Vinyl Indoor Stickers are best suited for indoor placement where moisture may be a concern. They are waterproof and will last for many, many years.',
+  },
+  {
+    title: 'Vinyl Outdoor Stickers',
+    img: `${S3}/vinyl_outdoor.png?1701100483`,
+    description:
+      'Our Vinyl Outdoor Stickers are UV coated and will withstand exposure to rain, snow and bright sunshine all without fading for many, many years.',
+  },
+];
+
+const whyChoose = [
+  {
+    img: `${S3}/Multiple_Size_Options.png?1701100749`,
+    title: 'Available in Standard & Custom Sizes',
+    description: 'Available in ten standard sizes and custom sizes are available.',
+  },
+  {
+    img: `${S3}/Full_Color_Print.png?1701100779`,
+    title: 'High-Contrast Colors',
+    description: 'Printed in full color with high-contrasts to stand out indoors as well as outdoors.',
+  },
+  {
+    img: `${S3}/Professional_Editable.png?1701100918`,
+    title: 'Customize with our Online Design Studio',
+    description: 'Available in many sizes, each sticker can be customized for free when you use our online Design Studio.',
+  },
+  {
+    img: `${S3}/indoor_and_outdoor_use.png?1701101823`,
+    title: 'Indoor & Outdoor Use',
+    description: 'Durable stickers built to be placed anywhere in and around the home your brand needs to be seen.',
+  },
+  {
+    img: `${S3}/fade_resistant.png?1701101823`,
+    title: 'Available in Fade-Resistant Inks',
+    description: 'Don’t worry about fading as we have stickers available in fade-resistant inks.',
+  },
+];
+
+const didYouKnow = [
+  'Indoor stickers as low as 4¢ each.',
+  'Outdoor stickers as low as 27¢ each.',
+  'Minimum quantity 500.',
+  'Feel free to contact us for more information.',
+];
+
+const faqs = [
+  {
+    question: 'What surfaces can I place PrintFast stickers on?',
+    answer:
+      'Stickers with your company logo and contact information can be placed throughout the home — on HVAC equipment, water heaters, service panels, outdoor equipment and utility shutoff valves — so homeowners always know who to call.',
+  },
+  {
+    question: 'What sticker materials do you offer?',
+    answer:
+      'We print on three substrates depending on your intended use: Paper Indoor Stickers (UV gloss, lowest cost, dry placement), Vinyl Indoor Stickers (waterproof for moist areas), and Vinyl Outdoor Stickers (UV coated to withstand rain, snow and sunshine without fading).',
+  },
+  {
+    question: 'What sizes are available?',
+    answer:
+      'Stickers are available in ten standard sizes, and custom sizes are available as well. Each sticker can be customized for free using our online Design Studio.',
+  },
+  {
+    question: 'How much do stickers cost?',
+    answer:
+      'Indoor stickers are as low as 4¢ each and outdoor stickers as low as 27¢ each, with a minimum quantity of 500. Contact us for detailed pricing on your project.',
+  },
+  {
+    question: 'How do I reorder stickers?',
+    answer:
+      'Once your design is set, just go to your online account and place your reorder — no need to recreate your artwork each time.',
+  },
+];
+---
+
+<ShopLayout
+  title="Custom Business Stickers & Logo Decals for Home Service Pros"
+  crumb="Stickers"
+  description="Own the home with custom PrintFast stickers — paper, vinyl indoor and vinyl outdoor decals with your logo. 10 sizes, fade-resistant inks, indoor stickers as low as 4¢ each."
+  keywords={[
+    'custom stickers',
+    'business logo stickers',
+    'vinyl outdoor stickers',
+    'HVAC equipment stickers',
+    'service company decals',
+    'fade-resistant stickers',
+    'home service marketing stickers',
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: 'PrintFast Custom Stickers',
+    description:
+      'Custom paper and vinyl stickers for home service professionals — indoor and outdoor decals with your logo and contact information, available in ten standard sizes.',
+    brand: { '@type': 'Brand', name: 'PrintFast' },
+    category: 'Custom Stickers & Decals',
+  }}
+  faqs={faqs}
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="relative overflow-hidden bg-[#0f2747]">
+    <span aria-hidden="true" class="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+    <span aria-hidden="true" class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></span>
+
+    <div class="container-pf relative py-14 sm:py-16 lg:py-24">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+            Custom Stickers
+          </p>
+          <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Own The <span class="text-[#ED1C24]">Home</span>
+          </h1>
+          <p class="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            The phrase “own the home” really has meaning when stickers with your company logo and
+            contact information are seen throughout the home — on the HVAC equipment, water heaters,
+            service panels, outdoor equipment and utility shutoff valves. Homeowners will immediately
+            know who to call and trust when their equipment makes that funny sound or simply stops
+            working as expected.
+          </p>
+          <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Available in many sizes, each sticker can be customized for free when you use our online
+            Design Studio. Then, when you need more stickers just go to your online account and place
+            your reorder.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Contact Us <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('all-products')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              View All Products
+            </a>
+          </div>
+        </div>
+
+        <div class="relative" data-reveal>
+          <img
+            src={heroImg}
+            alt="PrintFast custom logo stickers placed on home service equipment"
+            class="mx-auto h-auto w-full max-w-md rounded-2xl shadow-soft"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== INTRO ===================== -->
+  <section class="section-tight">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-tag"></i> Stickers
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Keep your name on every job in the home</h2>
+        <p class="lead mt-5">
+          To obtain detailed product information and pricing, and access to our complete online store
+          with hundreds of products for the home service professional, please create an account or
+          log in.
+        </p>
+        <a
+          href={contactHref}
+          class="mt-8 inline-flex items-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+        >
+          Contact Us <i class="fa-solid fa-arrow-right text-xs"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 3 STICKER VARIANTS ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-layer-group"></i> Our 3 Sticker Variants
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Three substrates for every placement</h2>
+        <p class="lead mt-5">
+          We offer our stickers printed on three different substrates depending on your intended usage.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {variants.map((v) => (
+          <div class="group flex flex-col overflow-hidden rounded-2xl bg-white ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <div class="overflow-hidden bg-ink-50">
+              <img
+                src={v.img}
+                alt={`${v.title} from PrintFast`}
+                class="aspect-[4/3] w-full object-contain p-6 transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="flex flex-1 flex-col p-6">
+              <h3 class="text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{v.title}</h3>
+              <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-600">{v.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHY CHOOSE PRINTFAST ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-bolt"></i> Why PrintFast
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Why choose PrintFast for your stickers?</h2>
+      </div>
+
+      <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+        {whyChoose.map((w) => (
+          <div class="flex flex-col items-center rounded-2xl bg-white p-6 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <img
+              src={w.img}
+              alt={w.title}
+              width="120"
+              height="120"
+              class="h-20 w-20 object-contain"
+              loading="lazy"
+              decoding="async"
+            />
+            <h3 class="mt-4 text-sm font-extrabold uppercase tracking-wide text-[#0f2747]">{w.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-600">{w.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DID YOU KNOW / TESTIMONIAL ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="grid items-center gap-10 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-lightbulb"></i> Did You Know?
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">Big brand presence, small per-sticker cost</h2>
+          <ul class="mt-8 space-y-4">
+            {didYouKnow.map((d) => (
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+                  <i class="fa-solid fa-check text-[10px]"></i>
+                </span>
+                <span class="text-ink-700">{d}</span>
+              </li>
+            ))}
+          </ul>
+          <a
+            href={contactHref}
+            class="mt-8 inline-flex items-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+          >
+            Get More Information <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Testimonial -->
+        <div class="relative rounded-3xl bg-[#0f2747] p-8 shadow-soft sm:p-10" data-reveal>
+          <i class="fa-solid fa-quote-left text-4xl text-[#ED1C24]"></i>
+          <blockquote class="mt-4 text-lg leading-relaxed text-white/90">
+            We love Print Fast! They are professional, honest, impressive and fast. They do a
+            phenomenal job! I can’t say enough about them.
+          </blockquote>
+          <div class="mt-6 flex items-center gap-3">
+            <span class="grid h-11 w-11 place-items-center rounded-full bg-[#ED1C24] font-display text-lg font-bold text-white">S</span>
+            <div>
+              <p class="font-bold text-white">Savannah H.</p>
+              <p class="text-sm text-white/60">PrintFast client</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-circle-question"></i> FAQs
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Sticker questions, answered</h2>
+      </div>
+
+      <div class="mx-auto mt-10 max-w-3xl space-y-4">
+        {faqs.map((f) => (
+          <details class="group rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft" data-reveal>
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-bold text-[#0f2747]">
+              {f.question}
+              <span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24] transition-transform group-open:rotate-45">
+                <i class="fa-solid fa-plus text-xs"></i>
+              </span>
+            </summary>
+            <p class="mt-4 text-sm leading-relaxed text-ink-600">{f.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FINAL CTA ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-20" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+        <div class="relative max-w-3xl">
+          <h2 class="heading-lg text-white">
+            Want to explore our <span class="text-[#ED1C24]">other products?</span>
+          </h2>
+          <p class="mt-5 text-lg leading-relaxed text-white/85">
+            Visit our online store with over 100 marketing products for the Home Service Professional
+            by registering for access.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Register Now <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('all-products')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              Browse All Products
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ShopLayout>

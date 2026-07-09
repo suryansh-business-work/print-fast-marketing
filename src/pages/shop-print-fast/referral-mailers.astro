@@ -1,0 +1,365 @@
+---
+import ShopLayout from '@layouts/ShopLayout.astro';
+import { shopHref } from '@data/shop';
+import { getContactHref } from '@data/pricing';
+import ContactForm from '@components/ContactForm.astro';
+
+const contactHref = getContactHref('digital-marketing-services');
+
+// Original PrintFast image assets (served from the same CDN/S3 the live store uses).
+const S3 = 'https://nklopsouqd.s3.us-west-1.amazonaws.com/printfast/images/common';
+const CDN = 'https://dqj17tese79do.cloudfront.net/printfast/images/common';
+
+const heroBanner = `${CDN}/referral_mailers_banner_1_.png?1695709035`;
+
+const whyChoose = [
+  {
+    img: `${S3}/PF_Higher_Conversion_Rates.png?1697555626`,
+    title: 'Higher Conversion Rates',
+    description:
+      'Existing clients are prime for referrals due to their firsthand experience, leading to higher conversion rates than targeting cold audiences.',
+  },
+  {
+    img: `${S3}/PF_Quality_Leads.png?1697555626`,
+    title: 'Quality Leads',
+    description:
+      'Referred customers offer high-quality leads with built-in trust, making them easier to convert due to trust in recommendations.',
+  },
+  {
+    img: `${S3}/PF_Word-of-Mouth_Marketing.png?1697555626`,
+    title: 'Word-of-Mouth Marketing',
+    description:
+      'Referral mailers enhance word-of-mouth marketing, triggering a chain reaction of recommendations beyond your client base.',
+  },
+  {
+    img: `${S3}/PF_Brand_Advocacy.png?1697555626`,
+    title: 'Brand Advocacy',
+    description:
+      'Encourage referrals to create brand advocates. They refer and promote your brand across social media, review sites, and personal networks.',
+  },
+  {
+    img: `${S3}/PF_Customer_Loyalty.png?1697555626`,
+    title: 'Customer Loyalty',
+    description:
+      "Referral mailers to existing clients signal value, boosting loyalty and strengthening your company's client relationships.",
+  },
+  {
+    img: `${S3}/PF_Competitive_Advantage.png?1697555626`,
+    title: 'Competitive Advantage',
+    description:
+      'A successful referral program distinguishes your home service company from competitors reliant on traditional advertising.',
+  },
+];
+
+const greatPoints = [
+  {
+    icon: 'fa-file-circle-check',
+    title: 'Proofs For Your Approval',
+    description:
+      'Nothing goes to print until you sign off. We send proofs for your approval so every mailer looks exactly the way you want.',
+  },
+  {
+    icon: 'fa-truck-fast',
+    title: 'Delivered In 5 Business Days',
+    description:
+      'Your referral mailers are printed and delivered to the Post Office within 5 business days — fast turnaround, no waiting around.',
+  },
+];
+
+const listPoints = [
+  'Send us your client list',
+  'Prices start at $1.50 each',
+  'Postage is additional',
+];
+
+const faqs = [
+  {
+    question: 'What are referral mailers?',
+    answer:
+      "Referral mailers are 5\" x 7\" mailers — typically containing a gift card — that home service companies send to their existing, satisfied clients to encourage them to refer friends and family. They foster loyalty, drive word-of-mouth marketing, and generate cost-effective, high-quality leads.",
+  },
+  {
+    question: 'Why do referral mailers convert better than cold outreach?',
+    answer:
+      'Existing clients already have firsthand experience with your service, so they are prime for referrals. Referred customers arrive with built-in trust, making them easier to convert and far more likely to become long-term clients than a cold audience.',
+  },
+  {
+    question: 'How much do referral mailers cost?',
+    answer:
+      'With a client-supplied list, prices start at $1.50 each. Postage is additional. Contact us for exact pricing based on your list size and design.',
+  },
+  {
+    question: 'How fast will my mailers be ready?',
+    answer:
+      'We send proofs for your approval first, then your approved referral mailers are printed and delivered to the Post Office within 5 business days.',
+  },
+  {
+    question: 'Do I need to provide the mailing list?',
+    answer:
+      'Yes — for our client-supplied list program you simply send us your existing client list, and we handle the design, printing, and mail preparation from there.',
+  },
+];
+---
+
+<ShopLayout
+  title="Referral Mailers for Home Service Companies | Gift-Card Referral Marketing"
+  crumb="Referral Mailers"
+  description="Turn happy customers into new business with PrintFast Referral Mailers — 5x7 gift-card mailers that drive word-of-mouth referrals, quality leads and loyalty. From $1.50 each."
+  keywords={[
+    'referral mailers',
+    'home service referral marketing',
+    'gift card mailers',
+    'word-of-mouth marketing',
+    'direct mail referral program',
+    'customer loyalty mailers',
+    'referral postcards',
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: 'PrintFast Referral Mailers',
+    description:
+      '5" x 7" gift-card referral mailers that home service companies send to existing clients to drive word-of-mouth referrals and high-quality leads.',
+    brand: { '@type': 'Brand', name: 'PrintFast' },
+    category: 'Direct Mail Referral Marketing',
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'USD',
+      price: '1.50',
+      availability: 'https://schema.org/InStock',
+    },
+  }}
+  faqs={faqs}
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="relative overflow-hidden bg-[#0f2747]">
+    <span aria-hidden="true" class="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+    <span aria-hidden="true" class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></span>
+
+    <div class="container-pf relative py-14 sm:py-16 lg:py-24">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+            Direct Mail Marketing
+          </p>
+          <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Referral <span class="text-[#ED1C24]">Mailers</span>
+          </h1>
+          <p class="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Sending referral mailers to the existing clients of home service companies — 5&quot; × 7&quot;
+            mailers containing gift cards — fosters loyalty, drives word-of-mouth marketing, and generates
+            cost-effective leads.
+          </p>
+          <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Satisfied clients refer friends and family, resulting in higher conversions and quality leads —
+            ultimately boosting revenue and turning your clients into brand advocates for a real competitive edge.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Contact Us <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('printfast-postcards')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              Explore Direct Mail
+            </a>
+          </div>
+        </div>
+
+        <div class="relative" data-reveal>
+          <img
+            src={heroBanner}
+            alt="PrintFast referral mailers direct mail marketing campaign"
+            class="mx-auto h-auto w-full max-w-lg rounded-2xl shadow-glow"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHY CHOOSE PRINTFAST ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-bolt"></i> Why PrintFast
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">
+          Why choose PrintFast for sending your <span class="text-[#ED1C24]">referral mailers?</span>
+        </h2>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {whyChoose.map((w) => (
+          <div class="flex flex-col items-center rounded-2xl bg-white p-7 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <img
+              src={w.img}
+              alt={w.title}
+              width="120"
+              height="120"
+              class="h-20 w-20 object-contain"
+              loading="lazy"
+              decoding="async"
+            />
+            <h3 class="mt-4 text-sm font-extrabold uppercase tracking-wide text-[#0f2747]">{w.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-600">{w.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHAT'S SO GREAT + PRICING ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="grid items-start gap-12 lg:grid-cols-2">
+        <!-- What's great -->
+        <div data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-star"></i> What&rsquo;s So Great?
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">What&rsquo;s so great about our products?</h2>
+          <div class="mt-8 space-y-5">
+            {greatPoints.map((g) => (
+              <div class="flex items-start gap-4 rounded-2xl bg-white p-5 ring-1 ring-ink-100 shadow-soft" data-reveal>
+                <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[#fde8e9] text-lg text-[#ED1C24]">
+                  <i class={`fa-solid ${g.icon}`}></i>
+                </span>
+                <div>
+                  <h3 class="text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{g.title}</h3>
+                  <p class="mt-1.5 text-sm leading-relaxed text-ink-600">{g.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Client supplied list pricing -->
+        <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] p-8 shadow-soft sm:p-10" data-reveal>
+          <span aria-hidden="true" class="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+          <div class="relative">
+            <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+              Client Supplied List
+            </p>
+            <h3 class="mt-5 font-display text-2xl font-extrabold uppercase tracking-tight text-white sm:text-3xl">
+              Already have your client list?
+            </h3>
+            <p class="mt-4 text-sm leading-relaxed text-white/80">
+              Send us the customers you already serve and we&rsquo;ll handle the design, printing, and mail prep
+              for your referral campaign.
+            </p>
+            <ul class="mt-8 space-y-4">
+              {listPoints.map((point) => (
+                <li class="flex items-start gap-3">
+                  <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#ED1C24] text-white">
+                    <i class="fa-solid fa-check text-[10px]"></i>
+                  </span>
+                  <span class="text-white/90">{point}</span>
+                </li>
+              ))}
+            </ul>
+            <a
+              href={contactHref}
+              class="mt-8 inline-flex items-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Get Started <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TESTIMONIAL ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-comment-dots"></i> What Our Clients Say
+        </p>
+      </div>
+
+      <div class="relative mx-auto mt-8 max-w-3xl overflow-hidden rounded-3xl bg-[#0f2747] p-8 shadow-soft sm:p-12" data-reveal>
+        <span aria-hidden="true" class="absolute -bottom-20 -left-16 h-56 w-56 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+        <div class="relative">
+          <i class="fa-solid fa-quote-left text-4xl text-[#ED1C24]"></i>
+          <blockquote class="mt-4 text-lg leading-relaxed text-white/90 sm:text-xl">
+            PrintFast made our referral program effortless. The mailers look fantastic, our clients love the
+            gift cards, and the referrals keep rolling in. Professional, fast, and always a pleasure to work with.
+          </blockquote>
+          <div class="mt-6 flex items-center gap-3">
+            <span class="grid h-11 w-11 place-items-center rounded-full bg-[#ED1C24] font-display text-lg font-bold text-white">S</span>
+            <div>
+              <p class="font-bold text-white">Sandy B.</p>
+              <p class="text-sm text-white/60">PrintFast client</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONSULTATION CTA ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-20" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+        <div class="relative max-w-3xl">
+          <h2 class="heading-lg text-white">
+            Not sure if Referral Mailers are <span class="text-[#ED1C24]">right for you?</span>
+          </h2>
+          <p class="mt-5 text-lg leading-relaxed text-white/85">
+            Schedule a free consultation with our marketing experts. Let us demonstrate the impact that
+            Referral Mailers will have when combined with your next marketing campaign.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Schedule a Call <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('all-products')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              Browse All Products
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONNECT WITH US ===================== -->
+  <section class="section bg-ink-50/60 pt-0">
+    <div class="container-pf">
+      <div class="mx-auto max-w-2xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-headset"></i> Connect With Us
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">We&rsquo;re here to help!</h2>
+        <p class="mt-4 text-ink-600">
+          We&rsquo;re available from 8 AM to 5 PM ET, Monday to Friday — our team is ready to build your
+          referral program. Call <a href="tel:8008104818" class="font-bold text-[#ED1C24]">800-810-4818</a>
+          or email <a href="mailto:info@print-fast.com" class="font-bold text-[#ED1C24]">info@print-fast.com</a>.
+        </p>
+      </div>
+
+      <div class="mx-auto mt-10 max-w-3xl" data-reveal>
+        <ContactForm
+          title="Request Your Referral Mailer Quote"
+          subtitle="Tell us about your business and we'll show you how referral mailers can grow it."
+        />
+      </div>
+    </div>
+  </section>
+</ShopLayout>

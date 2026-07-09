@@ -1,0 +1,486 @@
+---
+import ShopLayout from '@layouts/ShopLayout.astro';
+import { shopHref } from '@data/shop';
+import { getContactHref } from '@data/pricing';
+import ContactForm from '@components/ContactForm.astro';
+
+const contactHref = getContactHref('digital-marketing-services');
+
+// Original PrintFast image assets (served from the same CDN/S3 the live store uses).
+const CF = 'https://dqj17tese79do.cloudfront.net/printfast/images/common';
+const STG = 'https://nklopsouqd.s3.us-west-1.amazonaws.com/stagingpr/images/common';
+
+const heroImg = `${CF}/HSC_WebsiteDevices_6_17_2021.jpg?1642013395`;
+const wpEngineBadge = `${STG}/WPEngine_Preferred-Badge.png?1695547708`;
+
+// Website intro highlights
+const introPoints = [
+  'Your website is your virtual brick-and-mortar location — we build an engaging, enjoyable experience for current and future clients.',
+  'Local project images combined with SEO-rich content give visitors an enjoyable journey and multiple ways to contact or schedule service.',
+  'Optimized and ready for viewing on every desktop and device — a portal of communication that is simply a tap away.',
+  'Subscribe to a digital marketing plan and each month we add a page detailing specific locations, local products and services.',
+];
+
+// Pricing plans (from the original page)
+const plans = [
+  {
+    name: 'Basic',
+    price: '$1499',
+    tag: 'Website',
+    highlight: false,
+    features: [
+      '5 Page Website',
+      'Mobile Responsive',
+      '1 Contact Form Included',
+      'Home, About Us, Services, Promotions & Contact Us pages',
+    ],
+  },
+  {
+    name: 'Essentials',
+    price: '$2999',
+    tag: 'Website',
+    highlight: false,
+    features: [
+      '10 Page Website',
+      'Mobile Responsive',
+      '1 Contact Form Included',
+      'Home, About Us, Services, Heating, Cooling, Plumbing, Blog & Contact Us pages',
+      '5 Locally Targeted Pages',
+    ],
+  },
+  {
+    name: 'Standard',
+    price: '$4999',
+    tag: 'Website',
+    highlight: true,
+    features: [
+      'Full Site with Services Pages',
+      'Mobile Responsive',
+      '2 Contact Forms Included',
+      'Home, About Us, Services, Heating, Cooling, Plumbing, 3 Locally Targeted, Blog & Contact Us pages',
+      '20 Locally Targeted Pages',
+      'Hosting, email account & domain registration setup',
+      'Google My Business & Google Analytics setup',
+      'Custom SEO-rich content',
+      '1 "Launch" blog article for each service',
+    ],
+  },
+  {
+    name: 'Premium',
+    price: '$9999',
+    tag: 'Website',
+    highlight: false,
+    features: [
+      'Full Site with Services Pages',
+      'Mobile Responsive',
+      '2 Contact Forms Included',
+      'Home, About Us, Services, Heating, Cooling, Plumbing, 8 Locally Targeted, Blog & Contact Us pages',
+      '50 Locally Targeted Pages',
+      'Hosting, email account & domain registration setup',
+      'Google My Business & Google Analytics setup',
+      'Custom SEO-rich content',
+      '2 "Launch" blog articles for each service',
+    ],
+  },
+];
+
+// Why choose PrintFast for website management (WP Engine partnership)
+const management = [
+  {
+    img: `${STG}/Managed_WordPress_Hosting_09155824202309.png?1695561361`,
+    title: 'Managed WordPress Hosting',
+    description:
+      'Imagine a digital realm where every technical detail of your website is handled with precision and dedication — that is the promise of our partnership with WP Engine.',
+  },
+  {
+    img: `${STG}/Site_Management_09155624202309.png?1695561361`,
+    title: 'Effortless Site Management',
+    description:
+      'Over 1 million websites thrive with us, benefiting from automated updates, daily security, one-click staging and premium themes.',
+  },
+  {
+    img: `${STG}/Secure_Your_Digital_Footprint_09155624202309.png?1695561361`,
+    title: 'Secure Your Digital Footprint',
+    description:
+      'Annually, our robust security solutions shield you from over 26 billion cyber threats, including free SSL and platform-level defense.',
+  },
+  {
+    img: `${STG}/Optimal_Website_Performance_09155524202309.png?1695561361`,
+    title: 'Optimal Website Performance',
+    description:
+      'Experience up to a 40% surge in page loading speeds, keeping your site accessible and responsive during peak traffic surges.',
+  },
+  {
+    img: `${STG}/7_Customer_Support.png?1695561361`,
+    title: 'Exceptional 24/7 Customer Support',
+    description:
+      'Reach our 24/7 global support team, boasting a 97% satisfaction rate and backed by a hassle-free 60-day money-back guarantee.',
+  },
+];
+
+const stats = [
+  { value: '1M+', label: 'Websites managed on WP Engine' },
+  { value: '26B', label: 'Cyber threats blocked each year' },
+  { value: '40%', label: 'Faster page loading speeds' },
+  { value: '97%', label: 'Support satisfaction rate' },
+];
+
+const faqs = [
+  {
+    question: 'Who are PrintFast websites built for?',
+    answer:
+      'Our websites are purpose-built for heating, air conditioning, plumbing and electrical professionals. With more than 25 years of marketing HVAC, plumbing and electrical companies, we have the knowledge, tools and resources to deliver a complete marketing solution.',
+  },
+  {
+    question: 'How much does a website cost?',
+    answer:
+      'We offer four plans to match your business needs: Basic at $1,499 (5-page site), Essentials at $2,999 (10-page site with 5 locally targeted pages), Standard at $4,999 (full site with 20 locally targeted pages) and Premium at $9,999 (full site with 50 locally targeted pages). Contact our website building experts to find the best fit.',
+  },
+  {
+    question: 'Are the websites mobile responsive?',
+    answer:
+      'Yes. Every plan is fully mobile responsive and optimized for viewing on all desktops and devices, so homeowners can reach you with a simple tap wherever they are.',
+  },
+  {
+    question: 'What does the WP Engine partnership include?',
+    answer:
+      'Through our partnership with WP Engine — the pinnacle of Managed WordPress Hosting — you get automated updates, daily security, one-click staging, free SSL, up to 40% faster page speeds and 24/7 global support with a 60-day money-back guarantee.',
+  },
+  {
+    question: 'Can you add locally targeted pages over time?',
+    answer:
+      'Absolutely. Sign up for one of our digital marketing subscription plans and each month we add a page detailing specific locations along with your local products and services, growing your search footprint over time.',
+  },
+];
+---
+
+<ShopLayout
+  title="Website Services & Managed WordPress Hosting for Home Service Pros"
+  crumb="Website Services"
+  description="PrintFast builds SEO-rich, mobile-responsive websites for HVAC, plumbing & electrical pros — powered by managed WordPress hosting on WP Engine. Plans from $1,499."
+  keywords={[
+    'HVAC website design',
+    'plumbing website development',
+    'electrician websites',
+    'managed WordPress hosting',
+    'WP Engine hosting',
+    'home service website design',
+    'locally targeted SEO pages',
+    'website services for contractors',
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'PrintFast Website Services',
+    serviceType: 'Website design and managed WordPress hosting',
+    description:
+      'SEO-rich, mobile-responsive website development and managed WordPress hosting for heating, air conditioning, plumbing and electrical professionals.',
+    provider: { '@type': 'Organization', name: 'PrintFast', telephone: '800-810-4818' },
+    areaServed: 'US',
+  }}
+  faqs={faqs}
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="relative overflow-hidden bg-[#0f2747]">
+    <span aria-hidden="true" class="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+    <span aria-hidden="true" class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></span>
+
+    <div class="container-pf relative py-14 sm:py-16 lg:py-24">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+            Website Services
+          </p>
+          <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Websites That <span class="text-[#ED1C24]">Win Work</span>
+          </h1>
+          <p class="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Website development for heating, air conditioning, plumbing and electrical professionals
+            provides home service companies with sustained rapid growth. Your website is your virtual
+            brick-and-mortar location — we pay careful attention to detail while building an engaging,
+            enjoyable experience for your current and future clientele.
+          </p>
+          <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Your local project images, combined with SEO-rich content, provide an enjoyable journey for
+            your visitors while offering multiple opportunities to contact or schedule service — optimized
+            and ready for viewing on every desktop and device.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Contact Us <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href="#plans"
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              View Plans
+            </a>
+          </div>
+        </div>
+
+        <div class="relative" data-reveal>
+          <img
+            src={heroImg}
+            alt="Responsive PrintFast website shown on desktop, tablet and mobile for plumbers and electricians"
+            class="mx-auto h-auto w-full max-w-lg rounded-2xl shadow-glow"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT / INTRO ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-laptop-code"></i> Websites
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Dress up your digital windows</h2>
+        <p class="lead mt-4 text-ink-600">
+          We offer a variety of website growth solutions built to fit your company's needs — without
+          sacrificing content. With more than 25 years of marketing HVAC, plumbing and electrical
+          professionals, we have the knowledge, tools and resources to provide a complete marketing solution.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-5 sm:grid-cols-2">
+        {introPoints.map((point) => (
+          <div class="flex items-start gap-4 rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft" data-reveal>
+            <span class="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+              <i class="fa-solid fa-check text-xs"></i>
+            </span>
+            <p class="text-sm leading-relaxed text-ink-700">{point}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PRICING PLANS ===================== -->
+  <section id="plans" class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-layer-group"></i> Pricing
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Our plans for your digital growth</h2>
+        <p class="lead mt-4 text-ink-600">
+          Choose any pricing plan as per your business requirements, and connect with our website building
+          experts to learn what will work best for you.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {plans.map((plan) => (
+          <div
+            class:list={[
+              'group relative flex flex-col rounded-2xl bg-white p-6 shadow-soft transition-all hover:-translate-y-1',
+              plan.highlight ? 'ring-2 ring-[#ED1C24]' : 'ring-1 ring-ink-100 hover:ring-[#ED1C24]/40',
+            ]}
+            data-reveal
+          >
+            {plan.highlight && (
+              <span class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[#ED1C24] px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.18em] text-white">
+                Most Popular
+              </span>
+            )}
+            <h3 class="text-sm font-extrabold uppercase tracking-[0.18em] text-[#0f2747]">{plan.name}</h3>
+            <div class="mt-3 flex items-baseline gap-1">
+              <span class="font-display text-4xl font-extrabold text-[#0f2747]">{plan.price}</span>
+            </div>
+            <p class="text-xs font-semibold uppercase tracking-wide text-ink-500">{plan.tag}</p>
+
+            <ul class="mt-6 flex-1 space-y-3">
+              {plan.features.map((f) => (
+                <li class="flex items-start gap-2.5">
+                  <i class="fa-solid fa-check mt-1 text-xs text-[#ED1C24]"></i>
+                  <span class="text-sm leading-relaxed text-ink-700">{f}</span>
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href={contactHref}
+              class:list={[
+                'mt-6 inline-flex items-center justify-center gap-2 rounded-md px-5 py-3 text-sm font-extrabold uppercase tracking-wide transition-all active:translate-y-px',
+                plan.highlight
+                  ? 'bg-[#ED1C24] text-white shadow-lg hover:bg-[#c8161d] hover:shadow-xl'
+                  : 'text-[#0f2747] ring-1 ring-ink-200 hover:ring-[#ED1C24] hover:text-[#ED1C24]',
+              ]}
+            >
+              Contact Us <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WP ENGINE PARTNERSHIP ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="grid items-center gap-10 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-handshake"></i> Partnership
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">PrintFast &amp; WP Engine: partnering for your success</h2>
+          <p class="mt-5 text-ink-700 leading-relaxed">
+            PrintFast is thrilled to announce our partnership with WP Engine, recognized as the pinnacle of
+            Managed WordPress Hosting. We aim to provide the service industry with the finest tools and
+            resources to foster growth and make a significant digital impact.
+          </p>
+          <a
+            href={contactHref}
+            class="mt-8 inline-flex items-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+          >
+            Sign Up for Hosting <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <div class="flex justify-center" data-reveal>
+          <img
+            src={wpEngineBadge}
+            alt="WP Engine Preferred Partner badge"
+            class="h-auto w-full max-w-xs object-contain"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHY CHOOSE / MANAGEMENT ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-shield-halved"></i> Why PrintFast
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Why choose PrintFast for website management?</h2>
+        <p class="lead mt-4 text-ink-600">
+          The power of Managed WordPress Hosting — every technical detail handled with precision and dedication.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {management.map((m) => (
+          <div class="flex flex-col items-center rounded-2xl bg-white p-6 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <img
+              src={m.img}
+              alt={m.title}
+              width="96"
+              height="96"
+              class="h-20 w-20 object-contain"
+              loading="lazy"
+              decoding="async"
+            />
+            <h3 class="mt-4 text-sm font-extrabold uppercase tracking-wide text-[#0f2747]">{m.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-600">{m.description}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Stats row -->
+      <div class="mt-12 grid grid-cols-2 gap-4 lg:grid-cols-4" data-reveal>
+        {stats.map((s) => (
+          <div class="rounded-2xl bg-[#0f2747] p-6 text-center shadow-soft">
+            <p class="font-display text-3xl font-extrabold text-[#ED1C24] sm:text-4xl">{s.value}</p>
+            <p class="mt-2 text-xs font-semibold uppercase tracking-wide text-white/70">{s.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== READY TO ELEVATE CTA ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-20" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+        <div class="relative max-w-3xl">
+          <h2 class="heading-lg text-white">
+            Ready to elevate your <span class="text-[#ED1C24]">service industry website?</span>
+          </h2>
+          <p class="mt-5 text-lg leading-relaxed text-white/85">
+            Dive into the PrintFast x WP Engine experience today. From daily backups and regular updates to
+            threat protection and performance enhancements, WP Engine has you covered — with a premium suite
+            of tools to design, build and launch your site with unparalleled ease, plus 24/7 customer support.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Schedule a Call <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('free-digital-review')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              Free Digital Review
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-circle-question"></i> FAQs
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Website services questions, answered</h2>
+      </div>
+
+      <div class="mx-auto mt-10 max-w-3xl space-y-4">
+        {faqs.map((f) => (
+          <details class="group rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft" data-reveal>
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
+              <span class="text-base font-bold text-[#0f2747]">{f.question}</span>
+              <i class="fa-solid fa-plus shrink-0 text-[#ED1C24] transition-transform group-open:rotate-45"></i>
+            </summary>
+            <p class="mt-4 text-sm leading-relaxed text-ink-600">{f.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONNECT / CONTACT ===================== -->
+  <section class="section bg-ink-50/60 pt-0">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-headset"></i> Connect With Us
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">We're here to help</h2>
+        <p class="lead mt-4 text-ink-600">
+          We're available from 8 AM to 5 PM ET, Monday to Friday. Call
+          <a href="tel:800-810-4818" class="font-bold text-[#ED1C24]">800-810-4818</a>
+          or email
+          <a href={contactHref} class="font-bold text-[#ED1C24]">info@print-fast.com</a>.
+        </p>
+      </div>
+
+      <div class="mx-auto mt-10 max-w-2xl" data-reveal>
+        <ContactForm
+          title="Let's build your website"
+          subtitle="Tell us about your home service company and our website building experts will help you choose the right plan."
+        />
+      </div>
+    </div>
+  </section>
+</ShopLayout>

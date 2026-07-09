@@ -1,0 +1,391 @@
+---
+import ShopLayout from '@layouts/ShopLayout.astro';
+import { shopHref } from '@data/shop';
+import { getContactHref } from '@data/pricing';
+
+const contactHref = getContactHref('digital-marketing-services');
+
+// Original PrintFast image assets (served from the same CDN/S3 the live store uses).
+const S3 = 'https://nklopsouqd.s3.us-west-1.amazonaws.com/printfast/images/common';
+const heroImg =
+  'https://dqj17tese79do.cloudfront.net/printfast/images/common/WhatsApp_Image_2021-05-14_at_8_24_38_PM_1_.jpeg?1642011672';
+
+const stats = [
+  {
+    value: '75–80%',
+    label: 'of consumers open and read the marketing mail they receive before discarding it.',
+  },
+  {
+    value: '37%',
+    label: 'chance that email — regardless of content — is scanned and deleted without much thought.',
+  },
+  {
+    value: '100+',
+    label: 'marketing products built for the Home Service Professional, ready to mail.',
+  },
+];
+
+const services = [
+  {
+    title: 'Postcards',
+    href: shopHref('printfast-postcards'),
+    img: `${S3}/Postcards_image.png?1704562122`,
+    description:
+      'Boost leads and sales with efficient postcard marketing — directly target customers in desired areas and foster recurring relationships through seasonal campaigns. Choose from various sizes and styles, including full-color printing on 16pt glossy card stock.',
+  },
+  {
+    title: 'Letters',
+    href: shopHref('letters'),
+    img: `${S3}/Letters_image.png?1704562122`,
+    description:
+      'Enhance your marketing impact with customizable marketing letters — single or multiple pages, with options for magnets or promotional items. Deliver detailed news and promotions and connect with clients for increased traffic and proven results.',
+  },
+  {
+    title: 'Newsletters',
+    href: shopHref('newsletters-new'),
+    img: `${S3}/Newsletters_image.png?1704562122`,
+    description:
+      'Craft engaging, four-page newsletters that balance entertainment and information to effectively showcase and sell your products or services. Customize content to connect with your local audience in a fun and friendly manner.',
+  },
+  {
+    title: 'Thank You Cards',
+    href: shopHref('thank-you-postcards'),
+    img: `${S3}/Thank_You_Cards_image.png?1704562122`,
+    description:
+      'Elevate customer appreciation with a simple Thank You card featuring inspirational messages, money-saving offers, or both. Strengthen long-term relationships by acknowledging service anniversaries with personalized cards for homeowners.',
+  },
+  {
+    title: 'Mailing Lists',
+    href: shopHref('mailing-lists'),
+    img: `${S3}/Mailing_Lists_image.png?1704562122`,
+    description:
+      'Unlock success with a precise mailing list — filter names and addresses to target homeowners by income, age, and verified homeowner status. Rely on quality data from industry leaders like Dun & Bradstreet and Experian for refined demographics.',
+  },
+  {
+    title: 'Post Office Integration',
+    href: contactHref,
+    img: `${S3}/Post_Office_Integration_image.png?1704562122`,
+    description:
+      'Simplify mail marketing with PrintFast. We are experts at navigating USPS regulations and are well respected by the USPS for our knowledge and experience. We invest in cutting-edge software and equipment for streamlined, compliant campaigns.',
+  },
+];
+
+const faqs = [
+  {
+    question: 'Why is direct mail still effective for my business?',
+    answer:
+      'Studies show that 75–80% of consumers open and read the marketing mail they receive before discarding it, while email has roughly a 37% chance of being scanned and deleted without much thought. Direct mail literally puts your brand into the homeowner’s hands, delivering a powerful return on investment that keeps you ahead of your competition.',
+  },
+  {
+    question: 'How do I target the right prospects?',
+    answer:
+      'We help you efficiently pinpoint and engage top prospects by leveraging demographic data such as zip codes, homeowner status, and income — ensuring targeted outreach and maximized conversions.',
+  },
+  {
+    question: 'What types of direct mail can PrintFast produce?',
+    answer:
+      'PrintFast produces postcards, marketing letters, four-page newsletters, thank you cards, and more. We also supply targeted mailing lists and handle full USPS post office integration for your campaign.',
+  },
+  {
+    question: 'Where does PrintFast source its mailing data?',
+    answer:
+      'We rely on quality data from industry leaders like Dun & Bradstreet and Experian, allowing you to filter names and addresses and target homeowners based on income, age, and verified homeowner status.',
+  },
+  {
+    question: 'Does PrintFast handle USPS compliance?',
+    answer:
+      'Yes. We are experts at navigating USPS regulations and are one of the leading direct mail companies in the area, well respected by the USPS for our knowledge and experience. We invest in cutting-edge software and equipment for streamlined, compliant campaigns.',
+  },
+];
+---
+
+<ShopLayout
+  title="Direct Mail Marketing Services for Home Service Pros"
+  crumb="Direct Mail"
+  description="PrintFast direct mail marketing puts your brand in the homeowner's hands — postcards, letters, newsletters, thank you cards, targeted mailing lists, and full USPS integration."
+  keywords={[
+    'direct mail marketing',
+    'direct mail services',
+    'postcard marketing',
+    'targeted mailing lists',
+    'USPS mail integration',
+    'home service direct mail',
+    'marketing letters',
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'PrintFast Direct Mail Marketing',
+    serviceType: 'Direct Mail Marketing',
+    description:
+      'Direct mail marketing for home service professionals — postcards, letters, newsletters, thank you cards, mailing lists, and USPS post office integration.',
+    provider: { '@type': 'Organization', name: 'PrintFast', telephone: '800-810-4818' },
+    areaServed: 'US',
+  }}
+  faqs={faqs}
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="relative overflow-hidden bg-[#0f2747]">
+    <span aria-hidden="true" class="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+    <span aria-hidden="true" class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></span>
+
+    <div class="container-pf relative py-14 sm:py-16 lg:py-24">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+            Direct Mail Marketing
+          </p>
+          <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Direct <span class="text-[#ED1C24]">Mail</span>
+          </h1>
+          <p class="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Sending direct mail is still one of the most proven and trustworthy methods to alert
+            consumers to your product and services. With each postcard or letter that you send, you
+            are truly putting your brand into the homeowner’s hands — there is no other marketing
+            media that can deliver in such a positive way.
+          </p>
+          <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            When you consider the return on investment, direct mail provides a powerful added
+            advantage for you and your business that keeps you ahead of your competition.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Contact Us <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('all-products')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              View All Products
+            </a>
+          </div>
+        </div>
+
+        <div class="relative" data-reveal>
+          <img
+            src={heroImg}
+            alt="PrintFast direct mail marketing pieces ready for the mailbox"
+            class="mx-auto h-auto w-full max-w-md rounded-2xl shadow-soft"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== STATS ===================== -->
+  <section class="section-tight bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-chart-line"></i> The Numbers
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Why direct mail still wins</h2>
+        <p class="lead mt-4">
+          Studies show that direct mail consistently outperforms email for grabbing and holding a
+          homeowner’s attention.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-3">
+        {stats.map((s) => (
+          <div class="rounded-2xl bg-white p-8 text-center ring-1 ring-ink-100 shadow-soft" data-reveal>
+            <p class="font-display text-4xl font-extrabold text-[#ED1C24] sm:text-5xl">{s.value}</p>
+            <p class="mt-3 text-sm leading-relaxed text-ink-600">{s.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TARGET YOUR BEST PROSPECTS ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="grid items-center gap-10 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-bullseye"></i> Precision Targeting
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">Target your best prospects</h2>
+          <p class="lead mt-5">
+            Efficiently pinpoint and engage top prospects by leveraging demographic data like zip
+            codes, homeowner status, and income — ensuring targeted outreach and maximized
+            conversions.
+          </p>
+          <ul class="mt-8 space-y-4">
+            {[
+              'Filter by zip code, neighborhood, and radius around your service area.',
+              'Target verified homeowners by income, age, and homeowner status.',
+              'Refined, quality demographics from Dun & Bradstreet and Experian.',
+            ].map((d) => (
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+                  <i class="fa-solid fa-check text-[10px]"></i>
+                </span>
+                <span class="text-ink-700">{d}</span>
+              </li>
+            ))}
+          </ul>
+          <a
+            href={contactHref}
+            class="mt-8 inline-flex items-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+          >
+            Build My Audience <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <div class="relative rounded-3xl bg-[#0f2747] p-8 shadow-soft sm:p-10" data-reveal>
+          <span aria-hidden="true" class="absolute -right-16 -top-16 h-52 w-52 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+          <div class="relative">
+            <i class="fa-solid fa-location-crosshairs text-4xl text-[#ED1C24]"></i>
+            <h3 class="mt-5 font-display text-2xl font-extrabold uppercase text-white">
+              The right message, in the right mailbox
+            </h3>
+            <p class="mt-4 text-white/85">
+              Every campaign begins with the right list. We help you reach the homeowners most likely
+              to buy — so your marketing dollars work harder and your response rates climb.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHAT WE MAIL ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-envelopes-bulk"></i> Mail Marketing
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Everything we mail for you</h2>
+        <p class="lead mt-4">
+          From full-color postcards to targeted mailing lists and USPS integration — PrintFast
+          handles the entire direct mail program end to end.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {services.map((p) => (
+          <div class="group flex flex-col overflow-hidden rounded-2xl bg-white ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <div class="overflow-hidden bg-ink-50">
+              <img
+                src={p.img}
+                alt={`PrintFast ${p.title} direct mail marketing`}
+                class="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="flex flex-1 flex-col p-6">
+              <h3 class="text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{p.title}</h3>
+              <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-600">{p.description}</p>
+              <a href={p.href} class="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#ED1C24]">
+                Learn More <i class="fa-solid fa-arrow-right text-xs transition-transform group-hover:translate-x-0.5"></i>
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TESTIMONIAL ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-4xl" data-reveal>
+        <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] p-8 shadow-soft sm:p-12">
+          <span aria-hidden="true" class="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+          <div class="relative">
+            <p class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-white/80">
+              <i class="fa-solid fa-star text-[#ED1C24]"></i> What Our Clients Say
+            </p>
+            <i class="fa-solid fa-quote-left mt-6 text-4xl text-[#ED1C24]"></i>
+            <blockquote class="mt-4 text-lg leading-relaxed text-white/90 sm:text-xl">
+              Great company all around!!! From the people taking orders to the editing proof team
+              making sure it’s correct, I would not go with anyone else!! We got into a bind with a
+              backdrop we needed and the team did not hesitate getting our backdrop out fast and
+              ready for our show!!! Thanks team!!
+            </blockquote>
+            <div class="mt-6 flex items-center gap-3">
+              <span class="grid h-11 w-11 place-items-center rounded-full bg-[#ED1C24] font-display text-lg font-bold text-white">D</span>
+              <div>
+                <p class="font-bold text-white">Derek B.</p>
+                <p class="text-sm text-white/60">PrintFast client</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-circle-question"></i> FAQs
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Direct mail questions, answered</h2>
+      </div>
+
+      <div class="mx-auto mt-12 max-w-3xl space-y-4">
+        {faqs.map((f) => (
+          <details class="group rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
+              <span class="text-base font-bold text-[#0f2747]">{f.question}</span>
+              <span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24] transition-transform group-open:rotate-45">
+                <i class="fa-solid fa-plus text-xs"></i>
+              </span>
+            </summary>
+            <p class="mt-4 text-sm leading-relaxed text-ink-600">{f.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FINAL CTA ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-20" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+        <div class="relative max-w-3xl">
+          <h2 class="heading-lg text-white">
+            Want to explore our <span class="text-[#ED1C24]">other products?</span>
+          </h2>
+          <p class="mt-5 text-lg leading-relaxed text-white/85">
+            Visit our online store with over 100 marketing products for the Home Service Professional
+            by registering for access.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Register Now <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('all-products')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              Browse All Products
+            </a>
+          </div>
+          <p class="mt-8 text-sm text-white/70">
+            <i class="fa-solid fa-phone mr-2 text-[#ED1C24]"></i>
+            We’re available 8 AM–5 PM ET, Monday–Friday. Call
+            <a href="tel:8008104818" class="font-bold text-white hover:text-[#ED1C24]">800-810-4818</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</ShopLayout>

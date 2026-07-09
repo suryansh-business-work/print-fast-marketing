@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "PowerShell(npx astro check 2>&1)",
-      "Read(//c/Users/Suryansh/.claude/projects/c--Users-Suryansh-Desktop-Projects-print-fast-com-marketing-website/memory/**)"
+      "Read(//c/Users/Suryansh/.claude/projects/c--Users-Suryansh-Desktop-Projects-print-fast-com-marketing-website/memory/**)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code} | size %{size_download} bytes | %{content_type}\\\\n\" \"https://www.print-fast.com/\" --max-time 25)",
+      "Bash(grep -oiE '\\(https?:\\)?//[^\"'\\\\'' \\)]+\\\\.\\(png|jpg|jpeg|webp|svg|gif\\)' C:/Users/Suryansh/AppData/Local/Temp/claude/c--Users-Suryansh-Desktop-Projects-print-fast-com-marketing-website/3eb4811a-94b1-41e4-9b29-dbc7ae55d857/scratchpad/raw/printfast-postcards.html)",
+      "Bash(grep -nE '.{15,}')",
+      "Bash(grep -nE '.{3,}')"
     ],
     "additionalDirectories": [
       "c:\\Users\\Suryansh\\.claude\\projects\\c--Users-Suryansh-Desktop-Projects-print-fast-com-marketing-website\\memory"

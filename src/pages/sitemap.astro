@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { FOOTER_SERVICES } from '@data/site';
+import { SHOP_GROUPS, shopHref } from '@data/shop';
 
 const pageGroups = [
   {
@@ -27,6 +28,20 @@ const pageGroups = [
       { label: 'XML Sitemap', href: '/sitemap.xml' },
     ],
   },
+];
+
+// Shop PrintFast — legacy storefront pages ported into the marketing theme.
+const shopGroups = [
+  {
+    title: 'Shop Home',
+    icon: 'fa-store',
+    links: [{ label: 'Shop PrintFast', href: shopHref('') }],
+  },
+  ...SHOP_GROUPS.map((g) => ({
+    title: g.title,
+    icon: g.icon,
+    links: g.pages.map((p) => ({ label: p.label, href: shopHref(p.slug) })),
+  })),
 ];
 ---
 
@@ -64,6 +79,39 @@ const pageGroups = [
               <i class:list={['fa-solid', group.icon]} aria-hidden="true"></i>
             </span>
             <h2 class="mt-5 text-xl font-bold text-ink-900">{group.title}</h2>
+            <ul class="mt-5 space-y-3">
+              {group.links.map((link) => (
+                <li>
+                  <a href={link.href} class="group inline-flex items-center text-sm font-semibold text-ink-700 hover:text-brand-700 transition-colors">
+                    <i class="fa-solid fa-arrow-right text-[11px] text-brand-500 mr-2 group-hover:translate-x-0.5 transition-transform" aria-hidden="true"></i>
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="mb-8" data-reveal>
+        <p class="eyebrow"><i class="fa-solid fa-store text-brand-600"></i> Shop PrintFast</p>
+        <h2 class="heading-lg mt-4 text-ink-900">Direct mail, print products &amp; services</h2>
+        <p class="lead mt-3 max-w-2xl">
+          Every Shop PrintFast page — postcards, mailers, print products, print services and company
+          pages.
+        </p>
+      </div>
+      <div class="grid gap-6 lg:grid-cols-3">
+        {shopGroups.map((group) => (
+          <section class="card-hover p-6 sm:p-8" data-reveal>
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-brand-50 text-brand-600 text-lg">
+              <i class:list={['fa-solid', group.icon]} aria-hidden="true"></i>
+            </span>
+            <h3 class="mt-5 text-xl font-bold text-ink-900">{group.title}</h3>
             <ul class="mt-5 space-y-3">
               {group.links.map((link) => (
                 <li>

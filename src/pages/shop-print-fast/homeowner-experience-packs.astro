@@ -1,0 +1,387 @@
+---
+import ShopLayout from '@layouts/ShopLayout.astro';
+import { shopHref } from '@data/shop';
+import { getContactHref } from '@data/pricing';
+
+const contactHref = getContactHref('digital-marketing-services');
+
+// Original PrintFast image assets (served from the same CDN/S3 the live store uses).
+const S3 = 'https://nklopsouqd.s3.us-west-1.amazonaws.com/printfast/images/common';
+
+const bannerImg = `${S3}/Homeowner_Experience_Banner.jpg?1765353232`;
+const leftImg = `${S3}/Homeowner_Experience_left.jpg?1765353232`;
+const rightImg = `${S3}/Homeowner_Experience_right.jpg?1765353232`;
+
+const leftPocket = [
+  'Better Business Bureau rating',
+  'Recent Google reviews',
+  'Other proof of performance',
+  'Community recognition & awards',
+];
+
+const rightPocket = [
+  'Coupon books',
+  'Seasonal flyers',
+  'Refrigerator magnets',
+  'Valve tags',
+  'A business card from the service expert',
+];
+
+const benefits = [
+  {
+    img: `${S3}/builds-trust.png?1765353345`,
+    title: 'Instantly Build Trust & Credibility',
+    description:
+      'Presented at the start of every visit, the pack sets a polished tone and positions your company as reliable and credible.',
+  },
+  {
+    img: `${S3}/strengthens-brand.png?1765353345`,
+    title: 'Strengthens Your Brand',
+    description:
+      'Includes proof-of-performance items like BBB ratings, Google reviews, and community recognition to validate your reputation.',
+  },
+  {
+    img: `${S3}/customer-loyalty.png?1765353345`,
+    title: 'Boosts Close Rates & Customer Loyalty',
+    description:
+      'The combination of credibility, education, and value differentiates you from competitors and creates a memorable experience that leads to stronger customer relationships.',
+  },
+];
+
+const relatedProducts = [
+  { title: 'Door Hangers', slug: 'door-hangers' },
+  { title: 'Radius Postcards', slug: 'radius-postcards' },
+  { title: 'Thank You Postcards', slug: 'thank-you-postcards' },
+  { title: 'Service Request Postcards', slug: 'service-request-postcards' },
+];
+
+const faqs = [
+  {
+    question: 'What is a Homeowner Experience Pack?',
+    answer:
+      'It is a branded 9" × 12" pocket folder your service experts hand to homeowners at the very beginning of a visit. Each pack holds a curated collection of credibility items and value-focused materials, immediately establishing professionalism, trust, and value.',
+  },
+  {
+    question: 'What goes in the left-side pocket?',
+    answer:
+      'The left pocket typically includes credibility-driven items such as your Better Business Bureau rating, recent Google reviews, and other proof of performance or community recognition — reinforcing your reputation and giving homeowners confidence in your team.',
+  },
+  {
+    question: 'What goes in the right-side pocket?',
+    answer:
+      'The right pocket contains practical, value-focused items the homeowner keeps long after the appointment — coupon books, seasonal flyers, refrigerator magnets, valve tags, and the service expert’s business card. These keep your brand visible in the home and encourage repeat business.',
+  },
+  {
+    question: 'Can the pack be customized with our branding?',
+    answer:
+      'Yes. Each pocket folder is customized with your branding and designed to hold the exact mix of materials that best represents your company. Contact our team and we will build a program tailored to your business.',
+  },
+];
+---
+
+<ShopLayout
+  title="Homeowner Experience Packs | Branded Pocket Folders for Home Service Pros"
+  crumb="Homeowner Experience Packs"
+  description="Elevate every homeowner visit with PrintFast Homeowner Experience Packs — branded 9&quot;×12&quot; pocket folders that build trust, strengthen your brand, and boost close rates and customer loyalty."
+  keywords={[
+    'homeowner experience packs',
+    'branded pocket folders',
+    'home service marketing',
+    'presentation folders',
+    'proof of performance materials',
+    'customer loyalty marketing',
+    'service technician leave-behind',
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: 'Homeowner Experience Packs',
+    description:
+      'Branded 9"×12" pocket folders for home service professionals, curated with credibility and value-focused materials to build trust with homeowners.',
+    brand: { '@type': 'Brand', name: 'PrintFast' },
+    category: 'Print Marketing Materials',
+  }}
+  faqs={faqs}
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="relative overflow-hidden bg-[#0f2747]">
+    <span aria-hidden="true" class="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+    <span aria-hidden="true" class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></span>
+
+    <div class="container-pf relative py-14 sm:py-16 lg:py-24">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+            Branded Leave-Behind
+          </p>
+          <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Homeowner <span class="text-[#ED1C24]">Experience</span> Packs
+          </h1>
+          <p class="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Homeowner Experience Packs are a powerful tool designed to elevate every interaction your
+            service experts have with homeowners. Presented at the very beginning of a visit, these
+            packs immediately establish professionalism, trust, and value — setting your company apart
+            from competitors who may only leave behind a single brochure.
+          </p>
+          <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Each pack is built around a high-quality 9&quot; × 12&quot; pocket folder, customized with
+            your branding and designed to hold a curated collection of materials.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Contact Us <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('all-products')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              View All Products
+            </a>
+          </div>
+        </div>
+
+        <div class="relative" data-reveal>
+          <img
+            src={bannerImg}
+            alt="PrintFast Homeowner Experience Pack branded pocket folder for home service professionals"
+            class="mx-auto h-auto w-full max-w-lg rounded-2xl shadow-glow"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHAT'S INSIDE (LEFT + RIGHT POCKET) ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-folder-open"></i> What's Inside
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">A curated pack, thoughtfully organized</h2>
+        <p class="lead mt-4">
+          Two pockets, two jobs — one reinforces your credibility, the other keeps your brand in the
+          home long after the appointment ends.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-8 lg:grid-cols-2">
+        <!-- Left pocket -->
+        <div class="overflow-hidden rounded-3xl bg-white ring-1 ring-ink-100 shadow-soft" data-reveal>
+          <div class="overflow-hidden bg-ink-50">
+            <img
+              src={leftImg}
+              alt="Left pocket of a Homeowner Experience Pack holding credibility materials"
+              class="w-full object-cover"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div class="p-7 sm:p-8">
+            <h3 class="text-lg font-extrabold uppercase tracking-wide text-[#0f2747]">
+              Left Pocket — Build Credibility
+            </h3>
+            <p class="mt-3 text-sm leading-relaxed text-ink-600">
+              The left-side pocket typically includes credibility-driven items that reinforce your
+              reputation and give homeowners confidence they're working with a dependable, highly
+              rated service provider.
+            </p>
+            <ul class="mt-5 space-y-3">
+              {leftPocket.map((item) => (
+                <li class="flex items-start gap-3">
+                  <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+                    <i class="fa-solid fa-check text-[10px]"></i>
+                  </span>
+                  <span class="text-sm text-ink-700">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <!-- Right pocket -->
+        <div class="overflow-hidden rounded-3xl bg-white ring-1 ring-ink-100 shadow-soft" data-reveal>
+          <div class="overflow-hidden bg-ink-50">
+            <img
+              src={rightImg}
+              alt="Right pocket of a Homeowner Experience Pack holding value-focused materials"
+              class="w-full object-cover"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div class="p-7 sm:p-8">
+            <h3 class="text-lg font-extrabold uppercase tracking-wide text-[#0f2747]">
+              Right Pocket — Deliver Value
+            </h3>
+            <p class="mt-3 text-sm leading-relaxed text-ink-600">
+              The right-side pocket contains practical, value-focused items that benefit the homeowner
+              long after the appointment — keeping your brand visible in the home, reinforcing trust
+              and encouraging repeat business.
+            </p>
+            <ul class="mt-5 space-y-3">
+              {rightPocket.map((item) => (
+                <li class="flex items-start gap-3">
+                  <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+                    <i class="fa-solid fa-check text-[10px]"></i>
+                  </span>
+                  <span class="text-sm text-ink-700">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== BENEFITS ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-award"></i> Why It Works
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Benefits of Homeowner Experience Packs</h2>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {benefits.map((b) => (
+          <div class="flex flex-col items-center rounded-2xl bg-white p-8 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <img
+              src={b.img}
+              alt={b.title}
+              width="120"
+              height="120"
+              class="h-24 w-24 object-contain"
+              loading="lazy"
+              decoding="async"
+            />
+            <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{b.title}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-ink-600">{b.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TESTIMONIAL ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-4xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-comment-dots"></i> What Our Clients Say
+        </p>
+      </div>
+      <div class="relative mx-auto mt-8 max-w-4xl overflow-hidden rounded-3xl bg-[#0f2747] p-8 shadow-soft sm:p-12" data-reveal>
+        <span aria-hidden="true" class="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+        <div class="relative">
+          <i class="fa-solid fa-quote-left text-4xl text-[#ED1C24]"></i>
+          <blockquote class="mt-4 text-lg leading-relaxed text-white/90 sm:text-xl">
+            PrintFast is absolutely the BEST! We've been working with Bill and his team for a long time
+            and they are always helpful, responsive and provide quality work. Thank you for always
+            going above and beyond!
+          </blockquote>
+          <div class="mt-6 flex items-center gap-3">
+            <span class="grid h-11 w-11 place-items-center rounded-full bg-[#ED1C24] font-display text-lg font-bold text-white">S</span>
+            <div>
+              <p class="font-bold text-white">Sandy B.</p>
+              <p class="text-sm text-white/60">PrintFast client</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-circle-question"></i> FAQs
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Homeowner Experience Packs, answered</h2>
+      </div>
+
+      <div class="mx-auto mt-10 max-w-3xl space-y-4">
+        {faqs.map((f) => (
+          <details class="group rounded-2xl bg-white p-5 ring-1 ring-ink-100 shadow-soft sm:p-6" data-reveal>
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-bold text-[#0f2747]">
+              {f.question}
+              <span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24] transition-transform group-open:rotate-45">
+                <i class="fa-solid fa-plus text-xs"></i>
+              </span>
+            </summary>
+            <p class="mt-4 text-sm leading-relaxed text-ink-600">{f.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== EXPLORE MORE ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-layer-group"></i> Explore More
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Pairs well with these programs</h2>
+      </div>
+
+      <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {relatedProducts.map((p) => (
+          <a
+            href={shopHref(p.slug)}
+            class="group flex items-center justify-between gap-3 rounded-2xl bg-white p-5 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40"
+            data-reveal
+          >
+            <span class="text-sm font-extrabold uppercase tracking-wide text-[#0f2747]">{p.title}</span>
+            <i class="fa-solid fa-arrow-right text-xs text-[#ED1C24] transition-transform group-hover:translate-x-0.5"></i>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FINAL CTA ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-20" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+        <div class="relative max-w-3xl">
+          <h2 class="heading-lg text-white">
+            Want to explore our <span class="text-[#ED1C24]">other products?</span>
+          </h2>
+          <p class="mt-5 text-lg leading-relaxed text-white/85">
+            Visit our online store with 100+ marketing products for the Home Service Professional. Our
+            team is here to help, 8 AM–5 PM ET, Monday to Friday — call 800-810-4818 or reach out
+            online.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Register Now <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('all-products')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              Browse All Products
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ShopLayout>

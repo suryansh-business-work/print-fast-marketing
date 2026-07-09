@@ -1,0 +1,393 @@
+---
+import ShopLayout from '@layouts/ShopLayout.astro';
+import { shopHref } from '@data/shop';
+import { getContactHref } from '@data/pricing';
+
+const contactHref = getContactHref('digital-marketing-services');
+
+// Original PrintFast image assets (served from the same CDN/S3 the live store uses).
+const HERO_IMG =
+  'https://nklopsouqd.s3.us-west-1.amazonaws.com/printfast/images/common/YT-banner-DMP-2024_1_.png?1727429122';
+const STAGING = 'https://nklopsouqd.s3.us-west-1.amazonaws.com/stagingpr/images/common';
+
+const features = [
+  {
+    img: `${STAGING}/multichannel_impact.png?1695221223`,
+    title: 'Multi-Channel Impact',
+    description:
+      'Blend direct mail postcards with social media posts to engage customers on multiple fronts, boosting brand visibility and message retention.',
+  },
+  {
+    img: `${STAGING}/Synchronized_Messaging.png?1695221223`,
+    title: 'Synchronized Messaging',
+    description:
+      "Simultaneous delivery reinforces your brand and offer in your target audience's minds, ensuring message consistency.",
+  },
+  {
+    img: `${STAGING}/Enhanced_Response_Rates.png?1695221223`,
+    title: 'Enhanced Response Rates',
+    description:
+      'The dual approach boosts response rates by exposing customers to your offer both offline and online, increasing the likelihood of action.',
+  },
+  {
+    img: `${STAGING}/Personalization.png?1695221223`,
+    title: 'Personalization',
+    description:
+      'Using social media enables personalized targeting based on user preferences and behaviors, enhancing message relevance and appeal.',
+  },
+  {
+    img: `${STAGING}/Data_Tracking.png?1695221223`,
+    title: 'Data Tracking',
+    description:
+      'Social media metrics offer insights into customer interactions, aiding in refining your messaging and marketing strategies.',
+  },
+  {
+    img: `${STAGING}/Cost-Effective.png?1695221223`,
+    title: 'Cost-Effective',
+    description:
+      'Combining direct mail with social media cost-effectively reaches a broad audience with tailored content, maximizing your marketing ROI.',
+  },
+];
+
+const howItWorks = [
+  {
+    title: 'Postcards Hit the Mailbox',
+    description:
+      'Your professionally designed direct mail postcards are printed and mailed to homeowners in your target market.',
+  },
+  {
+    title: 'Matching Offers Go Digital',
+    description:
+      'The same offer appears on connected devices across social platforms — reaching the same households the very same day.',
+  },
+  {
+    title: 'Messages Reinforce Each Other',
+    description:
+      'Offline and online exposure work together, so your brand stays top of mind and response rates climb.',
+  },
+];
+
+const relatedPrograms = [
+  {
+    title: 'All Postcards',
+    href: shopHref('printfast-postcards'),
+    description:
+      'Jumbo 6" × 11" direct mail postcards that stand out in the mailbox — the perfect base for a Direct Mail PLUS campaign.',
+  },
+  {
+    title: 'Radius Postcards',
+    href: shopHref('radius-postcards'),
+    description:
+      'Blanket the neighborhood around every job with targeted radius mailings and build credibility fast.',
+  },
+  {
+    title: 'Mailing Lists',
+    href: shopHref('mailing-lists'),
+    description:
+      'Reach the right homeowners with accurate, targeted mailing lists built for your service area.',
+  },
+];
+
+const faqs = [
+  {
+    question: 'What is Direct Mail PLUS?',
+    answer:
+      "Direct Mail PLUS combines traditional direct mail with modern social marketing, sending home service providers' messages to homeowners across all platforms in a single day. Postcards go to the mailbox, and matching offers appear on connected devices — maximizing outreach for a comprehensive and timely message strategy.",
+  },
+  {
+    question: 'How much does Direct Mail PLUS cost?',
+    answer:
+      'Direct Mail PLUS is an option that may be added to any direct mail program that we create for you. The cost is as low as 5¢ per postcard in addition to the cost of the postcard.',
+  },
+  {
+    question: 'Can Direct Mail PLUS be added to any campaign?',
+    answer:
+      'Yes. Direct Mail PLUS can be added to any direct mail program we design for you, layering synchronized social media exposure on top of your postcard mailing.',
+  },
+  {
+    question: 'Why combine direct mail with social media?',
+    answer:
+      'The dual approach exposes customers to your offer both offline and online, boosting response rates, reinforcing your brand, and increasing the likelihood that homeowners take action.',
+  },
+];
+---
+
+<ShopLayout
+  title="Direct Mail PLUS | Combined Direct Mail & Social Media Marketing"
+  crumb="Direct Mail Plus"
+  description="Direct Mail PLUS pairs jumbo direct mail postcards with matching social media ads delivered the same day — reaching homeowners online and offline for as low as 5¢ per postcard."
+  keywords={[
+    'direct mail plus',
+    'direct mail and social media marketing',
+    'multi-channel direct mail',
+    'home service marketing',
+    'postcard and social ad campaign',
+    'synchronized messaging',
+    'direct mail marketing',
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Direct Mail PLUS',
+    serviceType: 'Combined direct mail and social media marketing',
+    description:
+      'Direct Mail PLUS combines direct mail postcards with synchronized social media advertising, delivered to the same homeowners in a single day.',
+    provider: { '@type': 'Organization', name: 'PrintFast' },
+    areaServed: 'US',
+  }}
+  faqs={faqs}
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="relative overflow-hidden bg-[#0f2747]">
+    <span aria-hidden="true" class="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+    <span aria-hidden="true" class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></span>
+
+    <div class="container-pf relative py-14 sm:py-16 lg:py-24">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+            Direct Mail &amp; Digital Combined
+          </p>
+          <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Direct Mail <span class="text-[#ED1C24]">PLUS</span>
+          </h1>
+          <p class="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Direct Mail PLUS combines traditional direct mail with modern social marketing, sending
+            home service providers' messages to homeowners across all platforms in a single day.
+          </p>
+          <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Postcards go to the mailbox, and matching offers appear on connected devices — maximizing
+            outreach for a comprehensive and timely message strategy.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Contact Us <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('all-products')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              View All Products
+            </a>
+          </div>
+        </div>
+
+        <div class="relative" data-reveal>
+          <img
+            src={HERO_IMG}
+            alt="Direct Mail PLUS mail marketing campaign across mailbox and social media"
+            class="mx-auto h-auto w-full max-w-xl rounded-2xl shadow-glow"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHY CHOOSE PRINTFAST ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-bolt"></i> Why PrintFast
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">
+          Why choose PrintFast for <span class="text-[#ED1C24]">Direct Mail PLUS?</span>
+        </h2>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {features.map((f) => (
+          <div class="flex flex-col items-center rounded-2xl bg-white p-8 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <img
+              src={f.img}
+              alt={f.title}
+              width="96"
+              height="96"
+              class="h-20 w-20 object-contain"
+              loading="lazy"
+              decoding="async"
+            />
+            <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{f.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-600">{f.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== HOW IT WORKS ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-arrows-turn-to-dots"></i> How It Works
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">One message, delivered everywhere in a single day</h2>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {howItWorks.map((s, i) => (
+          <div class="relative flex flex-col rounded-2xl bg-white p-8 ring-1 ring-ink-100 shadow-soft" data-reveal>
+            <span class="grid h-11 w-11 place-items-center rounded-full bg-[#ED1C24] font-display text-lg font-bold text-white">
+              {i + 1}
+            </span>
+            <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{s.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-600">{s.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DID YOU KNOW + TESTIMONIAL ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="grid items-center gap-10 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-lightbulb"></i> Did You Know?
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">Add it to any mailing for pennies</h2>
+          <ul class="mt-8 space-y-4">
+            <li class="flex items-start gap-3">
+              <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+                <i class="fa-solid fa-check text-[10px]"></i>
+              </span>
+              <span class="text-ink-700">
+                Direct Mail PLUS is an option that may be added to any direct mail program that we create
+                for you.
+              </span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+                <i class="fa-solid fa-check text-[10px]"></i>
+              </span>
+              <span class="text-ink-700">
+                The cost is as low as <strong class="text-[#0f2747]">5¢ per postcard</strong> in addition
+                to the cost of the postcard.
+              </span>
+            </li>
+          </ul>
+          <a
+            href={contactHref}
+            class="mt-8 inline-flex items-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+          >
+            Get More Information <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Testimonial -->
+        <div class="relative rounded-3xl bg-[#0f2747] p-8 shadow-soft sm:p-10" data-reveal>
+          <i class="fa-solid fa-quote-left text-4xl text-[#ED1C24]"></i>
+          <blockquote class="mt-4 text-lg leading-relaxed text-white/90">
+            This company is amazing! Bill and his team are so professional, they truly care about their
+            clients and strive every day to make sure they are giving 110%! Thank you so much!
+          </blockquote>
+          <div class="mt-6 flex items-center gap-3">
+            <span class="grid h-11 w-11 place-items-center rounded-full bg-[#ED1C24] font-display text-lg font-bold text-white">T</span>
+            <div>
+              <p class="font-bold text-white">Travis M.</p>
+              <p class="text-sm text-white/60">PrintFast client</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== RELATED PROGRAMS ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-layer-group"></i> Pair It With
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Build a Direct Mail PLUS campaign</h2>
+        <p class="lead mt-4">
+          Start with one of our direct mail programs, then layer on synchronized social media exposure.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {relatedPrograms.map((p) => (
+          <div class="group flex flex-col rounded-2xl bg-white p-7 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <h3 class="text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{p.title}</h3>
+            <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-600">{p.description}</p>
+            <a href={p.href} class="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#ED1C24]">
+              View More <i class="fa-solid fa-arrow-right text-xs transition-transform group-hover:translate-x-0.5"></i>
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-circle-question"></i> FAQs
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Direct Mail PLUS questions, answered</h2>
+      </div>
+
+      <div class="mx-auto mt-10 max-w-3xl space-y-4">
+        {faqs.map((f) => (
+          <details class="group rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft" data-reveal>
+            <summary class="flex cursor-pointer items-center justify-between gap-4 text-base font-bold text-[#0f2747]">
+              {f.question}
+              <i class="fa-solid fa-plus shrink-0 text-[#ED1C24] transition-transform group-open:rotate-45"></i>
+            </summary>
+            <p class="mt-4 text-sm leading-relaxed text-ink-600">{f.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FINAL CTA ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-20" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+        <div class="relative max-w-3xl">
+          <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+            Free Consultation
+          </p>
+          <h2 class="heading-lg mt-5 text-white">
+            Not sure if Direct Mail PLUS is <span class="text-[#ED1C24]">right for you?</span>
+          </h2>
+          <p class="mt-5 text-lg leading-relaxed text-white/85">
+            Schedule a free consultation with our direct mail marketing experts. Let us demonstrate the
+            impact that Direct Mail PLUS will have when combined with your next direct mail campaign.
+          </p>
+          <p class="mt-4 text-sm text-white/70">
+            We're available from 8 AM to 5 PM ET, Monday to Friday — our team is here to help!
+          </p>
+          <div class="mt-8 flex flex-wrap items-center gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Schedule a Call <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href="tel:800-810-4818"
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              <i class="fa-solid fa-phone text-xs"></i> Call 800-810-4818
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ShopLayout>

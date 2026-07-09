@@ -1,0 +1,348 @@
+---
+import ShopLayout from '@layouts/ShopLayout.astro';
+import { shopHref } from '@data/shop';
+import { getContactHref } from '@data/pricing';
+
+const contactHref = getContactHref('digital-marketing-services');
+
+// Original PrintFast image assets (served from the same CDN/S3 the live store uses).
+const S3 = 'https://nklopsouqd.s3.us-west-1.amazonaws.com/printfast/images/common';
+const CDN = 'https://dqj17tese79do.cloudfront.net/printfast/images/common';
+
+const heroImg = `${CDN}/CREATIVE_DESIGN_hvac-marketing-600x400.jpg?1642011274`;
+
+const pricingPlans = [
+  {
+    title: 'Hourly Plan',
+    img: `${S3}/hourly_rate.png?1703943727`,
+    description:
+      'Do you have a small project, and need fast edits? This may be the most suitable plan for you — our creative designers work efficiently to quickly deliver your project and only invoice you for the time that we have invested.',
+  },
+  {
+    title: 'Fixed-Rate Plan',
+    img: `${S3}/fixed_rate.png?1703943727`,
+    description:
+      'Do you want complete pricing control of your project? Gain full pricing control with our fixed-rate plan, ensuring locked-in competitive rates for your project. Enjoy up to five document revisions as your project progresses.',
+  },
+  {
+    title: 'Monthly Subscription Plan',
+    img: `${S3}/Subscription_Plan.png?1703943727`,
+    description:
+      'Do you want monthly creative design services with a cancel-anytime option? Opt for our monthly design plan offering flexibility with unlimited marketing design projects, proofs, and revisions without extra costs within a 30-day period.',
+  },
+];
+
+const whyChoose = [
+  {
+    img: `${S3}/Full_Color_Print.png?1701100779`,
+    title: 'The Midas Touch',
+    description: 'Add that special touch to your new marketing projects to make it more attractive.',
+  },
+  {
+    img: `${S3}/value_for_money.png?1703944213`,
+    title: 'Value for Money',
+    description:
+      'With 3 value-for-money pricing plans, you can surely save on your creative design costs to meet your business needs.',
+  },
+  {
+    img: `${S3}/PF_Higher_Conversion_Rates.png?1703943960`,
+    title: 'Increase Your Conversion Rates',
+    description:
+      'Our experienced Creative Designers create attractive and functional marketing creatives to increase your conversion rates.',
+  },
+];
+
+const documentCreation = [
+  'With each proof that we create, you will receive an invitation to view and comment on it within our proofing portal.',
+  'Everyone gets to see the comments, timeline and progress of your project. You can even add others on your team to collaborate on your proofs.',
+  'Finally, our Creative Designers will take your suggestions from each proof and send you an updated version for your comments and ultimate approval.',
+];
+
+const faqs = [
+  {
+    question: 'What pricing plans do you offer for Creative Design?',
+    answer:
+      'We offer three distinct, value-based pricing plans: an Hourly Plan for small projects and fast edits, a Fixed-Rate Plan for locked-in competitive rates with up to five revisions, and a Monthly Subscription Plan with unlimited design projects, proofs and revisions inside a 30-day period.',
+  },
+  {
+    question: 'How does the design and proofing process work?',
+    answer:
+      'With our Document Creation process, each proof we create comes with an invitation to view and comment inside our proofing portal. Everyone can see comments, timeline and progress, and you can add teammates to collaborate. Our designers then apply your feedback and send an updated version for your comments and final approval.',
+  },
+  {
+    question: 'Can your designers match my brand?',
+    answer:
+      'Yes. Our experienced Creative Designers take your concept and create an attractive, functional marketing piece for your new product or service — designed to satisfy both the homeowners who respond to visual content and those who read every word.',
+  },
+  {
+    question: 'How do I get started with Creative Design?',
+    answer:
+      'Simply contact our team. We are available 8 AM to 5 PM ET, Monday to Friday. Call 800-810-4818 or reach out through our contact form and we will help you choose the right plan for your project.',
+  },
+];
+---
+
+<ShopLayout
+  title="Creative Design Services | Marketing Design for Home Service Pros"
+  crumb="Creative Design"
+  description="PrintFast Creative Design turns your concept into attractive, high-converting marketing pieces. Choose from hourly, fixed-rate or monthly subscription plans with collaborative proofing."
+  keywords={[
+    'creative design services',
+    'marketing design',
+    'home service marketing design',
+    'graphic design pricing plans',
+    'HVAC marketing design',
+    'direct mail design',
+    'proofing portal',
+    'PrintFast creative design',
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'PrintFast Creative Design',
+    serviceType: 'Marketing Creative Design',
+    description:
+      'Professional creative design services that turn your concept into attractive, functional, high-converting marketing pieces, with hourly, fixed-rate and monthly subscription pricing plans.',
+    brand: { '@type': 'Brand', name: 'PrintFast' },
+    provider: { '@type': 'Organization', name: 'PrintFast', telephone: '800-810-4818' },
+  }}
+  faqs={faqs}
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="relative overflow-hidden bg-[#0f2747]">
+    <span aria-hidden="true" class="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+    <span aria-hidden="true" class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></span>
+
+    <div class="container-pf relative py-14 sm:py-16 lg:py-24">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+            Creative Design Services
+          </p>
+          <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Creative <span class="text-[#ED1C24]">Design</span>
+          </h1>
+          <p class="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Do you have a new marketing project that needs a special touch? Our experienced Creative
+            Designers will take your concept and create an attractive, functional marketing piece for
+            your new product or service.
+          </p>
+          <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            It’s a simple equation — some homeowners respond to visual content while others read
+            everything and respond to text and bullet points. Our designers satisfy both types of
+            homeowners with each design, so your conversion rates are sure to increase.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Contact Us <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('all-products')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              View All Products
+            </a>
+          </div>
+        </div>
+
+        <div class="relative" data-reveal>
+          <img
+            src={heroImg}
+            alt="PrintFast creative design team crafting home service marketing materials"
+            class="mx-auto h-auto w-full max-w-lg rounded-2xl shadow-soft"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== VALUE-BASED PRICING PLANS ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-tags"></i> Value-Based Pricing
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Our value-based pricing plans</h2>
+        <p class="lead mt-4">
+          We offer three distinct pricing plans for our Creative Design services. Our goal is to keep
+          your costs as low as possible while delivering maximum value for our work.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {pricingPlans.map((plan) => (
+          <div class="flex flex-col items-center rounded-2xl bg-white p-8 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <img
+              src={plan.img}
+              alt={`${plan.title} — PrintFast Creative Design`}
+              width="96"
+              height="96"
+              class="h-20 w-20 object-contain"
+              loading="lazy"
+              decoding="async"
+            />
+            <h3 class="mt-5 text-lg font-extrabold uppercase tracking-wide text-[#0f2747]">{plan.title}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-ink-600">{plan.description}</p>
+            <a
+              href={contactHref}
+              class="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#ED1C24]"
+            >
+              Get Pricing <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHY CHOOSE PRINTFAST ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-bolt"></i> Why PrintFast
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Why choose PrintFast for Creative Design?</h2>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {whyChoose.map((w) => (
+          <div class="flex flex-col items-center rounded-2xl bg-white p-8 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <img
+              src={w.img}
+              alt={w.title}
+              width="120"
+              height="120"
+              class="h-20 w-20 object-contain"
+              loading="lazy"
+              decoding="async"
+            />
+            <h3 class="mt-4 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{w.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-600">{w.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DID YOU KNOW / TESTIMONIAL ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="grid items-center gap-10 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-lightbulb"></i> Did You Know?
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">Design made easy, fun &amp; collaborative</h2>
+          <p class="mt-4 text-ink-600">
+            With Document Creation, we make Creative Design an easy, fun and collaborative process.
+            Here’s how it works:
+          </p>
+          <ul class="mt-8 space-y-4">
+            {documentCreation.map((d) => (
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+                  <i class="fa-solid fa-check text-[10px]"></i>
+                </span>
+                <span class="text-ink-700">{d}</span>
+              </li>
+            ))}
+          </ul>
+          <a
+            href={contactHref}
+            class="mt-8 inline-flex items-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+          >
+            Start Your Project <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Testimonial -->
+        <div class="relative rounded-3xl bg-[#0f2747] p-8 shadow-soft sm:p-10" data-reveal>
+          <i class="fa-solid fa-quote-left text-4xl text-[#ED1C24]"></i>
+          <blockquote class="mt-4 text-lg leading-relaxed text-white/90">
+            We love Print Fast! They are professional, honest, impressive and fast. They do a
+            phenomenal job! I can’t say enough about them.
+          </blockquote>
+          <div class="mt-6 flex items-center gap-3">
+            <span class="grid h-11 w-11 place-items-center rounded-full bg-[#ED1C24] font-display text-lg font-bold text-white">S</span>
+            <div>
+              <p class="font-bold text-white">Savannah H.</p>
+              <p class="text-sm text-white/60">PrintFast client</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-circle-question"></i> FAQs
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Creative Design questions, answered</h2>
+      </div>
+
+      <div class="mx-auto mt-10 max-w-3xl space-y-4">
+        {faqs.map((f) => (
+          <details class="group rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft" data-reveal>
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
+              <span class="text-base font-bold text-[#0f2747]">{f.question}</span>
+              <span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24] transition-transform group-open:rotate-45">
+                <i class="fa-solid fa-plus text-xs"></i>
+              </span>
+            </summary>
+            <p class="mt-4 text-sm leading-relaxed text-ink-600">{f.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FINAL CTA ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-20" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+        <div class="relative max-w-3xl">
+          <h2 class="heading-lg text-white">
+            Want to explore our <span class="text-[#ED1C24]">other products?</span>
+          </h2>
+          <p class="mt-5 text-lg leading-relaxed text-white/85">
+            Visit our online store with over 100 marketing products for the Home Service Professional
+            by registering for access.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Register Now <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('all-products')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              Browse All Products
+            </a>
+          </div>
+          <p class="mt-8 text-sm text-white/70">
+            Have questions? We’re available 8 AM–5 PM ET, Monday to Friday. Call
+            <a href="tel:800-810-4818" class="font-bold text-white underline decoration-[#ED1C24] underline-offset-4">800-810-4818</a>
+            — we’re here to help!
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</ShopLayout>

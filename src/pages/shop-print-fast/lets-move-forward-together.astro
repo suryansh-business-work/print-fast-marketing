@@ -1,0 +1,333 @@
+---
+import ShopLayout from '@layouts/ShopLayout.astro';
+import { shopHref } from '@data/shop';
+import { getContactHref } from '@data/pricing';
+
+const contactHref = getContactHref('digital-marketing-services');
+
+// Original PrintFast image assets (served from the same CDN the live store uses).
+const CF = 'https://dqj17tese79do.cloudfront.net/printfast/images/common';
+const coreValuesImg = `${CF}/PF_Core_Values.jpg?1642053475`;
+const coachingImg = `${CF}/Coaching_Image.jpg?1642053475`;
+
+// Commitments the source page promises to every new partner.
+const commitments = [
+  {
+    icon: 'fa-handshake-angle',
+    title: 'Flexible & understanding',
+    description:
+      'Our relationship will be ongoing across many projects over many years, so you have our commitment that we will always stay flexible and understanding of your ever-changing needs.',
+  },
+  {
+    icon: 'fa-bolt',
+    title: 'No rush charges — ever',
+    description:
+      'If you need a rush project and we can accommodate you, there will never be a rush charge. We simply take care of it.',
+  },
+  {
+    icon: 'fa-truck-fast',
+    title: 'Same-day when it counts',
+    description:
+      'Need a direct mail postcard in the mail the same day to clients who just got hit with a hail storm? Yes — we can do that too.',
+  },
+  {
+    icon: 'fa-award',
+    title: 'Unlike any other printer',
+    description:
+      'We are proud to say we are unlike any other printing company. Serving you at the highest level is the standard we hold ourselves to.',
+  },
+];
+
+// The onboarding path described on the original page.
+const onboardingSteps = [
+  {
+    title: 'Complete two onboarding documents',
+    description:
+      'Complete our two short onboarding documents online and submit them to us — the links make it quick and easy.',
+  },
+  {
+    title: 'We verify & open your account',
+    description:
+      'Once submitted, our onboarding team verifies your details and opens your account in our system.',
+  },
+  {
+    title: 'Receive your login credentials',
+    description:
+      'We contact you and provide your login credentials so you can sign in securely.',
+  },
+  {
+    title: 'Explore everything we offer',
+    description:
+      'View all of our products, services, pricing, design studio and storefront — including any proprietary materials tied to your professional association memberships.',
+  },
+];
+---
+
+<ShopLayout
+  title="Let’s Move Forward Together | Onboarding & Core Values at PrintFast"
+  crumb="Let’s Move Forward Together"
+  description="Let’s move forward together. See the commitment, core values and simple onboarding steps that make PrintFast a flexible, no-rush-charge print and marketing partner you can trust."
+  keywords={[
+    'PrintFast onboarding',
+    'PrintFast core values',
+    'move forward together',
+    'print marketing partner',
+    'new customer onboarding',
+    'no rush charge printing',
+    'trusted printing company',
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    name: 'Let’s Move Forward Together',
+    description:
+      'PrintFast’s commitment, core values and onboarding process for new marketing and print partners.',
+    publisher: { '@type': 'Organization', name: 'PrintFast' },
+  }}
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="relative overflow-hidden bg-[#0f2747]">
+    <span aria-hidden="true" class="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+    <span aria-hidden="true" class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></span>
+
+    <div class="container-pf relative py-14 sm:py-16 lg:py-24">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+            Welcome To PrintFast
+          </p>
+          <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Let’s Move <span class="text-[#ED1C24]">Forward</span> Together
+          </h1>
+          <p class="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            We appreciate the trust that you are placing with us. And, to that end, we will work
+            tirelessly to serve you at the highest level. Since our relationship will be ongoing with
+            multiple projects over what we believe will be many years, you have our commitment that we
+            will always be flexible and understanding to your ever-changing needs.
+          </p>
+          <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            We’re proud to say that we’re unlike any other printing company — and we’d love to prove it.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Get Started <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('who-we-are')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              Learn Who We Are
+            </a>
+          </div>
+        </div>
+
+        <div class="relative" data-reveal>
+          <img
+            src={coreValuesImg}
+            alt="PrintFast core values — Let’s Move Forward Together"
+            class="mx-auto h-auto w-full max-w-lg rounded-2xl shadow-soft"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== OUR COMMITMENT ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-handshake"></i> Our Commitment
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">A partnership built on trust</h2>
+        <p class="lead mt-4 text-ink-600">
+          For instance… if you need a rush project and we can accommodate you, there will never be a
+          rush charge. Or if you need a direct mail postcard in the mail the same day to clients who
+          just got hit with a hail storm — yes, we can do that too.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {commitments.map((c) => (
+          <div class="flex flex-col rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-[#fde8e9] text-[#ED1C24]">
+              <i class={`fa-solid ${c.icon} text-lg`}></i>
+            </span>
+            <h3 class="mt-4 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{c.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-600">{c.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CORE VALUES ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div class="relative order-last lg:order-first" data-reveal>
+          <img
+            src={coachingImg}
+            alt="PrintFast team coaching and collaboration — Let’s Move Forward Together"
+            class="mx-auto h-auto w-full max-w-lg rounded-2xl shadow-soft"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+
+        <div data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-compass"></i> Our Core Values
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">The foundation of everything we do</h2>
+          <p class="mt-5 leading-relaxed text-ink-600">
+            Our Core Values form the foundation on which we perform our work and conduct ourselves. We
+            have an entire universe of values, but some are so primary and so important to us that
+            throughout the changes in society, government, politics and technology, they are STILL the
+            core values we abide by. In an ever-changing world, core values are constant.
+          </p>
+          <p class="mt-4 leading-relaxed text-ink-600">
+            Core values are not descriptions of the work we do or the strategies we employ to
+            accomplish our mission. These values underlie our work, how we interact with each other,
+            and which strategies we employ to fulfill our mission. They are the basic elements of how
+            we go about our work — the practices we use every day, in everything we do.
+          </p>
+          <p class="mt-6 font-display text-xl font-extrabold uppercase tracking-tight text-[#0f2747]">
+            Let’s move forward <span class="text-[#ED1C24]">together!</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ONBOARDING STEPS ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-list-check"></i> Getting Started
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">How onboarding works</h2>
+        <p class="lead mt-4 text-ink-600">
+          You may belong to one or more professional organizations — many of which have proprietary
+          materials in our store. We’ll give you the right access based on your memberships. Here’s the
+          simple path to get you up and running.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {onboardingSteps.map((s, i) => (
+          <div class="relative flex flex-col rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <span class="grid h-11 w-11 place-items-center rounded-full bg-[#ED1C24] font-display text-lg font-bold text-white">
+              {i + 1}
+            </span>
+            <h3 class="mt-4 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{s.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-600">{s.description}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-10 text-center" data-reveal>
+        <a
+          href={contactHref}
+          class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+        >
+          Begin Onboarding <i class="fa-solid fa-arrow-right text-xs"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== HAVE QUESTIONS ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="grid items-center gap-10 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-headset"></i> Have Questions?
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">We’re here to help</h2>
+          <p class="mt-5 leading-relaxed text-ink-600">
+            We’re available from 8 AM to 5 PM ET, Monday to Friday. Our team is here to help you every
+            step of the way as we move forward together.
+          </p>
+          <div class="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
+            <a
+              href="tel:800-810-4818"
+              class="inline-flex items-center gap-3 rounded-2xl bg-white px-5 py-4 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-0.5 hover:ring-[#ED1C24]/40"
+            >
+              <span class="grid h-11 w-11 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+                <i class="fa-solid fa-phone"></i>
+              </span>
+              <span>
+                <span class="block text-xs font-bold uppercase tracking-wide text-ink-500">Call us</span>
+                <span class="block text-lg font-extrabold text-[#0f2747]">800-810-4818</span>
+              </span>
+            </a>
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Contact Us <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Testimonial -->
+        <div class="relative rounded-3xl bg-[#0f2747] p-8 shadow-soft sm:p-10" data-reveal>
+          <i class="fa-solid fa-quote-left text-4xl text-[#ED1C24]"></i>
+          <blockquote class="mt-4 text-lg leading-relaxed text-white/90">
+            We love Print Fast! They are professional, honest, impressive and fast. They do a
+            phenomenal job! I can’t say enough about them.
+          </blockquote>
+          <div class="mt-6 flex items-center gap-3">
+            <span class="grid h-11 w-11 place-items-center rounded-full bg-[#ED1C24] font-display text-lg font-bold text-white">S</span>
+            <div>
+              <p class="font-bold text-white">Savannah H.</p>
+              <p class="text-sm text-white/60">PrintFast client</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FINAL CTA ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-20" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+        <div class="relative max-w-3xl">
+          <h2 class="heading-lg text-white">
+            Ready to <span class="text-[#ED1C24]">move forward</span> together?
+          </h2>
+          <p class="mt-5 text-lg leading-relaxed text-white/85">
+            Complete your onboarding, get your login credentials and unlock our full catalog of
+            products, services, pricing and design studio — all built to serve you at the highest level.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Get Started <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('all-products')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              Browse All Products
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ShopLayout>

@@ -1,0 +1,354 @@
+---
+import ShopLayout from '@layouts/ShopLayout.astro';
+import { shopHref } from '@data/shop';
+import { getContactHref } from '@data/pricing';
+
+const contactHref = getContactHref('digital-marketing-services');
+
+// Original PrintFast image assets (served from the same CDN/S3 the live store uses).
+const S3 = 'https://nklopsouqd.s3.us-west-1.amazonaws.com/printfast/images/common';
+const CF = 'https://dqj17tese79do.cloudfront.net/printfast/images/common';
+
+const heroImg = `${CF}/HSC_yard_sign_for_site_product_page.jpg?1642010336`;
+const bannerImg = `${S3}/yard_sign_contest_banner.png?1702392883`;
+
+const whyChoose = [
+  {
+    img: `${S3}/Multiple_Size_Options.png?1702317876`,
+    title: 'Standard & Custom Sizes Available',
+    description:
+      'We offer many sizes of Yard Signs to choose from along with the option of custom sizes.',
+  },
+  {
+    img: `${S3}/Full_Color_Print.png?1701100779`,
+    title: 'High-Contrast Colors',
+    description:
+      'Printed in full color with your custom design, they will certainly grab attention.',
+  },
+  {
+    img: `${S3}/PF_Free_Delivery.png?1702317979`,
+    title: 'Free Delivery Included',
+    description:
+      'We can print as many Yard Signs as you need and deliver to your office completely free with metal lawn stakes.',
+  },
+];
+
+const didYouKnow = [
+  'Our Yard Signs cost as low as $7.00 each, delivered to your office complete with metal lawn stakes.',
+  'Our Economy Saver Yard Sign is made of 4mm Coroplast, measures 24” × 16” and is nearly indestructible.',
+  'Feel free to contact us for more details.',
+];
+
+const faqs = [
+  {
+    question: 'How much do PrintFast Yard Signs cost?',
+    answer:
+      'Our Yard Signs cost as low as $7.00 each, delivered to your office complete with metal lawn stakes. Final pricing depends on size, quantity and design.',
+  },
+  {
+    question: 'What sizes of Yard Signs are available?',
+    answer:
+      'We offer many standard sizes plus custom sizes. Our popular Economy Saver Yard Sign is made of 4mm Coroplast and measures 24” × 16”.',
+  },
+  {
+    question: 'Are the Yard Signs durable?',
+    answer:
+      'Yes. Our Economy Saver Yard Sign is made of 4mm Coroplast and is nearly indestructible, standing up to weather and repeated placement.',
+  },
+  {
+    question: 'Do you deliver the Yard Signs?',
+    answer:
+      'We can print as many Yard Signs as you need and deliver them to your office completely free, including metal lawn stakes.',
+  },
+];
+---
+
+<ShopLayout
+  title="Yard Signs for Home Service Pros | Custom Full-Color Coroplast Signs"
+  crumb="Yard Signs"
+  description="PrintFast custom Yard Signs turn every completed job into a neighborhood billboard. Full-color, standard or custom sizes, durable 4mm Coroplast — as low as $7.00 each with free delivery and metal stakes."
+  keywords={[
+    'yard signs',
+    'custom yard signs',
+    'coroplast signs',
+    'lawn signs',
+    'home service yard signs',
+    'full color yard signs',
+    'contractor yard signs',
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: 'PrintFast Yard Signs',
+    description:
+      'Custom full-color Coroplast Yard Signs for home service professionals, delivered with metal lawn stakes.',
+    brand: { '@type': 'Brand', name: 'PrintFast' },
+    category: 'Yard Signs',
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'USD',
+      price: '7.00',
+      availability: 'https://schema.org/InStock',
+    },
+  }}
+  faqs={faqs}
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="relative overflow-hidden bg-[#0f2747]">
+    <span aria-hidden="true" class="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+    <span aria-hidden="true" class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></span>
+
+    <div class="container-pf relative py-14 sm:py-16 lg:py-24">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+            Yard Signs
+          </p>
+          <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Yard <span class="text-[#ED1C24]">Signs</span>
+          </h1>
+          <p class="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Yard Signs are an integral part of your marketing strategy. They are not simply small
+            billboards that display your name and contact information — placed on the lawn in front of
+            a home, a Yard Sign makes a powerful statement: <span class="text-white">“This homeowner
+            selected your company after comparing other vendors, and trusted you to provide service.”</span>
+          </p>
+          <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            A Yard Sign is a testimonial to your good business practices and a referral this homeowner
+            is proud to give their neighbors. You only have a few seconds for passing motorists, bikers
+            and runners to see it — so keep it simple with your company name or logo, trades clearly
+            listed and a phone number, and make it attractive and memorable.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Contact Us <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('all-products')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              View All Products
+            </a>
+          </div>
+        </div>
+
+        <div class="relative" data-reveal>
+          <img
+            src={heroImg}
+            alt="PrintFast full-color home service Yard Sign staked in a front lawn"
+            class="mx-auto h-auto w-full max-w-md rounded-2xl shadow-soft"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHY THEY MATTER ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-sign-hanging"></i> More Than A Billboard
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">A silent salesperson on every lawn</h2>
+        <p class="lead mt-4 text-ink-600">
+          Rarely will someone write down or snap a photo of your Yard Sign. Instead, they will look
+          your company up online when they have a moment — which is exactly why your sign has to be
+          clean, bold and unforgettable.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-3" data-reveal>
+        <div class="flex items-start gap-4 rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft">
+          <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+            <i class="fa-solid fa-handshake-angle"></i>
+          </span>
+          <div>
+            <h3 class="text-sm font-extrabold uppercase tracking-wide text-[#0f2747]">A Living Testimonial</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-ink-600">Proof a real homeowner chose and trusts your company.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4 rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft">
+          <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+            <i class="fa-solid fa-people-group"></i>
+          </span>
+          <div>
+            <h3 class="text-sm font-extrabold uppercase tracking-wide text-[#0f2747]">A Neighborly Referral</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-ink-600">A referral the homeowner is proud to give their neighbors.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4 rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft">
+          <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+            <i class="fa-solid fa-stopwatch"></i>
+          </span>
+          <div>
+            <h3 class="text-sm font-extrabold uppercase tracking-wide text-[#0f2747]">Seconds To Impress</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-ink-600">Company name, trades and phone number — memorable at a glance.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHY CHOOSE PRINTFAST ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-bolt"></i> Why PrintFast
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Why choose PrintFast for your Yard Signs?</h2>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {whyChoose.map((w) => (
+          <div class="flex flex-col items-center rounded-2xl bg-white p-8 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <img
+              src={w.img}
+              alt={w.title}
+              width="120"
+              height="120"
+              class="h-20 w-20 object-contain"
+              loading="lazy"
+              decoding="async"
+            />
+            <h3 class="mt-5 text-sm font-extrabold uppercase tracking-wide text-[#0f2747]">{w.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-600">{w.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DID YOU KNOW ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="grid items-center gap-10 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-lightbulb"></i> Did You Know?
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">Tough signs, small price</h2>
+          <ul class="mt-8 space-y-4">
+            {didYouKnow.map((d) => (
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+                  <i class="fa-solid fa-check text-[10px]"></i>
+                </span>
+                <span class="text-ink-700">{d}</span>
+              </li>
+            ))}
+          </ul>
+          <a
+            href={contactHref}
+            class="mt-8 inline-flex items-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+          >
+            Get More Information <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <div class="relative overflow-hidden rounded-3xl bg-ink-50 ring-1 ring-ink-100 shadow-soft" data-reveal>
+          <img
+            src={bannerImg}
+            alt="PrintFast Yard Sign design examples for home service companies"
+            class="h-full w-full object-cover"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TESTIMONIAL ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-comment-dots"></i> What Our Clients Say
+        </p>
+      </div>
+      <div class="relative mx-auto mt-8 max-w-3xl rounded-3xl bg-[#0f2747] p-8 shadow-soft sm:p-12" data-reveal>
+        <i class="fa-solid fa-quote-left text-4xl text-[#ED1C24]"></i>
+        <blockquote class="mt-4 text-lg leading-relaxed text-white/90">
+          I will never be able to express how much I have loved working with this company. They are
+          professional, hardworking, loyal, and above all else extremely helpful. I would recommend
+          PrintFast to anyone and I will always appreciate everything they did for me. Bill and Eric
+          you are the best!
+        </blockquote>
+        <div class="mt-6 flex items-center gap-3">
+          <span class="grid h-11 w-11 place-items-center rounded-full bg-[#ED1C24] font-display text-lg font-bold text-white">K</span>
+          <div>
+            <p class="font-bold text-white">K J</p>
+            <p class="text-sm text-white/60">PrintFast client</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-circle-question"></i> Yard Sign FAQs
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Frequently asked questions</h2>
+      </div>
+
+      <div class="mx-auto mt-10 max-w-3xl space-y-4" data-reveal>
+        {faqs.map((f) => (
+          <details class="group rounded-2xl bg-white p-5 ring-1 ring-ink-100 shadow-soft">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-bold text-[#0f2747]">
+              {f.question}
+              <span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24] transition-transform group-open:rotate-45">
+                <i class="fa-solid fa-plus text-xs"></i>
+              </span>
+            </summary>
+            <p class="mt-3 text-sm leading-relaxed text-ink-600">{f.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== EXPLORE MORE / CTA ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-20" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+        <div class="relative max-w-3xl">
+          <h2 class="heading-lg text-white">
+            Want to explore our <span class="text-[#ED1C24]">other products?</span>
+          </h2>
+          <p class="mt-5 text-lg leading-relaxed text-white/85">
+            Visit our online store with over 100 marketing products for the Home Service Professional.
+            To obtain detailed product information and pricing, please create an account or contact our team.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Register Now <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('all-products')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              Browse All Products
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ShopLayout>

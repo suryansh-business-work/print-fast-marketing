@@ -1,0 +1,439 @@
+---
+import ShopLayout from '@layouts/ShopLayout.astro';
+import { shopHref } from '@data/shop';
+import { getContactHref } from '@data/pricing';
+
+const contactHref = getContactHref('digital-marketing-services');
+
+// The real Frequently Asked Questions ported from the legacy print-fast.com /faqs.html
+// page, grouped into logical categories. Copy is faithful to the original answers;
+// the longest technical answers are lightly tightened without changing their meaning.
+const faqCategories = [
+  {
+    id: 'ordering-payment',
+    title: 'Ordering & Payment',
+    icon: 'fa-cart-shopping',
+    blurb: 'Placing an order, quantities and how to pay.',
+    items: [
+      {
+        question: 'Why pick PrintFast over other competitors?',
+        answer:
+          'PrintFast has been exceeding the expectations of print buyers since 1903. Bill McGowan, our third-generation owner, has 50 years of experience in the industry. He and the entire PrintFast team believe in long-term relationships built on trust and respect.',
+      },
+      {
+        question: 'How do I place my order?',
+        answer:
+          'Placing your order is easy. Navigate to the product you are looking for, select the quantity and other options, then consider your design options. You may create your print-ready document online for free in our Design Studio (most products), upload your own print-ready files, or use one of our templates to create your final design. If you have any questions, call us at 800-810-4818 and we will be happy to assist.',
+      },
+      {
+        question: 'What is your minimum order quantity?',
+        answer:
+          'Our minimum order quantity varies for each product, and the price per piece goes down dramatically as the quantity increases. Envelopes, since they are sold 500 per box, have a minimum order of 500. Ask us to quote on several quantities and you can decide how much you want to save.',
+      },
+      {
+        question: 'Can you print a different quantity than you have on your website?',
+        answer:
+          'Yes, in many cases we can print exact or custom quantities. Please call us to see if your job qualifies.',
+      },
+      {
+        question: 'Will I always receive exactly the quantity I order?',
+        answer:
+          'As per industry trade customs, overruns and underruns not to exceed 10% of the quantity ordered shall constitute an acceptable delivery. Rarely, due to the inherent nature of the printing process, we may ship slightly fewer pieces than you ordered — a shipment of 4,500 pieces on a 5,000 order is within the industry standard. You are only billed for the actual quantity delivered, and this scenario is the extreme exception, not the rule.',
+      },
+      {
+        question: 'What methods of payment do you accept?',
+        answer:
+          'We accept Visa, Mastercard and business checks. Personal checks are not accepted.',
+      },
+    ],
+  },
+  {
+    id: 'products-quality',
+    title: 'Products & Quality',
+    icon: 'fa-award',
+    blurb: 'Our quality guarantee, paper stocks and mailing services.',
+    items: [
+      {
+        question: 'Does PrintFast offer quality assurance?',
+        answer:
+          'Absolutely. We take pride in the quality of our work — in a recent survey, 99.1% of our customers said we met or exceeded their expectations and would reorder and recommend us. If a job is unacceptable due to defects in workmanship, we will reprint and ship it to you at no cost or issue a future credit (the original run must be returned and inspected first; no cash refunds are offered). This guarantee does not cover customer errors such as low-resolution images, poor photography or incorrect copy. We print to industry-accepted “pleasing color” standards and make every effort to represent your supplied files, but we do not guarantee exact color matching. For critical jobs, a requested color proof is guaranteed to match the final printed piece within recognized industry standards.',
+      },
+      {
+        question: 'What type of paper will my job be printed on?',
+        answer:
+          'All jobs are best suited for only certain types of paper. We will be happy to suggest the paper that would best suit your intended need, as well as a cost-saving optional paper.',
+      },
+      {
+        question: 'Do you offer mailing services?',
+        answer:
+          'Yes — we offer a complete direct mailing service. We have the latest high-speed equipment and US Post Office certified software that guarantees the lowest postage costs. We can also obtain mailing lists based on any criteria, such as homeowner status, geographical area, level of income and more.',
+      },
+    ],
+  },
+  {
+    id: 'turnaround-shipping',
+    title: 'Turnaround & Shipping',
+    icon: 'fa-truck-fast',
+    blurb: 'How long jobs take and how they ship.',
+    items: [
+      {
+        question: 'What is your turnaround time?',
+        answer:
+          'Our standard turnaround time for most items is 3 to 5 business days. Jobs that involve higher quantity, multiple colors, folding, bookbinding or mailing may take a few days longer. You have our guarantee that we will always produce your job in as few days as possible while maintaining our high level of quality.',
+      },
+      {
+        question: 'Does your turnaround time include shipping?',
+        answer:
+          'No. Our turnaround time is the time needed for us to complete your job and have it ready for you to pick up or send by courier, UPS or USPS. It starts when you give us your approval to print along with payment information. Shipping times are in addition to the turnaround times posted on our website.',
+      },
+      {
+        question: 'What methods of shipment do you offer?',
+        answer:
+          'We use United Parcel Service (UPS) and the US Post Office (USPS). Each service has its advantages for the least cost to ship, and we will use whichever service will cost you the least.',
+      },
+    ],
+  },
+  {
+    id: 'files-artwork',
+    title: 'Files & Artwork',
+    icon: 'fa-file-arrow-up',
+    blurb: 'Sending files, accepted formats, resolution and bleeds.',
+    items: [
+      {
+        question: 'How do I send my files?',
+        answer:
+          'It is easiest to email or upload your files to us. We have links on our site to help you convert your files to PDF format and then send them to us.',
+      },
+      {
+        question: 'What is the preferred format to send print-ready files to PrintFast?',
+        answer:
+          'We accept native files from QuarkXPress, Adobe InDesign, Photoshop or Illustrator. If you do not have these programs you are not out of luck — we also accept PDF files created from any program, as long as they are built correctly for commercial printing with proper file resolution and embedded fonts.',
+      },
+      {
+        question: 'What does PDF stand for?',
+        answer:
+          'PDF stands for Portable Document Format, a universal format developed by Adobe that preserves the fonts, formatting, graphics and color of a source document regardless of the application or platform used to create it. If you created your files in an office program such as PowerPoint, Word or Publisher, saving them as a PDF is your best option for getting the files to us. Be aware that PDFs are not bulletproof — text may reflow on our end if the file was not created with fonts embedded.',
+      },
+      {
+        question: 'Do you accept Microsoft Publisher or Microsoft Word files?',
+        answer:
+          'Sorry, we do not accept native Publisher or Word files. These programs are better suited for projects printed on your office laser or inkjet printer, such as internal documents and presentations. However, if Word or Publisher are the only tools at your disposal, you can attempt to use them if they allow you to create a PDF. Be aware that Publisher files converted to PDF can and will most likely have a substantial change in the colors to be printed.',
+      },
+      {
+        question: 'What resolution should my files be?',
+        answer:
+          'Your images should be 300 dpi at the final dimension you intend to use them. So if an image is 2″×2″ at 300 dpi and is then placed in a page-layout program and enlarged 200% to 4″×4″, the resolution now is only 150 dpi. Please watch out for this pitfall.',
+      },
+      {
+        question: 'My image is 72 dpi. Is that OK?',
+        answer:
+          'No. Most web graphics are 72 dpi, which is fine for the web, but for printing the images or files you submit must be 300 dpi at final size to ensure maximum sharpness and quality — otherwise you may see pixelation and blurriness. Do not interpolate: manually changing a low-resolution file to 300 dpi only asks the computer to add “filler” pixels and usually results in blurry, muddy images. Files created at less than 300 dpi must be recreated or rescanned at 300 dpi at final size. We only accept 300 dpi files and no less.',
+      },
+      {
+        question: 'What is a bleed?',
+        answer:
+          'A bleed is a printing term that simply means there is printing going right to the edge of the paper. When that occurs, a bleed must be incorporated into your file. For example, on a 4″×6″ postcard with printing up to all four edges, you must add a 1/8″ bleed on all sides, making your file size 4.25″×6.25″. Anything outside the guides drawn 1/8″ from the edge is the bleed area and will be cut off, so keep the text and images you want to appear comfortably within those guides — with another 1/8″ inside the guides as a safety zone.',
+      },
+      {
+        question: 'Can you explain dot and file resolution?',
+        answer:
+          'In Photoshop, make sure your images are 300 dpi at 100% of final size — not having enough resolution is the number-one image problem. Photoshop raster images are made up of a fixed number of little dots (pixels); printed at too low a resolution they appear jagged, fuzzy or soft-edged, and typing in a higher number (“upsampling”) only makes the image bigger, not sharper. If your resolution is too low, rescan rather than upsample. Adobe Illustrator, by contrast, creates vector images built from mathematical equations that can be scaled infinitely and print at the maximum resolution of the output device. As a guide, use a resolution of 1.5 to 2 times the line screen of your print job — for a 150-line screen job, your images should be between 225 and 300 dpi.',
+      },
+      {
+        question: 'Do I need to know about cross-platform font compatibility?',
+        answer:
+          'Fonts can be an issue, especially when moving a job from a PC to a Mac or vice versa. This is one reason PDF has become so popular — it is a platform-neutral format that lets you embed the fonts right into the document (please call us first to discuss the correct PDF settings). A few best practices: always use the same PostScript font from the same foundry on both platforms; do not rely on an application’s built-in “bold/italic” style buttons — choose the specific font (for example, “Helvetica Bold”) instead; avoid TrueType and cheap knock-off fonts; do not use proprietary system fonts like Chicago (convert them to curves in Illustrator if you must use them); and supply any unusual fonts to us with your job so our output device does not substitute them. There is no substitute for running a job in the software, on the platform and with the fonts it was created with — and we will work with you to make sure everything goes as smoothly as possible.',
+      },
+    ],
+  },
+  {
+    id: 'proofing',
+    title: 'Proofing',
+    icon: 'fa-clipboard-check',
+    blurb: 'How proofs work and our digital proofing portal.',
+    items: [
+      {
+        question: 'Do I get a proof before my job is printed?',
+        answer:
+          'Yes. We create a free digital proof for you in our online proofing portal, and you will receive an email to access it when it is ready. Remember that colors viewed on monitors and devices may vary significantly from the final printed piece — our online proofs are only a visual tool and a rough draft, so do not trust on-screen color unless your monitor is calibrated to SWOP standards. We print to industry-accepted “pleasing color” standards but cannot guarantee exact color matching. If color matching is critical, you can request a SWOP-calibrated hard-copy color proof for $75 (which includes overnight UPS shipping to you; you are responsible for shipping it back). Your job is not considered approved until the proof is signed and returned to PrintFast.',
+      },
+      {
+        question: 'What is Online Proofing?',
+        answer:
+          'PrintFast uses an online proofing portal built and hosted in the cloud, which allows our busy clients to log in and see their proofs from any device, wherever they happen to be when the proof notification email is received. Be aware that the colors in your online proofs may not appear correctly, as they depend on the device or monitor being used as well as the lighting conditions in the room.',
+      },
+      {
+        question: 'Do I have to use the Digital Proofing Portal?',
+        answer:
+          'Yes. PrintFast requires that all proofs be marked up, commented on and approved via our online digital proofing system. This provides a detailed history of the changes requested, and by digitally signing off you confirm to us that the design has met your requirements.',
+      },
+    ],
+  },
+  {
+    id: 'color-formats',
+    title: 'Color & File Formats',
+    icon: 'fa-palette',
+    blurb: 'RGB vs. CMYK, on-screen color and image formats.',
+    items: [
+      {
+        question: 'Will my printed job look exactly like it does on my computer monitor?',
+        answer:
+          'Probably not. Monitors display color using RGB (red, green, blue), while printing presses reproduce full-color images using CMYK (cyan, magenta, yellow and black). The RGB color spectrum is larger than CMYK, so it is possible to create colors on screen that simply cannot be printed. Work in CMYK mode (or use your program’s “CMYK Preview”) to gauge those limits. On top of that, a monitor’s age, brightness and contrast settings, the room’s lighting and — most importantly — its calibration all change how color appears, and most consumer monitors are never calibrated. Because our printing runs to SWOP standards, printed pieces usually represent truer colors. Do not trust the colors on your monitor unless it has been accurately calibrated to SWOP standards, and keep in mind that PrintFast does not guarantee color matching — if precise color is critical, we strongly recommend purchasing a hard-copy color proof.',
+      },
+      {
+        question: 'Will my printed job look exactly like it does on my computer printout?',
+        answer:
+          'Probably not. Your computer printout likely uses inkjet technology, where water-based inks are sprayed onto the paper. Our printing process uses oil-based inks placed onto the paper in a very different process called offset lithography, so the results will differ.',
+      },
+      {
+        question: 'Should I use RGB or CMYK?',
+        answer:
+          'Use CMYK. Colors displayed on your screen do not always match your printed output because the two use different methods to create color. Your monitor uses projected, additive light — Red, Green and Blue combined at full strength make white. Printing uses reflected, subtractive color: Cyan, Magenta, Yellow and Black inks absorb (subtract) certain colors from the light spectrum, and you see the light reflected off the paper and inks. Because of these different methods — plus the fact that monitors are rarely calibrated and their colors shift as they age — color mismatches between monitors and printers are common, so build your print files in CMYK.',
+      },
+      {
+        question: 'What is the difference between the JPEG and TIFF image formats?',
+        answer:
+          'JPEG (Joint Photographic Experts Group) uses lossy compression that eliminates data deemed unnecessary, so files are much smaller and faster to upload or email — with some loss in image quality. TIFF (Tagged Image File Format) preserves more image data at a larger file size. All JPEGs sent to PrintFast should be created at 300 dpi and saved at maximum quality; at those settings the losses are generally very slight and unnoticeable in the final printed piece. If you are sending your order by regular mail, or have a high-speed connection for uploading, TIFF files are recommended.',
+      },
+    ],
+  },
+];
+
+// Flatten every FAQ, then cap the FAQPage schema at the most important entries.
+const allFaqs = faqCategories.flatMap((c) => c.items);
+const schemaFaqs = allFaqs.slice(0, 24);
+---
+
+<ShopLayout
+  title="FAQs | PrintFast Printing, Ordering, Files & Proofing Questions"
+  crumb="FAQs"
+  description="Answers to the questions we hear most about ordering, turnaround, shipping, sending print-ready files, proofing and color — from PrintFast, serving print buyers since 1903."
+  keywords={[
+    'PrintFast FAQ',
+    'printing frequently asked questions',
+    'how to place a print order',
+    'print-ready file requirements',
+    '300 dpi print resolution',
+    'RGB vs CMYK printing',
+    'print turnaround time',
+    'online proofing portal',
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'PrintFast FAQs',
+    description:
+      'Frequently asked questions about ordering, turnaround, shipping, sending print-ready files, proofing and color at PrintFast.',
+    publisher: { '@type': 'Organization', name: 'PrintFast', telephone: '800-810-4818' },
+  }}
+  faqs={schemaFaqs}
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="relative overflow-hidden bg-[#0f2747]">
+    <span aria-hidden="true" class="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+    <span aria-hidden="true" class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></span>
+
+    <div class="container-pf relative py-14 sm:py-16 lg:py-24">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+            Help Center
+          </p>
+          <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Frequently Asked <span class="text-[#ED1C24]">Questions</span>
+          </h1>
+          <p class="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Here is a list of the questions we hear most about ordering, turnaround, shipping,
+            sending files, proofing and color. If your question is not covered here, please contact
+            us and we will be happy to help.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href="tel:8008104818"
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              <i class="fa-solid fa-phone text-xs"></i> Call 800-810-4818
+            </a>
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              Ask A Question
+            </a>
+          </div>
+        </div>
+
+        <!-- Support motif -->
+        <div class="relative" data-reveal>
+          <div class="mx-auto grid aspect-square w-full max-w-sm place-items-center rounded-full bg-white/5 ring-1 ring-white/10">
+            <div class="grid aspect-square w-3/4 place-items-center rounded-full bg-[#ED1C24]/10 ring-2 ring-[#ED1C24]/40">
+              <div class="text-center">
+                <i class="fa-solid fa-circle-question text-5xl text-[#ED1C24]"></i>
+                <p class="mt-4 font-display text-4xl font-extrabold uppercase leading-none text-white">{allFaqs.length}</p>
+                <p class="mt-2 text-xs font-bold uppercase tracking-[0.2em] text-white/70">Answers<br />Inside</p>
+                <p class="mt-4 text-[11px] font-semibold uppercase tracking-widest text-[#ED1C24]">Since 1903</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CATEGORY QUICK-NAV ===================== -->
+  <section class="section-tight scroll-mt-28">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-compass"></i> Browse By Topic
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Jump to what you need</h2>
+      </div>
+
+      <div class="mt-8 flex flex-wrap justify-center gap-2.5" data-reveal>
+        {faqCategories.map((c) => (
+          <a
+            href={`#${c.id}`}
+            class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-[#0f2747] ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-0.5 hover:ring-[#ED1C24]/40"
+          >
+            <i class:list={['fa-solid', c.icon, 'text-xs text-[#ED1C24]']} aria-hidden="true"></i>
+            {c.title}
+            <span class="text-xs font-bold text-ink-400">{c.items.length}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ CATEGORIES ===================== -->
+  {faqCategories.map((c, i) => (
+    <section id={c.id} class={`section scroll-mt-28 ${i % 2 === 1 ? 'bg-ink-50/60' : ''}`}>
+      <div class="container-pf">
+        <div class="mx-auto max-w-3xl" data-reveal>
+          <div class="flex items-center gap-4">
+            <span class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#fde8e9] text-[#ED1C24]">
+              <i class:list={['fa-solid', c.icon, 'text-lg']} aria-hidden="true"></i>
+            </span>
+            <div>
+              <h2 class="text-xl font-extrabold uppercase tracking-wide text-[#0f2747] sm:text-2xl">{c.title}</h2>
+              <p class="mt-1 text-sm text-ink-600">{c.blurb}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mx-auto mt-8 max-w-3xl space-y-4">
+          {c.items.map((f) => (
+            <details class="group rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft" data-reveal>
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
+                <span class="text-base font-bold text-[#0f2747]">{f.question}</span>
+                <span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24] transition-transform group-open:rotate-45">
+                  <i class="fa-solid fa-plus text-sm"></i>
+                </span>
+              </summary>
+              <p class="mt-4 text-sm leading-relaxed text-ink-600">{f.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- ===================== HELPFUL LINKS ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-arrow-right-long"></i> Next Steps
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Ready to move forward?</h2>
+      </div>
+
+      <div class="mt-10 grid gap-6 sm:grid-cols-3">
+        <a
+          href={shopHref('upload-your-artwork')}
+          class="group flex flex-col rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40"
+          data-reveal
+        >
+          <span class="grid h-12 w-12 place-items-center rounded-xl bg-[#fde8e9] text-[#ED1C24] transition-colors group-hover:bg-[#ED1C24] group-hover:text-white">
+            <i class="fa-solid fa-cloud-arrow-up text-lg"></i>
+          </span>
+          <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">Upload Your Files</h3>
+          <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-600">How to send print-ready artwork — accepted formats, 300 dpi, CMYK and bleeds.</p>
+          <span class="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#ED1C24]">Learn how <i class="fa-solid fa-arrow-right text-xs"></i></span>
+        </a>
+
+        <a
+          href={shopHref('all-products')}
+          class="group flex flex-col rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40"
+          data-reveal
+        >
+          <span class="grid h-12 w-12 place-items-center rounded-xl bg-[#fde8e9] text-[#ED1C24] transition-colors group-hover:bg-[#ED1C24] group-hover:text-white">
+            <i class="fa-solid fa-grip text-lg"></i>
+          </span>
+          <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">Browse All Products</h3>
+          <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-600">Explore the full lineup of postcards, mailers and print products in one place.</p>
+          <span class="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#ED1C24]">Shop products <i class="fa-solid fa-arrow-right text-xs"></i></span>
+        </a>
+
+        <a
+          href={shopHref('satisfaction-guarantee')}
+          class="group flex flex-col rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40"
+          data-reveal
+        >
+          <span class="grid h-12 w-12 place-items-center rounded-xl bg-[#fde8e9] text-[#ED1C24] transition-colors group-hover:bg-[#ED1C24] group-hover:text-white">
+            <i class="fa-solid fa-shield-halved text-lg"></i>
+          </span>
+          <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">Satisfaction Guarantee</h3>
+          <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-600">The promises that stand behind every PrintFast order, since 1903.</p>
+          <span class="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#ED1C24]">See the guarantee <i class="fa-solid fa-arrow-right text-xs"></i></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== STILL HAVE QUESTIONS? CTA ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-20" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+        <div class="relative grid items-center gap-8 lg:grid-cols-[1.4fr_1fr]">
+          <div>
+            <h2 class="heading-lg text-white">
+              Still have <span class="text-[#ED1C24]">questions?</span>
+            </h2>
+            <p class="mt-5 text-lg leading-relaxed text-white/85">
+              If your question is not covered here, our team is happy to help. We are available from
+              8 AM to 5 PM ET, Monday to Friday — call us or send a message and we will get right back
+              to you.
+            </p>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a
+                href="tel:8008104818"
+                class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+              >
+                <i class="fa-solid fa-phone text-xs"></i> Call 800-810-4818
+              </a>
+              <a
+                href={contactHref}
+                class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+              >
+                Contact Us
+              </a>
+            </div>
+          </div>
+
+          <div class="rounded-2xl bg-white/5 p-6 ring-1 ring-white/10">
+            <p class="text-xs font-bold uppercase tracking-[0.18em] text-[#ED1C24]">Hours</p>
+            <p class="mt-2 text-lg font-bold text-white">8 AM – 5 PM ET</p>
+            <p class="text-sm text-white/70">Monday to Friday</p>
+            <p class="mt-5 text-xs font-bold uppercase tracking-[0.18em] text-[#ED1C24]">Phone</p>
+            <p class="mt-2 text-lg font-bold text-white">800-810-4818</p>
+            <p class="mt-5 text-xs font-bold uppercase tracking-[0.18em] text-[#ED1C24]">Email</p>
+            <p class="mt-2 text-lg font-bold text-white">orders@print-fast.com</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ShopLayout>

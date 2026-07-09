@@ -1,0 +1,328 @@
+---
+import ShopLayout from '@layouts/ShopLayout.astro';
+import { shopHref } from '@data/shop';
+import { getContactHref } from '@data/pricing';
+
+const contactHref = getContactHref('digital-marketing-services');
+
+// Original PrintFast image assets (served from the live store's CDN).
+const CF = 'https://dqj17tese79do.cloudfront.net/printfast/images/common';
+const membershipImg = `${CF}/HSC_MarketingSuperstoreImage_6_2_2021_Billsedits.jpg?1642010677`;
+const designStudioVideoImg = `${CF}/PF_YT_logo_image_for_site.jpg?1642010447`;
+const designStudioVideoUrl = 'https://youtu.be/p1jgnliaDcQ';
+
+// Reasons this page exists: private, member-only storefronts.
+const memberPoints = [
+  'Many training and membership organizations keep their proprietary designs and forms in our store.',
+  'Because we take privacy and content protection seriously, those items are never displayed publicly on our site.',
+  'Register with us and specify the organization you belong to (if applicable).',
+  'We’ll send you login credentials to your organization’s private storefront.',
+];
+
+// A curated catalog of products a home-service pro can order — real shop routes.
+const catalog = [
+  { title: 'All Products', href: shopHref('all-products'), icon: 'fa-grip', description: 'Browse the full lineup of 100+ marketing products in one place.' },
+  { title: 'Door Hangers', href: shopHref('door-hangers'), icon: 'fa-door-open', description: 'High-impact door hangers that land your offer right on the doorknob.' },
+  { title: 'Radius Postcards', href: shopHref('radius-postcards'), icon: 'fa-location-crosshairs', description: 'Targeted neighborhood mailings that spread the word around every job.' },
+  { title: 'Seasonal Postcards', href: shopHref('seasonal-postcards'), icon: 'fa-snowflake', description: 'VDP-enabled seasonal designs that keep you top of mind all year.' },
+  { title: 'Service Request Postcards', href: shopHref('service-request-postcards'), icon: 'fa-screwdriver-wrench', description: 'Service reminders for existing clients and prospecting for new ones.' },
+  { title: 'Thank You Postcards', href: shopHref('thank-you-postcards'), icon: 'fa-heart', description: 'Simple, low-cost, personalized thank-you cards for your homeowners.' },
+  { title: 'Homeowner Experience Packs', href: shopHref('homeowner-experience-packs'), icon: 'fa-box-open', description: 'Leave-behind packs that turn every service call into a lasting impression.' },
+  { title: 'Newsletters', href: shopHref('newsletters-new'), icon: 'fa-newspaper', description: 'Professionally written, editable newsletters that nurture your list.' },
+  { title: 'Recruiting Cards', href: shopHref('recruiting-cards'), icon: 'fa-user-plus', description: 'Mailers that sell your company as an employer to skilled technicians.' },
+  { title: 'Stickers', href: shopHref('stickers'), icon: 'fa-note-sticky', description: 'Branded stickers and labels that keep your name on every job.' },
+  { title: 'Yard Signs', href: shopHref('yard-signs'), icon: 'fa-sign-hanging', description: 'Durable yard signs that turn every completed job into a local billboard.' },
+  { title: 'Letters', href: shopHref('letters'), icon: 'fa-envelope-open-text', description: 'Personalized letters that deliver a more formal, one-to-one message.' },
+];
+
+// How ordering works in the free Design Studio.
+const steps = [
+  { title: 'Register', description: 'Create your account and tell us which membership or training organization you belong to.' },
+  { title: 'Pick a Product', description: 'Choose from postcards, door hangers, newsletters and dozens of other products.' },
+  { title: 'Design for FREE', description: 'Customize your item online in our Design Studio — logo, colors, offers and more, at no cost.' },
+  { title: 'We Print & Mail', description: 'Approve your proof and we handle the printing and mailing so you can get back to work.' },
+];
+---
+
+<ShopLayout
+  title="Product Overview | Print & Marketing Products for Home Service Pros"
+  crumb="CEOW Products"
+  description="Explore PrintFast's print and marketing products built for home service professionals — postcards, door hangers, newsletters and more. Register for your member storefront."
+  keywords={[
+    'home service marketing products',
+    'print products for contractors',
+    'member storefront',
+    'design studio',
+    'direct mail postcards',
+    'door hangers',
+    'PrintFast products',
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'PrintFast Product Overview',
+    description:
+      'An overview of PrintFast print and marketing products for home service professionals, plus private member storefronts for training and membership organizations.',
+    about: { '@type': 'Organization', name: 'PrintFast', telephone: '800-810-4818' },
+  }}
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="relative overflow-hidden bg-[#0f2747]">
+    <span aria-hidden="true" class="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+    <span aria-hidden="true" class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></span>
+
+    <div class="container-pf relative py-14 sm:py-16 lg:py-24">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+            Product Overview
+          </p>
+          <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Our <span class="text-[#ED1C24]">Products</span>
+          </h1>
+          <p class="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Our focus is simple — we offer our products and services primarily to home service
+            professionals, so we speak your language. We understand the challenges you face as you
+            provide comfort and safety to the homeowners in your community.
+          </p>
+          <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            From printed forms and ID badges to exceptional marketing materials, direct mail and
+            reliable online services, we believe that <span class="font-semibold text-white">“Your Success Is Our Business”</span>
+            — and we live by that belief every day.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Register Here <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('all-products')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              View All Products
+            </a>
+          </div>
+        </div>
+
+        <div class="relative" data-reveal>
+          <img
+            src={membershipImg}
+            alt="PrintFast marketing superstore for home service membership organizations"
+            class="mx-auto h-auto w-full max-w-md rounded-2xl shadow-soft"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== MEMBER STOREFRONT ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="grid items-center gap-10 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-id-badge"></i> Member Storefronts
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">Your trusted, private storefront</h2>
+          <p class="mt-5 text-ink-600">
+            As you consider us as your trusted provider, we understand that you may belong to a
+            training or membership organization. Here’s how we protect their proprietary content
+            while getting you exactly what you need:
+          </p>
+          <ul class="mt-8 space-y-4">
+            {memberPoints.map((point) => (
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+                  <i class="fa-solid fa-check text-[10px]"></i>
+                </span>
+                <span class="text-ink-700">{point}</span>
+              </li>
+            ))}
+          </ul>
+          <a
+            href={contactHref}
+            class="mt-8 inline-flex items-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+          >
+            Register Here <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <div class="relative rounded-3xl bg-[#0f2747] p-8 shadow-soft sm:p-10" data-reveal>
+          <i class="fa-solid fa-lock text-4xl text-[#ED1C24]"></i>
+          <blockquote class="mt-4 text-lg leading-relaxed text-white/90">
+            Thank you for understanding our position — we take privacy and content protection
+            seriously, so proprietary designs and forms stay behind a secure login.
+          </blockquote>
+          <div class="mt-6 flex items-center gap-3">
+            <span class="grid h-11 w-11 place-items-center rounded-full bg-[#ED1C24] font-display text-lg font-bold text-white">PF</span>
+            <div>
+              <p class="font-bold text-white">PrintFast Marketing Solutions</p>
+              <p class="text-sm text-white/60">Your Success Is Our Business</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DESIGN STUDIO VIDEO ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> Free Design Studio
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">See how easy it is to order &amp; design</h2>
+        <p class="lead mt-4 text-ink-600">
+          Here is an example of one of our products to show you how simple it is to order and design
+          your items in our Design Studio — for FREE.
+        </p>
+      </div>
+
+      <div class="mx-auto mt-10 max-w-3xl" data-reveal>
+        <a
+          href={designStudioVideoUrl}
+          target="_blank"
+          rel="noopener"
+          class="group relative block overflow-hidden rounded-3xl ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40"
+          aria-label="Watch the PrintFast Design Studio product demo video"
+        >
+          <img
+            src={designStudioVideoImg}
+            alt="Watch how to design and order a PrintFast product in the Design Studio"
+            class="w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="absolute inset-0 grid place-items-center">
+            <span class="grid h-20 w-20 place-items-center rounded-full bg-[#ED1C24] text-white shadow-xl transition-transform group-hover:scale-110">
+              <i class="fa-solid fa-play text-2xl"></i>
+            </span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PRODUCT CATALOG ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-layer-group"></i> Explore The Catalog
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Marketing products built for your trade</h2>
+        <p class="lead mt-4 text-ink-600">
+          Everything from printed forms and ID badges to postcards, door hangers and newsletters —
+          all designed to help you grow your home service company.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {catalog.map((item) => (
+          <a
+            href={item.href}
+            class="group flex flex-col rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40"
+            data-reveal
+          >
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-[#fde8e9] text-[#ED1C24]">
+              <i class:list={['fa-solid', item.icon, 'text-lg']}></i>
+            </span>
+            <h3 class="mt-4 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{item.title}</h3>
+            <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-600">{item.description}</p>
+            <span class="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#ED1C24]">
+              View More <i class="fa-solid fa-arrow-right text-xs transition-transform group-hover:translate-x-0.5"></i>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== HOW IT WORKS ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-list-check"></i> How It Works
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">From register to mailbox in four steps</h2>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {steps.map((step, i) => (
+          <div class="relative flex flex-col rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft" data-reveal>
+            <span class="grid h-11 w-11 place-items-center rounded-full bg-[#ED1C24] font-display text-lg font-bold text-white">
+              {i + 1}
+            </span>
+            <h3 class="mt-4 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{step.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-600">{step.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== HAVE QUESTIONS / CONTACT ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-20" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+        <div class="relative grid items-center gap-10 lg:grid-cols-2">
+          <div>
+            <h2 class="heading-lg text-white">
+              Have <span class="text-[#ED1C24]">questions?</span>
+            </h2>
+            <p class="mt-5 text-lg leading-relaxed text-white/85">
+              We’re available from 8 AM to 5 PM ET, Monday to Friday — our team is here to help you
+              get set up and place your first order.
+            </p>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a
+                href="tel:800-810-4818"
+                class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+              >
+                <i class="fa-solid fa-phone text-xs"></i> Call 800-810-4818
+              </a>
+              <a
+                href={contactHref}
+                class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+              >
+                Contact Us
+              </a>
+            </div>
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="rounded-2xl bg-white/5 p-6 ring-1 ring-white/10">
+              <i class="fa-solid fa-phone text-2xl text-[#ED1C24]"></i>
+              <h3 class="mt-3 text-sm font-extrabold uppercase tracking-wide text-white">Call Us</h3>
+              <p class="mt-1 text-sm text-white/70">800-810-4818</p>
+            </div>
+            <div class="rounded-2xl bg-white/5 p-6 ring-1 ring-white/10">
+              <i class="fa-solid fa-clock text-2xl text-[#ED1C24]"></i>
+              <h3 class="mt-3 text-sm font-extrabold uppercase tracking-wide text-white">Hours</h3>
+              <p class="mt-1 text-sm text-white/70">8 AM – 5 PM ET, Mon–Fri</p>
+            </div>
+            <div class="rounded-2xl bg-white/5 p-6 ring-1 ring-white/10">
+              <i class="fa-solid fa-right-to-bracket text-2xl text-[#ED1C24]"></i>
+              <h3 class="mt-3 text-sm font-extrabold uppercase tracking-wide text-white">Register</h3>
+              <a href={contactHref} class="mt-1 inline-block text-sm text-white/70 hover:text-white">Create your account</a>
+            </div>
+            <div class="rounded-2xl bg-white/5 p-6 ring-1 ring-white/10">
+              <i class="fa-solid fa-store text-2xl text-[#ED1C24]"></i>
+              <h3 class="mt-3 text-sm font-extrabold uppercase tracking-wide text-white">Shop</h3>
+              <a href={shopHref('all-products')} class="mt-1 inline-block text-sm text-white/70 hover:text-white">Browse all products</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ShopLayout>

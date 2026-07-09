@@ -1,0 +1,397 @@
+---
+import ShopLayout from '@layouts/ShopLayout.astro';
+import { shopHref } from '@data/shop';
+import { getContactHref } from '@data/pricing';
+import ContactForm from '@components/ContactForm.astro';
+
+const contactHref = getContactHref('digital-marketing-services');
+
+// Original PrintFast image assets (served from the same CDN/S3 the live store uses).
+const S3 = 'https://nklopsouqd.s3.us-west-1.amazonaws.com/printfast/images/common';
+const heroImg = `${S3}/Recruiting_Cards.png?1700846809`;
+
+const whyChoose = [
+  {
+    img: `${S3}/jumbo-sized_postcard.png?1700750820`,
+    title: 'Credit-Card Size',
+    subtitle: 'Easy to Carry & Share',
+    description:
+      '3.375" × 2.125" with rounded corners, just the size of a credit card. Easy to carry and share when you meet a service-minded individual.',
+  },
+  {
+    img: `${S3}/Full_Color_Print.png?1700583800`,
+    title: 'High Gloss',
+    subtitle: 'Full-Color Print',
+    description:
+      'Available in three different stocks (paper or plastics) with high-gloss full-color print.',
+  },
+  {
+    img: `${S3}/Professionally_written_and_editable.png?1700751004`,
+    title: 'Professionally',
+    subtitle: 'Designed & Editable',
+    description:
+      'All our recruiting cards are professionally designed and can be customized as per your needs.',
+  },
+];
+
+const stocks = [
+  {
+    icon: 'fa-file-lines',
+    title: 'Card Stock',
+    description:
+      'A budget-friendly option that still makes a professional, polished first impression with any candidate.',
+  },
+  {
+    icon: 'fa-id-card',
+    title: 'Lightweight Plastic',
+    description:
+      'A durable, wallet-ready card that feels a step above paper and holds up to everyday carry.',
+  },
+  {
+    icon: 'fa-gem',
+    title: 'Heavyweight Plastic',
+    description:
+      'A substantial, premium feel that signals your company is well-established and serious about hiring.',
+  },
+];
+
+const didYouKnow = [
+  'Our Recruiting Cards pricing starts at 9¢ each for a quantity of 500.',
+  'Same size as a credit card — 3.375" × 2.125" with rounded corners.',
+  'Feel free to contact us for more information.',
+];
+
+const faqs = [
+  {
+    question: 'What size are PrintFast recruiting cards?',
+    answer:
+      'Recruiting cards are the same size as a standard credit card — 3.375" × 2.125" with rounded corners — so they slip easily into a wallet and are simple to carry and hand out.',
+  },
+  {
+    question: 'What materials can recruiting cards be printed on?',
+    answer:
+      'They can be printed on card stock, lightweight plastic or heavyweight plastic to suit any budget. Choosing a heavier, more substantial material signals that your company is well-established and serious about hiring.',
+  },
+  {
+    question: 'How much do recruiting cards cost?',
+    answer:
+      'Recruiting Cards pricing starts at just 9¢ each for a quantity of 500. Contact us for detailed pricing across the different stock options.',
+  },
+  {
+    question: 'Can I customize the design?',
+    answer:
+      'Yes. All of our recruiting cards are professionally designed and can be customized to fit your brand, benefits and hiring message.',
+  },
+];
+---
+
+<ShopLayout
+  title="Recruiting Cards for Home Service Pros | Credit-Card Size Hiring Cards"
+  crumb="Recruiting Cards"
+  description="PrintFast recruiting cards make a strong first impression with every potential hire. Credit-card sized, high-gloss full color on paper or plastic — starting at just 9¢ each."
+  keywords={[
+    'recruiting cards',
+    'hiring cards',
+    'home service recruiting',
+    'credit card size recruiting cards',
+    'employee recruitment print',
+    'plastic recruiting cards',
+    'recruiting card printing',
+  ]}
+  faqs={faqs}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: 'PrintFast Recruiting Cards',
+    description:
+      'Credit-card sized recruiting cards with high-gloss full-color print on card stock, lightweight plastic or heavyweight plastic. Starting at 9¢ each.',
+    brand: { '@type': 'Brand', name: 'PrintFast' },
+    category: 'Recruiting & Hiring Cards',
+  }}
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="relative overflow-hidden bg-[#0f2747]">
+    <span aria-hidden="true" class="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+    <span aria-hidden="true" class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></span>
+
+    <div class="container-pf relative py-14 sm:py-16 lg:py-24">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+            Recruiting &amp; Hiring
+          </p>
+          <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Recruiting <span class="text-[#ED1C24]">Cards</span>
+          </h1>
+          <p class="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Are you actively looking for new team members to grow your business? Even if you're not
+            ready to hire at this moment, it's important to build and maintain a list of qualified,
+            interested people ready to come aboard when you need them. Handing out recruiting cards
+            should be an ongoing, business-building process.
+          </p>
+          <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Recruiting cards are an invaluable tool for making your best first impression with any
+            potential new hire. They show you're serious about offering a position with generous
+            benefits — and a heavier, more substantial card suggests your company is well-established.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Contact Us <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('all-products')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              View All Products
+            </a>
+          </div>
+        </div>
+
+        <div class="relative" data-reveal>
+          <img
+            src={heroImg}
+            alt="PrintFast recruiting cards for home service professionals"
+            class="mx-auto h-auto w-full max-w-md rounded-2xl"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== INTRO / STORE ACCESS ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-id-card"></i> Make a Strong First Impression
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Always be recruiting</h2>
+        <p class="lead mt-5 text-ink-600">
+          These cards are the same size as a credit card and can be printed on card stock,
+          lightweight plastic or heavyweight plastic to suit any budget. To obtain detailed product
+          information and pricing — and access to our complete online store with hundreds of
+          products for the home service professional — please create an account or log in.
+        </p>
+        <div class="mt-8 flex flex-wrap justify-center gap-3">
+          <a
+            href={contactHref}
+            class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+          >
+            Create an Account / Log In <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHY CHOOSE PRINTFAST ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-bolt"></i> Why PrintFast
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Why choose PrintFast for your recruiting cards?</h2>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {whyChoose.map((w) => (
+          <div class="flex flex-col items-center rounded-2xl bg-white p-8 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <img
+              src={w.img}
+              alt={`${w.title} ${w.subtitle}`}
+              width="120"
+              height="120"
+              class="h-20 w-20 object-contain"
+              loading="lazy"
+              decoding="async"
+            />
+            <h3 class="mt-4 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{w.title}</h3>
+            <p class="text-sm font-extrabold uppercase tracking-wide text-[#ED1C24]">{w.subtitle}</p>
+            <p class="mt-3 text-sm leading-relaxed text-ink-600">{w.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== STOCK OPTIONS ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-layer-group"></i> Choose Your Stock
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Three materials to suit any budget</h2>
+        <p class="lead mt-5 text-ink-600">
+          Using a heavier or more substantial material for your recruiting card suggests that your
+          company is well-established and serious about hiring.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {stocks.map((s) => (
+          <div class="flex flex-col rounded-2xl bg-white p-8 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-[#fde8e9] text-xl text-[#ED1C24]">
+              <i class={`fa-solid ${s.icon}`}></i>
+            </span>
+            <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{s.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-600">{s.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DID YOU KNOW + TESTIMONIAL ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="grid items-center gap-10 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-lightbulb"></i> Did You Know?
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">A little goes a long way</h2>
+          <ul class="mt-8 space-y-4">
+            {didYouKnow.map((d) => (
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+                  <i class="fa-solid fa-check text-[10px]"></i>
+                </span>
+                <span class="text-ink-700">{d}</span>
+              </li>
+            ))}
+          </ul>
+          <a
+            href={contactHref}
+            class="mt-8 inline-flex items-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+          >
+            Get More Information <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Testimonial -->
+        <div class="relative rounded-3xl bg-[#0f2747] p-8 shadow-soft sm:p-10" data-reveal>
+          <i class="fa-solid fa-quote-left text-4xl text-[#ED1C24]"></i>
+          <blockquote class="mt-4 text-lg leading-relaxed text-white/90">
+            Great company all around!!! From the people taking orders to the editing/proof team
+            making sure it's correct — I would not go with anyone else!! We got into a bind with a
+            backdrop we needed and the team did not hesitate getting our backdrop out fast and ready
+            for our show!!! Thanks team!!
+          </blockquote>
+          <div class="mt-6 flex items-center gap-3">
+            <span class="grid h-11 w-11 place-items-center rounded-full bg-[#ED1C24] font-display text-lg font-bold text-white">D</span>
+            <div>
+              <p class="font-bold text-white">Derek B.</p>
+              <p class="text-sm text-white/60">PrintFast client</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-circle-question"></i> FAQs
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Recruiting card questions, answered</h2>
+      </div>
+
+      <div class="mx-auto mt-10 max-w-3xl space-y-4">
+        {faqs.map((f) => (
+          <details class="group rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft transition-all open:ring-[#ED1C24]/40" data-reveal>
+            <summary class="flex cursor-pointer items-center justify-between gap-4 text-base font-extrabold text-[#0f2747] [&::-webkit-details-marker]:hidden">
+              {f.question}
+              <span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24] transition-transform group-open:rotate-45">
+                <i class="fa-solid fa-plus text-xs"></i>
+              </span>
+            </summary>
+            <p class="mt-4 text-sm leading-relaxed text-ink-600">{f.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== EXPLORE MORE / CTA ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-20" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+        <div class="relative max-w-3xl">
+          <h2 class="heading-lg text-white">
+            Want to explore our <span class="text-[#ED1C24]">other products?</span>
+          </h2>
+          <p class="mt-5 text-lg leading-relaxed text-white/85">
+            Visit our online store with over 100 marketing products for the home service
+            professional by registering for access.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Register Now <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('all-products')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              Browse All Products
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONNECT WITH US ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="grid gap-10 lg:grid-cols-2 lg:items-start">
+        <div data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-headset"></i> Connect With Us
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">We're here to help!</h2>
+          <p class="lead mt-5 text-ink-600">
+            We're available from 8 AM to 5 PM ET, Monday to Friday — our team is here to help with
+            pricing, artwork and any questions about your recruiting cards.
+          </p>
+          <ul class="mt-8 space-y-4">
+            <li class="flex items-center gap-3">
+              <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+                <i class="fa-solid fa-phone"></i>
+              </span>
+              <a href="tel:8008104818" class="text-lg font-bold text-[#0f2747] hover:text-[#ED1C24]">800-810-4818</a>
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+                <i class="fa-solid fa-envelope"></i>
+              </span>
+              <a href="mailto:info@print-fast.com" class="text-lg font-bold text-[#0f2747] hover:text-[#ED1C24]">info@print-fast.com</a>
+            </li>
+          </ul>
+        </div>
+
+        <div data-reveal>
+          <ContactForm
+            title="Have questions?"
+            subtitle="Send us a note and our team will get back to you with pricing and details."
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+</ShopLayout>

@@ -1,0 +1,324 @@
+---
+import ShopLayout from '@layouts/ShopLayout.astro';
+import { shopHref } from '@data/shop';
+import { getContactHref } from '@data/pricing';
+
+const contactHref = getContactHref('digital-marketing-services');
+
+// Original PrintFast image assets (served from the same CDN/S3 the live store uses).
+const S3 = 'https://nklopsouqd.s3.us-west-1.amazonaws.com/printfast/images/common';
+
+const whyChoose = [
+  {
+    img: `${S3}/jumbo-sized_postcard.png?1700750820`,
+    title: 'Jumbo-Sized Postcard',
+    description: 'An 6” × 11” Jumbo sized postcard to stand out in the mailbox.',
+  },
+  {
+    img: `${S3}/Full_Color_Print.png?1700583800`,
+    title: 'High Gloss Full Color Print',
+    description: 'Attract potential customers with our high glossy card stock, printed in full color.',
+  },
+  {
+    img: `${S3}/Professionally_written_and_editable.png?1700751004`,
+    title: 'Professionally Designed & Editable',
+    description: 'All our Seasonal Postcards are professionally designed and can be customized as per your needs.',
+  },
+  {
+    img: `${S3}/PF_subtle_marketing.png?1700994681`,
+    title: 'Build Brand Awareness',
+    description: 'Sending postcards to your prospect market each month is the best way to build your brand awareness.',
+  },
+  {
+    img: `${S3}/Brand-Specific_Customized_Design.png?1700994590`,
+    title: 'Brand-Specific Customized Design',
+    description: 'Our pricing includes placing your company logo, contact information, coupons and changing colors as per your brand.',
+  },
+];
+
+const didYouKnow = [
+  'Our Seasonal Postcards cost as low as 42¢ each (all costs including postage) for a minimum quantity of 500.',
+  'No contracts or commitments for continued mailings.',
+  'Feel free to contact us for more information.',
+];
+
+const vdpFields = ['Homeowner’s name', 'Personalized coupons', 'Services offered', 'And more'];
+
+const relatedProducts = [
+  {
+    title: 'Radius Postcards',
+    href: shopHref('radius-postcards'),
+    description: 'Build credibility in the neighborhood with targeted, customizable Radius Postcards.',
+  },
+  {
+    title: 'Service Request Postcards',
+    href: shopHref('service-request-postcards'),
+    description: 'Send service reminders to existing clients and prospect new ones at the same time.',
+  },
+  {
+    title: 'Thank You Postcards',
+    href: shopHref('thank-you-postcards'),
+    description: 'Simple, low-cost and personalized thank-you postcards for your homeowners.',
+  },
+  {
+    title: 'All Postcards',
+    href: shopHref('printfast-postcards'),
+    description: 'Explore every postcard program PrintFast offers for the home service professional.',
+  },
+];
+---
+
+<ShopLayout
+  title="Seasonal Postcards | Jumbo 6×11 Direct Mail for Home Service Pros"
+  crumb="Seasonal Postcards"
+  description="PrintFast Seasonal Postcards are jumbo 6&quot;×11&quot; direct mail cards that land your brand in the homeowner's hands. Variable Data Printing, full-color gloss, as low as 42¢ each — no contracts."
+  keywords={[
+    'seasonal postcards',
+    'jumbo direct mail postcards',
+    'HVAC seasonal postcards',
+    'variable data printing postcards',
+    'home service postcard marketing',
+    'brand awareness postcards',
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: 'PrintFast Seasonal Postcards',
+    description:
+      'Jumbo 6"×11" seasonal direct mail postcards with Variable Data Printing for home service professionals. As low as 42¢ each, all-in.',
+    brand: { '@type': 'Brand', name: 'PrintFast' },
+    category: 'Direct Mail Postcards',
+  }}
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="relative overflow-hidden bg-[#0f2747]">
+    <span aria-hidden="true" class="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+    <span aria-hidden="true" class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></span>
+
+    <div class="container-pf relative py-14 sm:py-16 lg:py-24">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+            Direct Mail Postcards
+          </p>
+          <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Seasonal <span class="text-[#ED1C24]">Postcards</span>
+          </h1>
+          <p class="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Simply stated, if you do not ask for work you will not get any work. And sending
+            postcards to your prospect market each month is the best way to build your brand
+            awareness. Then, when homeowners are in need of service, your name will be top of mind.
+          </p>
+          <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Our postcards are really large at 11” × 6” and will easily stand out in the homeowner’s
+            mailbox. Select from our seasonal designs or our fun, entertaining year-round designs —
+            many with Variable Data Printing so you can insert key client information right into the
+            printing.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Contact Us <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('printfast-postcards')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              View All Postcards
+            </a>
+          </div>
+        </div>
+
+        <div class="relative" data-reveal>
+          <img
+            src={`${S3}/jumbo-sized_postcard.png?1700750820`}
+            alt="Jumbo 6 by 11 inch PrintFast seasonal direct mail postcard"
+            class="mx-auto h-auto w-full max-w-md rounded-2xl"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHY CHOOSE PRINTFAST ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-bolt"></i> Why PrintFast
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Why choose PrintFast for your Seasonal Postcards?</h2>
+      </div>
+
+      <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+        {whyChoose.map((w) => (
+          <div class="flex flex-col items-center rounded-2xl bg-white p-6 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <img
+              src={w.img}
+              alt={w.title}
+              width="120"
+              height="120"
+              class="h-20 w-20 object-contain"
+              loading="lazy"
+              decoding="async"
+            />
+            <h3 class="mt-4 text-sm font-extrabold uppercase tracking-wide text-[#0f2747]">{w.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-600">{w.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== VARIABLE DATA PRINTING ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div class="relative order-2 lg:order-1" data-reveal>
+          <img
+            src={`${S3}/variable-data-printing-mob.jpg?1701019398`}
+            alt="Variable Data Printing personalizing a PrintFast postcard with homeowner details"
+            class="mx-auto h-auto w-full rounded-2xl shadow-soft"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <div class="order-1 lg:order-2" data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> Variable Data Printing
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">Personalize every card you mail</h2>
+          <p class="mt-5 max-w-xl text-ink-700">
+            No other form of marketing can put your brand right into the homeowner’s hands. Many of
+            our postcard designs offer Variable Data Printing, so you can insert pieces of key client
+            information right into the printing — all customizable to your needs.
+          </p>
+          <ul class="mt-8 grid gap-4 sm:grid-cols-2">
+            {vdpFields.map((f) => (
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+                  <i class="fa-solid fa-check text-[10px]"></i>
+                </span>
+                <span class="font-semibold text-ink-800">{f}</span>
+              </li>
+            ))}
+          </ul>
+          <a
+            href={contactHref}
+            class="mt-8 inline-flex items-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+          >
+            Contact Us <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DID YOU KNOW + TESTIMONIAL ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="grid items-center gap-10 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-lightbulb"></i> Did You Know?
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">A little goes a long way</h2>
+          <ul class="mt-8 space-y-4">
+            {didYouKnow.map((d) => (
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+                  <i class="fa-solid fa-check text-[10px]"></i>
+                </span>
+                <span class="text-ink-700">{d}</span>
+              </li>
+            ))}
+          </ul>
+          <a
+            href={contactHref}
+            class="mt-8 inline-flex items-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+          >
+            Get More Information <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Testimonial -->
+        <div class="relative rounded-3xl bg-[#0f2747] p-8 shadow-soft sm:p-10" data-reveal>
+          <i class="fa-solid fa-quote-left text-4xl text-[#ED1C24]"></i>
+          <blockquote class="mt-4 text-lg leading-relaxed text-white/90">
+            We love Print Fast! They are professional, honest, impressive and fast. They do a
+            phenomenal job! I can’t say enough about them.
+          </blockquote>
+          <div class="mt-6 flex items-center gap-3">
+            <span class="grid h-11 w-11 place-items-center rounded-full bg-[#ED1C24] font-display text-lg font-bold text-white">S</span>
+            <div>
+              <p class="font-bold text-white">Savannah H.</p>
+              <p class="text-sm text-white/60">PrintFast client</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== RELATED PRODUCTS ===================== -->
+  <section class="section bg-ink-50/60 pt-0 sm:pt-0">
+    <div class="container-pf pt-16 sm:pt-20">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-address-card"></i> More Postcard Programs
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Explore our other postcards</h2>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {relatedProducts.map((p) => (
+          <div class="group flex flex-col rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <h3 class="text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{p.title}</h3>
+            <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-600">{p.description}</p>
+            <a href={p.href} class="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#ED1C24]">
+              View More <i class="fa-solid fa-arrow-right text-xs transition-transform group-hover:translate-x-0.5"></i>
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FINAL CTA ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-20" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+        <div class="relative max-w-3xl">
+          <h2 class="heading-lg text-white">
+            Want to explore our <span class="text-[#ED1C24]">other products?</span>
+          </h2>
+          <p class="mt-5 text-lg leading-relaxed text-white/85">
+            See all of our postcard designs as well as our 100+ marketing products built for the Home
+            Service Professional.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Register Now <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('all-products')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              Browse All Products
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ShopLayout>

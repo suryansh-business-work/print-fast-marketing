@@ -1,0 +1,399 @@
+---
+import ShopLayout from '@layouts/ShopLayout.astro';
+import { shopHref } from '@data/shop';
+import { getContactHref } from '@data/pricing';
+import ContactForm from '@components/ContactForm.astro';
+
+const contactHref = getContactHref('digital-marketing-services');
+
+// Original PrintFast image assets (served from the same CDN/S3 the live store uses).
+const CF = 'https://dqj17tese79do.cloudfront.net/printfast/images/common';
+const S3 = 'https://nklopsouqd.s3.us-west-1.amazonaws.com/printfast/images/common';
+
+const heroImg = `${CF}/thank_you_mailers_banner_1_1_.png?1695721598`;
+
+const whyChoose = [
+  {
+    img: `${S3}/PF_customer_appreciation.png?1700247160`,
+    title: 'Customer Appreciation',
+    description:
+      'Thank-you mailings convey gratitude for their business, making clients feel valued and appreciated.',
+  },
+  {
+    img: `${S3}/PF_customer_satisfaction.png?1700247160`,
+    title: 'Enhanced Customer Satisfaction',
+    description:
+      'Acknowledging their support fosters a positive experience, potentially leading to higher satisfaction with your services.',
+  },
+  {
+    img: `${S3}/PF_repeat_business.png?1700247218`,
+    title: 'Repeat Business',
+    description:
+      'Clients who feel appreciated are more likely to return for future home service needs.',
+  },
+  {
+    img: `${S3}/PF_referral_program.png?1700247244`,
+    title: 'Referral Opportunities',
+    description:
+      'Satisfied clients may recommend your services to friends and family, expanding your client base.',
+  },
+  {
+    img: `${S3}/PF_brand_reinforcement.png?1700247290`,
+    title: 'Brand Reinforcement',
+    description:
+      'Thank-you mailings serve as a reminder of your brand and the exceptional quality of your services, reinforcing client loyalty.',
+  },
+  {
+    img: `${S3}/PF_subtle_marketing.png?1700247105`,
+    title: 'Subtle Marketing',
+    description:
+      'They can include promotional offers or incentives, increasing the chances of future bookings and boosting revenue.',
+  },
+];
+
+const greatFeatures = [
+  'All our products include proofs for your approval.',
+  'All products get delivered to the Post Office in 2 business days.',
+  'No contracts or commitments.',
+  'Prices start at 74¢ each (minimum 10).',
+  'Pricing is all-inclusive with postage and delivery to the Post Office.',
+];
+
+const relatedProducts = [
+  {
+    title: 'Thank You Postcards',
+    href: shopHref('thank-you-postcards'),
+    description:
+      'A simple, low-cost, fast and personalized Thank You Postcard program for your homeowners.',
+  },
+  {
+    title: 'Referral Mailers',
+    href: shopHref('referral-mailers'),
+    description:
+      'Turn satisfied clients into your best marketing channel with targeted referral mailings.',
+  },
+  {
+    title: 'Thank You Programs',
+    href: shopHref('thank-you-programs'),
+    description:
+      'Automated, ongoing thank-you touchpoints that keep your brand top of mind all year long.',
+  },
+  {
+    title: 'Membership Mailings',
+    href: shopHref('membership-mailings'),
+    description:
+      'Reward loyal customers and reinforce long-term relationships with membership mailings.',
+  },
+];
+---
+
+<ShopLayout
+  title="Thank You Mailers | Customer Appreciation Direct Mail for Home Service Pros"
+  crumb="Thank You Mailers"
+  description="PrintFast Thank You Mailers help home service pros build goodwill, earn repeat business and referrals. Postcards & greeting-card mailers from 74¢ each, no contracts."
+  keywords={[
+    'thank you mailers',
+    'customer appreciation mailers',
+    'thank you direct mail',
+    'home service thank you cards',
+    'greeting card mailers',
+    'referral mailers',
+    'repeat business marketing',
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: 'PrintFast Thank You Mailers',
+    description:
+      'Thank-you postcards and greeting-card style mailers that foster goodwill, repeat business and referrals for home service professionals.',
+    brand: { '@type': 'Brand', name: 'PrintFast' },
+    category: 'Direct Mail',
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'USD',
+      price: '0.74',
+      availability: 'https://schema.org/InStock',
+    },
+  }}
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="relative overflow-hidden bg-[#0f2747]">
+    <span aria-hidden="true" class="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+    <span aria-hidden="true" class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></span>
+
+    <div class="container-pf relative py-14 sm:py-16 lg:py-24">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+            Direct Mail Marketing
+          </p>
+          <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Thank You <span class="text-[#ED1C24]">Mailers</span>
+          </h1>
+          <p class="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Sending thank-you mailings to home service clients fosters goodwill, enhances customer
+            satisfaction, and encourages repeat business and referrals. It also serves as a subtle
+            marketing tool, reinforcing your brand and maintaining a positive client-provider
+            relationship for long-term success in the competitive home service industry.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Contact Us <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('all-products')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              View All Products
+            </a>
+          </div>
+        </div>
+
+        <div class="relative" data-reveal>
+          <img
+            src={heroImg}
+            alt="PrintFast Thank You Mailers direct mail marketing banner"
+            class="mx-auto h-auto w-full max-w-xl rounded-2xl shadow-glow"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHY CHOOSE PRINTFAST ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-heart"></i> Why PrintFast
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">
+          Why choose PrintFast for sending your <span class="text-[#ED1C24]">Thank You Mailings?</span>
+        </h2>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {whyChoose.map((w) => (
+          <div class="flex flex-col items-center rounded-2xl bg-white p-7 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <img
+              src={w.img}
+              alt={w.title}
+              width="120"
+              height="120"
+              class="h-20 w-20 object-contain"
+              loading="lazy"
+              decoding="async"
+            />
+            <h3 class="mt-4 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{w.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-600">{w.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DID YOU KNOW ===================== -->
+  <section class="section-tight bg-ink-50/60">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-12 text-center sm:p-14" data-reveal>
+        <span aria-hidden="true" class="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-20 -left-20 h-60 w-60 rounded-full bg-white/5 blur-3xl"></span>
+        <div class="relative mx-auto max-w-3xl">
+          <p class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-white">
+            <i class="fa-solid fa-lightbulb text-[#ED1C24]"></i> Did You Know?
+          </p>
+          <p class="mt-5 text-xl leading-relaxed text-white/90 sm:text-2xl">
+            All our Thank You Mailers are available as <span class="font-bold text-white">postcards</span> and
+            <span class="font-bold text-white">greeting card style mailers</span> — with and without gift cards.
+            Isn't that great?
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHAT'S SO GREAT ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="grid items-center gap-10 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-star"></i> What's So Great?
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">What's so great about our products?</h2>
+          <ul class="mt-8 space-y-4">
+            {greatFeatures.map((f) => (
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+                  <i class="fa-solid fa-check text-[10px]"></i>
+                </span>
+                <span class="text-ink-700">{f}</span>
+              </li>
+            ))}
+          </ul>
+          <a
+            href={contactHref}
+            class="mt-8 inline-flex items-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+          >
+            Get Started <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Pricing highlight card -->
+        <div class="relative rounded-3xl bg-white p-8 ring-1 ring-ink-100 shadow-soft sm:p-10" data-reveal>
+          <p class="text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">Prices start at</p>
+          <p class="mt-2 font-display text-6xl font-extrabold text-[#0f2747]">74¢<span class="text-2xl font-bold text-ink-500"> / each</span></p>
+          <p class="mt-2 text-sm text-ink-600">Minimum order of 10 — all-inclusive with postage.</p>
+          <div class="mt-8 grid gap-4">
+            <div class="flex items-center gap-3 rounded-xl bg-ink-50/70 px-4 py-3">
+              <i class="fa-solid fa-file-circle-check text-[#ED1C24]"></i>
+              <span class="text-sm font-semibold text-[#0f2747]">Free proofs for your approval</span>
+            </div>
+            <div class="flex items-center gap-3 rounded-xl bg-ink-50/70 px-4 py-3">
+              <i class="fa-solid fa-truck-fast text-[#ED1C24]"></i>
+              <span class="text-sm font-semibold text-[#0f2747]">At the Post Office in 2 business days</span>
+            </div>
+            <div class="flex items-center gap-3 rounded-xl bg-ink-50/70 px-4 py-3">
+              <i class="fa-solid fa-handshake-simple text-[#ED1C24]"></i>
+              <span class="text-sm font-semibold text-[#0f2747]">No contracts or commitments</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TESTIMONIAL ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-comment-dots"></i> What Our Clients Say
+        </p>
+      </div>
+      <div class="relative mx-auto mt-10 max-w-3xl rounded-3xl bg-[#0f2747] p-8 shadow-soft sm:p-12" data-reveal>
+        <i class="fa-solid fa-quote-left text-4xl text-[#ED1C24]"></i>
+        <blockquote class="mt-4 text-lg leading-relaxed text-white/90">
+          I placed an order with them… They ended up making an honest mistake. After one phone call,
+          they called back and explained what happened and promised to make it right at no extra cost.
+          They showed integrity and honesty. I would definitely use and recommend them to anyone.
+        </blockquote>
+        <div class="mt-6 flex items-center gap-3">
+          <span class="grid h-11 w-11 place-items-center rounded-full bg-[#ED1C24] font-display text-lg font-bold text-white">J</span>
+          <div>
+            <p class="font-bold text-white">John W.</p>
+            <p class="text-sm text-white/60">PrintFast client</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== RELATED PRODUCTS ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-layer-group"></i> Explore More
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Pair with our other appreciation programs</h2>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {relatedProducts.map((p) => (
+          <div class="group flex flex-col rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <h3 class="text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{p.title}</h3>
+            <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-600">{p.description}</p>
+            <a href={p.href} class="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#ED1C24]">
+              View More <i class="fa-solid fa-arrow-right text-xs transition-transform group-hover:translate-x-0.5"></i>
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONSULTATION CTA ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-20" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+        <div class="relative max-w-3xl">
+          <h2 class="heading-lg text-white">
+            Not sure if Thank You Mailers is <span class="text-[#ED1C24]">right for you?</span>
+          </h2>
+          <p class="mt-5 text-lg leading-relaxed text-white/85">
+            Schedule a free consultation with our marketing experts. Let us demonstrate the impact
+            that Thank You Mailers will have when combined with your next marketing campaign.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Schedule a Call <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href="tel:800-810-4818"
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              <i class="fa-solid fa-phone text-xs"></i> 800-810-4818
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONNECT WITH US ===================== -->
+  <section class="section-tight bg-ink-50/60">
+    <div class="container-pf">
+      <div class="grid items-start gap-10 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-headset"></i> Connect With Us
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">We're here to help!</h2>
+          <p class="lead mt-4">
+            Have questions? We're available from 8 AM to 5 PM ET, Monday to Friday — our team is here
+            to help.
+          </p>
+          <div class="mt-8 space-y-4">
+            <a href="tel:800-810-4818" class="flex items-center gap-4 rounded-2xl bg-white p-5 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40">
+              <span class="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+                <i class="fa-solid fa-phone"></i>
+              </span>
+              <span>
+                <span class="block text-xs font-bold uppercase tracking-[0.18em] text-ink-500">Call Us</span>
+                <span class="block text-lg font-extrabold text-[#0f2747]">800-810-4818</span>
+              </span>
+            </a>
+            <a href={contactHref} class="flex items-center gap-4 rounded-2xl bg-white p-5 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40">
+              <span class="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+                <i class="fa-solid fa-envelope"></i>
+              </span>
+              <span>
+                <span class="block text-xs font-bold uppercase tracking-[0.18em] text-ink-500">Email Us</span>
+                <span class="block text-lg font-extrabold text-[#0f2747]">info@print-fast.com</span>
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <div data-reveal>
+          <ContactForm
+            title="Send us a message"
+            subtitle="Tell us about your goals and we'll show you how Thank You Mailers fit your next campaign."
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+</ShopLayout>

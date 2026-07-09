@@ -1,0 +1,332 @@
+---
+import ShopLayout from '@layouts/ShopLayout.astro';
+import { shopHref } from '@data/shop';
+import { getContactHref } from '@data/pricing';
+
+const contactHref = getContactHref('digital-marketing-services');
+
+// Original PrintFast image assets (served from the same CDN/S3 the live store uses).
+const heroImg =
+  'https://dqj17tese79do.cloudfront.net/printfast/images/common/iStock-45911864767.jpg?1642053475';
+
+// The home-service trades PrintFast has specialized in for 35+ years.
+const trades = [
+  { name: 'HVAC', icon: 'fa-temperature-half' },
+  { name: 'Plumbing', icon: 'fa-faucet-drip' },
+  { name: 'Electrical', icon: 'fa-bolt' },
+  { name: 'Roofing', icon: 'fa-house-chimney' },
+  { name: 'Siding', icon: 'fa-grip-lines' },
+  { name: 'Window', icon: 'fa-window-maximize' },
+  { name: 'Driveway', icon: 'fa-road' },
+  { name: 'Landscaping', icon: 'fa-tree' },
+  { name: 'Home Automation', icon: 'fa-house-signal' },
+];
+
+// Everything we can custom-manufacture that uses paper, plastic and ink.
+const products = [
+  { name: 'Banners', icon: 'fa-flag' },
+  { name: 'Booklets', icon: 'fa-book' },
+  { name: 'Brochures', icon: 'fa-book-open' },
+  { name: 'Business Cards', icon: 'fa-id-card' },
+  { name: 'Cards (Paper & Plastic)', icon: 'fa-credit-card' },
+  { name: 'Door Hangers', icon: 'fa-door-open', href: shopHref('door-hangers') },
+  { name: 'Flyers', icon: 'fa-file-lines' },
+  { name: 'Folders', icon: 'fa-folder' },
+  { name: 'Forms', icon: 'fa-clipboard-list' },
+  { name: 'Greeting Cards', icon: 'fa-envelope-open-text' },
+  { name: 'Home Show Marketing', icon: 'fa-house-flag' },
+  { name: 'Magazines', icon: 'fa-book-open-reader' },
+  { name: 'Magnets', icon: 'fa-magnet' },
+  { name: 'Memo / Note Pads', icon: 'fa-note-sticky' },
+  { name: 'Stationery', icon: 'fa-pen-nib' },
+  { name: 'Stickers', icon: 'fa-tags', href: shopHref('stickers') },
+  { name: 'Postcards', icon: 'fa-address-card', href: shopHref('printfast-postcards') },
+  { name: 'Posters', icon: 'fa-image' },
+  { name: 'Thank You Cards', icon: 'fa-heart', href: shopHref('thank-you-postcards') },
+  { name: 'Yard Signs', icon: 'fa-sign-hanging', href: shopHref('yard-signs') },
+];
+
+// The full-service capabilities we bring to home-service marketing.
+const services = [
+  { name: 'Full-Service Printing', icon: 'fa-print', href: shopHref('full-service-printing') },
+  { name: 'Creative Design', icon: 'fa-palette', href: shopHref('creative-design') },
+  { name: 'Direct Mail Marketing', icon: 'fa-envelope', href: shopHref('direct-mail-page') },
+  { name: 'Thank You Programs', icon: 'fa-gift', href: shopHref('thank-you-programs') },
+  { name: 'Membership Programs', icon: 'fa-id-badge', href: shopHref('membership-mailings') },
+  { name: 'Homeowner Experience Packs', icon: 'fa-box-open', href: shopHref('homeowner-experience-packs') },
+  { name: 'Online Marketing Services', icon: 'fa-bullhorn', href: contactHref },
+  { name: 'SEO, PPC & Analytics', icon: 'fa-magnifying-glass-chart', href: shopHref('free-digital-review') },
+  { name: 'Websites', icon: 'fa-globe', href: shopHref('web-design') },
+  { name: 'Coaching', icon: 'fa-chalkboard-user', href: contactHref },
+];
+---
+
+<ShopLayout
+  title="Who We Serve | Marketing & Printing for Home Service Pros"
+  crumb="Who We Serve"
+  description="For 35+ years PrintFast has served home service providers — HVAC, plumbing, electrical, roofing, siding, windows, landscaping and more — with custom print and marketing."
+  keywords={[
+    'home service marketing',
+    'HVAC marketing company',
+    'plumbing marketing',
+    'roofing direct mail',
+    'home service printing',
+    'contractor marketing services',
+    'who we serve printfast',
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'PrintFast Marketing for Home Service Providers',
+    description:
+      'Custom print products and marketing services built for home service trades including HVAC, plumbing, electrical, roofing, siding, windows, landscaping and home automation.',
+    provider: { '@type': 'Organization', name: 'PrintFast', telephone: '800-810-4818' },
+    areaServed: 'US',
+    audience: { '@type': 'Audience', audienceType: 'Home service providers' },
+  }}
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="relative overflow-hidden bg-[#0f2747]">
+    <span aria-hidden="true" class="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+    <span aria-hidden="true" class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></span>
+
+    <div class="container-pf relative py-14 sm:py-16 lg:py-24">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+            About PrintFast
+          </p>
+          <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Who We <span class="text-[#ED1C24]">Serve</span>
+          </h1>
+          <p class="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            As custom manufacturers, we can create nearly anything that uses paper, plastic and ink
+            that you need to build your business. However, as a full-service commercial printing and
+            marketing company, we do have a specialty.
+          </p>
+          <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            For over 35 years we have focused our products and marketing services on home service
+            providers. Basically, if you serve homeowners, we serve you.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Talk To Us <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('all-products')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              View All Products
+            </a>
+          </div>
+        </div>
+
+        <div class="relative" data-reveal>
+          <img
+            src={heroImg}
+            alt="PrintFast serving home service professionals across the trades"
+            class="mx-auto h-auto w-full max-w-lg rounded-2xl object-cover shadow-2xl"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TRADES WE SERVE ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-house-user"></i> The Trades
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Built for home service providers</h2>
+        <p class="lead mt-4">
+          Those trades would include HVAC, Plumbing, Electrical, Roofing, Siding, Window, Driveway,
+          Landscaping and Home Automation — if you serve homeowners, we serve you.
+        </p>
+      </div>
+
+      <div class="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-3">
+        {trades.map((t) => (
+          <div class="flex items-center gap-4 rounded-2xl bg-white p-5 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <span class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#fde8e9] text-lg text-[#ED1C24]">
+              <i class:list={['fa-solid', t.icon]} aria-hidden="true"></i>
+            </span>
+            <span class="text-sm font-extrabold uppercase tracking-wide text-[#0f2747]">{t.name}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WE SPEAK YOUR LANGUAGE ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-comments"></i> Our Focus
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">We speak your language</h2>
+          <p class="mt-5 text-ink-700">
+            Simply stated, we know what it takes to make homeowners convert to your brand. Our
+            products and services are geared to that single goal. From direct mail marketing in the
+            prospecting stage, all the way through to the client retention stage after you have
+            completed the sale, we do it all.
+          </p>
+          <p class="mt-4 text-ink-700">
+            Once you speak with us you’ll clearly understand that we speak your language. You need
+            great marketing tools and we have them — custom-made for you and the needs of your
+            company. As you grow, we’ll always be there to serve you at the highest level.
+          </p>
+        </div>
+
+        <ul class="grid gap-4" data-reveal>
+          {[
+            'Marketing tools custom-made for your company and how it grows.',
+            'Coverage across every stage — from prospecting to client retention.',
+            'A partner that knows the home service trades inside and out.',
+            'Full-service printing and marketing under one roof.',
+          ].map((point) => (
+            <li class="flex items-start gap-4 rounded-2xl bg-white p-5 ring-1 ring-ink-100 shadow-soft">
+              <span class="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+                <i class="fa-solid fa-check text-sm" aria-hidden="true"></i>
+              </span>
+              <span class="text-ink-700">{point}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PRODUCTS ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-boxes-stacked"></i> Products
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Nearly anything in paper, plastic & ink</h2>
+        <p class="lead mt-4">
+          As custom manufacturers, we can create the print marketing products your business needs to
+          stand out and stay top of mind.
+        </p>
+      </div>
+
+      <div class="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+        {products.map((p) => {
+          const Tag = p.href ? 'a' : 'div';
+          return (
+            <Tag
+              href={p.href}
+              class="group flex items-center gap-3 rounded-2xl bg-white p-4 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40"
+              data-reveal
+            >
+              <span class="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-[#0f2747] text-[#ED1C24]">
+                <i class:list={['fa-solid', p.icon]} aria-hidden="true"></i>
+              </span>
+              <span class="text-sm font-bold text-[#0f2747]">{p.name}</span>
+              {p.href && (
+                <i class="fa-solid fa-arrow-right ml-auto text-[10px] text-[#ED1C24] transition-transform group-hover:translate-x-0.5" aria-hidden="true"></i>
+              )}
+            </Tag>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SERVICES ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-briefcase"></i> Services
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Full-service marketing support</h2>
+        <p class="lead mt-4">
+          Just as you need tools to serve your clients, you need great marketing tools to grow your
+          business — and we deliver them end to end.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {services.map((s) => (
+          <a
+            href={s.href}
+            class="group flex flex-col items-start rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40"
+            data-reveal
+          >
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-[#fde8e9] text-lg text-[#ED1C24]">
+              <i class:list={['fa-solid', s.icon]} aria-hidden="true"></i>
+            </span>
+            <h3 class="mt-4 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{s.name}</h3>
+            <span class="mt-3 inline-flex items-center gap-2 text-sm font-bold text-[#ED1C24]">
+              Learn More <i class="fa-solid fa-arrow-right text-xs transition-transform group-hover:translate-x-0.5"></i>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TESTIMONIAL ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="relative mx-auto max-w-3xl rounded-3xl bg-[#0f2747] p-8 text-center shadow-soft sm:p-12" data-reveal>
+        <i class="fa-solid fa-quote-left text-4xl text-[#ED1C24]"></i>
+        <blockquote class="mt-5 text-xl leading-relaxed text-white/90 sm:text-2xl">
+          We love Print Fast! They are professional, honest, impressive and fast. They do a
+          phenomenal job! I can’t say enough about them.
+        </blockquote>
+        <div class="mt-6 flex items-center justify-center gap-3">
+          <span class="grid h-11 w-11 place-items-center rounded-full bg-[#ED1C24] font-display text-lg font-bold text-white">S</span>
+          <div class="text-left">
+            <p class="font-bold text-white">Savannah H.</p>
+            <p class="text-sm text-white/60">PrintFast client</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== HAVE QUESTIONS / CTA ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-20" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+        <div class="relative max-w-3xl">
+          <h2 class="heading-lg text-white">
+            Have <span class="text-[#ED1C24]">questions?</span>
+          </h2>
+          <p class="mt-5 text-lg leading-relaxed text-white/85">
+            We’re available from 8 AM to 5 PM ET, Monday to Friday — our team is here to help you
+            build the marketing tools your business needs.
+          </p>
+          <div class="mt-8 flex flex-wrap items-center gap-3">
+            <a
+              href="tel:8008104818"
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              <i class="fa-solid fa-phone text-xs"></i> Call 800-810-4818
+            </a>
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              Contact Our Team
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ShopLayout>

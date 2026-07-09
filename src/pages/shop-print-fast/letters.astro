@@ -1,0 +1,449 @@
+---
+import ShopLayout from '@layouts/ShopLayout.astro';
+import { shopHref } from '@data/shop';
+import { getContactHref } from '@data/pricing';
+import ContactForm from '@components/ContactForm.astro';
+
+const contactHref = getContactHref('digital-marketing-services');
+
+// Original PrintFast image assets (served from the same CDN/S3 the live store uses).
+const S3 = 'https://nklopsouqd.s3.us-west-1.amazonaws.com/printfast/images/common';
+const heroBanner =
+  'https://dqj17tese79do.cloudfront.net/printfast/images/common/Letters_Banner_1_.png?1695555805';
+
+// Why choose PrintFast for direct mail letters — original feature blocks + images.
+const whyChoose = [
+  {
+    img: `${S3}/PF_Detailed_Information.png?1697559103`,
+    title: 'Detailed Information',
+    description:
+      'Direct mail letters allow for comprehensive communication of your homeowner services and value.',
+  },
+  {
+    img: `${S3}/PF_Personalization.png?1697559103`,
+    title: 'Personalization',
+    description:
+      "Personalize letters with the recipient's name and specific details for a tailored, engaging communication.",
+  },
+  {
+    img: `${S3}/PF_Professionalism.png?1697559103`,
+    title: 'Professionalism',
+    description:
+      'Letters project professionalism, crucial for credibility and trust in home services, unlike postcards.',
+  },
+  {
+    img: `${S3}/PF_Incentives_Coupons.png?1697559103`,
+    title: 'Incentives and Coupons',
+    description:
+      'Incentives or coupons can be discreetly included in letters to boost response rates.',
+  },
+  {
+    img: `${S3}/PF_Storytelling.png?1697559103`,
+    title: 'Storytelling',
+    description:
+      'Letters foster storytelling and deeper homeowner connections. Share success stories, testimonials, or company history to build a stronger rapport.',
+  },
+  {
+    img: `${S3}/PF_Branding_Opportunities.png?1697559103`,
+    title: 'Branding Opportunities',
+    description:
+      'Utilize extra space in letters for branding, leaving a lasting impression on homeowners, increasing recall and engagement with your business.',
+  },
+];
+
+// What's so great about our products — benefits list.
+const benefits = [
+  'Free creative design of our letter designs',
+  'Proofs for your approval',
+  'Free demographic research and reports',
+  'Mail list rental (one use)',
+  'Delivered to the Post Office in 2 business days',
+  'Mail tracking and homeowner delivery report',
+  'No contracts or commitments',
+];
+
+// Our products — three letter mailing programs with pricing.
+const programs = [
+  {
+    step: '1',
+    title: 'Saturation',
+    points: [
+      'Every residence receives your letter',
+      'Prices start at 66¢ each',
+      'Pricing is all inclusive with postage and delivery to the Post Office',
+    ],
+  },
+  {
+    step: '2',
+    title: 'Targeted Prospect',
+    points: [
+      'Target homeowners using demographics',
+      'Prices start at 75¢ each',
+      'Reach only the households that match your ideal customer',
+    ],
+  },
+  {
+    step: '3',
+    title: 'Client Supplied List',
+    points: [
+      'Send us your client list',
+      'Prices start at 81¢ each',
+      'Perfect for re-engaging your existing homeowners',
+    ],
+  },
+];
+
+const faqs = [
+  {
+    question: 'How are direct mail letters better than postcards?',
+    answer:
+      'Letters offer personalized, detailed messages that foster trust and professionalism. They discreetly include incentives to boost response rates, and the extra space for branding and storytelling creates a stronger connection with potential clients — outperforming postcards in lead generation and conversion.',
+  },
+  {
+    question: 'What is included in the letter mailing price?',
+    answer:
+      'Pricing is all inclusive. It covers free creative design, proofs for your approval, free demographic research and reports, mail list rental for one use, delivery to the Post Office within 2 business days, and mail tracking with a homeowner delivery report.',
+  },
+  {
+    question: 'How much do direct mail letters cost?',
+    answer:
+      'Saturation letters start at 66¢ each, Targeted Prospect letters start at 75¢ each, and Client Supplied List letters start at 81¢ each — all inclusive of postage and delivery to the Post Office.',
+  },
+  {
+    question: 'Do I have to sign a contract?',
+    answer:
+      'No. There are no contracts or commitments. You can run a single campaign or continue mailing whenever it suits your marketing plans.',
+  },
+  {
+    question: 'How fast will my letters be mailed?',
+    answer:
+      'Once your design is approved, your letters are delivered to the Post Office within 2 business days, and you receive mail tracking plus a homeowner delivery report.',
+  },
+];
+---
+
+<ShopLayout
+  title="Direct Mail Letters for Home Service Marketing | Personalized Mailers"
+  crumb="Letters"
+  description="Direct mail letters from PrintFast deliver personalized, detailed messages that build trust and outperform postcards. All-inclusive pricing from 66¢ each, no contracts."
+  keywords={[
+    'direct mail letters',
+    'home service marketing letters',
+    'personalized direct mail',
+    'saturation mail letters',
+    'targeted prospect mailers',
+    'letter marketing for contractors',
+    'HVAC direct mail letters',
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: 'PrintFast Direct Mail Letters',
+    description:
+      'Personalized direct mail letters for home service professionals with all-inclusive design, printing, postage and delivery from 66¢ each.',
+    brand: { '@type': 'Brand', name: 'PrintFast' },
+    category: 'Direct Mail Letters',
+  }}
+  faqs={faqs}
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="relative overflow-hidden bg-[#0f2747]">
+    <span aria-hidden="true" class="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+    <span aria-hidden="true" class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></span>
+
+    <div class="container-pf relative py-14 sm:py-16 lg:py-24">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+            Direct Mail Marketing
+          </p>
+          <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Direct Mail <span class="text-[#ED1C24]">Letters</span>
+          </h1>
+          <p class="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            With direct mail letters in home service marketing, you can offer personalized, detailed
+            messages, fostering trust and professionalism. They discreetly include incentives,
+            boosting response rates.
+          </p>
+          <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            With more space for branding and storytelling, letters create a stronger connection with
+            potential clients. Ultimately, this approach outperforms postcards in lead generation and
+            conversion — making it a valuable choice for marketing your home services.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Contact Us <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('printfast-postcards')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              Compare Postcards
+            </a>
+          </div>
+        </div>
+
+        <div class="relative" data-reveal>
+          <img
+            src={heroBanner}
+            alt="PrintFast direct mail letters for home service marketing"
+            class="mx-auto h-auto w-full max-w-lg rounded-2xl shadow-soft"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHY CHOOSE PRINTFAST ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-envelope-open-text"></i> Why PrintFast
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">
+          Why choose PrintFast for sending your direct mail letters?
+        </h2>
+      </div>
+
+      <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {whyChoose.map((w) => (
+          <div class="flex flex-col items-center rounded-2xl bg-white p-7 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <img
+              src={w.img}
+              alt={w.title}
+              width="120"
+              height="120"
+              class="h-20 w-20 object-contain"
+              loading="lazy"
+              decoding="async"
+            />
+            <h3 class="mt-4 text-sm font-extrabold uppercase tracking-wide text-[#0f2747]">{w.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-600">{w.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHAT'S GREAT ABOUT OUR PRODUCTS ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="grid items-center gap-10 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-star"></i> Included With Every Order
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">What's so great about our products?</h2>
+          <p class="lead mt-4 text-ink-600">
+            Every direct mail letter campaign is fully managed and all-inclusive — from design to
+            delivery, we handle the details so you can focus on the calls that come in.
+          </p>
+          <a
+            href={contactHref}
+            class="mt-8 inline-flex items-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+          >
+            Get Started <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <ul class="grid gap-4 sm:grid-cols-2" data-reveal>
+          {benefits.map((b) => (
+            <li class="flex items-start gap-3 rounded-2xl bg-white p-4 ring-1 ring-ink-100 shadow-soft">
+              <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+                <i class="fa-solid fa-check text-[10px]"></i>
+              </span>
+              <span class="text-sm leading-relaxed text-ink-700">{b}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== OUR PRODUCTS / PROGRAMS ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-layer-group"></i> Our Products
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Choose the letter program that fits your goals</h2>
+        <p class="lead mt-4 text-ink-600">
+          Three all-inclusive ways to put your letter in the right mailbox — pricing includes postage
+          and delivery to the Post Office.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {programs.map((p) => (
+          <div class="group flex flex-col rounded-2xl bg-white p-7 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <span class="grid h-11 w-11 place-items-center rounded-full bg-[#ED1C24] font-display text-lg font-bold text-white">
+              {p.step}
+            </span>
+            <h3 class="mt-5 text-lg font-extrabold uppercase tracking-wide text-[#0f2747]">{p.title}</h3>
+            <ul class="mt-4 space-y-3">
+              {p.points.map((pt) => (
+                <li class="flex items-start gap-3">
+                  <span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+                    <i class="fa-solid fa-check text-[9px]"></i>
+                  </span>
+                  <span class="text-sm leading-relaxed text-ink-600">{pt}</span>
+                </li>
+              ))}
+            </ul>
+            <a href={contactHref} class="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#ED1C24]">
+              Request a Quote <i class="fa-solid fa-arrow-right text-xs transition-transform group-hover:translate-x-0.5"></i>
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TESTIMONIAL ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] p-8 shadow-soft sm:p-12 lg:p-16" data-reveal>
+        <span aria-hidden="true" class="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+        <div class="relative mx-auto max-w-3xl text-center">
+          <i class="fa-solid fa-quote-left text-4xl text-[#ED1C24]"></i>
+          <blockquote class="mt-6 text-lg leading-relaxed text-white/90 sm:text-xl">
+            I will never be able to express how much I have loved working with this company. They are
+            professional, hardworking, loyal, and above all else extremely helpful. I would recommend
+            PrintFast to anyone and I will always appreciate everything they did for me. Bill and Eric
+            you are the best!
+          </blockquote>
+          <div class="mt-8 flex items-center justify-center gap-3">
+            <span class="grid h-11 w-11 place-items-center rounded-full bg-[#ED1C24] font-display text-lg font-bold text-white">K</span>
+            <div class="text-left">
+              <p class="font-bold text-white">K J</p>
+              <p class="text-sm text-white/60">PrintFast client</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONSULTATION CTA ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-ink-50/70 px-6 py-14 ring-1 ring-ink-100 sm:p-14 lg:p-16" data-reveal>
+        <div class="grid items-center gap-8 lg:grid-cols-[1.4fr_1fr]">
+          <div>
+            <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+              <i class="fa-solid fa-phone-volume"></i> Free Consultation
+            </p>
+            <h2 class="heading-lg mt-4 text-[#0f2747]">
+              Not sure if Direct Mail Letters is right for you?
+            </h2>
+            <p class="lead mt-4 text-ink-600">
+              Schedule a free consultation with our marketing experts. Let us demonstrate the impact
+              that Direct Mail Letters will have when combined with your next marketing campaign.
+            </p>
+          </div>
+          <div class="flex flex-col gap-3 lg:items-end">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Schedule a Call <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a href="tel:800-810-4818" class="inline-flex items-center gap-2 text-sm font-bold text-[#0f2747]">
+              <i class="fa-solid fa-phone text-[#ED1C24]"></i> 800-810-4818
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-circle-question"></i> FAQs
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Direct mail letters, answered</h2>
+      </div>
+
+      <div class="mx-auto mt-10 max-w-3xl space-y-4">
+        {faqs.map((f) => (
+          <details class="group rounded-2xl bg-white p-5 ring-1 ring-ink-100 shadow-soft" data-reveal>
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
+              <span class="text-base font-bold text-[#0f2747]">{f.question}</span>
+              <span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24] transition-transform group-open:rotate-45">
+                <i class="fa-solid fa-plus text-xs"></i>
+              </span>
+            </summary>
+            <p class="mt-4 text-sm leading-relaxed text-ink-600">{f.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONNECT / CONTACT FORM ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-paper-plane"></i> Connect With Us
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">We're here to help!</h2>
+        <p class="lead mt-4 text-ink-600">
+          We're available from 8 AM to 5 PM ET, Monday to Friday. Call
+          <a href="tel:800-810-4818" class="font-bold text-[#ED1C24]">800-810-4818</a>
+          or send us a message and our team will get right back to you.
+        </p>
+      </div>
+      <div class="mt-10" data-reveal>
+        <ContactForm
+          title="Let's talk about your next letter campaign"
+          subtitle="Tell us about your home service business and we'll recommend the right direct mail letter program."
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FINAL CTA ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-20" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+        <div class="relative max-w-3xl">
+          <h2 class="heading-lg text-white">
+            Ready to put a <span class="text-[#ED1C24]">personalized letter</span> in every mailbox?
+          </h2>
+          <p class="mt-5 text-lg leading-relaxed text-white/85">
+            Explore all of our direct mail programs and 100+ marketing products built for the home
+            service professional.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Get Started <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('all-products')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              Browse All Products
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ShopLayout>

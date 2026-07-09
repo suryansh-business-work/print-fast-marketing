@@ -1,0 +1,376 @@
+---
+import ShopLayout from '@layouts/ShopLayout.astro';
+import { shopHref } from '@data/shop';
+import { getContactHref } from '@data/pricing';
+
+const contactHref = getContactHref('digital-marketing-services');
+
+// Original PrintFast image assets (served from the same CDN/S3 the live store uses).
+const S3 = 'https://nklopsouqd.s3.us-west-1.amazonaws.com/printfast/images/common';
+const STAGING = 'https://nklopsouqd.s3.us-west-1.amazonaws.com/stagingpr/images/common';
+const CF = 'https://dqj17tese79do.cloudfront.net/printfast/images/common';
+
+const heroImg = `${CF}/aerial_neighborhood.jpg?1642009208`;
+const sampleImg = `${S3}/Radius_PC_Aug_23.jpg?1692376081`;
+
+const whyChoose = [
+  {
+    img: `${S3}/jumbo-sized_postcard.png?1700750820`,
+    title: 'Jumbo-Sized Postcard',
+    description:
+      'A 6” × 11” Jumbo sized postcard stands out in the mail to share the good news that you’ve provided trusted and reliable service in the neighborhood.',
+  },
+  {
+    img: `${S3}/Full_Color_Print.png?1700583800`,
+    title: 'High Gloss Full Color Print',
+    description: 'Attract potential customers with our high glossy card stock, printed in full-color.',
+  },
+  {
+    img: `${S3}/Professionally_written_and_editable.png?1700751004`,
+    title: 'Professionally Written & Editable',
+    description: 'All our Radius Postcards are professionally designed and can be customized as per your needs.',
+  },
+  {
+    img: `${STAGING}/Promotions_and_Discounts.png?1695462530`,
+    title: 'Special Offers & Discounts',
+    description: 'Share special offers with other homeowners in the vicinity, and drive new sales.',
+  },
+  {
+    img: `${S3}/PF_subtle_marketing.png?1700247105`,
+    title: 'Expand Your Brand Visibility',
+    description:
+      'Radius postcards can help you increase your brand’s visibility in the neighborhood and will attract potential customers.',
+  },
+  {
+    img: `${S3}/PF_Tangible_Impact.png?1700246113`,
+    title: 'Local Targeting',
+    description:
+      'Just provide us with your service call information and we’ll target as few as 50 homes around each address.',
+  },
+];
+
+const howItWorks = [
+  {
+    title: 'Send us your service calls',
+    description:
+      'Just provide us with your service call information — the address where you recently completed trusted, reliable work.',
+  },
+  {
+    title: 'We target the neighbors',
+    description:
+      'We’ll target as few as 50 homes around each address — homes of a similar age and size that likely need the same service.',
+  },
+  {
+    title: 'We craft the message',
+    description:
+      'We custom craft the text to the home service you provide, so you speak directly to the homeowner about their HVAC system, roof, plumbing and more.',
+  },
+];
+
+const didYouKnow = [
+  'Our Radius Postcards cost only 67¢ with a minimum of 4 service addresses (200 total postcards per mailing).',
+  'No contracts or commitments for continued mailings.',
+  'Contact us today and we will show you just how easy it is to spread the good news around your target neighborhood.',
+];
+
+const relatedProducts = [
+  {
+    title: 'Seasonal Postcards',
+    href: shopHref('seasonal-postcards'),
+    icon: 'fa-calendar-star',
+    description: 'Stay top of mind all year with VDP-enabled seasonal postcard designs.',
+  },
+  {
+    title: 'Service Request Postcards',
+    href: shopHref('service-request-postcards'),
+    icon: 'fa-bell',
+    description: 'Send service reminders to existing clients and win back new prospecting business.',
+  },
+  {
+    title: 'Thank You Postcards',
+    href: shopHref('thank-you-postcards'),
+    icon: 'fa-heart',
+    description: 'Simple, low-cost, personalized thank-you postcards for your homeowners.',
+  },
+  {
+    title: 'All Postcards',
+    href: shopHref('printfast-postcards'),
+    icon: 'fa-layer-group',
+    description: 'Browse every jumbo direct mail postcard program built for home service pros.',
+  },
+];
+---
+
+<ShopLayout
+  title="Radius Postcards | Target the Neighbors of Every Service Call"
+  crumb="Radius Postcards"
+  description="PrintFast Radius Postcards target as few as 50 homes around each service address so neighbors hear about your trusted work — jumbo 6×11 full-color, from 67¢, no contracts."
+  keywords={[
+    'radius postcards',
+    'neighborhood direct mail',
+    'HVAC radius mailing',
+    'jumbo postcards',
+    'home service marketing',
+    'service call postcards',
+    'local targeting postcards',
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: 'PrintFast Radius Postcards',
+    description:
+      'Jumbo 6"×11" full-color direct mail postcards that target as few as 50 homes around each of your service call addresses.',
+    brand: { '@type': 'Brand', name: 'PrintFast' },
+    category: 'Direct Mail Postcards',
+    offers: {
+      '@type': 'Offer',
+      price: '0.67',
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+    },
+  }}
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="relative overflow-hidden bg-[#0f2747]">
+    <span aria-hidden="true" class="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+    <span aria-hidden="true" class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></span>
+
+    <div class="container-pf relative py-14 sm:py-16 lg:py-24">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+            Neighborhood Direct Mail
+          </p>
+          <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Radius <span class="text-[#ED1C24]">Postcards</span>
+          </h1>
+          <p class="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Have you just provided service to a homeowner? Chances are their neighbors need the same
+            service. Homes of a similar age and size are typically built in the same communities — so
+            when one home needs repair or replacement, others in the area are not far behind.
+          </p>
+          <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Begin the conversation with that target group by sending them a Radius Postcard with your
+            special offer — and turn one trusted service call into a whole street of new customers.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Contact Us <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('printfast-postcards')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              View All Postcards
+            </a>
+          </div>
+        </div>
+
+        <div class="relative" data-reveal>
+          <img
+            src={heroImg}
+            alt="Aerial view of a residential neighborhood targeted by PrintFast Radius Postcards"
+            class="mx-auto h-auto w-full max-w-lg rounded-2xl object-cover shadow-soft"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== HOW THE PROGRAM WORKS ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-location-dot"></i> How It Works
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">Our program is simple</h2>
+          <p class="mt-5 text-ink-600">
+            We’ll share the good news that you’ve provided trusted and reliable service to one of the
+            neighbors living on Main Street (for example). And if they contact you soon, you’d be happy
+            to provide the same service to them.
+          </p>
+
+          <ol class="mt-8 space-y-6">
+            {howItWorks.map((s, i) => (
+              <li class="flex items-start gap-4">
+                <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#ED1C24] font-display text-base font-bold text-white">
+                  {i + 1}
+                </span>
+                <div>
+                  <h3 class="text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{s.title}</h3>
+                  <p class="mt-1 text-sm leading-relaxed text-ink-600">{s.description}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+
+          <p class="mt-8 text-sm leading-relaxed text-ink-600">
+            To obtain detailed product information and pricing, and access to our complete online store
+            with hundreds of products for the home service professional, please
+            <a href={contactHref} class="font-bold text-[#ED1C24] hover:underline">create an account or log in</a>.
+          </p>
+        </div>
+
+        <div class="relative" data-reveal>
+          <img
+            src={sampleImg}
+            alt="Sample PrintFast Radius Postcard design mailed to a target neighborhood"
+            class="mx-auto h-auto w-full rounded-2xl object-cover shadow-soft ring-1 ring-ink-100"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHY CHOOSE PRINTFAST ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-bolt"></i> Why PrintFast
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Why choose PrintFast for your Radius Postcards?</h2>
+      </div>
+
+      <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {whyChoose.map((w) => (
+          <div class="flex flex-col items-center rounded-2xl bg-white p-6 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <img
+              src={w.img}
+              alt={w.title}
+              width="120"
+              height="120"
+              class="h-20 w-20 object-contain"
+              loading="lazy"
+              decoding="async"
+            />
+            <h3 class="mt-4 text-sm font-extrabold uppercase tracking-wide text-[#0f2747]">{w.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-600">{w.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DID YOU KNOW + TESTIMONIAL ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="grid items-center gap-10 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-lightbulb"></i> Did You Know?
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">A little goes a long way</h2>
+          <ul class="mt-8 space-y-4">
+            {didYouKnow.map((d) => (
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+                  <i class="fa-solid fa-check text-[10px]"></i>
+                </span>
+                <span class="text-ink-700">{d}</span>
+              </li>
+            ))}
+          </ul>
+          <a
+            href={contactHref}
+            class="mt-8 inline-flex items-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+          >
+            Get More Information <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Testimonial -->
+        <div class="relative rounded-3xl bg-[#0f2747] p-8 shadow-soft sm:p-10" data-reveal>
+          <i class="fa-solid fa-quote-left text-4xl text-[#ED1C24]"></i>
+          <blockquote class="mt-4 text-lg leading-relaxed text-white/90">
+            PrintFast is absolutely the BEST! We’ve been working with Bill and his team for a long time
+            and they are always helpful, responsive and provide quality work. Thank you for always going
+            above and beyond!
+          </blockquote>
+          <div class="mt-6 flex items-center gap-3">
+            <span class="grid h-11 w-11 place-items-center rounded-full bg-[#ED1C24] font-display text-lg font-bold text-white">S</span>
+            <div>
+              <p class="font-bold text-white">Savannah H.</p>
+              <p class="text-sm text-white/60">PrintFast client</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== RELATED PRODUCTS ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-address-card"></i> More Postcard Programs
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Explore our other postcard programs</h2>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {relatedProducts.map((p) => (
+          <a
+            href={p.href}
+            class="group flex flex-col rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40"
+            data-reveal
+          >
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-[#fde8e9] text-[#ED1C24]">
+              <i class={`fa-solid ${p.icon} text-lg`}></i>
+            </span>
+            <h3 class="mt-4 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{p.title}</h3>
+            <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-600">{p.description}</p>
+            <span class="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#ED1C24]">
+              View More <i class="fa-solid fa-arrow-right text-xs transition-transform group-hover:translate-x-0.5"></i>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FINAL CTA ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-20" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+        <div class="relative max-w-3xl">
+          <h2 class="heading-lg text-white">
+            Want to explore our <span class="text-[#ED1C24]">other products?</span>
+          </h2>
+          <p class="mt-5 text-lg leading-relaxed text-white/85">
+            Visit our online store with 100+ marketing products for the Home Service Professional. Call
+            us at <a href="tel:8008104818" class="font-bold text-white underline decoration-[#ED1C24] decoration-2 underline-offset-4">800-810-4818</a>,
+            8&nbsp;AM–5&nbsp;PM ET, Monday to Friday — our team is here to help!
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Register Now <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('all-products')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              Browse All Products
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ShopLayout>

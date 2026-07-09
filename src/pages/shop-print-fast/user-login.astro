@@ -1,0 +1,296 @@
+---
+import ShopLayout from '@layouts/ShopLayout.astro';
+import { shopHref } from '@data/shop';
+import { getContactHref } from '@data/pricing';
+
+const contactHref = getContactHref('digital-marketing-services');
+
+// What a customer can do once they are signed in — shown on the navy hero panel.
+const accountBenefits = [
+  {
+    icon: 'fa-clock-rotate-left',
+    title: 'View your order history',
+    description: 'See every past order, invoice and status in one place — no phone call required.',
+  },
+  {
+    icon: 'fa-rotate-right',
+    title: 'Reorder in one click',
+    description: 'Re-run a previous postcard, mailer or print job without rebuilding it from scratch.',
+  },
+  {
+    icon: 'fa-cloud-arrow-up',
+    title: 'Upload your artwork',
+    description: 'Send print-ready files straight from your account so your job starts faster.',
+  },
+  {
+    icon: 'fa-eye',
+    title: 'Track proofs & approvals',
+    description: 'Review proofs, request changes and approve artwork before anything goes to press.',
+  },
+];
+
+// Benefits of a PrintFast account — faithful to the legacy "Register" column copy.
+const registerBenefits = [
+  { icon: 'fa-images', text: 'Easily store your designs and place orders' },
+  { icon: 'fa-user-lock', text: 'Keep your information secure in our system' },
+  { icon: 'fa-envelope-circle-check', text: 'Get order and dispatch confirmation emails' },
+  { icon: 'fa-receipt', text: 'View all of your past orders' },
+  { icon: 'fa-rotate-right', text: 'Reorder your designs with a single click' },
+  { icon: 'fa-tag', text: 'No cost involved — registration is always free' },
+];
+
+const inputClass =
+  'w-full rounded-xl border-0 bg-white px-4 py-3 text-sm text-ink-900 ring-1 ring-ink-200 transition-shadow placeholder:text-ink-400 focus:outline-none focus:ring-2 focus:ring-[#ED1C24]';
+---
+
+<ShopLayout
+  title="Customer Login | Sign In to Your PrintFast Account"
+  crumb="Customer Login"
+  description="Sign in to your PrintFast customer account to view and reorder past orders, upload artwork and track proofs. Need an account? Call 800-810-4818 to get set up."
+  keywords={[
+    'PrintFast customer login',
+    'PrintFast account sign in',
+    'print order login',
+    'reorder printing',
+    'upload artwork login',
+    'PrintFast my account',
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Customer Login — PrintFast',
+    description:
+      'Sign in to your PrintFast customer account to manage orders, reorder designs, upload artwork and track proofs.',
+    publisher: {
+      '@type': 'Organization',
+      name: 'PrintFast',
+      telephone: '800-810-4818',
+    },
+  }}
+>
+  <!-- ===================== HERO / LOGIN SPLIT ===================== -->
+  <section class="relative overflow-hidden bg-[#0f2747]">
+    <span aria-hidden="true" class="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+    <span aria-hidden="true" class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></span>
+
+    <div class="container-pf relative py-14 sm:py-16 lg:py-24">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <!-- Left: what customers can do -->
+        <div data-reveal>
+          <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+            Customer Login
+          </p>
+          <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Your PrintFast <span class="text-[#ED1C24]">Account</span>
+          </h1>
+          <p class="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Sign in to manage everything in one place. Your account keeps your designs, orders and
+            proofs together so your next print or direct mail job moves faster.
+          </p>
+
+          <ul class="mt-8 space-y-4">
+            {accountBenefits.map((b) => (
+              <li class="flex items-start gap-4">
+                <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white/5 text-[#ED1C24] ring-1 ring-white/10">
+                  <i class:list={['fa-solid', b.icon, 'text-lg']} aria-hidden="true"></i>
+                </span>
+                <div>
+                  <p class="text-sm font-bold uppercase tracking-wide text-white">{b.title}</p>
+                  <p class="mt-1 text-sm leading-relaxed text-white/70">{b.description}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Right: login card -->
+        <div class="relative" data-reveal>
+          <div class="mx-auto w-full max-w-md rounded-3xl bg-white p-7 shadow-soft ring-1 ring-ink-100 sm:p-9">
+            <div class="text-center">
+              <span class="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-[#fde8e9] text-[#ED1C24]">
+                <i class="fa-solid fa-right-to-bracket text-xl" aria-hidden="true"></i>
+              </span>
+              <h2 class="mt-5 font-display text-2xl font-extrabold uppercase tracking-wide text-[#0f2747]">
+                Returning customers
+              </h2>
+              <p class="mt-2 text-sm text-ink-600">Sign in to your PrintFast account.</p>
+            </div>
+
+            <form
+              action="https://www.print-fast.com/user_login.php"
+              method="post"
+              class="mt-7 space-y-5"
+            >
+              <div>
+                <label for="email_signup" class="mb-1.5 block text-xs font-bold uppercase tracking-wide text-ink-700">
+                  Email <span class="text-[#ED1C24]">*</span>
+                </label>
+                <input
+                  type="email"
+                  name="email_signup"
+                  id="email_signup"
+                  required
+                  autocomplete="email"
+                  placeholder="you@company.com"
+                  class={inputClass}
+                />
+              </div>
+
+              <div>
+                <label for="password_signup" class="mb-1.5 block text-xs font-bold uppercase tracking-wide text-ink-700">
+                  Password <span class="text-[#ED1C24]">*</span>
+                </label>
+                <input
+                  type="password"
+                  name="password_signup"
+                  id="password_signup"
+                  required
+                  autocomplete="current-password"
+                  placeholder="Your password"
+                  class={inputClass}
+                />
+              </div>
+
+              <!-- Toggled by the "Remember me" checkbox below (empty = off, "1" = on). -->
+              <input type="hidden" name="is_auto_login" id="is_auto_login" value="" />
+
+              <div class="flex flex-wrap items-center justify-between gap-3">
+                <label for="remember_me" class="inline-flex cursor-pointer items-center gap-2 text-sm text-ink-600">
+                  <input
+                    type="checkbox"
+                    id="remember_me"
+                    class="h-4 w-4 rounded border-ink-300 text-[#ED1C24] focus:ring-[#ED1C24]"
+                  />
+                  Remember me
+                </label>
+                <a
+                  href="https://www.print-fast.com/forgotpassword.php"
+                  class="text-sm font-bold text-[#ED1C24] hover:text-[#c8161d]"
+                >
+                  Forgot password?
+                </a>
+              </div>
+
+              <button
+                type="submit"
+                name="btnlogin"
+                class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#ED1C24] px-7 py-3.5 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+              >
+                <i class="fa-solid fa-lock-open text-xs" aria-hidden="true"></i> Sign In
+              </button>
+              <input type="hidden" name="btnlogin_x" value="1" />
+              <input type="hidden" name="btnlogin_y" value="1" />
+            </form>
+
+            <p class="mt-6 border-t border-ink-100 pt-5 text-center text-sm text-ink-600">
+              Need an account?{' '}
+              <a href="tel:8008104818" class="font-bold text-[#0f2747] hover:text-[#ED1C24]">
+                Call 800-810-4818
+              </a>{' '}
+              to get set up.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== NEW TO PRINTFAST ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-user-plus"></i> New to PrintFast?
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">A dedicated account, at no cost</h2>
+        <p class="lead mt-5 text-ink-600">
+          Register with us and get a dedicated account to store your designs in a secure, simple and
+          affordable way. There is no cost involved for registration — here is what you get.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {registerBenefits.map((b) => (
+          <div class="flex items-start gap-4 rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft" data-reveal>
+            <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[#fde8e9] text-[#ED1C24]">
+              <i class:list={['fa-solid', b.icon, 'text-lg']} aria-hidden="true"></i>
+            </span>
+            <p class="text-sm font-semibold leading-relaxed text-ink-700">{b.text}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-10 text-center" data-reveal>
+        <a
+          href="tel:8008104818"
+          class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+        >
+          <i class="fa-solid fa-phone text-xs"></i> Call 800-810-4818 to get set up
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TROUBLE SIGNING IN / CONTACT ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-16" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+        <div class="relative grid items-center gap-8 lg:grid-cols-[1.4fr_1fr]">
+          <div>
+            <h2 class="heading-lg text-white">
+              Trouble <span class="text-[#ED1C24]">signing in?</span>
+            </h2>
+            <p class="mt-5 text-lg leading-relaxed text-white/85">
+              We are available from 8 AM to 5 PM ET, Monday to Friday. Call us or send a message and
+              our team will help you get back into your account — or set one up.
+            </p>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a
+                href="tel:8008104818"
+                class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+              >
+                <i class="fa-solid fa-phone text-xs"></i> Call 800-810-4818
+              </a>
+              <a
+                href={contactHref}
+                class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+              >
+                Send Us A Message
+              </a>
+            </div>
+            <p class="mt-6 text-sm text-white/70">
+              Ready to send files instead?{' '}
+              <a href={shopHref('upload-your-artwork')} class="font-bold text-white underline decoration-[#ED1C24] decoration-2 underline-offset-4 hover:text-[#ED1C24]">
+                Upload your artwork
+              </a>.
+            </p>
+          </div>
+
+          <div class="rounded-2xl bg-white/5 p-6 ring-1 ring-white/10">
+            <p class="text-xs font-bold uppercase tracking-[0.18em] text-[#ED1C24]">Hours</p>
+            <p class="mt-2 text-lg font-bold text-white">8 AM – 5 PM ET</p>
+            <p class="text-sm text-white/70">Monday to Friday</p>
+            <p class="mt-5 text-xs font-bold uppercase tracking-[0.18em] text-[#ED1C24]">Phone</p>
+            <p class="mt-2 text-lg font-bold text-white">800-810-4818</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sync the "Remember me" checkbox into the hidden is_auto_login field. -->
+  <script is:inline>
+    (function () {
+      var cb = document.getElementById('remember_me');
+      var hidden = document.getElementById('is_auto_login');
+      if (!cb || !hidden) return;
+      var sync = function () {
+        hidden.value = cb.checked ? '1' : '';
+      };
+      cb.addEventListener('change', sync);
+      sync();
+    })();
+  </script>
+</ShopLayout>

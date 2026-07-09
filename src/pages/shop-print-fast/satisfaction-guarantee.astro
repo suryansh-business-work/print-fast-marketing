@@ -1,0 +1,355 @@
+---
+import ShopLayout from '@layouts/ShopLayout.astro';
+import { shopHref } from '@data/shop';
+import { getContactHref } from '@data/pricing';
+
+const contactHref = getContactHref('digital-marketing-services');
+
+// The 9 promises that make up the PrintFast Satisfaction Guarantee Certificate.
+const guarantees = [
+  {
+    icon: 'fa-shield-halved',
+    title: 'We Value Your Company’s Data Guarantee',
+    description:
+      'Nothing is more important than your company data. When you share that data with us we guarantee that it will be held in the strictest confidence in a secure method and not put at risk in any way. Also, we will not share, sell or distribute it in any way.',
+  },
+  {
+    icon: 'fa-user-shield',
+    title: 'We Value Your Client’s Data Guarantee',
+    description:
+      'It’s taken you years to build your client base and all of that data is critical to the success of your company. We will always protect your client data and will not share, sell or distribute it in any way.',
+  },
+  {
+    icon: 'fa-face-smile',
+    title: 'We Value Your Satisfaction Guarantee',
+    description:
+      'We stand behind everything that we do — not just the quality of our products, but the services and actions that we take as we provide service to you.',
+  },
+  {
+    icon: 'fa-clock',
+    title: 'We Value Your Time Guarantee',
+    description:
+      'Your time is valuable and we respect that. We will only contact you as necessary to answer our most critical questions regarding your projects.',
+  },
+  {
+    icon: 'fa-people-group',
+    title: 'Experienced Team Guarantee',
+    description:
+      'Serving you at the highest level requires a hardworking, experienced team of dedicated individuals. We have the most talented designers, writers and press operators in the industry to support you with high quality offline and online services.',
+  },
+  {
+    icon: 'fa-award',
+    title: 'High-Quality Products Guarantee',
+    description:
+      'We will never cut corners to produce a cheaper product. We will use our expertise to use the most efficient processes and materials to provide you with a high-value product every time.',
+  },
+  {
+    icon: 'fa-truck-fast',
+    title: 'Fast, On-Time Service Guarantee',
+    description:
+      'We will always provide you with our products and services in the fastest, most efficient method possible. As custom manufacturers there are many processes involved and we will do our best to move your project along as quickly as possible.',
+  },
+  {
+    icon: 'fa-hand-holding-dollar',
+    title: 'Competitive Price Guarantee',
+    description:
+      'As custom manufacturers of high-quality marketing materials, we promise that our pricing will be competitive. Certainly other providers may offer products of lesser quality at a lower cost. However our commitment for high-value products remains our promise to you.',
+  },
+  {
+    icon: 'fa-eye',
+    title: 'No Surprises Guarantee',
+    description:
+      'No one likes to be surprised when moving through a project. We will do our best to explain every stage of the process in advance so you won’t receive any surprises along the way.',
+  },
+];
+
+const values = [
+  {
+    icon: 'fa-handshake',
+    title: 'Honesty',
+    description: 'Straightforward communication and fair dealing on every project, every time.',
+  },
+  {
+    icon: 'fa-scale-balanced',
+    title: 'Integrity',
+    description: 'We do what we say we will do, and we protect what you entrust to us.',
+  },
+  {
+    icon: 'fa-star',
+    title: 'Service at the Highest Level',
+    description: 'A commitment that has never changed since 1903 — more than 120 years of serving clients.',
+  },
+];
+
+const faqs = [
+  {
+    question: 'What is the PrintFast Satisfaction Guarantee?',
+    answer:
+      'The PrintFast Satisfaction Guarantee is our Satisfaction Guarantee Certificate — a set of nine promises covering your company data, your client data, product quality, on-time service, competitive pricing, respect for your time and a no-surprises process. It means we stand behind everything that we do, not just the quality of our products.',
+  },
+  {
+    question: 'How long has PrintFast been serving clients?',
+    answer:
+      'Our company values of honesty, integrity and serving you at the highest level have never changed since 1903 — over 120 years of experience supporting our clients with high-quality offline and online marketing.',
+  },
+  {
+    question: 'Will my company and client data be kept confidential?',
+    answer:
+      'Yes. Nothing is more important than your data. Your company data and your client data are held in the strictest confidence using secure methods, and we will never share, sell or distribute it in any way.',
+  },
+  {
+    question: 'Does a lower price elsewhere mean a better deal?',
+    answer:
+      'Not necessarily. Other providers may offer products of lesser quality at a lower cost. As custom manufacturers of high-quality marketing materials, we promise competitive pricing while our commitment to high-value products remains our promise to you.',
+  },
+  {
+    question: 'How can I reach the PrintFast team with questions?',
+    answer:
+      'Call us at 800-810-4818. We are available from 8 AM to 5 PM ET, Monday to Friday, and our team is here to help.',
+  },
+];
+---
+
+<ShopLayout
+  title="Satisfaction Guarantee | The PrintFast Certificate Behind Every Order"
+  crumb="Satisfaction Guarantee"
+  description="PrintFast stands behind everything we do with our Satisfaction Guarantee Certificate — nine promises on data security, quality, on-time service and fair pricing. Trusted since 1903."
+  keywords={[
+    'PrintFast satisfaction guarantee',
+    'satisfaction guarantee certificate',
+    'print quality guarantee',
+    'data security guarantee',
+    'on-time printing service',
+    'competitive price guarantee',
+    'direct mail guarantee',
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'PrintFast Satisfaction Guarantee',
+    description:
+      'A Satisfaction Guarantee Certificate covering data security, product quality, on-time service, competitive pricing and a no-surprises process — from a company serving clients since 1903.',
+    provider: { '@type': 'Organization', name: 'PrintFast', telephone: '800-810-4818' },
+    areaServed: 'US',
+  }}
+  faqs={faqs}
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="relative overflow-hidden bg-[#0f2747]">
+    <span aria-hidden="true" class="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+    <span aria-hidden="true" class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></span>
+
+    <div class="container-pf relative py-14 sm:py-16 lg:py-24">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+            100% Satisfaction Guarantee
+          </p>
+          <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Our <span class="text-[#ED1C24]">Guarantee</span> To You
+          </h1>
+          <p class="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            As we provide you with our products and services, we want to assure you that we stand
+            behind everything that we do with our Satisfaction Guarantee Certificate.
+          </p>
+          <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Our company values of honesty, integrity and serving you at the highest level have never
+            changed since 1903 — more than 120 years of standing by our work.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href="#certificate"
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              View the Certificate <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              Talk To Our Team
+            </a>
+          </div>
+        </div>
+
+        <!-- Seal / certificate motif -->
+        <div class="relative" data-reveal>
+          <div class="mx-auto grid aspect-square w-full max-w-sm place-items-center rounded-full bg-white/5 ring-1 ring-white/10">
+            <div class="grid aspect-square w-3/4 place-items-center rounded-full bg-[#ED1C24]/10 ring-2 ring-[#ED1C24]/40">
+              <div class="text-center">
+                <i class="fa-solid fa-certificate text-5xl text-[#ED1C24]"></i>
+                <p class="mt-4 font-display text-4xl font-extrabold uppercase leading-none text-white">100%</p>
+                <p class="mt-2 text-xs font-bold uppercase tracking-[0.2em] text-white/70">Satisfaction<br />Guaranteed</p>
+                <p class="mt-4 text-[11px] font-semibold uppercase tracking-widest text-[#ED1C24]">Since 1903</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CERTIFICATE INTRO ===================== -->
+  <section id="certificate" class="section scroll-mt-28">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-certificate"></i> Satisfaction Guarantee Certificate
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Nine promises we make on every project</h2>
+        <p class="lead mt-5 text-ink-600">
+          When you work with PrintFast you are working with a company that has served its clients for
+          more than 120 years. Here is exactly what we guarantee — from protecting your data to
+          delivering high-quality work, on time, with no surprises.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {guarantees.map((g) => (
+          <div class="group flex flex-col rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-[#fde8e9] text-[#ED1C24] transition-colors group-hover:bg-[#ED1C24] group-hover:text-white">
+              <i class:list={['fa-solid', g.icon, 'text-lg']} aria-hidden="true"></i>
+            </span>
+            <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{g.title}</h3>
+            <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-600">{g.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== OUR VALUES ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-heart"></i> What We Stand For
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Values that have never changed since 1903</h2>
+        <p class="lead mt-5 text-ink-600">
+          Products and technology evolve, but the principles behind our guarantee are the same ones we
+          started with over 120 years ago.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-3">
+        {values.map((v) => (
+          <div class="flex flex-col items-center rounded-2xl bg-white p-8 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <span class="grid h-14 w-14 place-items-center rounded-full bg-[#0f2747] text-white">
+              <i class:list={['fa-solid', v.icon, 'text-xl']} aria-hidden="true"></i>
+            </span>
+            <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{v.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-600">{v.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TESTIMONIAL + HELP ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="grid items-center gap-10 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-headset"></i> Have Questions?
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">We’re here to help</h2>
+          <p class="lead mt-5 text-ink-600">
+            We’re available from 8 AM to 5 PM ET, Monday to Friday. Our team is here to answer your
+            questions and stand behind every promise in our certificate.
+          </p>
+          <div class="mt-8 flex flex-wrap items-center gap-4">
+            <a
+              href="tel:8008104818"
+              class="inline-flex items-center gap-3 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              <i class="fa-solid fa-phone"></i> Call 800-810-4818
+            </a>
+            <a
+              href={contactHref}
+              class="inline-flex items-center gap-2 text-sm font-bold text-[#0f2747] hover:text-[#ED1C24]"
+            >
+              Contact Us <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Testimonial -->
+        <div class="relative rounded-3xl bg-[#0f2747] p-8 shadow-soft sm:p-10" data-reveal>
+          <i class="fa-solid fa-quote-left text-4xl text-[#ED1C24]"></i>
+          <blockquote class="mt-4 text-lg leading-relaxed text-white/90">
+            We love Print Fast! They are professional, honest, impressive and fast. They do a
+            phenomenal job! I can’t say enough about them.
+          </blockquote>
+          <div class="mt-6 flex items-center gap-3">
+            <span class="grid h-11 w-11 place-items-center rounded-full bg-[#ED1C24] font-display text-lg font-bold text-white">S</span>
+            <div>
+              <p class="font-bold text-white">Savannah H.</p>
+              <p class="text-sm text-white/60">PrintFast client</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-circle-question"></i> FAQ
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Questions about our guarantee</h2>
+      </div>
+
+      <div class="mx-auto mt-10 max-w-3xl space-y-4">
+        {faqs.map((f) => (
+          <details class="group rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft" data-reveal>
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
+              <span class="text-base font-bold text-[#0f2747]">{f.question}</span>
+              <span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24] transition-transform group-open:rotate-45">
+                <i class="fa-solid fa-plus text-sm"></i>
+              </span>
+            </summary>
+            <p class="mt-4 text-sm leading-relaxed text-ink-600">{f.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FINAL CTA ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-20" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+        <div class="relative max-w-3xl">
+          <h2 class="heading-lg text-white">
+            Work with a company you can <span class="text-[#ED1C24]">trust</span>
+          </h2>
+          <p class="mt-5 text-lg leading-relaxed text-white/85">
+            Every order is backed by our Satisfaction Guarantee Certificate. Let’s put more than 120
+            years of experience to work on your next marketing project.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Get Started <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('all-products')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              Browse All Products
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ShopLayout>

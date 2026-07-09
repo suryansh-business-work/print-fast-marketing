@@ -1,0 +1,348 @@
+---
+import ShopLayout from '@layouts/ShopLayout.astro';
+import { shopHref } from '@data/shop';
+import { getContactHref } from '@data/pricing';
+import ContactForm from '@components/ContactForm.astro';
+
+const contactHref = getContactHref('digital-marketing-services');
+
+// Original PrintFast image assets (served from the same CDN/S3 the live store uses).
+const S3 = 'https://nklopsouqd.s3.us-west-1.amazonaws.com/printfast/images/common';
+
+const steps = [
+  {
+    img: `${S3}/step_1_TY_cards.png?1705331564`,
+    title: 'Provide us your weekly service list',
+    description:
+      'Send us your weekly list of completed jobs and customers. That is all we need to get your Thank You program moving — no busywork on your end.',
+  },
+  {
+    img: `${S3}/step_2_TY_cards.png?1705331564`,
+    title: 'We print and mail within one business day',
+    description:
+      'Our team prints and mails your Thank You cards within one business day, so your appreciation reaches customers while the experience is still fresh.',
+  },
+  {
+    img: `${S3}/step_1_TY_cards.png?1705331564`,
+    title: 'Clients receive cards and premium gifts',
+    description:
+      'Within a few days your clients receive their Thank You cards — and, if you choose, premium gifts that turn a single sale into lasting loyalty.',
+  },
+];
+
+const giftOptions = [
+  {
+    icon: 'fa-envelope-open-text',
+    title: 'Classic Thank You Cards',
+    description:
+      'A simple, heartfelt Thank You card that lets every customer know their business is genuinely appreciated.',
+  },
+  {
+    icon: 'fa-gift',
+    title: 'Cards With Gift Cards',
+    description:
+      'Elevate the gesture by pairing your Thank You card with a gift card that keeps your brand top of mind.',
+  },
+  {
+    icon: 'fa-mug-hot',
+    title: 'Branded Drink Tumblers',
+    description:
+      'Send a Thank You card accompanied by a branded drink tumbler your customers will use again and again.',
+  },
+];
+
+const relatedProducts = [
+  {
+    title: 'Thank You Postcards',
+    href: shopHref('thank-you-postcards'),
+    icon: 'fa-envelope',
+    description:
+      'Simple, low-cost, fast and personalized Thank You Postcards mailed directly to your homeowners.',
+  },
+  {
+    title: 'Thank You Mailers',
+    href: shopHref('thank-you-mailers'),
+    icon: 'fa-heart',
+    description:
+      'Show gratitude and stay memorable with Thank You Mailers designed for the home service professional.',
+  },
+  {
+    title: 'Referral Mailers',
+    href: shopHref('referral-mailers'),
+    icon: 'fa-people-arrows',
+    description:
+      'Turn happy customers into your best salespeople with Referral Mailers that drive word-of-mouth growth.',
+  },
+  {
+    title: 'Membership Mailings',
+    href: shopHref('membership-mailings'),
+    icon: 'fa-id-card',
+    description:
+      'Keep loyal customers engaged all year long with recurring Membership Mailings that build repeat business.',
+  },
+];
+---
+
+<ShopLayout
+  title="Thank You Programs | Automated Thank You Card Mailing for Home Service Pros"
+  crumb="Thank You Programs"
+  description="Build customer loyalty and repeat business with PrintFast Thank You Programs. We print and mail your Thank You cards and premium gifts within one business day of your weekly service list."
+  keywords={[
+    'thank you programs',
+    'automated thank you cards',
+    'customer loyalty mailings',
+    'thank you card program',
+    'home service customer appreciation',
+    'repeat business marketing',
+    'thank you gifts for customers',
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'PrintFast Thank You Programs',
+    serviceType: 'Automated Thank You Card Mailing',
+    description:
+      'Automated Thank You card and gift mailing program for home service professionals — printed and mailed within one business day of your weekly service list.',
+    provider: { '@type': 'Organization', name: 'PrintFast' },
+    areaServed: 'US',
+  }}
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="relative overflow-hidden bg-[#0f2747]">
+    <span aria-hidden="true" class="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+    <span aria-hidden="true" class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></span>
+
+    <div class="container-pf relative py-14 sm:py-16 lg:py-24">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+          Customer Loyalty Programs
+        </p>
+        <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
+          Thank You <span class="text-[#ED1C24]">Programs</span>
+        </h1>
+        <p class="mt-5 text-lg font-semibold text-white/90">
+          Thank your customer properly. Let them know that you care.
+        </p>
+        <p class="mt-5 text-sm leading-relaxed text-white/80 sm:text-base">
+          In today’s service-driven economy transactions follow a familiar path. You provide a product
+          or service, your customer hands over their hard-earned cash and you say “Thank You”, and that
+          usually ends the transaction. Well, not everyone in the business does that. Successful
+          businesses understand that sales don’t simply end with a thank you.
+        </p>
+        <p class="mt-4 text-sm leading-relaxed text-white/80 sm:text-base">
+          Why not elevate your business to a level of exceptional customer service by sending a Thank
+          You card or a small gift one week after the sale? Successful businesses are building solid
+          customer loyalty and repeat business just by sending Thank You cards. And PrintFast has the
+          programs that make it easy.
+        </p>
+        <div class="mt-8 flex flex-wrap justify-center gap-3">
+          <a
+            href={contactHref}
+            class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+          >
+            Contact Us <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+          <a
+            href={shopHref('all-products')}
+            class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+          >
+            View All Products
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PROGRAM PROCESS ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-gears"></i> How It Works
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Our Automated Thank You Card Program Process</h2>
+        <p class="lead mt-4">
+          A hands-off program that turns every completed job into a moment of appreciation — in three
+          simple steps.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {steps.map((s, i) => (
+          <div class="relative flex flex-col items-center rounded-2xl bg-white p-8 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <span class="absolute right-5 top-5 font-display text-4xl font-extrabold text-[#ED1C24]/15">{i + 1}</span>
+            <img
+              src={s.img}
+              alt={`Step ${i + 1}: ${s.title}`}
+              width="120"
+              height="120"
+              class="h-24 w-24 object-contain"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="mt-4 inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#ED1C24] text-sm font-bold text-white">{i + 1}</div>
+            <h3 class="mt-3 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{s.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-600">{s.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DID YOU KNOW / GIFT OPTIONS ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-lightbulb"></i> Did You Know?
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">More Options. More Opportunities.</h2>
+        <p class="lead mt-4">
+          You can choose from a variety of gratitude options for your clients, ranging from basic Thank
+          You cards to ones accompanied by gift cards or branded drink tumblers.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-3">
+        {giftOptions.map((g) => (
+          <div class="flex flex-col items-center rounded-2xl bg-white p-8 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <span class="grid h-14 w-14 place-items-center rounded-full bg-[#fde8e9] text-2xl text-[#ED1C24]">
+              <i class={`fa-solid ${g.icon}`}></i>
+            </span>
+            <h3 class="mt-4 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{g.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-600">{g.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TESTIMONIAL ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-4xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-comment-dots"></i> What Our Clients Say
+        </p>
+      </div>
+
+      <div class="relative mx-auto mt-10 max-w-4xl overflow-hidden rounded-3xl bg-[#0f2747] p-8 shadow-soft sm:p-12" data-reveal>
+        <span aria-hidden="true" class="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+        <div class="relative">
+          <i class="fa-solid fa-quote-left text-4xl text-[#ED1C24]"></i>
+          <blockquote class="mt-5 text-lg leading-relaxed text-white/90 sm:text-xl">
+            Great Company all around!!! From people taking orders to editing proof team making sure it’s
+            correct — I would not go with anyone else!! We got into a bind with a backdrop needed and the
+            team did not hesitate getting our backdrop out fast and ready for our show!!! Thanks team!!
+          </blockquote>
+          <div class="mt-6 flex items-center gap-3">
+            <span class="grid h-11 w-11 place-items-center rounded-full bg-[#ED1C24] font-display text-lg font-bold text-white">D</span>
+            <div class="text-left">
+              <p class="font-bold text-white">Derek B.</p>
+              <p class="text-sm text-white/60">PrintFast client</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== RELATED PRODUCTS ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-boxes-stacked"></i> Keep Customers Coming Back
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Pair your Thank You Program with more loyalty tools</h2>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {relatedProducts.map((p) => (
+          <div class="group flex flex-col rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-[#fde8e9] text-xl text-[#ED1C24]">
+              <i class={`fa-solid ${p.icon}`}></i>
+            </span>
+            <h3 class="mt-4 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{p.title}</h3>
+            <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-600">{p.description}</p>
+            <a href={p.href} class="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#ED1C24]">
+              View More <i class="fa-solid fa-arrow-right text-xs transition-transform group-hover:translate-x-0.5"></i>
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== EXPLORE STORE CTA ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-20" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+        <div class="relative max-w-3xl">
+          <h2 class="heading-lg text-white">
+            Want to explore our <span class="text-[#ED1C24]">other products?</span>
+          </h2>
+          <p class="mt-5 text-lg leading-relaxed text-white/85">
+            Visit our online store with over 100 marketing products for the Home Service Professional by
+            registering for access.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Register Now <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('all-products')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              Browse All Products
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONNECT WITH US ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="grid items-start gap-10 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-headset"></i> Connect With Us
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">We’re here to help!</h2>
+          <p class="lead mt-4">
+            Have questions about launching a Thank You Program for your business? We’re available from
+            8AM to 5PM ET, Monday to Friday — our team is here to help.
+          </p>
+          <ul class="mt-8 space-y-4">
+            <li class="flex items-center gap-3">
+              <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+                <i class="fa-solid fa-phone"></i>
+              </span>
+              <a href="tel:800-810-4818" class="text-lg font-bold text-[#0f2747] hover:text-[#ED1C24]">800-810-4818</a>
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+                <i class="fa-solid fa-envelope"></i>
+              </span>
+              <a href={contactHref} class="text-lg font-bold text-[#0f2747] hover:text-[#ED1C24]">info@print-fast.com</a>
+            </li>
+          </ul>
+        </div>
+
+        <div data-reveal>
+          <ContactForm
+            title="Send us a message"
+            subtitle="Tell us how we can help and our team will get right back to you."
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+</ShopLayout>

@@ -1,0 +1,365 @@
+---
+import ShopLayout from '@layouts/ShopLayout.astro';
+import { shopHref } from '@data/shop';
+import { getContactHref } from '@data/pricing';
+import ContactForm from '@components/ContactForm.astro';
+
+const contactHref = getContactHref('digital-marketing-services');
+
+// Original PrintFast image assets (served from the same CDN/S3 as the live store).
+const S3 = 'https://nklopsouqd.s3.us-west-1.amazonaws.com/printfast/images/common';
+
+// The four pillars of the Digital Review Report.
+const reportItems = [
+  {
+    title: 'SEO',
+    sub: 'Analysis',
+    img: `${S3}/SEO_Analysis_02100617202311.png?1700244610`,
+    description: "Get a detailed look at your site's search performance.",
+    icon: 'fa-magnifying-glass-chart',
+  },
+  {
+    title: 'Content',
+    sub: 'Evaluation',
+    img: `${S3}/Content_Evaluation_02100617202311.png?1700244715`,
+    description: 'Quality vs Quantity — what you need to know.',
+    icon: 'fa-file-lines',
+  },
+  {
+    title: 'Local Search',
+    sub: 'Optimization',
+    img: `${S3}/Local_Search_Optimization_02100617202311.png?1700244745`,
+    description: 'Gain the edge in your specific community.',
+    icon: 'fa-location-dot',
+  },
+  {
+    title: 'Competitive',
+    sub: 'Landscape',
+    img: `${S3}/Competitive_Landscape_02100617202311.png?1700244779`,
+    description: 'How do you measure up against local competitors?',
+    icon: 'fa-ranking-star',
+  },
+];
+
+const trustPoints = [
+  {
+    icon: 'fa-award',
+    title: '#1 SEO Expert for Trades',
+    description:
+      'We understand the nuances of the HVAC, plumbing, and electrical industries like no other partner across the United States.',
+  },
+  {
+    icon: 'fa-chart-line',
+    title: 'Data-Driven Strategies',
+    description:
+      'Our proven, data-driven approach has delivered unparalleled results — and we are here to do the same for you.',
+  },
+  {
+    icon: 'fa-map-location-dot',
+    title: 'Built for Local Reach',
+    description:
+      'Every recommendation is tailored to help you win in your specific community and market, not a generic checklist.',
+  },
+];
+
+const faqs = [
+  {
+    question: 'What is a Digital Review Report?',
+    answer:
+      'A Digital Review Report is a comprehensive analysis of your website, your competitors, and your market. It provides invaluable insights into areas like SEO, social media, and content marketing, giving you a foolproof plan to enhance your local reach.',
+  },
+  {
+    question: 'How much does the Free Digital Review cost?',
+    answer:
+      'The Digital Review Report is completely free. For a limited time we are also including an additional 1:1 consultation to dissect your report — a $200 value — absolutely free.',
+  },
+  {
+    question: 'Who is the review designed for?',
+    answer:
+      'It is tailored specifically for trades professionals — HVAC contractors, plumbers, and electricians — who want to strengthen their local reach and outperform nearby competitors.',
+  },
+  {
+    question: 'What happens during the free consultation?',
+    answer:
+      'A PrintFast specialist walks through your Digital Review Report with you 1:1, explaining what the data means for your business and outlining the specific steps to improve your SEO, content, and local search visibility.',
+  },
+  {
+    question: 'How do I claim my free review?',
+    answer:
+      'Simply complete the request form to claim your Free Digital Review Report and your additional consultation. Prefer to talk it through? Call us at 800-810-4818, 8 AM to 5 PM ET, Monday to Friday.',
+  },
+];
+---
+
+<ShopLayout
+  title="Free Digital Review | SEO & Website Analysis for HVAC, Plumbing & Electrical Pros"
+  crumb="Free Digital Review"
+  description="Claim a free Digital Review Report for your trades business — a full SEO, content, local search & competitor analysis, plus a 1:1 consultation ($200 value) at no cost."
+  keywords={[
+    'free digital review',
+    'free SEO review',
+    'website analysis for contractors',
+    'HVAC SEO',
+    'plumber SEO',
+    'electrician marketing',
+    'local search optimization',
+    'digital marketing for trades',
+  ]}
+  faqs={faqs}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Free Digital Review',
+    serviceType: 'SEO & Digital Marketing Review',
+    description:
+      'A comprehensive free analysis of your website, competitors, and market — covering SEO, content, and local search — tailored for HVAC, plumbing, and electrical professionals.',
+    provider: { '@type': 'Organization', name: 'PrintFast', telephone: '800-810-4818' },
+    areaServed: 'US',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+      description: 'Free Digital Review Report plus a 1:1 consultation ($200 value).',
+    },
+  }}
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="relative overflow-hidden bg-[#0f2747]">
+    <span aria-hidden="true" class="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+    <span aria-hidden="true" class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></span>
+
+    <div class="container-pf relative py-14 sm:py-16 lg:py-24">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+            Digital Marketing
+          </p>
+          <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Get a Free <span class="text-[#ED1C24]">Digital Review</span> of Your Website
+          </h1>
+          <p class="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            A Digital Review Report is a comprehensive analysis of your site, your competitors and your
+            market. Tailored specifically for HVAC professionals, plumbers, and electricians, it provides
+            invaluable insights into areas like SEO, social media, and content marketing — giving you a
+            foolproof plan to enhance your local reach.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href="#claim-review"
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Claim Your Free Review <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              Schedule a Call
+            </a>
+          </div>
+          <p class="mt-6 inline-flex items-center gap-2 text-sm text-white/70">
+            <i class="fa-solid fa-circle-check text-[#ED1C24]"></i>
+            Includes a 1:1 consultation — a <span class="font-bold text-white">$200 value</span>, free.
+          </p>
+        </div>
+
+        <div class="relative" data-reveal id="claim-review">
+          <div class="rounded-3xl bg-white p-2 shadow-2xl ring-1 ring-white/20">
+            <ContactForm
+              variant="review"
+              title="Claim Your Free Digital Review"
+              subtitle="Complete the form to request your Free Digital Review Report and your bonus 1:1 consultation."
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHAT'S INSIDE THE REPORT ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-clipboard-list"></i> Inside The Report
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">What's inside your Digital Review Report?</h2>
+        <p class="lead mt-4">
+          Four focused breakdowns that show exactly where you stand — and where the opportunities are.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {reportItems.map((item) => (
+          <div class="group flex flex-col items-center rounded-2xl bg-white p-6 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <div class="grid h-24 w-24 place-items-center overflow-hidden rounded-2xl bg-ink-50">
+              <img
+                src={item.img}
+                alt={`${item.title} ${item.sub} — PrintFast Digital Review Report`}
+                width="96"
+                height="96"
+                class="h-16 w-16 object-contain transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">
+              {item.title} <span class="block text-[#ED1C24]">{item.sub}</span>
+            </h3>
+            <p class="mt-3 text-sm leading-relaxed text-ink-600">{item.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHY CHOOSE PRINTFAST ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-bolt"></i> Why PrintFast
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">
+            Why choose <span class="text-[#ED1C24]">PrintFast?</span>
+          </h2>
+          <p class="lead mt-5">
+            With PrintFast, you're choosing the #1 SEO expert for trades across the United States. We
+            understand the nuances of the HVAC, plumbing, and electrical industries like no other. Our
+            data-driven strategies have delivered unparalleled results — and we're here to do the same
+            for you.
+          </p>
+          <a
+            href={contactHref}
+            class="mt-8 inline-flex items-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+          >
+            Talk To A Specialist <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <div class="grid gap-5" data-reveal>
+          {trustPoints.map((t) => (
+            <div class="flex items-start gap-4 rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft">
+              <span class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#fde8e9] text-lg text-[#ED1C24]">
+                <i class={`fa-solid ${t.icon}`}></i>
+              </span>
+              <div>
+                <h3 class="text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{t.title}</h3>
+                <p class="mt-1.5 text-sm leading-relaxed text-ink-600">{t.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CLAIM / BONUS CONSULTATION ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-16" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <div class="relative grid items-center gap-10 lg:grid-cols-[1.2fr_1fr]">
+          <div>
+            <p class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-white">
+              <i class="fa-solid fa-gift"></i> Limited-Time Bonus
+            </p>
+            <h2 class="heading-lg mt-4 text-white">
+              Claim your free review and get an additional in-depth
+              <span class="text-[#ED1C24]"> consultation</span>
+            </h2>
+            <p class="mt-5 text-lg leading-relaxed text-white/85">
+              For a limited time, we're offering an additional 1:1 consultation to dissect your Digital
+              Review Report — a $200 value, absolutely free. Complete the form to claim your Free Digital
+              Review Report and your additional consultation now!
+            </p>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a
+                href="#claim-review"
+                class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+              >
+                Get My Free Review <i class="fa-solid fa-arrow-right text-xs"></i>
+              </a>
+              <a
+                href={contactHref}
+                class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+              >
+                Schedule A Call
+              </a>
+            </div>
+          </div>
+          <div class="rounded-3xl bg-white/5 p-8 text-center ring-1 ring-white/15">
+            <p class="font-display text-6xl font-extrabold text-[#ED1C24]">$200</p>
+            <p class="mt-2 text-sm font-bold uppercase tracking-[0.18em] text-white/70">Value — On Us</p>
+            <div class="mt-6 space-y-3 text-left text-sm text-white/85">
+              <p class="flex items-start gap-3"><i class="mt-0.5 fa-solid fa-check text-[#ED1C24]"></i> Full Digital Review Report</p>
+              <p class="flex items-start gap-3"><i class="mt-0.5 fa-solid fa-check text-[#ED1C24]"></i> 1:1 expert consultation</p>
+              <p class="flex items-start gap-3"><i class="mt-0.5 fa-solid fa-check text-[#ED1C24]"></i> No cost, no commitment</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl">
+        <div class="text-center" data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-circle-question"></i> FAQ
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">Free Digital Review questions</h2>
+        </div>
+
+        <div class="mt-10 space-y-4">
+          {faqs.map((f) => (
+            <details class="group rounded-2xl bg-white p-5 ring-1 ring-ink-100 shadow-soft" data-reveal>
+              <summary class="flex cursor-pointer items-center justify-between gap-4 text-base font-bold text-[#0f2747] [&::-webkit-details-marker]:hidden">
+                {f.question}
+                <span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24] transition-transform group-open:rotate-45">
+                  <i class="fa-solid fa-plus text-xs"></i>
+                </span>
+              </summary>
+              <p class="mt-4 text-sm leading-relaxed text-ink-600">{f.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== HAVE QUESTIONS / FINAL CTA ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-16" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+        <div class="relative max-w-3xl">
+          <h2 class="heading-lg text-white">Have <span class="text-[#ED1C24]">questions?</span></h2>
+          <p class="mt-5 text-lg leading-relaxed text-white/85">
+            We're available from 8 AM to 5 PM ET, Monday to Friday — our team is here to help you get the
+            most out of your Free Digital Review.
+          </p>
+          <div class="mt-8 flex flex-wrap items-center gap-3">
+            <a
+              href="tel:800-810-4818"
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              <i class="fa-solid fa-phone text-xs"></i> Call 800-810-4818
+            </a>
+            <a
+              href={shopHref('newsletters-new')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              Explore Digital Marketing
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ShopLayout>

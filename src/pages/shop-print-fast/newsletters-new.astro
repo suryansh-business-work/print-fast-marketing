@@ -1,0 +1,317 @@
+---
+import ShopLayout from '@layouts/ShopLayout.astro';
+import { shopHref } from '@data/shop';
+import { getContactHref } from '@data/pricing';
+import ContactForm from '@components/ContactForm.astro';
+
+const contactHref = getContactHref('digital-marketing-services');
+
+// Original PrintFast image assets (served from the same CDN/S3 the live store uses).
+const S3 = 'https://nklopsouqd.s3.us-west-1.amazonaws.com/printfast/images/common';
+const STAGING = 'https://nklopsouqd.s3.us-west-1.amazonaws.com/stagingpr/images/common';
+const HERO_IMG =
+  'https://dqj17tese79do.cloudfront.net/printfast/images/common/newsletter11.jpg?1642009069';
+
+const features = [
+  {
+    img: `${S3}/four-page_direct_mailer.png?1700671560`,
+    title: 'Four-Page Direct Mailer',
+    description:
+      'An 8.5" × 11" four-page newsletter to keep your homeowners engaged and connected with your home service company, increasing customer retention.',
+  },
+  {
+    img: `${S3}/Full_Color_Print.png?1700671428`,
+    title: 'High Gloss Full-Color Print',
+    description:
+      'Attract potential customers with our high glossy card stock, printed in full-color.',
+  },
+  {
+    img: `${S3}/Professionally_written_and_editable.png?1700671644`,
+    title: 'Professionally Written & Editable',
+    description:
+      'All our newsletters are professionally designed and can be customized as per your needs.',
+  },
+  {
+    img: `${STAGING}/Promotions_and_Discounts.png?1695462530`,
+    title: 'Promotions and Discounts',
+    description:
+      'Homeowners appreciate exclusive promotions and discounts, which can drive sales and encourage repeat business.',
+  },
+  {
+    img: `${STAGING}/Referral_Opportunities.png?1695462530`,
+    title: 'Referral Opportunities',
+    description:
+      "Newsletters can encourage homeowners to refer friends and family, expanding your company's client base.",
+  },
+  {
+    img: `${STAGING}/Educates_and_Informs.png?1695462530`,
+    title: 'Educates and Informs',
+    description:
+      'Newsletters offer a platform to share valuable tips, industry insights, and updates, helping homeowners make informed decisions.',
+  },
+];
+
+const didYouKnow = [
+  'Our newsletter pricing starts at 79¢ each (all costs including postage) for a minimum quantity of 500.',
+  'No contracts or commitments for continued mailings.',
+  'If you would like to edit or change the newsletter (design or content) you may do so — however creative design time and our hourly rates will apply.',
+];
+---
+
+<ShopLayout
+  title="Newsletters | Quarterly Direct Mail Newsletters for Home Service Pros"
+  crumb="Newsletters"
+  description="PrintFast quarterly direct mail newsletters keep your home service brand top of mind. Professionally written, four-page mailers with coupons — as low as 79¢ each, no contracts."
+  keywords={[
+    'direct mail newsletters',
+    'home service newsletters',
+    'quarterly newsletter mailing',
+    'customer retention newsletters',
+    'HVAC newsletters',
+    'four-page newsletter printing',
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: 'PrintFast Newsletters',
+    description:
+      'Professionally written quarterly four-page direct mail newsletters for home service professionals, with coupon space and Variable Data Printing.',
+    brand: { '@type': 'Brand', name: 'PrintFast' },
+    category: 'Direct Mail Newsletters',
+  }}
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="relative overflow-hidden bg-[#0f2747]">
+    <span aria-hidden="true" class="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+    <span aria-hidden="true" class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></span>
+
+    <div class="container-pf relative py-14 sm:py-16 lg:py-24">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+            Direct Mail Newsletters
+          </p>
+          <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Stay Top of <span class="text-[#ED1C24]">Mind</span>
+          </h1>
+          <p class="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Client retention is easy when you stay in touch by sending a quarterly newsletter to your
+            past and current customers. Each issue is professionally written to be warm, friendly and
+            engaging — so your clients feel connected to you and, when they need service, your name is
+            top of mind.
+          </p>
+          <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            In marketing, there is an old saying: “if you forget your clients, they will forget you.”
+            Do not let this happen to your company.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Contact Us <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('all-products')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              View All Products
+            </a>
+          </div>
+        </div>
+
+        <div class="relative" data-reveal>
+          <img
+            src={HERO_IMG}
+            alt="PrintFast quarterly direct mail newsletter for home service companies"
+            class="mx-auto h-auto w-full max-w-md rounded-2xl shadow-glow"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== HOW NEWSLETTERS WORK ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-newspaper"></i> How It Works
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Marketing that never feels like selling</h2>
+      </div>
+
+      <div class="mx-auto mt-10 grid max-w-5xl gap-6 md:grid-cols-3">
+        <div class="card p-7" data-reveal>
+          <span class="grid h-12 w-12 place-items-center rounded-xl bg-[#fde8e9] text-xl text-[#ED1C24]">
+            <i class="fa-solid fa-house-heart"></i>
+          </span>
+          <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">Engaging content</h3>
+          <p class="mt-2 text-sm leading-relaxed text-ink-600">
+            Our newsletters never directly sell your products or services. Instead they present topics
+            such as IAQ, home safety and comfort in an attractive, entertaining format that makes
+            homeowners think about their quality of life and how it may be enhanced — even new options
+            like mini-splits, all without blatant selling.
+          </p>
+        </div>
+        <div class="card p-7" data-reveal>
+          <span class="grid h-12 w-12 place-items-center rounded-xl bg-[#fde8e9] text-xl text-[#ED1C24]">
+            <i class="fa-solid fa-tags"></i>
+          </span>
+          <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">Space for your coupons</h3>
+          <p class="mt-2 text-sm leading-relaxed text-ink-600">
+            On the mailing panel there are spaces for your coupons. Everyone likes to save money — this
+            is your opportunity to give homeowners a way to do it. Just send us your four or six offers,
+            expiration dates and any important disclaimers, and we handle the rest.
+          </p>
+        </div>
+        <div class="card p-7" data-reveal>
+          <span class="grid h-12 w-12 place-items-center rounded-xl bg-[#fde8e9] text-xl text-[#ED1C24]">
+            <i class="fa-solid fa-user-tie"></i>
+          </span>
+          <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">A message from the owner</h3>
+          <p class="mt-2 text-sm leading-relaxed text-ink-600">
+            The only other content you provide is a 100-word “From The Owner” statement and the owner’s
+            photograph. People buy from people, not companies — so the owner’s photo and message keep a
+            warm, neighborly level of communication with your clients.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHY CHOOSE PRINTFAST ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-bolt"></i> Why PrintFast
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Why choose PrintFast for sending your newsletters?</h2>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {features.map((f) => (
+          <div class="flex flex-col items-center rounded-2xl bg-white p-7 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <img
+              src={f.img}
+              alt={f.title}
+              width="120"
+              height="120"
+              class="h-20 w-20 object-contain"
+              loading="lazy"
+              decoding="async"
+            />
+            <h3 class="mt-4 text-sm font-extrabold uppercase tracking-wide text-[#0f2747]">{f.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink-600">{f.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DID YOU KNOW + TESTIMONIAL ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="grid items-center gap-10 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-lightbulb"></i> Did You Know?
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">Simple, affordable, no strings attached</h2>
+          <ul class="mt-8 space-y-4">
+            {didYouKnow.map((d) => (
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
+                  <i class="fa-solid fa-check text-[10px]"></i>
+                </span>
+                <span class="text-ink-700">{d}</span>
+              </li>
+            ))}
+          </ul>
+          <a
+            href={contactHref}
+            class="mt-8 inline-flex items-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+          >
+            Get More Information <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Testimonial -->
+        <div class="relative rounded-3xl bg-[#0f2747] p-8 shadow-soft sm:p-10" data-reveal>
+          <i class="fa-solid fa-quote-left text-4xl text-[#ED1C24]"></i>
+          <blockquote class="mt-4 text-lg leading-relaxed text-white/90">
+            We love Print Fast! They are professional, honest, impressive and fast. They do a
+            phenomenal job! I can’t say enough about them.
+          </blockquote>
+          <div class="mt-6 flex items-center gap-3">
+            <span class="grid h-11 w-11 place-items-center rounded-full bg-[#ED1C24] font-display text-lg font-bold text-white">S</span>
+            <div>
+              <p class="font-bold text-white">Savannah H.</p>
+              <p class="text-sm text-white/60">PrintFast client</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== EXPLORE MORE / CTA ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-20" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+        <div class="relative max-w-3xl">
+          <h2 class="heading-lg text-white">
+            Want to explore our <span class="text-[#ED1C24]">other products?</span>
+          </h2>
+          <p class="mt-5 text-lg leading-relaxed text-white/85">
+            See the other pages of the Fall Newsletter, plus our 100+ marketing products built for the
+            home service professional. Register for access to browse the full store.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Register Now <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('all-products')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              Browse All Products
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONNECT / CONTACT ===================== -->
+  <section class="section bg-ink-50/60 pt-0">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-headset"></i> Connect With Us
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">We’re here to help</h2>
+        <p class="lead mt-4">
+          Available 8 AM–5 PM ET, Monday to Friday. Call
+          <a href="tel:800-810-4818" class="font-bold text-[#ED1C24]">800-810-4818</a> or send us a
+          note and our team will get your newsletter program started.
+        </p>
+      </div>
+      <div class="mx-auto mt-10 max-w-3xl" data-reveal>
+        <ContactForm
+          title="Start your newsletter program"
+          subtitle="Tell us about your company and we’ll follow up with pricing and next steps."
+        />
+      </div>
+    </div>
+  </section>
+</ShopLayout>
