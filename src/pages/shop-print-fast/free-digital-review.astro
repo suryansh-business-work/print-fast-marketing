@@ -192,17 +192,9 @@ const faqs = [
       <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {reportItems.map((item) => (
           <div class="group flex flex-col items-center rounded-2xl bg-white p-6 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
-            <div class="grid h-24 w-24 place-items-center overflow-hidden rounded-2xl bg-ink-50">
-              <img
-                src={item.img}
-                alt={`${item.title} ${item.sub} — PrintFast Digital Review Report`}
-                width="96"
-                height="96"
-                class="h-16 w-16 object-contain transition-transform duration-500 group-hover:scale-105"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
+            <span class="grid h-24 w-24 place-items-center rounded-2xl bg-[#fde8e9] text-4xl text-[#ED1C24] transition-transform duration-500 group-hover:scale-105">
+              <i class={`fa-solid ${item.icon}`}></i>
+            </span>
             <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">
               {item.title} <span class="block text-[#ED1C24]">{item.sub}</span>
             </h3>

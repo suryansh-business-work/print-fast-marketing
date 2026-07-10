@@ -5,31 +5,28 @@ import { getContactHref } from '@data/pricing';
 
 const contactHref = getContactHref('digital-marketing-services');
 
-// Original PrintFast image assets (served from the same CDN/S3 the live store uses).
-const S3 = 'https://nklopsouqd.s3.us-west-1.amazonaws.com/printfast/images/common';
-
 // "Why Register?" benefits — verbatim from the original all-products page.
 const benefits = [
   {
-    img: `${S3}/exclusive-access-all-products_thumb.png?1735570426`,
+    icon: 'fa-unlock-keyhole',
     title: 'Exclusive Access',
     description:
       'Gain access to our complete product catalog, featuring hundreds of items tailored to home service professionals.',
   },
   {
-    img: `${S3}/personalized-experience-all-products.png?1735570426`,
+    icon: 'fa-user-gear',
     title: 'Personalized Experience',
     description:
       'Create a personalized account to track your orders, create custom designs, manage your preferences, and receive tailored recommendations.',
   },
   {
-    img: `${S3}/competitive-pricing-all-products.png?1735570426`,
+    icon: 'fa-tags',
     title: 'Competitive Pricing',
     description:
       'Enjoy our competitive pricing and special offers available exclusively to registered customers.',
   },
   {
-    img: `${S3}/secure-shopping-all-products.png?1735570426`,
+    icon: 'fa-shield-halved',
     title: 'Secure Shopping',
     description: 'Benefit from our secure checkout process and hassle-free returns.',
   },
@@ -137,34 +134,47 @@ const faqs = [
     <span aria-hidden="true" class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></span>
 
     <div class="container-pf relative py-14 sm:py-16 lg:py-24">
-      <div class="mx-auto max-w-3xl text-center" data-reveal>
-        <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
-          Full Product Catalog
-        </p>
-        <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
-          All <span class="text-[#ED1C24]">Products</span>
-        </h1>
-        <p class="mt-6 text-lg font-semibold text-white/90 sm:text-xl">
-          Unleash your potential with our full product catalog.
-        </p>
-        <p class="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-white/80 sm:text-base">
-          Discover a world of possibilities. The products and services you see in our public shop are
-          just a glimpse of what we offer. To unlock the full potential of our marketing services and
-          explore our extensive range of high-quality products, simply register for access.
-        </p>
-        <div class="mt-8 flex flex-wrap justify-center gap-3">
-          <a
-            href={contactHref}
-            class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
-          >
-            Register Now <i class="fa-solid fa-arrow-right text-xs"></i>
-          </a>
-          <a
-            href="#catalog"
-            class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
-          >
-            Browse The Shop
-          </a>
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+            Full Product Catalog
+          </p>
+          <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            All <span class="text-[#ED1C24]">Products</span>
+          </h1>
+          <p class="mt-6 text-lg font-semibold text-white/90 sm:text-xl">
+            Unleash your potential with our full product catalog.
+          </p>
+          <p class="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Discover a world of possibilities. The products and services you see in our public shop are
+            just a glimpse of what we offer. To unlock the full potential of our marketing services and
+            explore our extensive range of high-quality products, simply register for access.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Register Now <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href="#catalog"
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              Browse The Shop
+            </a>
+          </div>
+        </div>
+
+        <div class="relative" data-reveal>
+          <div class="rounded-2xl bg-white p-2 shadow-glow sm:p-3">
+            <iframe
+              src="https://forms.zohopublic.com/printfastllc/form/FULLSTOREACCESSREQUEST/formperma/0xrudNws9IgRkss3QSOU6Y5f98mfHX8CivhsQkTqEjQ"
+              title="Full Store Access Request"
+              class="h-[560px] w-full rounded-xl border-0"
+              loading="lazy"
+            ></iframe>
+          </div>
         </div>
       </div>
     </div>
@@ -183,15 +193,9 @@ const faqs = [
       <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {benefits.map((b) => (
           <div class="flex flex-col items-center rounded-2xl bg-white p-6 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
-            <img
-              src={b.img}
-              alt={b.title}
-              width="120"
-              height="120"
-              class="h-20 w-20 object-contain"
-              loading="lazy"
-              decoding="async"
-            />
+            <span class="grid h-20 w-20 shrink-0 place-items-center rounded-2xl bg-[#fde8e9] text-3xl text-[#ED1C24]">
+              <i class={`fa-solid ${b.icon}`}></i>
+            </span>
             <h3 class="mt-4 text-sm font-extrabold uppercase tracking-wide text-[#0f2747]">{b.title}</h3>
             <p class="mt-2 text-sm leading-relaxed text-ink-600">{b.description}</p>
           </div>

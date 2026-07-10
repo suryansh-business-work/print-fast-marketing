@@ -12,31 +12,31 @@ const heroImg = `${S3}/Mailing_lists_banner.png?1706549049`;
 
 const whyChoose = [
   {
-    img: `${S3}/Focused_Email_Marketing.png?1706547755`,
+    icon: 'fa-envelope-open-text',
     title: 'Focused Email Marketing',
     description:
       'Ditch mass mail and ignite your ROI. Laser-target ideal homeowners with PrintFast’s focused email marketing.',
   },
   {
-    img: `${S3}/Free_Demographic_Reports.png?1706547779`,
+    icon: 'fa-chart-pie',
     title: 'Free Demographic Reports',
     description:
       'Unlock your audience’s secrets — age, income, interests and more. Craft campaigns that resonate and win every heart.',
   },
   {
-    img: `${S3}/Personalized_targets.png?1706548240`,
+    icon: 'fa-bullseye',
     title: 'Target Your Ideal Audience',
     description:
       'PrintFast homes in on your ideal audience. Income, age, occupied homes only. Say goodbye to renters and hello to conversions.',
   },
   {
-    img: `${S3}/PF_Detailed_Information.png?1706548338`,
+    icon: 'fa-id-card',
     title: 'Personalized Postcards',
     description:
       'Transform your mailing list into a personalized powerhouse with our Variable Data Printing (VDP) technology. Add individual names and details to each piece.',
   },
   {
-    img: `${S3}/Increased_Conversions.png?1706547848`,
+    icon: 'fa-arrow-trend-up',
     title: 'Increased Conversions',
     description:
       'PrintFast delivers your message to decision-makers, not just mailboxes. Amplify your voice and watch conversions ignite.',
@@ -174,11 +174,6 @@ const faqs = [
             ensure your message lands with the right people, every time. We have the expertise to
             pinpoint the decision-makers you need to reach.
           </p>
-          <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
-            Transform your mailing list into a personalized powerhouse. Our Variable Data Printing
-            technology adds individual names and details to each piece, creating impactful one-to-one
-            connections that resonate. It’s easy, effective and gets results.
-          </p>
           <div class="mt-8 flex flex-wrap gap-3">
             <a
               href={contactHref}
@@ -209,53 +204,6 @@ const faqs = [
     </div>
   </section>
 
-  <!-- ===================== INTRO / PRECISION ===================== -->
-  <section class="section">
-    <div class="container-pf">
-      <div class="mx-auto max-w-3xl text-center" data-reveal>
-        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
-          <i class="fa-solid fa-bullseye"></i> Precision Targeting
-        </p>
-        <h2 class="heading-lg mt-4 text-[#0f2747]">Stop wasting postage on marketing misses</h2>
-        <p class="lead mt-5">
-          Start converting with PrintFast. Sign up today and unleash the power of precision — deliver
-          the right message to the right homeowner, every single time.
-        </p>
-      </div>
-
-      <div class="mt-12 grid gap-6 sm:grid-cols-3">
-        <div class="rounded-2xl bg-white p-8 text-center ring-1 ring-ink-100 shadow-soft" data-reveal>
-          <span class="grid h-14 w-14 mx-auto place-items-center rounded-full bg-[#fde8e9] text-2xl text-[#ED1C24]">
-            <i class="fa-solid fa-crosshairs"></i>
-          </span>
-          <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">Right People</h3>
-          <p class="mt-2 text-sm leading-relaxed text-ink-600">
-            Precise homeowner data ensures your message lands with qualified decision-makers, not
-            random mailboxes.
-          </p>
-        </div>
-        <div class="rounded-2xl bg-white p-8 text-center ring-1 ring-ink-100 shadow-soft" data-reveal>
-          <span class="grid h-14 w-14 mx-auto place-items-center rounded-full bg-[#fde8e9] text-2xl text-[#ED1C24]">
-            <i class="fa-solid fa-user-pen"></i>
-          </span>
-          <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">Personalized</h3>
-          <p class="mt-2 text-sm leading-relaxed text-ink-600">
-            Variable Data Printing adds individual names and details to each piece for impactful
-            one-to-one connections.
-          </p>
-        </div>
-        <div class="rounded-2xl bg-white p-8 text-center ring-1 ring-ink-100 shadow-soft" data-reveal>
-          <span class="grid h-14 w-14 mx-auto place-items-center rounded-full bg-[#fde8e9] text-2xl text-[#ED1C24]">
-            <i class="fa-solid fa-arrow-trend-up"></i>
-          </span>
-          <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">Proven Results</h3>
-          <p class="mt-2 text-sm leading-relaxed text-ink-600">
-            It’s easy, effective and gets results — impactful connections that resonate and convert.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ===================== WHY CHOOSE PRINTFAST ===================== -->
   <section class="section bg-ink-50/60">
@@ -270,15 +218,9 @@ const faqs = [
       <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
         {whyChoose.map((w) => (
           <div class="flex flex-col items-center rounded-2xl bg-white p-6 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
-            <img
-              src={w.img}
-              alt={w.title}
-              width="120"
-              height="120"
-              class="h-20 w-20 object-contain"
-              loading="lazy"
-              decoding="async"
-            />
+            <span class="grid h-20 w-20 shrink-0 place-items-center rounded-2xl bg-[#fde8e9] text-3xl text-[#ED1C24]">
+              <i class={`fa-solid ${w.icon}`}></i>
+            </span>
             <h3 class="mt-4 text-sm font-extrabold uppercase tracking-wide text-[#0f2747]">{w.title}</h3>
             <p class="mt-2 text-sm leading-relaxed text-ink-600">{w.description}</p>
           </div>

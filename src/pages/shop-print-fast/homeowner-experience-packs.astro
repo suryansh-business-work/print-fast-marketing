@@ -29,19 +29,19 @@ const rightPocket = [
 
 const benefits = [
   {
-    img: `${S3}/builds-trust.png?1765353345`,
+    icon: 'fa-handshake',
     title: 'Instantly Build Trust & Credibility',
     description:
       'Presented at the start of every visit, the pack sets a polished tone and positions your company as reliable and credible.',
   },
   {
-    img: `${S3}/strengthens-brand.png?1765353345`,
+    icon: 'fa-star',
     title: 'Strengthens Your Brand',
     description:
       'Includes proof-of-performance items like BBB ratings, Google reviews, and community recognition to validate your reputation.',
   },
   {
-    img: `${S3}/customer-loyalty.png?1765353345`,
+    icon: 'fa-arrow-trend-up',
     title: 'Boosts Close Rates & Customer Loyalty',
     description:
       'The combination of credibility, education, and value differentiates you from competitors and creates a memorable experience that leads to stronger customer relationships.',
@@ -49,10 +49,10 @@ const benefits = [
 ];
 
 const relatedProducts = [
-  { title: 'Door Hangers', slug: 'door-hangers' },
-  { title: 'Radius Postcards', slug: 'radius-postcards' },
-  { title: 'Thank You Postcards', slug: 'thank-you-postcards' },
-  { title: 'Service Request Postcards', slug: 'service-request-postcards' },
+  { title: 'Door Hangers', slug: 'door-hangers', icon: 'fa-door-closed' },
+  { title: 'Radius Postcards', slug: 'radius-postcards', icon: 'fa-location-crosshairs' },
+  { title: 'Thank You Postcards', slug: 'thank-you-postcards', icon: 'fa-heart' },
+  { title: 'Service Request Postcards', slug: 'service-request-postcards', icon: 'fa-screwdriver-wrench' },
 ];
 
 const faqs = [
@@ -124,7 +124,7 @@ const faqs = [
             from competitors who may only leave behind a single brochure.
           </p>
           <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
-            Each pack is built around a high-quality 9&quot; × 12&quot; pocket folder, customized with
+            Each pack is built around a <strong class="font-bold text-white">high-quality 9&quot; × 12&quot; pocket folder</strong>, customized with
             your branding and designed to hold a curated collection of materials.
           </p>
           <div class="mt-8 flex flex-wrap gap-3">
@@ -254,15 +254,9 @@ const faqs = [
       <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {benefits.map((b) => (
           <div class="flex flex-col items-center rounded-2xl bg-white p-8 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
-            <img
-              src={b.img}
-              alt={b.title}
-              width="120"
-              height="120"
-              class="h-24 w-24 object-contain"
-              loading="lazy"
-              decoding="async"
-            />
+            <span class="grid h-24 w-24 shrink-0 place-items-center rounded-2xl bg-[#fde8e9] text-4xl text-[#ED1C24]">
+              <i class={`fa-solid ${b.icon}`}></i>
+            </span>
             <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{b.title}</h3>
             <p class="mt-3 text-sm leading-relaxed text-ink-600">{b.description}</p>
           </div>
@@ -340,10 +334,13 @@ const faqs = [
         {relatedProducts.map((p) => (
           <a
             href={shopHref(p.slug)}
-            class="group flex items-center justify-between gap-3 rounded-2xl bg-white p-5 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40"
+            class="group flex items-center gap-3 rounded-2xl bg-white p-5 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40"
             data-reveal
           >
-            <span class="text-sm font-extrabold uppercase tracking-wide text-[#0f2747]">{p.title}</span>
+            <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#fde8e9] text-[#ED1C24]">
+              <i class={`fa-solid ${p.icon}`}></i>
+            </span>
+            <span class="flex-1 text-sm font-extrabold uppercase tracking-wide text-[#0f2747]">{p.title}</span>
             <i class="fa-solid fa-arrow-right text-xs text-[#ED1C24] transition-transform group-hover:translate-x-0.5"></i>
           </a>
         ))}

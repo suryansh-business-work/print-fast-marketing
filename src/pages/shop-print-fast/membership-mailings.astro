@@ -14,37 +14,37 @@ const heroImg = `${CF}/Membership_Mailers.png?1695494868`;
 
 const benefits = [
   {
-    img: `${S3}/PF_Clear_Information.png?1700248572`,
+    icon: 'fa-circle-info',
     title: 'Clear Information',
     description:
       'Membership kits provide homeowners with comprehensive information about their plan, reducing confusion and ensuring they understand the services they have access to.',
   },
   {
-    img: `${S3}/PF_Improved_Customer_Experience.png?1700248615`,
+    icon: 'fa-face-smile',
     title: 'Improved Customer Experience',
     description:
       'It enhances the onboarding process, making homeowners feel valued and appreciated from the start, leading to higher customer satisfaction.',
   },
   {
-    img: `${S3}/PF_Increased_Engagement.png?1700248664`,
+    icon: 'fa-hand-holding-heart',
     title: 'Increased Engagement',
     description:
       'The kits can include tips, guides, or resources that engage homeowners and help them make the most of their service plan.',
   },
   {
-    img: `${S3}/PF_subtle_marketing.png?1700247105`,
+    icon: 'fa-bullhorn',
     title: 'Promotion of Additional Services',
     description:
       'Membership kits can introduce homeowners to other services or upgrades they might be interested in, potentially increasing revenue for the provider.',
   },
   {
-    img: `${S3}/PF_Enhanced_Loyalty.png?1700248694`,
+    icon: 'fa-heart',
     title: 'Enhanced Loyalty',
     description:
       'By showcasing the benefits of the plan and offering a tangible welcome, membership kits can foster long-term loyalty among homeowners.',
   },
   {
-    img: `${S3}/PF_Branding_Recognition.png?1700248717`,
+    icon: 'fa-award',
     title: 'Branding and Recognition',
     description:
       'These kits reinforce the brand identity of the home service provider, helping homeowners remember and trust the company for future needs.',
@@ -69,12 +69,6 @@ const relatedProducts = [
     href: shopHref('thank-you-mailers'),
     description:
       'Show appreciation and stay top of mind with personalized thank you mailers sent after every job.',
-  },
-  {
-    title: 'Newsletters',
-    href: shopHref('newsletters-new'),
-    description:
-      'Keep your brand in front of homeowners month after month with professionally designed newsletters.',
   },
 ];
 ---
@@ -175,15 +169,9 @@ const relatedProducts = [
       <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {benefits.map((b) => (
           <div class="flex flex-col items-center rounded-2xl bg-white p-7 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
-            <img
-              src={b.img}
-              alt={b.title}
-              width="120"
-              height="120"
-              class="h-20 w-20 object-contain"
-              loading="lazy"
-              decoding="async"
-            />
+            <span class="grid h-20 w-20 shrink-0 place-items-center rounded-2xl bg-[#fde8e9] text-3xl text-[#ED1C24]">
+              <i class={`fa-solid ${b.icon}`}></i>
+            </span>
             <h3 class="mt-4 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{b.title}</h3>
             <p class="mt-2 text-sm leading-relaxed text-ink-600">{b.description}</p>
           </div>
@@ -220,7 +208,12 @@ const relatedProducts = [
         </div>
 
         <!-- Testimonial -->
-        <div class="relative rounded-3xl bg-[#0f2747] p-8 shadow-soft sm:p-10" data-reveal>
+        <div data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-comment-dots"></i> Testimonials
+          </p>
+          <h3 class="heading-md mt-4 text-[#0f2747]">What Our Clients Say?</h3>
+          <div class="relative mt-6 rounded-3xl bg-[#0f2747] p-8 shadow-soft sm:p-10">
           <i class="fa-solid fa-quote-left text-4xl text-[#ED1C24]"></i>
           <blockquote class="mt-4 text-lg leading-relaxed text-white/90">
             Great company all around!!! From people taking orders to the editing proof team making sure
@@ -234,6 +227,7 @@ const relatedProducts = [
               <p class="font-bold text-white">Derek B.</p>
               <p class="text-sm text-white/60">PrintFast client</p>
             </div>
+          </div>
           </div>
         </div>
       </div>

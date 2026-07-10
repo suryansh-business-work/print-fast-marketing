@@ -14,49 +14,41 @@ const heroImg = `${CF}/thank_you_mailers_banner_1_1_.png?1695721598`;
 
 const whyChoose = [
   {
-    img: `${S3}/PF_customer_appreciation.png?1700247160`,
+    icon: 'fa-heart',
     title: 'Customer Appreciation',
     description:
       'Thank-you mailings convey gratitude for their business, making clients feel valued and appreciated.',
   },
   {
-    img: `${S3}/PF_customer_satisfaction.png?1700247160`,
+    icon: 'fa-face-smile',
     title: 'Enhanced Customer Satisfaction',
     description:
       'Acknowledging their support fosters a positive experience, potentially leading to higher satisfaction with your services.',
   },
   {
-    img: `${S3}/PF_repeat_business.png?1700247218`,
+    icon: 'fa-rotate',
     title: 'Repeat Business',
     description:
       'Clients who feel appreciated are more likely to return for future home service needs.',
   },
   {
-    img: `${S3}/PF_referral_program.png?1700247244`,
+    icon: 'fa-user-plus',
     title: 'Referral Opportunities',
     description:
       'Satisfied clients may recommend your services to friends and family, expanding your client base.',
   },
   {
-    img: `${S3}/PF_brand_reinforcement.png?1700247290`,
+    icon: 'fa-bullhorn',
     title: 'Brand Reinforcement',
     description:
       'Thank-you mailings serve as a reminder of your brand and the exceptional quality of your services, reinforcing client loyalty.',
   },
   {
-    img: `${S3}/PF_subtle_marketing.png?1700247105`,
+    icon: 'fa-wand-magic-sparkles',
     title: 'Subtle Marketing',
     description:
       'They can include promotional offers or incentives, increasing the chances of future bookings and boosting revenue.',
   },
-];
-
-const greatFeatures = [
-  'All our products include proofs for your approval.',
-  'All products get delivered to the Post Office in 2 business days.',
-  'No contracts or commitments.',
-  'Prices start at 74¢ each (minimum 10).',
-  'Pricing is all-inclusive with postage and delivery to the Post Office.',
 ];
 
 const relatedProducts = [
@@ -181,15 +173,9 @@ const relatedProducts = [
       <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {whyChoose.map((w) => (
           <div class="flex flex-col items-center rounded-2xl bg-white p-7 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
-            <img
-              src={w.img}
-              alt={w.title}
-              width="120"
-              height="120"
-              class="h-20 w-20 object-contain"
-              loading="lazy"
-              decoding="async"
-            />
+            <span class="grid h-20 w-20 shrink-0 place-items-center rounded-2xl bg-[#fde8e9] text-3xl text-[#ED1C24]">
+              <i class={`fa-solid ${w.icon}`}></i>
+            </span>
             <h3 class="mt-4 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{w.title}</h3>
             <p class="mt-2 text-sm leading-relaxed text-ink-600">{w.description}</p>
           </div>
@@ -227,16 +213,10 @@ const relatedProducts = [
             <i class="fa-solid fa-star"></i> What's So Great?
           </p>
           <h2 class="heading-lg mt-4 text-[#0f2747]">What's so great about our products?</h2>
-          <ul class="mt-8 space-y-4">
-            {greatFeatures.map((f) => (
-              <li class="flex items-start gap-3">
-                <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
-                  <i class="fa-solid fa-check text-[10px]"></i>
-                </span>
-                <span class="text-ink-700">{f}</span>
-              </li>
-            ))}
-          </ul>
+          <p class="lead mt-6 text-ink-600">
+            Every thank-you mailing is fully managed and all-inclusive — from design to delivery, we
+            handle the details so your clients feel appreciated and your campaign runs itself.
+          </p>
           <a
             href={contactHref}
             class="mt-8 inline-flex items-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
@@ -262,6 +242,10 @@ const relatedProducts = [
             <div class="flex items-center gap-3 rounded-xl bg-ink-50/70 px-4 py-3">
               <i class="fa-solid fa-handshake-simple text-[#ED1C24]"></i>
               <span class="text-sm font-semibold text-[#0f2747]">No contracts or commitments</span>
+            </div>
+            <div class="flex items-center gap-3 rounded-xl bg-ink-50/70 px-4 py-3">
+              <i class="fa-solid fa-stamp text-[#ED1C24]"></i>
+              <span class="text-sm font-semibold text-[#0f2747]">Pricing is all-inclusive with postage and delivery to the Post Office</span>
             </div>
           </div>
         </div>

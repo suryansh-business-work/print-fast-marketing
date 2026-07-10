@@ -14,37 +14,37 @@ const heroBanner = `${CDN}/referral_mailers_banner_1_.png?1695709035`;
 
 const whyChoose = [
   {
-    img: `${S3}/PF_Higher_Conversion_Rates.png?1697555626`,
+    icon: 'fa-arrow-trend-up',
     title: 'Higher Conversion Rates',
     description:
       'Existing clients are prime for referrals due to their firsthand experience, leading to higher conversion rates than targeting cold audiences.',
   },
   {
-    img: `${S3}/PF_Quality_Leads.png?1697555626`,
+    icon: 'fa-user-check',
     title: 'Quality Leads',
     description:
       'Referred customers offer high-quality leads with built-in trust, making them easier to convert due to trust in recommendations.',
   },
   {
-    img: `${S3}/PF_Word-of-Mouth_Marketing.png?1697555626`,
+    icon: 'fa-comments',
     title: 'Word-of-Mouth Marketing',
     description:
       'Referral mailers enhance word-of-mouth marketing, triggering a chain reaction of recommendations beyond your client base.',
   },
   {
-    img: `${S3}/PF_Brand_Advocacy.png?1697555626`,
+    icon: 'fa-bullhorn',
     title: 'Brand Advocacy',
     description:
       'Encourage referrals to create brand advocates. They refer and promote your brand across social media, review sites, and personal networks.',
   },
   {
-    img: `${S3}/PF_Customer_Loyalty.png?1697555626`,
+    icon: 'fa-heart',
     title: 'Customer Loyalty',
     description:
       "Referral mailers to existing clients signal value, boosting loyalty and strengthening your company's client relationships.",
   },
   {
-    img: `${S3}/PF_Competitive_Advantage.png?1697555626`,
+    icon: 'fa-trophy',
     title: 'Competitive Advantage',
     description:
       'A successful referral program distinguishes your home service company from competitors reliant on traditional advertising.',
@@ -199,15 +199,9 @@ const faqs = [
       <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {whyChoose.map((w) => (
           <div class="flex flex-col items-center rounded-2xl bg-white p-7 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
-            <img
-              src={w.img}
-              alt={w.title}
-              width="120"
-              height="120"
-              class="h-20 w-20 object-contain"
-              loading="lazy"
-              decoding="async"
-            />
+            <span class="grid h-20 w-20 shrink-0 place-items-center rounded-2xl bg-[#fde8e9] text-3xl text-[#ED1C24]">
+              <i class={`fa-solid ${w.icon}`}></i>
+            </span>
             <h3 class="mt-4 text-sm font-extrabold uppercase tracking-wide text-[#0f2747]">{w.title}</h3>
             <p class="mt-2 text-sm leading-relaxed text-ink-600">{w.description}</p>
           </div>

@@ -41,27 +41,27 @@ const products = [
 
 const whyChoose = [
   {
-    img: `${S3}/jumbo-sized_postcard.png?1700750820`,
+    icon: 'fa-maximize',
     title: 'Jumbo-Sized Postcard',
     description: 'An 6” × 11” Jumbo sized postcard to stand out in the mailbox.',
   },
   {
-    img: `${S3}/Full_Color_Print.png?1700583800`,
+    icon: 'fa-palette',
     title: 'High Gloss Full Color Print',
     description: 'Attract potential customers with our high glossy card stock, printed in full color.',
   },
   {
-    img: `${S3}/Professionally_written_and_editable.png?1700751004`,
+    icon: 'fa-pen-ruler',
     title: 'Professionally Designed & Editable',
     description: 'All our Seasonal Postcards are professionally designed and can be customized as per your needs.',
   },
   {
-    img: `${S3}/PF_subtle_marketing.png?1700994681`,
+    icon: 'fa-bullhorn',
     title: 'Build Brand Awareness',
     description: 'Sending postcards to your prospect market each month is the best way to build your brand awareness.',
   },
   {
-    img: `${S3}/Brand-Specific_Customized_Design.png?1700994590`,
+    icon: 'fa-swatchbook',
     title: 'Brand-Specific Customized Design',
     description: 'Our pricing includes placing your company logo, contact information, coupons and changing colors as per your brand.',
   },
@@ -138,9 +138,9 @@ const didYouKnow = [
 
         <div class="relative" data-reveal>
           <img
-            src={`${S3}/jumbo-sized_postcard.png?1700750820`}
+            src="https://ik.imagekit.io/PFdigitalmarketing/Shop.Printfast/all-postcards-banner.svg"
             alt="Jumbo 6 by 11 inch PrintFast direct mail postcard"
-            class="mx-auto h-auto w-full max-w-md rounded-2xl"
+            class="mx-auto h-auto w-full max-w-lg rounded-2xl"
             loading="eager"
             decoding="async"
             fetchpriority="high"
@@ -198,15 +198,9 @@ const didYouKnow = [
       <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
         {whyChoose.map((w) => (
           <div class="flex flex-col items-center rounded-2xl bg-white p-6 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
-            <img
-              src={w.img}
-              alt={w.title}
-              width="120"
-              height="120"
-              class="h-20 w-20 object-contain"
-              loading="lazy"
-              decoding="async"
-            />
+            <span class="grid h-20 w-20 shrink-0 place-items-center rounded-2xl bg-[#fde8e9] text-3xl text-[#ED1C24]">
+              <i class={`fa-solid ${w.icon}`}></i>
+            </span>
             <h3 class="mt-4 text-sm font-extrabold uppercase tracking-wide text-[#0f2747]">{w.title}</h3>
             <p class="mt-2 text-sm leading-relaxed text-ink-600">{w.description}</p>
           </div>
