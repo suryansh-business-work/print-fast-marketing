@@ -6,24 +6,26 @@ import ContactForm from '@components/ContactForm.astro';
 
 const contactHref = getContactHref('digital-marketing-services');
 
-// Original PrintFast image assets (served from the same CDN/S3 the live store uses).
-const S3 = 'https://nklopsouqd.s3.us-west-1.amazonaws.com/printfast/images/common';
+// The step icons are a solid disc with the glyph knocked out in white, so they
+// can't be recoloured with the .icon-mask alpha trick (that would paint the whole
+// disc). These are local copies with the green disc remapped to brand red.
+const STEP_ICONS = '/images/thank-you-programs';
 
 const steps = [
   {
-    img: `${S3}/step_1_TY_cards.png?1705331564`,
+    img: `${STEP_ICONS}/step-1.webp`,
     title: 'Provide us your weekly service list',
     description:
       'Send us your weekly list of completed jobs and customers. That is all we need to get your Thank You program moving — no busywork on your end.',
   },
   {
-    img: `${S3}/step_2_TY_cards.png?1705331564`,
+    img: `${STEP_ICONS}/step-2.webp`,
     title: 'We print and mail within one business day',
     description:
       'Our team prints and mails your Thank You cards within one business day, so your appreciation reaches customers while the experience is still fresh.',
   },
   {
-    img: `${S3}/step_1_TY_cards.png?1705331564`,
+    img: `${STEP_ICONS}/step-1.webp`,
     title: 'Clients receive cards and premium gifts',
     description:
       'Within a few days your clients receive their Thank You cards — and, if you choose, premium gifts that turn a single sale into lasting loyalty.',
@@ -113,41 +115,56 @@ const relatedProducts = [
     <span aria-hidden="true" class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></span>
 
     <div class="container-pf relative py-14 sm:py-16 lg:py-24">
-      <div class="mx-auto max-w-3xl text-center" data-reveal>
-        <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
-          Customer Loyalty Programs
-        </p>
-        <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
-          Thank You <span class="text-[#ED1C24]">Programs</span>
-        </h1>
-        <p class="mt-5 text-lg font-semibold text-white/90">
-          Thank your customer properly. Let them know that you care.
-        </p>
-        <p class="mt-5 text-sm leading-relaxed text-white/80 sm:text-base">
-          In today’s service-driven economy transactions follow a familiar path. You provide a product
-          or service, your customer hands over their hard-earned cash and you say “Thank You”, and that
-          usually ends the transaction. Well, not everyone in the business does that. Successful
-          businesses understand that sales don’t simply end with a thank you.
-        </p>
-        <p class="mt-4 text-sm leading-relaxed text-white/80 sm:text-base">
-          Why not elevate your business to a level of exceptional customer service by sending a Thank
-          You card or a small gift one week after the sale? Successful businesses are building solid
-          customer loyalty and repeat business just by sending Thank You cards. And PrintFast has the
-          programs that make it easy.
-        </p>
-        <div class="mt-8 flex flex-wrap justify-center gap-3">
-          <a
-            href={contactHref}
-            class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
-          >
-            Contact Us <i class="fa-solid fa-arrow-right text-xs"></i>
-          </a>
-          <a
-            href={shopHref('all-products')}
-            class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
-          >
-            View All Products
-          </a>
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+            Customer Loyalty Programs
+          </p>
+          <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Thank You <span class="text-[#ED1C24]">Programs</span>
+          </h1>
+          <p class="mt-5 text-lg font-semibold text-white/90">
+            Thank your customer properly. Let them know that you care.
+          </p>
+          <p class="mt-5 text-sm leading-relaxed text-white/80 sm:text-base">
+            In today’s service-driven economy transactions follow a familiar path. You provide a product
+            or service, your customer hands over their hard-earned cash and you say “Thank You”, and that
+            usually ends the transaction. Well, not everyone in the business does that. Successful
+            businesses understand that sales don’t simply end with a thank you.
+          </p>
+          <p class="mt-4 text-sm leading-relaxed text-white/80 sm:text-base">
+            Why not elevate your business to a level of exceptional customer service by sending a Thank
+            You card or a small gift one week after the sale? Successful businesses are building solid
+            customer loyalty and repeat business just by sending Thank You cards. And PrintFast has the
+            programs that make it easy.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Contact Us <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('all-products')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              View All Products
+            </a>
+          </div>
+        </div>
+
+        <div class="relative" data-reveal>
+          <div class="overflow-hidden rounded-2xl bg-black shadow-soft ring-1 ring-white/15">
+            <iframe
+              src="https://share.synthesia.io/embeds/videos/87b5d7a8-90be-4a37-8f68-c880a7a07a0b"
+              title="PrintFast Thank You Programs — overview video"
+              class="block aspect-video w-full"
+              frameborder="0"
+              allowfullscreen
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            ></iframe>
+          </div>
         </div>
       </div>
     </div>
@@ -173,15 +190,14 @@ const relatedProducts = [
             <span class="absolute right-5 top-5 font-display text-4xl font-extrabold text-[#ED1C24]/15">{i + 1}</span>
             <img
               src={s.img}
-              alt={`Step ${i + 1}: ${s.title}`}
-              width="120"
-              height="120"
+              alt=""
+              width="96"
+              height="96"
               class="h-24 w-24 object-contain"
               loading="lazy"
               decoding="async"
             />
-            <div class="mt-4 inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#ED1C24] text-sm font-bold text-white">{i + 1}</div>
-            <h3 class="mt-3 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{s.title}</h3>
+            <h3 class="mt-4 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{s.title}</h3>
             <p class="mt-2 text-sm leading-relaxed text-ink-600">{s.description}</p>
           </div>
         ))}

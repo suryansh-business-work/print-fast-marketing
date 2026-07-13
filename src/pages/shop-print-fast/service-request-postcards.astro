@@ -44,7 +44,7 @@ const whyChoose = [
 ];
 
 const didYouKnow = [
-  'Our Service Request Postcards cost as low as 29¢ each (all costs including postage) for a minimum quantity of 1,000.',
+  'Our Service Request Postcards cost as low as <strong class="font-bold">29¢ each</strong> (all costs including postage) for a minimum quantity of 1,000.',
   'No contracts or commitments for continued mailings.',
   'Feel free to contact us for more information.',
 ];
@@ -52,21 +52,25 @@ const didYouKnow = [
 const relatedProducts = [
   {
     title: 'Radius Postcards',
+    icon: 'fa-location-crosshairs',
     href: shopHref('radius-postcards'),
     description: 'Build credibility in the neighborhood with targeted, customizable radius mailings around every job.',
   },
   {
     title: 'Seasonal Postcards',
+    icon: 'fa-snowflake',
     href: shopHref('seasonal-postcards'),
     description: 'Stay top of mind year-round with VDP-enabled seasonal designs tailored to your brand.',
   },
   {
     title: 'Thank You Postcards',
+    icon: 'fa-heart',
     href: shopHref('thank-you-postcards'),
     description: 'Simple, low-cost and personalized thank-you cards that keep your customers coming back.',
   },
   {
     title: 'All Postcards',
+    icon: 'fa-address-card',
     href: shopHref('printfast-postcards'),
     description: 'Explore the complete lineup of PrintFast jumbo direct mail postcard programs.',
   },
@@ -208,14 +212,10 @@ const relatedProducts = [
       <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {whyChoose.map((w) => (
           <div class="flex flex-col items-center rounded-2xl bg-white p-6 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
-            <img
-              src={w.img}
-              alt={w.title}
-              width="120"
-              height="120"
-              class="h-20 w-20 object-contain"
-              loading="lazy"
-              decoding="async"
+            <span
+              class="icon-mask h-20 w-20 text-[#ED1C24]"
+              style={`--icon:url('${w.img}')`}
+              aria-hidden="true"
             />
             <h3 class="mt-4 text-sm font-extrabold uppercase tracking-wide text-[#0f2747]">{w.title}</h3>
             <p class="mt-2 text-sm leading-relaxed text-ink-600">{w.description}</p>
@@ -240,7 +240,7 @@ const relatedProducts = [
                 <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
                   <i class="fa-solid fa-check text-[10px]"></i>
                 </span>
-                <span class="text-ink-700">{d}</span>
+                <span class="text-ink-700" set:html={d} />
               </li>
             ))}
           </ul>
@@ -286,7 +286,10 @@ const relatedProducts = [
       <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {relatedProducts.map((p) => (
           <a href={p.href} class="group flex flex-col rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
-            <h3 class="text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{p.title}</h3>
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-[#fde8e9] text-[#ED1C24]">
+              <i class={`fa-solid ${p.icon} text-lg`}></i>
+            </span>
+            <h3 class="mt-4 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{p.title}</h3>
             <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-600">{p.description}</p>
             <span class="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#ED1C24]">
               View More <i class="fa-solid fa-arrow-right text-xs transition-transform group-hover:translate-x-0.5"></i>

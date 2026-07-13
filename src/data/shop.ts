@@ -96,8 +96,6 @@ export const SHOP_GROUPS: ShopGroup[] = [
     icon: 'fa-building',
     description: 'Who we are, who we serve, and the promises we stand behind.',
     pages: [
-      { slug: 'about-us', label: 'About Us', blurb: 'Get to know the team behind PrintFast marketing solutions.', icon: 'fa-people-group', source: '/about-us-navigation.html' },
-      { slug: 'who-we-are', label: 'Who We Are', blurb: 'Our story, our mission, and the people who make it happen.', icon: 'fa-users', source: '/who_we_are.html' },
       { slug: 'who-we-serve', label: 'Who We Serve', blurb: 'The home-service trades and businesses we proudly support.', icon: 'fa-handshake-angle', source: '/who_we_serve.html' },
       { slug: 'lets-move-forward-together', label: 'Let’s Move Forward Together', blurb: 'How we partner with you to grow your business, step by step.', icon: 'fa-arrow-trend-up', source: '/lets_move_forward_together.html' },
       { slug: 'satisfaction-guarantee', label: 'Satisfaction Guarantee', blurb: 'The guarantee that stands behind every PrintFast order.', icon: 'fa-shield-halved', source: '/satisfaction_guarantee.html' },

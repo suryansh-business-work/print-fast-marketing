@@ -63,24 +63,6 @@ const guarantees = [
   },
 ];
 
-const values = [
-  {
-    icon: 'fa-handshake',
-    title: 'Honesty',
-    description: 'Straightforward communication and fair dealing on every project, every time.',
-  },
-  {
-    icon: 'fa-scale-balanced',
-    title: 'Integrity',
-    description: 'We do what we say we will do, and we protect what you entrust to us.',
-  },
-  {
-    icon: 'fa-star',
-    title: 'Service at the Highest Level',
-    description: 'A commitment that has never changed since 1903 — more than 120 years of serving clients.',
-  },
-];
-
 const faqs = [
   {
     question: 'What is the PrintFast Satisfaction Guarantee?',
@@ -158,16 +140,10 @@ const faqs = [
           </p>
           <div class="mt-8 flex flex-wrap gap-3">
             <a
-              href="#certificate"
+              href={contactHref}
               class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
             >
-              View the Certificate <i class="fa-solid fa-arrow-right text-xs"></i>
-            </a>
-            <a
-              href={contactHref}
-              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
-            >
-              Talk To Our Team
+              Talk To Our Team <i class="fa-solid fa-arrow-right text-xs"></i>
             </a>
           </div>
         </div>
@@ -212,34 +188,6 @@ const faqs = [
             </span>
             <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{g.title}</h3>
             <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-600">{g.description}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== OUR VALUES ===================== -->
-  <section class="section bg-ink-50/60">
-    <div class="container-pf">
-      <div class="mx-auto max-w-3xl text-center" data-reveal>
-        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
-          <i class="fa-solid fa-heart"></i> What We Stand For
-        </p>
-        <h2 class="heading-lg mt-4 text-[#0f2747]">Values that have never changed since 1903</h2>
-        <p class="lead mt-5 text-ink-600">
-          Products and technology evolve, but the principles behind our guarantee are the same ones we
-          started with over 120 years ago.
-        </p>
-      </div>
-
-      <div class="mt-12 grid gap-6 sm:grid-cols-3">
-        {values.map((v) => (
-          <div class="flex flex-col items-center rounded-2xl bg-white p-8 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
-            <span class="grid h-14 w-14 place-items-center rounded-full bg-[#0f2747] text-white">
-              <i class:list={['fa-solid', v.icon, 'text-xl']} aria-hidden="true"></i>
-            </span>
-            <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{v.title}</h3>
-            <p class="mt-2 text-sm leading-relaxed text-ink-600">{v.description}</p>
           </div>
         ))}
       </div>

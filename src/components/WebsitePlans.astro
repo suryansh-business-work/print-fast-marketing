@@ -1,0 +1,111 @@
+---
+// Shared 5-tier "visibility & growth systems" pricing matrix.
+// Rendered on /website-creation/ and /shop-print-fast/web-design/ so both pages
+// always show identical plans. Data lives in @data/website-plans.
+import { WEBSITE_TIERS as tiers, WEBSITE_COMPARISON as comparison } from '@data/website-plans';
+import { getContactHref } from '@data/pricing';
+
+export interface Props {
+  /** Section id used for in-page anchors (e.g. href="#pricing"). */
+  id?: string;
+  eyebrow?: string;
+  title?: string;
+  subtitle?: string;
+  /** Extra classes for the <section> (e.g. a background tint). */
+  class?: string;
+}
+
+const {
+  id = 'pricing',
+  eyebrow = 'Plans & pricing',
+  title = 'Compare our visibility & growth systems',
+  subtitle = 'Five systems built around your fleet size and market. All prices in USD, billed monthly, with your monthly boost budget included as shown.',
+  class: className = '',
+} = Astro.props;
+
+const eyebrowPill =
+  'inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]';
+---
+
+<section id={id} class:list={['section', className]}>
+  <div class="container-pf">
+    <div class="mx-auto max-w-3xl text-center" data-reveal>
+      <p class={eyebrowPill}><i class="fa-solid fa-bolt"></i> {eyebrow}</p>
+      <h2 class="heading-lg mt-4 text-[#0f2747]">{title}</h2>
+      <p class="lead mt-5">{subtitle}</p>
+    </div>
+
+    <div class="mt-12 overflow-x-auto rounded-2xl ring-1 ring-ink-100 shadow-soft" data-reveal>
+      <table class="w-full min-w-[1040px] border-collapse text-left">
+        <thead>
+          <tr class="bg-[#0f2747] text-white">
+            <th scope="col" class="sticky left-0 z-20 bg-[#0f2747] px-5 py-5 text-left text-xs font-bold uppercase tracking-wider text-white/70">
+              Service / feature
+            </th>
+            {tiers.map((t) => (
+              <th scope="col" class:list={['px-4 py-5 text-center align-top', t.popular && 'bg-white/10']}>
+                {t.popular && <span class="mb-2 inline-block rounded-full bg-[#ED1C24] px-2.5 py-0.5 text-[0.6rem] font-extrabold uppercase tracking-wider text-white">Popular</span>}
+                <span class="block text-sm font-extrabold leading-tight">{t.name}</span>
+                <span class="mt-2 block font-display text-2xl font-extrabold">{t.price}<span class="text-xs font-medium text-white/60">{t.period}</span></span>
+                <span class="mt-1 block text-[0.7rem] font-medium text-white/60">{t.target}</span>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody class="text-sm">
+          {comparison.map((section) => (
+            <Fragment>
+              <tr>
+                <th scope="colgroup" colspan={tiers.length + 1} class="bg-[#fde8e9] px-5 py-2.5 text-left text-xs font-extrabold uppercase tracking-[0.14em] text-[#c01620]">
+                  {section.group}
+                </th>
+              </tr>
+              {section.rows.map((row, i) => (
+                <tr class:list={['border-t border-ink-100', i % 2 === 1 && 'bg-ink-50/50']}>
+                  <th scope="row" class:list={['sticky left-0 z-10 px-5 py-3 text-left font-semibold text-[#0f2747]', i % 2 === 1 ? 'bg-[#f4f5f7]' : 'bg-white']}>
+                    {row.label}
+                  </th>
+                  {row.cells.map((cell, ci) => (
+                    <td class:list={['px-4 py-3 text-center', tiers[ci].popular && 'bg-[#fde8e9]/40']}>
+                      {cell === '✔'
+                        ? <i class="fa-solid fa-circle-check text-base text-[#ED1C24]" aria-label="Included"></i>
+                        : (cell === '-' || cell === '')
+                          ? <span class="text-ink-300" aria-label="Not included">–</span>
+                          : <span class="text-ink-600">{cell}</span>}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </Fragment>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr class="border-t-2 border-ink-200">
+            <td class="sticky left-0 z-10 bg-white px-5 py-5"></td>
+            {tiers.map((t) => (
+              <td class:list={['px-3 py-5 text-center align-top', t.popular ? 'bg-[#fde8e9]/40' : 'bg-white']}>
+                <a
+                  href={getContactHref('website-creation', t.slug)}
+                  class:list={[
+                    'inline-flex w-full items-center justify-center gap-1 rounded-md px-3 py-2.5 text-[0.7rem] font-extrabold uppercase tracking-wide transition-all',
+                    t.popular
+                      ? 'bg-[#ED1C24] text-white shadow-lg hover:bg-[#c8161d]'
+                      : 'text-[#0f2747] ring-1 ring-ink-200 hover:text-[#ED1C24] hover:ring-[#ED1C24]',
+                  ]}
+                >
+                  {t.price === 'Custom' ? 'Contact us' : 'Get started'}
+                </a>
+              </td>
+            ))}
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <p class="mx-auto mt-6 max-w-3xl text-center text-xs leading-relaxed text-ink-500">
+      Boost budget is ad spend included with each plan; additional boost budget is available as an upsell.
+      ™ Van Visibility System, Growth Acceleration System, Market Domination System, Enterprise Territory
+      System and Hyperlocal Market Penetration Mailer are PrintFast service systems.
+    </p>
+  </div>
+</section>

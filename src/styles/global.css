@@ -132,6 +132,22 @@
     line-height: 1;
     @apply absolute left-0 top-1 inline-grid h-4 w-4 place-items-center rounded-full bg-brand-100 text-[8px] text-brand-700 dark:bg-brand-900/60 dark:text-brand-300;
   }
+
+  /* The legacy PrintFast product icons are monochrome green line-art PNGs on a
+     transparent background. We can't edit the hosted artwork, so we paint the
+     brand color through the PNG's alpha channel instead of showing the pixels.
+     Set the artwork with --icon and the color with any text-* utility. */
+  .icon-mask {
+    background-color: currentColor;
+    -webkit-mask-image: var(--icon);
+    mask-image: var(--icon);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+  }
 }
 
 /* =====================================================

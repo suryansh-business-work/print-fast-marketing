@@ -56,7 +56,7 @@ const stocks = [
 ];
 
 const didYouKnow = [
-  'Our Recruiting Cards pricing starts at 9¢ each for a quantity of 500.',
+  'Our Recruiting Cards pricing <strong class="font-bold">starts at 9¢ each</strong> for a quantity of 500.',
   'Same size as a credit card — 3.375" × 2.125" with rounded corners.',
   'Feel free to contact us for more information.',
 ];
@@ -203,14 +203,10 @@ const faqs = [
       <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {whyChoose.map((w) => (
           <div class="flex flex-col items-center rounded-2xl bg-white p-8 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
-            <img
-              src={w.img}
-              alt={`${w.title} ${w.subtitle}`}
-              width="120"
-              height="120"
-              class="h-20 w-20 object-contain"
-              loading="lazy"
-              decoding="async"
+            <span
+              class="icon-mask h-20 w-20 text-[#ED1C24]"
+              style={`--icon:url('${w.img}')`}
+              aria-hidden="true"
             />
             <h3 class="mt-4 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{w.title}</h3>
             <p class="text-sm font-extrabold uppercase tracking-wide text-[#ED1C24]">{w.subtitle}</p>
@@ -264,7 +260,7 @@ const faqs = [
                 <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
                   <i class="fa-solid fa-check text-[10px]"></i>
                 </span>
-                <span class="text-ink-700">{d}</span>
+                <span class="text-ink-700" set:html={d} />
               </li>
             ))}
           </ul>

@@ -11,71 +11,6 @@ const uploadImg = `${CF}/common/Upload_iStock-824151534.jpg?1642057208`;
 
 // One-tap email that pre-fills the subject line so files land in the right inbox.
 const emailFilesHref = 'mailto:orders@print-fast.com?subject=Artwork%20Upload';
-
-// The three ways-to-send steps, faithful to the legacy "send us your files" intent.
-const steps = [
-  {
-    icon: 'fa-file-export',
-    title: 'Prepare your print-ready files',
-    description:
-      'Export a high-resolution PDF (or AI/EPS) at 300 DPI in CMYK, with bleed and safe margins. That is all we need to get your project moving.',
-  },
-  {
-    icon: 'fa-paper-plane',
-    title: 'Email or upload through your account',
-    description:
-      'Email your files to orders@print-fast.com, or log in to your PrintFast account and upload them straight onto your order. Started a project already? Send us your questions with the file.',
-  },
-  {
-    icon: 'fa-clipboard-check',
-    title: 'We review & proof',
-    description:
-      'Our team checks every file, flags anything that needs attention, and sends you a proof to approve before we go to press — so there are no surprises.',
-  },
-];
-
-// Accepted file types, straight from the legacy page.
-const formats = ['PDF', 'AI', 'EPS', 'PSD', 'PNG', 'JPG', 'JPEG'];
-
-// File-preparation guidelines shown as icon cards.
-const guidelines = [
-  {
-    icon: 'fa-file-pdf',
-    title: 'Accepted Formats',
-    description:
-      'A print-ready PDF is preferred. We also accept AI, EPS and PSD source files, plus high-resolution PNG and JPG images.',
-  },
-  {
-    icon: 'fa-magnifying-glass-plus',
-    title: '300 DPI Resolution',
-    description:
-      'Supply artwork at 300 DPI at final print size. Low-resolution files pulled from the web will look blurry once printed.',
-  },
-  {
-    icon: 'fa-palette',
-    title: 'CMYK Color',
-    description:
-      'Build your files in CMYK rather than RGB so the colors we print match the colors you designed on screen.',
-  },
-  {
-    icon: 'fa-crop-simple',
-    title: 'Bleed & Safe Margins',
-    description:
-      'Add 1/8" of bleed on every edge and keep important text and logos inside the safe margin so nothing gets trimmed off.',
-  },
-  {
-    icon: 'fa-font',
-    title: 'Outline or Embed Fonts',
-    description:
-      'Outline or embed every font in your file so your type reproduces exactly on our presses, even if we do not have the typeface.',
-  },
-  {
-    icon: 'fa-tag',
-    title: 'Name Files Clearly',
-    description:
-      'Name each file with your company and the product it is for. Clear names keep multi-piece projects organized and error-free.',
-  },
-];
 ---
 
 <ShopLayout
@@ -120,12 +55,11 @@ const guidelines = [
             Upload Your <span class="text-[#ED1C24]">Files</span>
           </h1>
           <p class="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
-            Already started a project or have questions about a file you want to use? Send us your
-            print-ready files and any questions along with them — we’ll be happy to help.
+            Already started a project or have questions about a file you want to use? Upload your files
+            here and send us your questions. We’ll be happy to help.
           </p>
           <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
-            The fastest way is to email your files straight to our team. Account holders can also log
-            in and upload artwork directly onto an order.
+            <span class="font-bold text-white">Accepted file types:</span> jpg, jpeg, pdf, ai, eps, png, psd
           </p>
           <div class="mt-8 flex flex-wrap gap-3">
             <a
@@ -158,72 +92,6 @@ const guidelines = [
             />
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== HOW TO SEND FILES ===================== -->
-  <section class="section">
-    <div class="container-pf">
-      <div class="mx-auto max-w-3xl text-center" data-reveal>
-        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
-          <i class="fa-solid fa-cloud-arrow-up"></i> How To Send Files
-        </p>
-        <h2 class="heading-lg mt-4 text-[#0f2747]">Sending print-ready files in three steps</h2>
-        <p class="lead mt-5 text-ink-600">
-          Getting your artwork to us is simple. Follow these three steps and our team takes it from
-          there — reviewing, proofing and printing your project.
-        </p>
-      </div>
-
-      <div class="mt-12 grid gap-6 lg:grid-cols-3">
-        {steps.map((s, i) => (
-          <div class="group relative flex flex-col rounded-2xl bg-white p-8 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
-            <span class="absolute right-6 top-6 font-display text-5xl font-extrabold leading-none text-ink-100">{i + 1}</span>
-            <span class="grid h-12 w-12 place-items-center rounded-xl bg-[#fde8e9] text-[#ED1C24] transition-colors group-hover:bg-[#ED1C24] group-hover:text-white">
-              <i class:list={['fa-solid', s.icon, 'text-lg']} aria-hidden="true"></i>
-            </span>
-            <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{s.title}</h3>
-            <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-600">{s.description}</p>
-          </div>
-        ))}
-      </div>
-
-      <div class="mt-8 flex flex-wrap items-center justify-center gap-2.5" data-reveal>
-        <span class="text-xs font-bold uppercase tracking-[0.18em] text-ink-500">Accepted file types</span>
-        {formats.map((f) => (
-          <span class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-sm font-semibold text-[#0f2747] ring-1 ring-ink-100 shadow-soft">
-            <i class="fa-solid fa-check text-xs text-[#ED1C24]"></i> {f}
-          </span>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== FILE PREPARATION GUIDELINES ===================== -->
-  <section class="section bg-ink-50/60">
-    <div class="container-pf">
-      <div class="mx-auto max-w-3xl text-center" data-reveal>
-        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
-          <i class="fa-solid fa-list-check"></i> File Preparation Guidelines
-        </p>
-        <h2 class="heading-lg mt-4 text-[#0f2747]">Get your files press-ready</h2>
-        <p class="lead mt-5 text-ink-600">
-          A little prep goes a long way. Following these guidelines helps us print your project fast,
-          exactly the way you designed it — with no delays and no surprises.
-        </p>
-      </div>
-
-      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {guidelines.map((g) => (
-          <div class="group flex flex-col rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
-            <span class="grid h-12 w-12 place-items-center rounded-xl bg-[#fde8e9] text-[#ED1C24] transition-colors group-hover:bg-[#ED1C24] group-hover:text-white">
-              <i class:list={['fa-solid', g.icon, 'text-lg']} aria-hidden="true"></i>
-            </span>
-            <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{g.title}</h3>
-            <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-600">{g.description}</p>
-          </div>
-        ))}
       </div>
     </div>
   </section>
@@ -290,36 +158,3 @@ const guidelines = [
     </div>
   </section>
 
-  <!-- ===================== FINAL CTA ===================== -->
-  <section class="section pt-0">
-    <div class="container-pf">
-      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-20" data-reveal>
-        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
-        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
-        <div class="relative max-w-3xl">
-          <h2 class="heading-lg text-white">
-            Ready to send us your <span class="text-[#ED1C24]">files?</span>
-          </h2>
-          <p class="mt-5 text-lg leading-relaxed text-white/85">
-            Email your print-ready artwork or log in to upload it directly onto your order. We’ll
-            review, proof and print — and keep you in the loop every step of the way.
-          </p>
-          <div class="mt-8 flex flex-wrap gap-3">
-            <a
-              href={emailFilesHref}
-              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
-            >
-              <i class="fa-solid fa-paper-plane text-xs"></i> Email Your Files
-            </a>
-            <a
-              href={shopHref('user-login')}
-              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
-            >
-              Log In To Your Account
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-</ShopLayout>

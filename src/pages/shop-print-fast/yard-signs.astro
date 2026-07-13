@@ -10,7 +10,6 @@ const S3 = 'https://nklopsouqd.s3.us-west-1.amazonaws.com/printfast/images/commo
 const CF = 'https://dqj17tese79do.cloudfront.net/printfast/images/common';
 
 const heroImg = `${CF}/HSC_yard_sign_for_site_product_page.jpg?1642010336`;
-const bannerImg = `${S3}/yard_sign_contest_banner.png?1702392883`;
 
 const whyChoose = [
   {
@@ -34,7 +33,7 @@ const whyChoose = [
 ];
 
 const didYouKnow = [
-  'Our Yard Signs cost as low as $7.00 each, delivered to your office complete with metal lawn stakes.',
+  'Our Yard Signs cost as low as <strong class="font-bold">$7.00 each</strong>, delivered to your office complete with metal lawn stakes.',
   'Our Economy Saver Yard Sign is made of 4mm Coroplast, measures 24” × 16” and is nearly indestructible.',
   'Feel free to contact us for more details.',
 ];
@@ -209,14 +208,10 @@ const faqs = [
       <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {whyChoose.map((w) => (
           <div class="flex flex-col items-center rounded-2xl bg-white p-8 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
-            <img
-              src={w.img}
-              alt={w.title}
-              width="120"
-              height="120"
-              class="h-20 w-20 object-contain"
-              loading="lazy"
-              decoding="async"
+            <span
+              class="icon-mask h-20 w-20 text-[#ED1C24]"
+              style={`--icon:url('${w.img}')`}
+              aria-hidden="true"
             />
             <h3 class="mt-5 text-sm font-extrabold uppercase tracking-wide text-[#0f2747]">{w.title}</h3>
             <p class="mt-2 text-sm leading-relaxed text-ink-600">{w.description}</p>
@@ -241,7 +236,7 @@ const faqs = [
                 <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
                   <i class="fa-solid fa-check text-[10px]"></i>
                 </span>
-                <span class="text-ink-700">{d}</span>
+                <span class="text-ink-700" set:html={d} />
               </li>
             ))}
           </ul>
@@ -253,14 +248,26 @@ const faqs = [
           </a>
         </div>
 
-        <div class="relative overflow-hidden rounded-3xl bg-ink-50 ring-1 ring-ink-100 shadow-soft" data-reveal>
-          <img
-            src={bannerImg}
-            alt="PrintFast Yard Sign design examples for home service companies"
-            class="h-full w-full object-cover"
-            loading="lazy"
-            decoding="async"
-          />
+        <!-- Yard Sign Contest promo. Rebuilt as markup so it carries the navy brand
+             color: the legacy artwork was a flat green raster with black text, which
+             can't be recoloured to a dark background and stay readable. -->
+        <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] p-8 shadow-soft sm:p-10" data-reveal>
+          <span aria-hidden="true" class="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-[#ED1C24]/20 blur-3xl"></span>
+          <div class="relative flex items-start justify-between gap-6">
+            <div>
+              <h3 class="font-display text-2xl font-extrabold text-white sm:text-3xl">Yard Sign Contest</h3>
+              <p class="mt-4 text-sm leading-relaxed text-white/85 sm:text-base">
+                <strong class="font-bold text-white">
+                  Would you like to reduce the cost of your Yard Signs by one-half?
+                </strong>{' '}
+                And, at the same time, have perhaps another opportunity to serve the homeowner where the
+                sign was placed? It’s really simple when you conduct a
+                <strong class="font-bold text-white"> Yard Sign Contest</strong>. If you’re interested in
+                how this works just give us a call and we’ll be happy to share all the details with you.
+              </p>
+            </div>
+            <i class="fa-solid fa-arrow-trend-down hidden shrink-0 text-5xl text-[#ED1C24] sm:block" aria-hidden="true"></i>
+          </div>
         </div>
       </div>
     </div>

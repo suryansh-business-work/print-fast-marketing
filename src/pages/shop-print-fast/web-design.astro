@@ -2,6 +2,7 @@
 import ShopLayout from '@layouts/ShopLayout.astro';
 import { shopHref } from '@data/shop';
 import { getContactHref } from '@data/pricing';
+import WebsitePlans from '@components/WebsitePlans.astro';
 import ContactForm from '@components/ContactForm.astro';
 
 const contactHref = getContactHref('digital-marketing-services');
@@ -21,68 +22,6 @@ const introPoints = [
   'Subscribe to a digital marketing plan and each month we add a page detailing specific locations, local products and services.',
 ];
 
-// Pricing plans (from the original page)
-const plans = [
-  {
-    name: 'Basic',
-    price: '$1499',
-    tag: 'Website',
-    highlight: false,
-    features: [
-      '5 Page Website',
-      'Mobile Responsive',
-      '1 Contact Form Included',
-      'Home, About Us, Services, Promotions & Contact Us pages',
-    ],
-  },
-  {
-    name: 'Essentials',
-    price: '$2999',
-    tag: 'Website',
-    highlight: false,
-    features: [
-      '10 Page Website',
-      'Mobile Responsive',
-      '1 Contact Form Included',
-      'Home, About Us, Services, Heating, Cooling, Plumbing, Blog & Contact Us pages',
-      '5 Locally Targeted Pages',
-    ],
-  },
-  {
-    name: 'Standard',
-    price: '$4999',
-    tag: 'Website',
-    highlight: true,
-    features: [
-      'Full Site with Services Pages',
-      'Mobile Responsive',
-      '2 Contact Forms Included',
-      'Home, About Us, Services, Heating, Cooling, Plumbing, 3 Locally Targeted, Blog & Contact Us pages',
-      '20 Locally Targeted Pages',
-      'Hosting, email account & domain registration setup',
-      'Google My Business & Google Analytics setup',
-      'Custom SEO-rich content',
-      '1 "Launch" blog article for each service',
-    ],
-  },
-  {
-    name: 'Premium',
-    price: '$9999',
-    tag: 'Website',
-    highlight: false,
-    features: [
-      'Full Site with Services Pages',
-      'Mobile Responsive',
-      '2 Contact Forms Included',
-      'Home, About Us, Services, Heating, Cooling, Plumbing, 8 Locally Targeted, Blog & Contact Us pages',
-      '50 Locally Targeted Pages',
-      'Hosting, email account & domain registration setup',
-      'Google My Business & Google Analytics setup',
-      'Custom SEO-rich content',
-      '2 "Launch" blog articles for each service',
-    ],
-  },
-];
 
 // Why choose PrintFast for website management (WP Engine partnership)
 const management = [
@@ -134,7 +73,7 @@ const faqs = [
   {
     question: 'How much does a website cost?',
     answer:
-      'We offer four plans to match your business needs: Basic at $1,499 (5-page site), Essentials at $2,999 (10-page site with 5 locally targeted pages), Standard at $4,999 (full site with 20 locally targeted pages) and Premium at $9,999 (full site with 50 locally targeted pages). Contact our website building experts to find the best fit.',
+      'We offer five systems matched to your fleet size and market: Starter at $895/mo, the Van Visibility System™ at $1,395/mo (1–4 vehicles), the Growth Acceleration System™ at $3,000/mo (5–15 vehicles), the Market Domination System™ at $7,000/mo (15–100 vehicles) and the Enterprise Territory System™ with custom pricing. Each includes a monthly boost budget — see the pricing table above for a full feature comparison, or contact our website building experts to find the best fit.',
   },
   {
     question: 'Are the websites mobile responsive?',
@@ -264,64 +203,7 @@ const faqs = [
   </section>
 
   <!-- ===================== PRICING PLANS ===================== -->
-  <section id="plans" class="section bg-ink-50/60">
-    <div class="container-pf">
-      <div class="mx-auto max-w-3xl text-center" data-reveal>
-        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
-          <i class="fa-solid fa-layer-group"></i> Pricing
-        </p>
-        <h2 class="heading-lg mt-4 text-[#0f2747]">Our plans for your digital growth</h2>
-        <p class="lead mt-4 text-ink-600">
-          Choose any pricing plan as per your business requirements, and connect with our website building
-          experts to learn what will work best for you.
-        </p>
-      </div>
-
-      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {plans.map((plan) => (
-          <div
-            class:list={[
-              'group relative flex flex-col rounded-2xl bg-white p-6 shadow-soft transition-all hover:-translate-y-1',
-              plan.highlight ? 'ring-2 ring-[#ED1C24]' : 'ring-1 ring-ink-100 hover:ring-[#ED1C24]/40',
-            ]}
-            data-reveal
-          >
-            {plan.highlight && (
-              <span class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[#ED1C24] px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.18em] text-white">
-                Most Popular
-              </span>
-            )}
-            <h3 class="text-sm font-extrabold uppercase tracking-[0.18em] text-[#0f2747]">{plan.name}</h3>
-            <div class="mt-3 flex items-baseline gap-1">
-              <span class="font-display text-4xl font-extrabold text-[#0f2747]">{plan.price}</span>
-            </div>
-            <p class="text-xs font-semibold uppercase tracking-wide text-ink-500">{plan.tag}</p>
-
-            <ul class="mt-6 flex-1 space-y-3">
-              {plan.features.map((f) => (
-                <li class="flex items-start gap-2.5">
-                  <i class="fa-solid fa-check mt-1 text-xs text-[#ED1C24]"></i>
-                  <span class="text-sm leading-relaxed text-ink-700">{f}</span>
-                </li>
-              ))}
-            </ul>
-
-            <a
-              href={contactHref}
-              class:list={[
-                'mt-6 inline-flex items-center justify-center gap-2 rounded-md px-5 py-3 text-sm font-extrabold uppercase tracking-wide transition-all active:translate-y-px',
-                plan.highlight
-                  ? 'bg-[#ED1C24] text-white shadow-lg hover:bg-[#c8161d] hover:shadow-xl'
-                  : 'text-[#0f2747] ring-1 ring-ink-200 hover:ring-[#ED1C24] hover:text-[#ED1C24]',
-              ]}
-            >
-              Contact Us <i class="fa-solid fa-arrow-right text-xs"></i>
-            </a>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+  <WebsitePlans id="plans" class="bg-ink-50/60" />
 
   <!-- ===================== WP ENGINE PARTNERSHIP ===================== -->
   <section class="section">

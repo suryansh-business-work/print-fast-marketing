@@ -6,7 +6,8 @@ import { getContactHref } from '@data/pricing';
 const contactHref = getContactHref('digital-marketing-services');
 
 // Original PrintFast image assets (served from the same CDN/S3 the live store uses).
-const S3 = 'https://nklopsouqd.s3.us-west-1.amazonaws.com/printfast/images/common';
+// The "Mail Marketing" card photos are served locally from /images/direct-mail-page/
+// instead — they are cropped copies with the decorative green square removed.
 const heroImg =
   'https://dqj17tese79do.cloudfront.net/printfast/images/common/WhatsApp_Image_2021-05-14_at_8_24_38_PM_1_.jpeg?1642011672';
 
@@ -29,42 +30,42 @@ const services = [
   {
     title: 'Postcards',
     href: shopHref('printfast-postcards'),
-    img: `${S3}/Postcards_image.png?1704562122`,
+    img: '/images/direct-mail-page/postcards.webp',
     description:
       'Boost leads and sales with efficient postcard marketing — directly target customers in desired areas and foster recurring relationships through seasonal campaigns. Choose from various sizes and styles, including full-color printing on 16pt glossy card stock.',
   },
   {
     title: 'Letters',
     href: shopHref('letters'),
-    img: `${S3}/Letters_image.png?1704562122`,
+    img: '/images/direct-mail-page/letters.webp',
     description:
       'Enhance your marketing impact with customizable marketing letters — single or multiple pages, with options for magnets or promotional items. Deliver detailed news and promotions and connect with clients for increased traffic and proven results.',
   },
   {
     title: 'Newsletters',
     href: shopHref('newsletters-new'),
-    img: `${S3}/Newsletters_image.png?1704562122`,
+    img: '/images/direct-mail-page/newsletters.webp',
     description:
       'Craft engaging, four-page newsletters that balance entertainment and information to effectively showcase and sell your products or services. Customize content to connect with your local audience in a fun and friendly manner.',
   },
   {
     title: 'Thank You Cards',
     href: shopHref('thank-you-postcards'),
-    img: `${S3}/Thank_You_Cards_image.png?1704562122`,
+    img: '/images/direct-mail-page/thank-you-cards.webp',
     description:
       'Elevate customer appreciation with a simple Thank You card featuring inspirational messages, money-saving offers, or both. Strengthen long-term relationships by acknowledging service anniversaries with personalized cards for homeowners.',
   },
   {
     title: 'Mailing Lists',
     href: shopHref('mailing-lists'),
-    img: `${S3}/Mailing_Lists_image.png?1704562122`,
+    img: '/images/direct-mail-page/mailing-lists.webp',
     description:
       'Unlock success with a precise mailing list — filter names and addresses to target homeowners by income, age, and verified homeowner status. Rely on quality data from industry leaders like Dun & Bradstreet and Experian for refined demographics.',
   },
   {
     title: 'Post Office Integration',
     href: contactHref,
-    img: `${S3}/Post_Office_Integration_image.png?1704562122`,
+    img: '/images/direct-mail-page/post-office-integration.webp',
     description:
       'Simplify mail marketing with PrintFast. We are experts at navigating USPS regulations and are well respected by the USPS for our knowledge and experience. We invest in cutting-edge software and equipment for streamlined, compliant campaigns.',
   },
@@ -298,14 +299,18 @@ const faqs = [
   <!-- ===================== TESTIMONIAL ===================== -->
   <section class="section">
     <div class="container-pf">
-      <div class="mx-auto max-w-4xl" data-reveal>
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-star"></i> Testimonials
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">What Our Clients Say</h2>
+      </div>
+
+      <div class="mx-auto mt-12 max-w-4xl" data-reveal>
         <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] p-8 shadow-soft sm:p-12">
           <span aria-hidden="true" class="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
           <div class="relative">
-            <p class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-white/80">
-              <i class="fa-solid fa-star text-[#ED1C24]"></i> What Our Clients Say
-            </p>
-            <i class="fa-solid fa-quote-left mt-6 text-4xl text-[#ED1C24]"></i>
+            <i class="fa-solid fa-quote-left text-4xl text-[#ED1C24]"></i>
             <blockquote class="mt-4 text-lg leading-relaxed text-white/90 sm:text-xl">
               Great company all around!!! From the people taking orders to the editing proof team
               making sure it’s correct, I would not go with anyone else!! We got into a bind with a

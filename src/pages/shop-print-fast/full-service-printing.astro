@@ -56,11 +56,11 @@ const digitalBenefits = [
   'Variable Data Printing to personalize postcards and other forms of marketing',
 ];
 const digitalProducts = [
-  'Postcards',
-  'Letters and envelopes',
-  'Brochures and flyers',
-  'Stickers',
-  'Any product that utilizes Variable Data Printing customization',
+  { icon: 'fa-address-card', label: 'Postcards' },
+  { icon: 'fa-envelope-open-text', label: 'Letters and envelopes' },
+  { icon: 'fa-file-lines', label: 'Brochures and flyers' },
+  { icon: 'fa-note-sticky', label: 'Stickers' },
+  { icon: 'fa-database', label: 'Any product that utilizes Variable Data Printing customization' },
 ];
 
 const offsetBenefits = [
@@ -70,9 +70,9 @@ const offsetBenefits = [
   'UV gloss coatings can be applied to the sheets during the press run',
 ];
 const offsetProducts = [
-  'Multiple page booklets and magazines',
-  'Presentation folders',
-  'Brochures and flyers (higher quantity)',
+  { icon: 'fa-book-open', label: 'Multiple page booklets and magazines' },
+  { icon: 'fa-folder-open', label: 'Presentation folders' },
+  { icon: 'fa-file-lines', label: 'Brochures and flyers (higher quantity)' },
 ];
 
 const largeBenefits = [
@@ -80,7 +80,11 @@ const largeBenefits = [
   'The ability to produce larger items like posters, banners and yard signs',
   'A much wider range of available printing substrates (papers/plastics/fabrics)',
 ];
-const largeProducts = ['Yard signs', 'Banners', 'Event tents'];
+const largeProducts = [
+  { icon: 'fa-sign-hanging', label: 'Yard signs' },
+  { icon: 'fa-flag', label: 'Banners' },
+  { icon: 'fa-tent', label: 'Event tents' },
+];
 
 const faqs = [
   {
@@ -266,9 +270,9 @@ const printingSchema = {
             {digitalProducts.map((p) => (
               <li class="flex items-start gap-3">
                 <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#0f2747] text-white">
-                  <i class="fa-solid fa-box text-[10px]"></i>
+                  <i class={`fa-solid ${p.icon} text-[10px]`}></i>
                 </span>
-                <span class="text-sm text-ink-700">{p}</span>
+                <span class="text-sm text-ink-700">{p.label}</span>
               </li>
             ))}
           </ul>
@@ -316,9 +320,9 @@ const printingSchema = {
             {offsetProducts.map((p) => (
               <li class="flex items-start gap-3">
                 <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#0f2747] text-white">
-                  <i class="fa-solid fa-box text-[10px]"></i>
+                  <i class={`fa-solid ${p.icon} text-[10px]`}></i>
                 </span>
-                <span class="text-sm text-ink-700">{p}</span>
+                <span class="text-sm text-ink-700">{p.label}</span>
               </li>
             ))}
           </ul>
@@ -364,9 +368,9 @@ const printingSchema = {
             {largeProducts.map((p) => (
               <li class="flex items-start gap-3">
                 <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#0f2747] text-white">
-                  <i class="fa-solid fa-box text-[10px]"></i>
+                  <i class={`fa-solid ${p.icon} text-[10px]`}></i>
                 </span>
-                <span class="text-sm text-ink-700">{p}</span>
+                <span class="text-sm text-ink-700">{p.label}</span>
               </li>
             ))}
           </ul>

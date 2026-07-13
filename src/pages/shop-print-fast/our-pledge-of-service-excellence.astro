@@ -52,27 +52,6 @@ const pledges = [
   },
 ];
 
-// The principles that sit behind the pledge — why it matters to you.
-const values = [
-  {
-    icon: 'fa-heart',
-    title: 'Customers Treated Like Family',
-    description:
-      'We regard every customer as family and recognize that you are the source of our success. That belief shapes every conversation and every decision.',
-  },
-  {
-    icon: 'fa-clock',
-    title: 'Proud Of Our On-Time Performance',
-    description:
-      'From proof to press to the mailbox, we keep your project moving and keep you informed at every stage of manufacturing — no guesswork, no surprises.',
-  },
-  {
-    icon: 'fa-user-shield',
-    title: 'Personally Guaranteed',
-    description:
-      'Third-generation owner Bill McGowan personally stands behind the quality of everything we produce for you, and welcomes your feedback directly.',
-  },
-];
 
 const faqs = [
   {
@@ -207,46 +186,6 @@ const faqs = [
             <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-600">{p.description}</p>
           </div>
         ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== WHY IT MATTERS / VALUES ===================== -->
-  <section class="section bg-ink-50/60">
-    <div class="container-pf">
-      <div class="mx-auto max-w-3xl text-center" data-reveal>
-        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
-          <i class="fa-solid fa-heart"></i> Why It Matters
-        </p>
-        <h2 class="heading-lg mt-4 text-[#0f2747]">A pledge is only as good as the people behind it</h2>
-        <p class="lead mt-5 text-ink-600">
-          Products and technology change, but the principles behind our pledge are the same ones we
-          started with more than 120 years ago.
-        </p>
-      </div>
-
-      <div class="mt-12 grid gap-6 sm:grid-cols-3">
-        {values.map((v) => (
-          <div class="flex flex-col items-center rounded-2xl bg-white p-8 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
-            <span class="grid h-14 w-14 place-items-center rounded-full bg-[#0f2747] text-white">
-              <i class:list={['fa-solid', v.icon, 'text-xl']} aria-hidden="true"></i>
-            </span>
-            <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{v.title}</h3>
-            <p class="mt-2 text-sm leading-relaxed text-ink-600">{v.description}</p>
-          </div>
-        ))}
-      </div>
-
-      <div class="mx-auto mt-10 max-w-3xl text-center" data-reveal>
-        <p class="text-sm leading-relaxed text-ink-600">
-          This pledge works hand in hand with our{' '}
-          <a href={shopHref('satisfaction-guarantee')} class="font-bold text-[#ED1C24] hover:text-[#c8161d]">
-            100% Satisfaction Guarantee
-          </a>. Want to know the team behind it?{' '}
-          <a href={shopHref('who-we-are')} class="font-bold text-[#0f2747] hover:text-[#ED1C24]">
-            Meet the people who make it happen
-          </a>.
-        </p>
       </div>
     </div>
   </section>

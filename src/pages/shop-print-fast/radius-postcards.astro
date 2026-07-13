@@ -68,7 +68,7 @@ const howItWorks = [
 ];
 
 const didYouKnow = [
-  'Our Radius Postcards cost only 67¢ with a minimum of 4 service addresses (200 total postcards per mailing).',
+  'Our Radius Postcards cost <strong class="font-bold">only 67¢</strong> with a minimum of 4 service addresses (200 total postcards per mailing).',
   'No contracts or commitments for continued mailings.',
   'Contact us today and we will show you just how easy it is to spread the good news around your target neighborhood.',
 ];
@@ -77,7 +77,7 @@ const relatedProducts = [
   {
     title: 'Seasonal Postcards',
     href: shopHref('seasonal-postcards'),
-    icon: 'fa-calendar-star',
+    icon: 'fa-snowflake',
     description: 'Stay top of mind all year with VDP-enabled seasonal postcard designs.',
   },
   {
@@ -245,14 +245,10 @@ const relatedProducts = [
       <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {whyChoose.map((w) => (
           <div class="flex flex-col items-center rounded-2xl bg-white p-6 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
-            <img
-              src={w.img}
-              alt={w.title}
-              width="120"
-              height="120"
-              class="h-20 w-20 object-contain"
-              loading="lazy"
-              decoding="async"
+            <span
+              class="icon-mask h-20 w-20 text-[#ED1C24]"
+              style={`--icon:url('${w.img}')`}
+              aria-hidden="true"
             />
             <h3 class="mt-4 text-sm font-extrabold uppercase tracking-wide text-[#0f2747]">{w.title}</h3>
             <p class="mt-2 text-sm leading-relaxed text-ink-600">{w.description}</p>
@@ -277,7 +273,7 @@ const relatedProducts = [
                 <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24]">
                   <i class="fa-solid fa-check text-[10px]"></i>
                 </span>
-                <span class="text-ink-700">{d}</span>
+                <span class="text-ink-700" set:html={d} />
               </li>
             ))}
           </ul>

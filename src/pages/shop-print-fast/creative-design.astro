@@ -2,6 +2,7 @@
 import ShopLayout from '@layouts/ShopLayout.astro';
 import { shopHref } from '@data/shop';
 import { getContactHref } from '@data/pricing';
+import ContactForm from '@components/ContactForm.astro';
 
 const contactHref = getContactHref('digital-marketing-services');
 
@@ -179,14 +180,10 @@ const faqs = [
       <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {pricingPlans.map((plan) => (
           <div class="flex flex-col items-center rounded-2xl bg-white p-8 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
-            <img
-              src={plan.img}
-              alt={`${plan.title} — PrintFast Creative Design`}
-              width="96"
-              height="96"
-              class="h-20 w-20 object-contain"
-              loading="lazy"
-              decoding="async"
+            <span
+              class="icon-mask h-20 w-20 text-[#ED1C24]"
+              style={`--icon:url('${plan.img}')`}
+              aria-hidden="true"
             />
             <h3 class="mt-5 text-lg font-extrabold uppercase tracking-wide text-[#0f2747]">{plan.title}</h3>
             <p class="mt-3 text-sm leading-relaxed text-ink-600">{plan.description}</p>
@@ -215,14 +212,10 @@ const faqs = [
       <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {whyChoose.map((w) => (
           <div class="flex flex-col items-center rounded-2xl bg-white p-8 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
-            <img
-              src={w.img}
-              alt={w.title}
-              width="120"
-              height="120"
-              class="h-20 w-20 object-contain"
-              loading="lazy"
-              decoding="async"
+            <span
+              class="icon-mask h-20 w-20 text-[#ED1C24]"
+              style={`--icon:url('${w.img}')`}
+              aria-hidden="true"
             />
             <h3 class="mt-4 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{w.title}</h3>
             <p class="mt-2 text-sm leading-relaxed text-ink-600">{w.description}</p>
@@ -304,6 +297,51 @@ const faqs = [
             <p class="mt-4 text-sm leading-relaxed text-ink-600">{f.answer}</p>
           </details>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONNECT WITH US ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="grid items-start gap-10 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-headset"></i> Connect With Us
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">We&rsquo;re here to help!</h2>
+          <p class="lead mt-4">
+            Have a design project in mind and just need some guidance? We&rsquo;re available from 8 AM to
+            5 PM ET, Monday to Friday &mdash; our team is here to help.
+          </p>
+          <div class="mt-8 space-y-4">
+            <a href="tel:800-810-4818" class="flex items-center gap-4 rounded-2xl bg-white p-5 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40">
+              <span class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#fde8e9] text-xl text-[#ED1C24]">
+                <i class="fa-solid fa-phone"></i>
+              </span>
+              <span>
+                <span class="block text-xs font-bold uppercase tracking-[0.18em] text-ink-500">Call Us</span>
+                <span class="block text-lg font-extrabold text-[#0f2747]">800-810-4818</span>
+              </span>
+            </a>
+            <a href="mailto:info@print-fast.com" class="flex items-center gap-4 rounded-2xl bg-white p-5 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40">
+              <span class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#fde8e9] text-xl text-[#ED1C24]">
+                <i class="fa-solid fa-envelope"></i>
+              </span>
+              <span>
+                <span class="block text-xs font-bold uppercase tracking-[0.18em] text-ink-500">Email Us</span>
+                <span class="block text-lg font-extrabold text-[#0f2747]">info@print-fast.com</span>
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <div data-reveal>
+          <ContactForm
+            title="Start your design project"
+            subtitle="Tell us what you need and our team will help you achieve a product that looks great and is a good value too."
+          />
+        </div>
       </div>
     </div>
   </section>
