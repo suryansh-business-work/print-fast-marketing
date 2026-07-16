@@ -9,22 +9,27 @@ const contactHref = getContactHref('digital-marketing-services');
 const S3 = 'https://nklopsouqd.s3.us-west-1.amazonaws.com/printfast/images/common';
 const heroImg = 'https://dqj17tese79do.cloudfront.net/printfast/images/common/PF_StickerImage_9_17.jpg?1643384518';
 
+// The variant sticker graphics have their label text baked into the raster (a
+// white sticker with green lettering), so the .icon-mask alpha trick can't be
+// used. These are local copies with the green text remapped to brand red.
+const STICKERS = '/images/stickers';
+
 const variants = [
   {
     title: 'Paper Indoor Stickers',
-    img: `${S3}/paper_indoor.png?1701100483`,
+    img: `${STICKERS}/paper-indoor.webp`,
     description:
       'Our Paper Stickers with UV gloss coating are best suited for indoor, dry placement. Bright and shiny stickers, with the lowest cost that will last for many, many years.',
   },
   {
     title: 'Vinyl Indoor Stickers',
-    img: `${S3}/vinyl_indoor.png?1701100483`,
+    img: `${STICKERS}/vinyl-indoor.webp`,
     description:
       'Our Vinyl Indoor Stickers are best suited for indoor placement where moisture may be a concern. They are waterproof and will last for many, many years.',
   },
   {
     title: 'Vinyl Outdoor Stickers',
-    img: `${S3}/vinyl_outdoor.png?1701100483`,
+    img: `${STICKERS}/vinyl-outdoor.webp`,
     description:
       'Our Vinyl Outdoor Stickers are UV coated and will withstand exposure to rain, snow and bright sunshine all without fading for many, many years.',
   },

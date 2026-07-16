@@ -23,34 +23,35 @@ const introPoints = [
 ];
 
 
-// Why choose PrintFast for website management (WP Engine partnership)
+// Why choose PrintFast for website management (WP Engine partnership).
+// Each card uses a brand-red Font Awesome icon rather than a hosted image.
 const management = [
   {
-    img: `${STG}/Managed_WordPress_Hosting_09155824202309.png?1695561361`,
+    icon: 'fa-server',
     title: 'Managed WordPress Hosting',
     description:
       'Imagine a digital realm where every technical detail of your website is handled with precision and dedication — that is the promise of our partnership with WP Engine.',
   },
   {
-    img: `${STG}/Site_Management_09155624202309.png?1695561361`,
+    icon: 'fa-sliders',
     title: 'Effortless Site Management',
     description:
       'Over 1 million websites thrive with us, benefiting from automated updates, daily security, one-click staging and premium themes.',
   },
   {
-    img: `${STG}/Secure_Your_Digital_Footprint_09155624202309.png?1695561361`,
+    icon: 'fa-lock',
     title: 'Secure Your Digital Footprint',
     description:
       'Annually, our robust security solutions shield you from over 26 billion cyber threats, including free SSL and platform-level defense.',
   },
   {
-    img: `${STG}/Optimal_Website_Performance_09155524202309.png?1695561361`,
+    icon: 'fa-gauge-high',
     title: 'Optimal Website Performance',
     description:
       'Experience up to a 40% surge in page loading speeds, keeping your site accessible and responsive during peak traffic surges.',
   },
   {
-    img: `${STG}/7_Customer_Support.png?1695561361`,
+    icon: 'fa-headset',
     title: 'Exceptional 24/7 Customer Support',
     description:
       'Reach our 24/7 global support team, boasting a 97% satisfaction rate and backed by a hassle-free 60-day money-back guarantee.',
@@ -256,15 +257,9 @@ const faqs = [
       <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {management.map((m) => (
           <div class="flex flex-col items-center rounded-2xl bg-white p-6 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
-            <img
-              src={m.img}
-              alt={m.title}
-              width="96"
-              height="96"
-              class="h-20 w-20 object-contain"
-              loading="lazy"
-              decoding="async"
-            />
+            <span class="grid h-20 w-20 shrink-0 place-items-center rounded-2xl bg-[#fde8e9] text-3xl text-[#ED1C24]" aria-hidden="true">
+              <i class={`fa-solid ${m.icon}`}></i>
+            </span>
             <h3 class="mt-4 text-sm font-extrabold uppercase tracking-wide text-[#0f2747]">{m.title}</h3>
             <p class="mt-2 text-sm leading-relaxed text-ink-600">{m.description}</p>
           </div>

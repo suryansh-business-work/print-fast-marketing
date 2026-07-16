@@ -6,11 +6,8 @@ import ContactForm from '@components/ContactForm.astro';
 
 const contactHref = getContactHref('digital-marketing-services');
 
-// Original PrintFast image assets (served from the same CDN/S3 the live store uses).
-const S3 = 'https://nklopsouqd.s3.us-west-1.amazonaws.com/printfast/images/common';
-const CF = 'https://dqj17tese79do.cloudfront.net/printfast/images/common';
-
-const heroImg = `${CF}/Membership_Mailers.png?1695494868`;
+// Hero banner supplied by the marketing team (ImageKit CDN).
+const heroImg = 'https://ik.imagekit.io/PFdigitalmarketing/Shop.Printfast/Membership_Mailing_2me4GI5tY.png';
 
 const benefits = [
   {

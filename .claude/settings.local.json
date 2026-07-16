@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"const fs=require\\('fs'\\);const b=fs.readFileSync\\('public/images/banner-image-blue.png'\\);const w=b.readUInt32BE\\(16\\);const h=b.readUInt32BE\\(20\\);console.log\\('Banner dimensions:',w+'x'+h, 'ratio', \\(w/h\\).toFixed\\(3\\)\\);\")",
+      "Bash(node -e \"try{require.resolve\\('playwright'\\);console.log\\('playwright OK'\\)}catch\\(e\\){try{require.resolve\\('puppeteer'\\);console.log\\('puppeteer OK'\\)}catch\\(e2\\){console.log\\('NO browser automation installed'\\)}}\")",
+      "Bash(node -e \"const fs=require\\('fs'\\);const b=fs.readFileSync\\('public/images/direct-mail-plus-four-in-one.png'\\);console.log\\('EXISTS',b.readUInt32BE\\(16\\)+'x'+b.readUInt32BE\\(20\\), 'ratio', \\(b.readUInt32BE\\(16\\)/b.readUInt32BE\\(20\\)\\).toFixed\\(3\\)\\);\")",
+      "Bash(node -e \"const fs=require\\('fs'\\);['local-visibility','repeated-exposure','increased-trust','more-calls','dominate-your-market'].forEach\\(n=>{const b=fs.readFileSync\\('public/images/direct-plus-page/'+n+'.png'\\);console.log\\(n.padEnd\\(22\\), b.readUInt32BE\\(16\\)+'x'+b.readUInt32BE\\(20\\),'ratio',\\(b.readUInt32BE\\(16\\)/b.readUInt32BE\\(20\\)\\).toFixed\\(3\\)\\);}\\);\")",
+      "Bash(node -e \"const fs=require\\('fs'\\);const b=fs.readFileSync\\('public/images/direct-plus-page/fixing.png'\\);console.log\\('EXISTS',b.readUInt32BE\\(16\\)+'x'+b.readUInt32BE\\(20\\),'ratio',\\(b.readUInt32BE\\(16\\)/b.readUInt32BE\\(20\\)\\).toFixed\\(3\\)\\);\")",
+      "Bash(gh auth *)",
+      "Bash(timeout 12 ssh-keyscan -T 8 -H 31.220.49.107)",
+      "Bash(python -c \"import yaml,sys; yaml.safe_load\\(open\\('.github/workflows/deploy.yml'\\)\\); print\\('YAML OK'\\)\")",
+      "Bash(node -e \"const yaml=require\\('js-yaml'\\);const fs=require\\('fs'\\);yaml.load\\(fs.readFileSync\\('.github/workflows/deploy.yml','utf8'\\)\\);console.log\\('YAML OK \\(node\\)'\\)\")",
+      "Bash(git commit -m ' *)",
+      "Bash(echo \"watch-exit=$?\")",
+      "Bash(npx astro *)"
+    ]
+  }
+}

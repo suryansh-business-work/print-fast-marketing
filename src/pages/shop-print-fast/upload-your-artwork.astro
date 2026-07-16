@@ -11,6 +11,10 @@ const uploadImg = `${CF}/common/Upload_iStock-824151534.jpg?1642057208`;
 
 // One-tap email that pre-fills the subject line so files land in the right inbox.
 const emailFilesHref = 'mailto:orders@print-fast.com?subject=Artwork%20Upload';
+
+// Zoho WorkDrive external collection where customers drop their print-ready files.
+const uploadFilesHref =
+  'https://workdrive.zohoexternal.com/collection/tlryf277b5dd339bc4f96b83d65f3ed38994d/external';
 ---
 
 <ShopLayout
@@ -63,21 +67,14 @@ const emailFilesHref = 'mailto:orders@print-fast.com?subject=Artwork%20Upload';
           </p>
           <div class="mt-8 flex flex-wrap gap-3">
             <a
-              href={emailFilesHref}
+              href={uploadFilesHref}
+              target="_blank"
+              rel="noopener noreferrer"
               class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
             >
-              <i class="fa-solid fa-paper-plane text-xs"></i> Email Your Files
-            </a>
-            <a
-              href={shopHref('user-login')}
-              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
-            >
-              <i class="fa-solid fa-right-to-bracket text-xs"></i> Log In To Upload
+              <i class="fa-solid fa-cloud-arrow-up text-xs"></i> Upload files now
             </a>
           </div>
-          <p class="mt-5 text-xs font-medium text-white/60">
-            Email files to <a href={emailFilesHref} class="font-bold text-white underline decoration-[#ED1C24] decoration-2 underline-offset-2">orders@print-fast.com</a>
-          </p>
         </div>
 
         <div class="relative" data-reveal>
