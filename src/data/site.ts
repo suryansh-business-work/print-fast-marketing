@@ -42,9 +42,12 @@ export const SITE = {
     lat: 40.5734,
     lng: -74.4960,
   },
-  logo: '/logo/logo-print-fast-light.png',
-  logoLight: '/logo/logo-print-fast-light.png',
-  logoDark: '/logo/logo-print-fast-dark.png',
+  // Both files share one 642x260 canvas, so swapping light <-> dark causes no layout shift.
+  logo: '/logo/pf-bp-logo-light.png',
+  logoLight: '/logo/pf-bp-logo-light.png',
+  logoDark: '/logo/pf-bp-logo-dark.png',
+  logoWidth: 642,
+  logoHeight: 260,
   defaultOgImage: '/og-default.svg',
   defaultKeywords: [
     'digital marketing agency USA',

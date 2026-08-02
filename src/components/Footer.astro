@@ -34,11 +34,11 @@ const year = new Date().getFullYear();
         <img
           src={SITE.logoDark}
           alt={`${SITE.fullName} logo`}
-          width="200"
-          height="56"
+          width={SITE.logoWidth}
+          height={SITE.logoHeight}
           loading="lazy"
           decoding="async"
-          class="h-12 w-auto object-contain transition-all duration-300 footer-logo"
+          class="h-16 sm:h-20 w-auto object-contain transition-all duration-300 footer-logo"
         />
       </a>
       <p class="text-sm text-ink-300 leading-relaxed max-w-sm">
@@ -150,13 +150,12 @@ const year = new Date().getFullYear();
 </footer>
 
 <style>
-  /* Greyscale-by-default brand logo in footer; restores color on hover */
+  /* The dark logo variant is already built for dark backgrounds, so it keeps its
+     own colours here — only a slight dim, lifted on hover. */
   .footer-logo {
-    filter: grayscale(100%) brightness(0) invert(1);
-    opacity: 0.85;
+    opacity: 0.92;
   }
   .footer-logo:hover {
-    filter: none;
     opacity: 1;
   }
 </style>

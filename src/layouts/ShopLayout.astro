@@ -36,7 +36,9 @@ const navActive = (href: string) => {
   <!-- ===================== SHOP SUB-NAV ===================== -->
   <nav
     aria-label="Shop PrintFast"
-    class="sticky top-16 z-40 border-b border-ink-100 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/75 lg:top-20 dark:border-ink-800 dark:bg-ink-950/85"
+    {/* Offsets match the full sticky header: accent bar (3) + row + border, plus the
+        utility strip (37) once it appears at md. */}
+    class="sticky top-[68px] z-40 border-b border-ink-100 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/75 md:top-[105px] lg:top-[137px] dark:border-ink-800 dark:bg-ink-950/85"
   >
     <div class="container-pf flex items-center gap-1 overflow-x-auto py-2.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
       {SHOP_NAV.map((item) => (
