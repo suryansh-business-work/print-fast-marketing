@@ -5,7 +5,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Brand red (anchored on #ED1C24 — PrintFast red)
+        // Brand red — the Shop PrintFast theme red family.
+        // 500/600/700 are the exact trio that page uses for fills, hovers
+        // and text; the old ramp drifted brown below 600 and read as maroon.
         brand: {
           50:  '#fef2f2',
           100: '#fde8e9',
@@ -13,11 +15,11 @@ export default {
           300: '#f6a9ae',
           400: '#ef6f78',
           500: '#ED1C24',
-          600: '#d11620',
-          700: '#af121b',
-          800: '#901419',
-          900: '#78161a',
-          950: '#41080b',
+          600: '#c8161d',
+          700: '#c01620',
+          800: '#9e1219',
+          900: '#7d0e13',
+          950: '#4a080b',
         },
         // Vibrant accent (yellow from rainbow bar)
         accent: {

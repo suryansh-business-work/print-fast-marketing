@@ -10,6 +10,8 @@ export interface Props {
   align?: 'left' | 'center';
   variant?: 'default' | 'service';
   image?: { src: string; alt: string };
+  /* Full-bleed photographic banner behind the copy (desktop) / stacked below it (mobile). */
+  banner?: { src: string; alt: string };
 }
 
 const defaultTrustItems = ['No long-term contracts', 'Built for home service contractors', 'Free strategy call'];
@@ -25,25 +27,36 @@ const {
   align = 'left',
   variant = 'default',
   image,
+  banner,
 } = Astro.props;
 ---
 
 <section class:list={[
   'relative overflow-hidden',
-  variant === 'service' ? 'pt-20 pb-16 lg:pt-28 lg:pb-20' : 'pt-24 pb-20 lg:pt-32 lg:pb-28',
+  banner && 'pf-banner-hero',
+  banner
+    ? 'pt-24 pb-16 lg:pt-24 lg:pb-20'
+    : variant === 'service' ? 'pt-20 pb-16 lg:pt-28 lg:pb-20' : 'pt-24 pb-20 lg:pt-32 lg:pb-28',
 ]}>
-  <!-- Decorative background -->
-  <div aria-hidden="true" class="absolute inset-0 -z-10 bg-hero-radial"></div>
-  <div aria-hidden="true" class="absolute inset-0 -z-10 bg-grid-light bg-grid-32 opacity-40 [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]"></div>
-  <span aria-hidden="true" class="pf-blob pf-blob--a -top-20 -left-20"></span>
-  <span aria-hidden="true" class="pf-blob pf-blob--b top-20 right-0"></span>
+  <!-- Decorative background — swapped out when a photographic banner is supplied -->
+  {banner ? (
+    <div aria-hidden="true" class="pf-banner-fade"></div>
+  ) : (
+    <>
+      <div aria-hidden="true" class="absolute inset-0 -z-10 bg-hero-radial"></div>
+      <div aria-hidden="true" class="absolute inset-0 -z-10 bg-grid-light bg-grid-32 opacity-40 [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]"></div>
+      <span aria-hidden="true" class="pf-blob pf-blob--a -top-20 -left-20"></span>
+      <span aria-hidden="true" class="pf-blob pf-blob--b top-20 right-0"></span>
+    </>
+  )}
 
   <div class="container-pf">
     <div class:list={[
       image && 'grid items-center gap-10 lg:grid-cols-2 lg:gap-16',
     ]}>
     <div class:list={[
-      !image && 'max-w-4xl',
+      !image && !banner && 'max-w-4xl',
+      banner && 'max-w-xl lg:max-w-[46%]',
       align === 'center' && 'mx-auto text-center',
     ]}>
       {eyebrow && (
@@ -53,7 +66,11 @@ const {
         </p>
       )}
 
-      <h1 class="heading-xl mt-5 animate-fade-up" style="animation-delay:80ms">
+      <h1 class:list={[
+        'mt-5 animate-fade-up',
+        /* Cap the banner headline a step lower — it shares the frame with the photo. */
+        banner ? 'text-4xl sm:text-5xl font-bold leading-[1.05]' : 'heading-xl',
+      ]} style="animation-delay:80ms">
         {title}{' '}
         {highlight && <span class="gradient-text">{highlight}</span>}
       </h1>
@@ -106,6 +123,16 @@ const {
           decoding="async"
         />
       </div>
+    )}
+    {banner && (
+      <img
+        src={banner.src}
+        alt={banner.alt}
+        class="pf-banner-img"
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
+      />
     )}
     </div>
   </div>

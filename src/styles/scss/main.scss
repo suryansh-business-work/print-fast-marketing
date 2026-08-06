@@ -142,6 +142,105 @@
 }
 
 // =====================================================
+// Photographic hero banner (homepage)
+// The artwork fades to white across its left third, so on
+// desktop the copy sits inside that zone with the photo
+// full-bleed behind it; below `lg` the photo stacks under
+// the copy instead, where there is no room to overlay.
+// =====================================================
+// White base beneath the artwork. It has to be its own layer rather than a
+// background on the section: the photo sits at a negative z-index, which paints
+// before the section's own background would, so a background here would hide it.
+.pf-banner-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -30;
+  background-color: #ffffff;
+}
+
+.pf-banner-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 2.5rem;
+  border-radius: 1rem;
+}
+
+// Legibility scrim — desktop only, where copy overlaps the photo.
+.pf-banner-fade {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .pf-banner-hero {
+    display: flex;
+    align-items: center;
+    min-height: 620px;
+  }
+
+  // `contain` (not `cover`) because the composition runs edge to edge
+  // vertically — cropping clips either the technician or the ad cards.
+  .pf-banner-img {
+    position: absolute;
+    inset: 0;
+    z-index: -20;
+    height: 100%;
+    margin-top: 0;
+    border-radius: 0;
+    object-fit: contain;
+    object-position: right center;
+  }
+
+  .pf-banner-fade {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: -10;
+    pointer-events: none;
+    // Opaque across the copy column, then a fast falloff so the technician and
+    // ad cards on the right keep their contrast.
+    background: linear-gradient(
+      to right,
+      #fff 0%,
+      rgba(255, 255, 255, 0.97) 36%,
+      rgba(255, 255, 255, 0.85) 48%,
+      rgba(255, 255, 255, 0.25) 60%,
+      rgba(255, 255, 255, 0) 68%
+    );
+  }
+}
+
+@media (min-width: 1280px) {
+  .pf-banner-hero {
+    min-height: 680px;
+  }
+}
+
+// The artwork carries a baked-in white fade, so the banner band stays
+// light in dark mode; re-assert the light-mode type colors over it.
+.dark .pf-banner-hero {
+  h1 {
+    color: #0f2747;
+  }
+  .lead {
+    color: #525a70;
+  }
+  .text-ink-500 {
+    color: #677188;
+  }
+  .eyebrow {
+    background-color: #fde8e9;
+    color: #c01620;
+  }
+  .btn-outline {
+    background-color: #ffffff;
+    border-color: #d5d9e1;
+    color: #0f2747;
+  }
+}
+
+// =====================================================
 // Reveal-on-scroll utility (used with IntersectionObserver)
 // =====================================================
 [data-reveal] {

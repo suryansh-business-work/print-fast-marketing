@@ -59,6 +59,10 @@ const whyUs = [
     description="A full-service home service digital marketing company delivering social media, email marketing, websites, SEO and Google Ads. Get more qualified calls, more booked jobs and a contractor brand your customers trust."
     primaryCta={{ label: 'Get Your Free Marketing Proposal', href: '/contact-us/' }}
     secondaryCta={{ label: 'Explore Services', href: '#services' }}
+    banner={{
+      src: 'https://ik.imagekit.io/PFdigitalmarketing/Home%20Page%202026/PF_digital_marketing_homeservice_banner_SfEO_St1g.png',
+      alt: 'HVAC technician beside a Comfort Solutions service van reviewing Google and Facebook ads for his home service business on a tablet',
+    }}
   />
 
   <Stats />
@@ -77,30 +81,15 @@ const whyUs = [
         description="A complete home service digital marketing stack tuned for the trades. Choose a single channel or combine SEO, PPC, social media, email and web — every engagement starts with a strategy call, a market audit and a clear plan tied to booked jobs."
       />
 
-      {/* Layout: row 1 = first 3 services centered, row 2 = remaining 2 services centered. */}
-      <div class="mt-14 space-y-6">
-        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {SERVICES.slice(0, 3).map((s) => (
-            <ServiceCard
-              icon={s.icon}
-              title={s.title}
-              description={s.description}
-              href={s.href}
-            />
-          ))}
-        </div>
-        {SERVICES.length > 3 && (
-          <div class="grid gap-6 sm:grid-cols-2 lg:max-w-[calc(66.6667%-1rem)] lg:mx-auto">
-            {SERVICES.slice(3).map((s) => (
-              <ServiceCard
-                icon={s.icon}
-                title={s.title}
-                description={s.description}
-                href={s.href}
-              />
-            ))}
-          </div>
-        )}
+      <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {SERVICES.map((s) => (
+          <ServiceCard
+            icon={s.icon}
+            title={s.title}
+            description={s.description}
+            href={s.href}
+          />
+        ))}
       </div>
     </div>
   </section>
@@ -121,8 +110,10 @@ const whyUs = [
   <Testimonials />
 
   <CTA
+    variant="navy"
     eyebrow="Free strategy session"
-    title="Get a Free Home Service Marketing Strategy Session — No Commitment Required"
+    title="Get a Free Home Service Marketing Strategy Session —"
+    highlight="No Commitment Required"
     description="Tell us your revenue goals and current marketing gaps — our home service digital marketing team will respond with a tailored proposal covering the right mix of social media, email, SEO, Google Ads and web design within 1-2 business days. No long-term commitment to get started."
     primaryCta={{ label: 'Get My Free Marketing Proposal', href: '/contact-us/' }}
     secondaryCta={{ label: 'Talk to a strategist', href: '/contact-us/#contact-form' }}
