@@ -54,8 +54,9 @@ const USER = process.env.DEPLOY_USER || manifest.server.user;
 const PASSWORD = process.env.DEPLOY_SSH_PASSWORD || '';
 const EMAIL = process.env.CERTBOT_EMAIL || '';
 
+// Canonical domains plus aliases (e.g. www), which share the app's certificate.
 const domains = manifest.apps
-  .map((app) => app.domain)
+  .flatMap((app) => [app.domain, ...(app.aliases ?? [])])
   .filter((d) => d && !/^\d+(\.\d+){3}$/.test(d));
 
 const has = (bin) =>

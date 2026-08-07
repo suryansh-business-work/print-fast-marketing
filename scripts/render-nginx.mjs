@@ -96,6 +96,39 @@ server {
 }
 `;
 
+// An alias (e.g. www) redirects to the app's canonical domain rather than
+// serving a duplicate copy of the site. It still needs a real vhost: without
+// one, HTTPS requests for that name fall through to whatever other :443 server
+// block exists on the box, which is how www ended up redirecting to an
+// unrelated site. The ACME location must stay reachable so certbot can validate
+// the name and add it to the app's certificate.
+const aliasVhost = (app, alias) => `${banner}
+# ${alias} — 301 to the canonical https://${app.domain}
+#
+# Certbot rewrites this file when it installs TLS, so deploys never overwrite an
+# existing copy.
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name ${alias};
+
+    server_tokens off;
+
+    access_log /var/log/nginx/${app.name}-alias.access.log;
+    error_log  /var/log/nginx/${app.name}-alias.error.log;
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+        default_type "text/plain";
+    }
+
+    location / {
+        return 301 https://${app.domain}$request_uri;
+    }
+}
+`;
+
 const defaultVhost = (app) => `${banner}
 # Catch-all for requests that arrive by IP or with an unknown Host header.
 # Serves ${app.title} so the VPS is always reachable at http://${manifest.server.fallbackServerName}.
@@ -124,6 +157,11 @@ for (const app of manifest.apps) {
   fs.writeFileSync(path.join(SNIPPET_DIR, `pf-${app.name}.conf`), snippet(app));
   fs.writeFileSync(path.join(VHOST_DIR, `${app.domain}.conf`), vhost(app));
   written.push(app.domain);
+
+  for (const alias of app.aliases ?? []) {
+    fs.writeFileSync(path.join(VHOST_DIR, `${alias}.conf`), aliasVhost(app, alias));
+    written.push(`${alias} -> ${app.domain}`);
+  }
 }
 
 const fallbackApp = manifest.apps.find((a) => a.defaultServer) ?? manifest.apps[0];

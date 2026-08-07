@@ -15,6 +15,7 @@
       "image": "print-fast-main-website",
       "dockerfile": "main-website/Dockerfile",
       "domain": "print-fast.com",
+      "aliases": ["www.print-fast.com"],
       "hostPort": 9000,
       "containerPort": 80,
       "healthPath": "/healthz",

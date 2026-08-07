@@ -247,26 +247,51 @@ printf '\n'
 # ---------------------------------------------------------------------------
 log "Issuing / renewing TLS certificates"
 
+# A hostname can only be certified if it actually resolves to this server;
+# Let's Encrypt validates over HTTP against this box.
+points_here() {
+  local HOST="$1" IPS
+  if [[ "$HOST" =~ ^[0-9]+(\.[0-9]+){3}$ ]]; then
+    warn "${HOST} is an IP address — Let's Encrypt cannot certify it"
+    return 1
+  fi
+  IPS="$(getent ahostsv4 "$HOST" | awk '{print $1}' | sort -u || true)"
+  if [[ -z "$IPS" ]]; then
+    warn "${HOST} has no A record yet — skipping (stays on HTTP)"
+    return 1
+  fi
+  if ! printf '%s\n' "$IPS" | grep -Fxq "$FALLBACK_SERVER_NAME"; then
+    warn "${HOST} resolves to ${IPS//$'\n'/, }, not ${FALLBACK_SERVER_NAME} — skipping"
+    return 1
+  fi
+  return 0
+}
+
 for NAME in "${APP_NAMES[@]}"; do
   DOMAIN="$(jq -r --arg n "$NAME" '.apps[] | select(.name == $n) | .domain' "$MANIFEST" | strip_cr)"
   [[ -n "$DOMAIN" && "$DOMAIN" != "null" ]] || continue
 
-  if [[ "$DOMAIN" =~ ^[0-9]+(\.[0-9]+){3}$ ]]; then
-    warn "${DOMAIN} is an IP address — Let's Encrypt cannot certify it, skipping"
+  # The canonical domain plus any aliases (e.g. www) share one certificate.
+  CERT_DOMAINS=()
+  points_here "$DOMAIN" && CERT_DOMAINS+=("$DOMAIN")
+  while IFS= read -r ALIAS; do
+    [[ -z "$ALIAS" ]] && continue
+    points_here "$ALIAS" && CERT_DOMAINS+=("$ALIAS")
+  done < <(jq -r --arg n "$NAME" '.apps[] | select(.name == $n) | .aliases[]?' "$MANIFEST" | strip_cr)
+
+  if [[ ${#CERT_DOMAINS[@]} -eq 0 ]]; then
+    warn "no certifiable hostname for ${NAME} — skipping certbot"
     continue
   fi
 
-  DOMAIN_IPS="$(getent ahostsv4 "$DOMAIN" | awk '{print $1}' | sort -u || true)"
-  if [[ -z "$DOMAIN_IPS" ]]; then
-    warn "${DOMAIN} has no A record yet — skipping certbot (site stays on HTTP)"
-    continue
-  fi
-  if ! printf '%s\n' "$DOMAIN_IPS" | grep -Fxq "$FALLBACK_SERVER_NAME"; then
-    warn "${DOMAIN} resolves to ${DOMAIN_IPS//$'\n'/, }, not ${FALLBACK_SERVER_NAME} — skipping certbot"
-    continue
-  fi
+  # --cert-name pins the lineage to the canonical domain, and --expand lets a
+  # newly added alias join the existing certificate instead of being refused.
+  CERTBOT_ARGS=(--nginx --cert-name "$DOMAIN" --non-interactive --agree-tos
+                --redirect --keep-until-expiring --expand)
+  for CERT_DOMAIN in "${CERT_DOMAINS[@]}"; do
+    CERTBOT_ARGS+=(-d "$CERT_DOMAIN")
+  done
 
-  CERTBOT_ARGS=(--nginx -d "$DOMAIN" --non-interactive --agree-tos --redirect --keep-until-expiring)
   if [[ -n "${CERTBOT_EMAIL:-}" ]]; then
     CERTBOT_ARGS+=(-m "$CERTBOT_EMAIL")
   else
@@ -274,9 +299,9 @@ for NAME in "${APP_NAMES[@]}"; do
   fi
 
   if certbot "${CERTBOT_ARGS[@]}"; then
-    echo "  ${DOMAIN} secured."
+    echo "  ${CERT_DOMAINS[*]} secured."
   else
-    warn "certbot failed for ${DOMAIN} — it stays reachable over HTTP"
+    warn "certbot failed for ${CERT_DOMAINS[*]} — they stay reachable over HTTP"
   fi
 done
 
