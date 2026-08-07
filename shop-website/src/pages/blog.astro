@@ -1,0 +1,295 @@
+---
+import ShopLayout from '@layouts/ShopLayout.astro';
+import { shopHref } from '@data/shop';
+import { SITE } from '@data/site';
+import { getContactHref } from '@data/pricing';
+
+const contactHref = getContactHref('digital-marketing-services');
+
+// Original PrintFast blog imagery (served from the same CDN the live store uses).
+const CF = 'https://dqj17tese79do.cloudfront.net/printfast/images';
+
+// Newsletter sign-up form used by the live PrintFast site (Zoho Forms).
+const newsletterHref = 'https://zfrmz.com/rpGWUomBocEpulPT2WZX';
+
+// Real blog posts ported from print-fast.com/blog.html. Since individual post
+// pages are not being ported, each card links to the live article (new tab).
+// Ordered newest-first — all posts render in the "Latest Articles" grid.
+const BLOG = 'https://www.print-fast.com';
+const posts = [
+  {
+    title: 'Google Ads Aren’t Dead — But AI Is Hijacking Your Customers',
+    href: `${BLOG}/google-ads-isnt-dead.html`,
+    img: `${CF}/cms/ChatGPT_Image_Jul_22__2025__01_39_34_PM_1753282012012.png`,
+    category: 'Digital Marketing',
+    date: 'Jul 23, 2025',
+    iso: '2025-07-23',
+    excerpt:
+      'A behind-the-scenes look at how AI search engines like ChatGPT, Gemini and Perplexity are disrupting the advertising world. While most marketers are still fixing their Google Ads, we’re already tapping into the next wave of intelligent search.',
+  },
+  {
+    title: 'Why Social Media Posting Is the Missing Link in Your Marketing',
+    href: `${BLOG}/social-media-marketing-for-service-businesses.html`,
+    img: `${CF}/cms/FB-99-per-month_1746795020519.jpg`,
+    category: 'Social Media',
+    date: 'May 9, 2025',
+    iso: '2025-05-09',
+    excerpt:
+      'Keep your business top of mind with branded posts on Facebook, Instagram and Google Business Profile. Stay visible, stay relevant and grow your home service brand with consistent, done-for-you social posting.',
+  },
+  {
+    title: 'Custom Yard Signs for HVAC, Plumbing, Electrical & Landscaping',
+    href: `${BLOG}/yard-signs-for-contractors.html`,
+    img: `${CF}/cms/April-Fool-Day-page-image_1743431447555.jpg`,
+    category: 'Print & Signage',
+    date: 'Mar 31, 2025',
+    iso: '2025-03-31',
+    excerpt:
+      'Professional yard signs built for HVAC, plumbing, electrical and landscaping contractors. Durable, full-color signs that attract homeowners, build trust and drive local calls — fast and affordable from PrintFast.',
+  },
+  {
+    title: 'How High-Quality Job Site Photos Get You More Customers',
+    href: `${BLOG}/taking-jobsitephotos.html`,
+    img: `${CF}/cms/take-job-pics_1738605718154.jpg`,
+    category: 'Marketing Tips',
+    date: 'Feb 3, 2025',
+    iso: '2025-02-03',
+    excerpt:
+      'How high-quality job site photos build trust, improve your local SEO and attract more customers — plus seven powerful photography hacks to showcase your work and grow your business.',
+  },
+  {
+    title: 'A Strategic Combination of Direct Mail & Digital Marketing',
+    href: `${BLOG}/directmaildigitalmarketing.html`,
+    img: `${CF}/cms/Gemini_Generated_Image_t3rqdmt3rqdmt3rq_1738606995706.jpg`,
+    category: 'Direct Mail + Digital',
+    date: 'Feb 3, 2025',
+    iso: '2025-02-03',
+    excerpt:
+      'Home service businesses struggle to stand out against big-brand competitors. Our Direct Mail + Digital strategy reaches homeowners at the right moment — pairing trust-building mail with targeted digital ads to lift visibility and conversions.',
+  },
+  {
+    title: 'Marketing for Home Services',
+    href: `${BLOG}/tired-of-watching-your-day-drive-away.html`,
+    img: `${CF}/cms/is-your-day-driving-away_1736354803146.jpg`,
+    category: 'Home Service Marketing',
+    date: 'Jan 8, 2025',
+    iso: '2025-01-08',
+    excerpt:
+      'Grow your HVAC, plumbing and home service business with proven marketing strategies. From direct mail to digital campaigns, we deliver ROI-focused solutions built to help you dominate your local market and grow your brand.',
+  },
+  {
+    title: 'Home Service Marketing Solutions',
+    href: `${BLOG}/home-service-marketing-solutions.html`,
+    img: `${CF}/cms/home_service_marketing_to_grow_your_business_1736264429637.jpg`,
+    category: 'Home Service Marketing',
+    date: 'Jan 7, 2025',
+    iso: '2025-01-07',
+    excerpt:
+      'Targeted, reliable marketing that connects you directly with customers ready to book. From direct mail to SEO and custom campaigns, PrintFast delivers real results that drive growth and revenue.',
+  },
+  {
+    title: 'Drive ROI With Proven Direct Mail for HVAC, Plumbing & Electrical',
+    href: `${BLOG}/drive-roi-with-proven-direct-mail-marketing.html`,
+    img: `${CF}/cms/Postcard-schedule_1733336475784.jpg`,
+    category: 'Direct Mail',
+    date: 'Dec 4, 2024',
+    iso: '2024-12-04',
+    excerpt:
+      'How direct mail marketing empowers HVAC, plumbing and electrical businesses to dominate local markets, deepen customer engagement and achieve measurable ROI with proven strategies.',
+  },
+  {
+    title: 'Membership Plans: The Recurring Revenue Rocket',
+    href: `${BLOG}/membership-plans-the-recurring-revenue-rocket.html`,
+    img: `${CF}/cms/homeowner_meeting_memberships_iStock-505472564__1___1__1706893369014.jpg`,
+    category: 'Business Growth',
+    date: 'Jan 15, 2024',
+    iso: '2024-01-15',
+    excerpt:
+      'Memberships are the golden goose of your business — recurring revenue that keeps your pockets lined and your schedule full. Here’s why a membership program is a true recurring-revenue rocket.',
+  },
+  {
+    title: 'Building Bridges With Smiles: Why Photo Business Cards Connect',
+    href: `${BLOG}/blog-building-bridges-with-smiles-why-photo-business-cards-connect-in-home-service.html`,
+    img: `${CF}/cms/Building_Bridges_masthead_1706893482672.jpg`,
+    category: 'Print Products',
+    date: 'Jan 15, 2024',
+    iso: '2024-01-15',
+    excerpt:
+      'Picture this: you’re drowning in a sink-tastic disaster and you call a plumber, hoping for a knight in shining overalls. Here’s why photo business cards forge instant trust in home service.',
+  },
+];
+
+---
+
+<ShopLayout
+  title="PrintFast Blog | Marketing Ideas & Insights for Home Service Pros"
+  crumb="Blog"
+  description="The PrintFast blog — direct mail, digital marketing, social media and print ideas that help HVAC, plumbing, electrical and home service pros win more local jobs."
+  keywords={[
+    'home service marketing blog',
+    'direct mail marketing tips',
+    'HVAC marketing ideas',
+    'plumbing marketing',
+    'contractor marketing blog',
+    'PrintFast blog',
+    'direct mail and digital marketing',
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    name: 'PrintFast Blog',
+    description:
+      'Marketing ideas and insights for home-service professionals — direct mail, digital marketing, social media and print strategies from PrintFast.',
+    url: `${SITE.url}/blog/`,
+    publisher: {
+      '@type': 'Organization',
+      name: 'PrintFast',
+      telephone: '800-810-4818',
+    },
+    blogPost: posts.map((p) => ({
+      '@type': 'BlogPosting',
+      headline: p.title,
+      url: p.href,
+      image: p.img,
+      datePublished: p.iso,
+      author: { '@type': 'Organization', name: 'PrintFast' },
+    })),
+  }}
+>
+  <!-- ===================== ARTICLE GRID ===================== -->
+  <section id="articles" class="section bg-ink-50/60 scroll-mt-28">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-pen-nib"></i> Latest Articles
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Fresh ideas to grow your home-service business</h2>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {posts.map((p) => (
+          <article
+            class="group flex flex-col overflow-hidden rounded-2xl bg-white ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40"
+            data-reveal
+          >
+            <a href={p.href} target="_blank" rel="noopener" class="flex flex-1 flex-col">
+              <div class="overflow-hidden bg-ink-50">
+                <img
+                  src={p.img}
+                  alt={p.title}
+                  class="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div class="flex flex-1 flex-col p-6">
+                <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide">
+                  <span class="text-[#ED1C24]">{p.category}</span>
+                  <span class="text-ink-300">•</span>
+                  <span class="text-ink-500">{p.date}</span>
+                </div>
+                <h3 class="mt-3 text-base font-extrabold leading-snug text-[#0f2747]">{p.title}</h3>
+                <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-600">{p.excerpt}</p>
+                <span class="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#ED1C24]">
+                  Read more <i class="fa-solid fa-arrow-right text-xs transition-transform group-hover:translate-x-1"></i>
+                </span>
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
+
+      <p class="mt-10 text-center text-sm text-ink-500" data-reveal>
+        Articles open on
+        <a href={`${BLOG}/blog.html`} target="_blank" rel="noopener" class="font-semibold text-[#0f2747] hover:text-[#ED1C24]">print-fast.com</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== NEWSLETTER ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="grid items-center gap-10 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+            <i class="fa-solid fa-envelope-open-text"></i> Stay In The Loop
+          </p>
+          <h2 class="heading-lg mt-4 text-[#0f2747]">Get marketing tips in your inbox</h2>
+          <p class="lead mt-5 text-ink-600">
+            Join our newsletter for direct mail, digital and print marketing ideas built specifically
+            for home-service pros — no fluff, just tactics you can use to book more jobs.
+          </p>
+          <div class="mt-8 flex flex-wrap items-center gap-4">
+            <a
+              href={newsletterHref}
+              target="_blank"
+              rel="noopener"
+              class="inline-flex items-center gap-3 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              <i class="fa-solid fa-paper-plane"></i> Subscribe To Our Newsletter
+            </a>
+            <a
+              href={contactHref}
+              class="inline-flex items-center gap-2 text-sm font-bold text-[#0f2747] hover:text-[#ED1C24]"
+            >
+              Talk to our team <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Talk-to-us card -->
+        <div class="rounded-3xl bg-[#0f2747] p-8 shadow-soft sm:p-10" data-reveal>
+          <i class="fa-solid fa-lightbulb text-4xl text-[#ED1C24]"></i>
+          <p class="mt-4 text-lg leading-relaxed text-white/90">
+            Have a marketing question you’d like us to cover? We’re a third-generation, family-owned
+            print and marketing partner that has served home-service pros since 1903 — and we love
+            talking shop.
+          </p>
+          <div class="mt-6 flex flex-wrap items-center gap-4 border-t border-white/10 pt-6">
+            <a
+              href="tel:8008104818"
+              class="inline-flex items-center gap-2 text-sm font-bold text-white hover:text-[#ED1C24]"
+            >
+              <i class="fa-solid fa-phone text-[#ED1C24]"></i> 800-810-4818
+            </a>
+            <span class="text-white/30">•</span>
+            <span class="text-sm text-white/70">Mon–Fri, 8 AM – 5 PM ET</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FINAL CTA ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-20" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+        <div class="relative max-w-3xl">
+          <h2 class="heading-lg text-white">
+            Ready to turn ideas into <span class="text-[#ED1C24]">booked jobs?</span>
+          </h2>
+          <p class="mt-5 text-lg leading-relaxed text-white/85">
+            Reading is a great start — let’s build the campaign. Our team will help you put these
+            strategies to work with direct mail, digital and print that gets homeowners calling.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Get Started <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={shopHref('all-products')}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              Browse All Products
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ShopLayout>

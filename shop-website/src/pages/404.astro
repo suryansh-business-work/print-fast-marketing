@@ -1,0 +1,68 @@
+---
+import ShopLayout from '@layouts/ShopLayout.astro';
+import Lottie from '@components/Lottie.astro';
+import { SHOP_GROUPS, shopPath } from '@data/shop';
+import { mainHref } from '@config/sites';
+
+// Surface one flagship page per group so a missing URL still lands the visitor
+// somewhere useful. Driven by @data/shop, so new products appear automatically.
+const quickLinks = SHOP_GROUPS.flatMap((group) => group.pages.slice(0, 2)).slice(0, 6);
+---
+<ShopLayout title="Page Not Found" description="The page you were looking for doesn't exist." noindex>
+  <section class="section">
+    <div class="container-pf grid gap-10 lg:grid-cols-2 lg:items-center">
+      <div class="order-2 lg:order-1 text-center lg:text-left">
+        <p class="eyebrow inline-flex"><i class="fa-solid fa-triangle-exclamation"></i> Error 404</p>
+        <h1 class="heading-xl mt-5">
+          This product page took a <span class="gradient-text">detour in the mail.</span>
+        </h1>
+        <p class="lead mt-5">
+          The link you followed may be broken, or the page has moved. Browse the full Shop PrintFast
+          catalog, check the sitemap, or talk to our team about the product you were after.
+        </p>
+
+        <div class="mt-8 flex flex-wrap justify-center lg:justify-start gap-3">
+          <a href={shopPath('')} class="btn-primary">
+            <i class="fa-solid fa-store"></i> Shop Home
+          </a>
+          <a href={shopPath('contact-us')} class="btn-outline">
+            <i class="fa-solid fa-headset"></i> Contact Us
+          </a>
+          <a href="/sitemap/" class="btn-outline">
+            <i class="fa-solid fa-sitemap"></i> View Sitemap
+          </a>
+        </div>
+
+        <div class="mt-10">
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-ink-500">
+            Or jump to a product
+          </p>
+          <div class="mt-4 flex flex-wrap justify-center lg:justify-start gap-2">
+            {quickLinks.map((page) => (
+              <a
+                href={shopPath(page.slug)}
+                class="rounded-full border border-ink-200 px-4 py-2 text-sm font-semibold text-ink-700 hover:border-brand-500 hover:text-brand-700 transition-colors"
+              >
+                {page.label}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <div class="mt-10">
+          <a href={mainHref('/')} class="text-sm font-semibold text-ink-500 hover:text-brand-700 transition-colors">
+            <i class="fa-solid fa-arrow-left text-[11px]"></i> Back to PrintFast Digital Marketing
+          </a>
+        </div>
+      </div>
+
+      <div class="order-1 lg:order-2 mx-auto w-full max-w-lg">
+        <Lottie
+          src="https://assets10.lottiefiles.com/packages/lf20_kcsr6fcp.json"
+          ariaLabel="Animated 404 illustration"
+          class="aspect-square w-full"
+        />
+      </div>
+    </div>
+  </section>
+</ShopLayout>

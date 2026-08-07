@@ -1,0 +1,512 @@
+---
+import ShopLayout from '@layouts/ShopLayout.astro';
+import { shopHref } from '@data/shop';
+import { getContactHref } from '@data/pricing';
+import { SITE, TEAM } from '@data/site';
+
+const contactHref = getContactHref('digital-marketing-services');
+const telHref = 'tel:8008104818';
+const mapsHref =
+  'https://www.google.com/maps/search/?api=1&query=100+Blackford+Ave+Middlesex+NJ+08846';
+
+// Primary ways to reach PrintFast, sourced from SITE.
+const contactMethods = [
+  {
+    icon: 'fa-phone',
+    label: 'Call Us',
+    lines: [{ text: SITE.phone, href: telHref }],
+    note: 'Mon–Fri · 8 AM – 5 PM ET',
+  },
+  {
+    icon: 'fa-envelope',
+    label: 'Email Us',
+    lines: [
+      { text: 'orders@print-fast.com', href: 'mailto:orders@print-fast.com' },
+      { text: 'marketing@print-fast.com', href: 'mailto:marketing@print-fast.com' },
+    ],
+    note: 'We reply within one business day',
+  },
+  {
+    icon: 'fa-clock',
+    label: 'Hours',
+    lines: [{ text: '8 AM – 5 PM ET' }, { text: 'Monday to Friday' }],
+    note: 'Eastern Time',
+  },
+  {
+    icon: 'fa-location-dot',
+    label: 'Our Office',
+    lines: [{ text: SITE.address.street }, { text: `${SITE.address.city}, ${SITE.address.state} ${SITE.address.zip}` }],
+    note: 'Come say hello',
+  },
+];
+
+// Departments carried over from the legacy contact form's topic list.
+const topics = [
+  'Sales',
+  'Graphic Design',
+  'Customer Assistance',
+  'Direct Mailing Question',
+  'Testimonials',
+  'Request Reorder',
+];
+
+const faqs = [
+  {
+    question: 'How do I reach the PrintFast team?',
+    answer:
+      'Call us at 800-810-4818 or email orders@print-fast.com. We’re available from 8 AM to 5 PM ET, Monday to Friday, and reply to messages within one business day.',
+  },
+  {
+    question: 'What are your hours?',
+    answer: 'Our team is available Monday to Friday, from 8 AM to 5 PM Eastern Time.',
+  },
+  {
+    question: 'Where is PrintFast located?',
+    answer:
+      'Our office is at 100 Blackford Ave., Middlesex, NJ 08846. Use the “View on Google Maps” link for directions.',
+  },
+  {
+    question: 'Can I request a quote or start a project online?',
+    answer:
+      'Yes. Use the “Send us a message” button to open our full quote form, where you can tell us about your goals and request tailored pricing — usually within one business day.',
+  },
+  {
+    question: 'I already placed an order. How do I check on it?',
+    answer:
+      'Email orders@print-fast.com with your order number, or sign in to your customer account to manage orders and artwork. You can also call us at 800-810-4818.',
+  },
+];
+
+// Shared styling for the optional native contact form inputs.
+const inputClass =
+  'mt-1.5 w-full rounded-lg border border-ink-200 bg-white px-4 py-3 text-sm text-ink-900 shadow-soft transition-colors placeholder:text-ink-400 focus:border-[#ED1C24] focus:outline-none focus:ring-2 focus:ring-[#ED1C24]/30';
+const labelClass = 'block text-xs font-semibold uppercase tracking-wide text-ink-500';
+---
+
+<ShopLayout
+  title="Contact PrintFast | Call 800-810-4818 or Send Us a Message"
+  crumb="Contact Us"
+  description="Contact PrintFast — call 800-810-4818, email orders@print-fast.com, or send us a message. We’re at 100 Blackford Ave., Middlesex, NJ, Mon–Fri 8 AM–5 PM ET."
+  keywords={[
+    'contact printfast',
+    'printfast phone number',
+    'printfast customer service',
+    'print-fast contact',
+    '800-810-4818',
+    'printfast Middlesex NJ',
+    'printfast email',
+  ]}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'ContactPage',
+    name: 'Contact PrintFast',
+    description:
+      'Reach the PrintFast team by phone, email or message — serving home service providers since 1903.',
+    url: `${SITE.url}/contact-us/`,
+    mainEntity: {
+      '@type': 'Organization',
+      name: 'PrintFast',
+      telephone: SITE.phone,
+      email: 'orders@print-fast.com',
+      url: SITE.url,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: SITE.address.street,
+        addressLocality: SITE.address.city,
+        addressRegion: SITE.address.state,
+        postalCode: SITE.address.zip,
+        addressCountry: 'US',
+      },
+    },
+  }}
+  faqs={faqs}
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="relative overflow-hidden bg-[#0f2747]">
+    <span aria-hidden="true" class="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+    <span aria-hidden="true" class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></span>
+
+    <div class="container-pf relative py-14 sm:py-16 lg:py-24">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div data-reveal>
+          <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
+            Let’s Talk
+          </p>
+          <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Contact <span class="text-[#ED1C24]">PrintFast</span>
+          </h1>
+          <p class="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            Have any questions? We’re here to help. Whether you need a quote, want to check on an
+            order, or have an idea to talk through — our team is friendly, experienced and ready to
+            listen.
+          </p>
+          <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
+            We’re available from 8 AM to 5 PM ET, Monday to Friday, and reply to every message within
+            one business day.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={contactHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+            >
+              Send Us A Message <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a
+              href={telHref}
+              class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+            >
+              <i class="fa-solid fa-phone text-xs"></i> Call 800-810-4818
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick-contact card -->
+        <div class="relative" data-reveal>
+          <div class="mx-auto max-w-sm rounded-3xl bg-white/5 p-6 ring-1 ring-white/10 backdrop-blur sm:p-8">
+            <p class="text-xs font-bold uppercase tracking-[0.2em] text-[#ED1C24]">Reach Us Directly</p>
+            <ul class="mt-6 space-y-6">
+              <li class="flex items-start gap-4">
+                <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[#ED1C24] text-white">
+                  <i class="fa-solid fa-phone"></i>
+                </span>
+                <div>
+                  <p class="text-xs font-semibold uppercase tracking-wide text-white/60">Phone</p>
+                  <a href={telHref} class="text-lg font-bold text-white hover:text-[#ED1C24]">800-810-4818</a>
+                </div>
+              </li>
+              <li class="flex items-start gap-4">
+                <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white/10 text-white">
+                  <i class="fa-solid fa-envelope"></i>
+                </span>
+                <div>
+                  <p class="text-xs font-semibold uppercase tracking-wide text-white/60">Email</p>
+                  <a href="mailto:orders@print-fast.com" class="text-lg font-bold text-white hover:text-[#ED1C24]">orders@print-fast.com</a>
+                </div>
+              </li>
+              <li class="flex items-start gap-4">
+                <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white/10 text-white">
+                  <i class="fa-solid fa-location-dot"></i>
+                </span>
+                <div>
+                  <p class="text-xs font-semibold uppercase tracking-wide text-white/60">Office</p>
+                  <p class="text-base font-bold text-white">100 Blackford Ave.</p>
+                  <p class="text-sm text-white/70">Middlesex, NJ 08846</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT METHODS ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-headset"></i> Get In Touch
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Every way to reach the PrintFast team</h2>
+        <p class="lead mt-5 text-ink-600">
+          Pick whatever’s easiest for you — call, email, or stop by. However you reach out, you’ll be
+          talking with real people who know printing and direct mail inside and out.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {contactMethods.map((m) => (
+          <div class="group flex flex-col rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-[#fde8e9] text-[#ED1C24] transition-colors group-hover:bg-[#ED1C24] group-hover:text-white">
+              <i class:list={['fa-solid', m.icon, 'text-lg']} aria-hidden="true"></i>
+            </span>
+            <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{m.label}</h3>
+            <div class="mt-2 space-y-1">
+              {m.lines.map((l) => (
+                l.href ? (
+                  <a href={l.href} class="block break-words text-sm font-semibold text-ink-700 hover:text-[#ED1C24]">{l.text}</a>
+                ) : (
+                  <p class="text-sm font-semibold text-ink-700">{l.text}</p>
+                )
+              ))}
+            </div>
+            <p class="mt-3 text-xs text-ink-500">{m.note}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PREFER A FORM? ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-paper-plane"></i> Prefer To Fill Out A Form?
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Send us a message and we’ll take it from there</h2>
+      </div>
+
+      <div class="mt-12 grid gap-8 lg:grid-cols-2 lg:items-stretch">
+        <!-- Primary: route to the full marketing quote form -->
+        <div class="relative flex flex-col overflow-hidden rounded-3xl bg-[#0f2747] p-8 shadow-soft sm:p-10" data-reveal>
+          <span aria-hidden="true" class="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+          <div class="relative flex flex-1 flex-col">
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-[#ED1C24] text-white">
+              <i class="fa-solid fa-comments text-lg"></i>
+            </span>
+            <h3 class="mt-6 font-display text-2xl font-extrabold uppercase tracking-wide text-white">Start a project or get a quote</h3>
+            <p class="mt-4 text-sm leading-relaxed text-white/80">
+              The fastest way to get tailored pricing is our full quote form. Tell us about your
+              business and your goals, and our team will follow up with recommendations and a
+              tailored proposal — usually within one business day.
+            </p>
+            <ul class="mt-6 space-y-2 text-sm text-white/80">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-[#ED1C24]"></i> Custom pricing for your project</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-[#ED1C24]"></i> No-obligation conversation</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-[#ED1C24]"></i> Reply within one business day</li>
+            </ul>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a
+                href={contactHref}
+                class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+              >
+                Send Us A Message <i class="fa-solid fa-arrow-right text-xs"></i>
+              </a>
+              <a
+                href={telHref}
+                class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+              >
+                <i class="fa-solid fa-phone text-xs"></i> Call Instead
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Secondary: quick native note straight to the PrintFast team -->
+        <div class="flex flex-col rounded-3xl bg-white p-8 ring-1 ring-ink-100 shadow-soft sm:p-10" data-reveal>
+          <h3 class="text-base font-extrabold uppercase tracking-wide text-[#0f2747]">Or send a quick note</h3>
+          <p class="mt-2 text-sm leading-relaxed text-ink-600">
+            Have a quick question? Fill in the details below and it’ll go straight to our team.
+          </p>
+          <form
+            action="https://www.print-fast.com/contact_us.php"
+            method="post"
+            class="mt-6 grid flex-1 gap-4 sm:grid-cols-2"
+          >
+            <div class="sm:col-span-2">
+              <label for="fullname" class={labelClass}>Full Name <span class="text-[#ED1C24]">*</span></label>
+              <input type="text" name="fullname" id="fullname" required class={inputClass} placeholder="Your name" />
+            </div>
+            <div>
+              <label for="clientemail" class={labelClass}>Email <span class="text-[#ED1C24]">*</span></label>
+              <input type="email" name="clientemail" id="clientemail" required class={inputClass} placeholder="you@company.com" />
+            </div>
+            <div>
+              <label for="phone" class={labelClass}>Phone</label>
+              <input type="tel" name="phone" id="phone" class={inputClass} placeholder="(000) 000-0000" />
+            </div>
+            <div>
+              <label for="company" class={labelClass}>Company</label>
+              <input type="text" name="company" id="company" class={inputClass} placeholder="Company name" />
+            </div>
+            <div>
+              <label for="emailtopic" class={labelClass}>Department</label>
+              <select name="emailtopic" id="emailtopic" class={inputClass}>
+                <option value="">Select a department</option>
+                {topics.map((t) => <option value={t}>{t}</option>)}
+              </select>
+            </div>
+            <div class="sm:col-span-2">
+              <label for="subject" class={labelClass}>Subject / Order Number</label>
+              <input type="text" name="subject" id="subject" class={inputClass} placeholder="How can we help?" />
+            </div>
+            <div class="sm:col-span-2">
+              <label for="enquiry" class={labelClass}>Message <span class="text-[#ED1C24]">*</span></label>
+              <textarea name="enquiry" id="enquiry" rows="4" required class={inputClass} placeholder="Tell us a little about what you need…"></textarea>
+            </div>
+            <div class="sm:col-span-2">
+              <button
+                type="submit"
+                class="inline-flex w-full items-center justify-center gap-2 rounded-md bg-[#0f2747] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white transition-all hover:bg-[#183a63] active:translate-y-px sm:w-auto"
+              >
+                Send Message <i class="fa-solid fa-paper-plane text-xs"></i>
+              </button>
+              <p class="mt-3 text-xs text-ink-500">
+                For custom pricing and proposals, the
+                <a href={contactHref} class="font-semibold text-[#ED1C24] hover:underline">full quote form</a>
+                is the fastest route.
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TALK TO THE RIGHT PERSON ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-people-group"></i> Meet The Team
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Talk to the right person</h2>
+        <p class="lead mt-5 text-ink-600">
+          Need a direct line? Reach out to a member of our team and we’ll make sure your project is in
+          the best hands.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-3">
+        {TEAM.map((member) => (
+          <div class="flex flex-col items-center rounded-2xl bg-white p-8 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
+            <span class="grid h-14 w-14 place-items-center rounded-full bg-[#0f2747] text-white">
+              <i class:list={['fa-solid', member.icon, 'text-xl']} aria-hidden="true"></i>
+            </span>
+            <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{member.name}</h3>
+            <p class="mt-1 text-sm text-ink-600">{member.role}</p>
+            <a href={`mailto:${member.email}`} class="mt-3 break-all text-sm font-semibold text-[#ED1C24] hover:underline">{member.email}</a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FIND US / MAP ===================== -->
+  <section class="section bg-ink-50/60">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-map-location-dot"></i> Find Us
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Stop by our New Jersey HQ</h2>
+      </div>
+
+      <div class="mt-12 grid gap-6 lg:grid-cols-3 lg:items-stretch">
+        <!-- Decorative location panel -->
+        <div class="relative flex min-h-[280px] flex-col justify-end overflow-hidden rounded-3xl bg-[#0f2747] p-8 shadow-soft lg:col-span-2" data-reveal>
+          <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[#ED1C24]/25 blur-3xl"></span>
+          <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+          <div class="pointer-events-none absolute inset-0 grid place-items-center">
+            <i class="fa-solid fa-location-dot text-7xl text-[#ED1C24]/70 sm:text-8xl"></i>
+          </div>
+          <div class="relative">
+            <p class="text-xs font-bold uppercase tracking-[0.2em] text-[#ED1C24]">PrintFast HQ</p>
+            <p class="mt-2 font-display text-2xl font-extrabold uppercase leading-tight text-white">
+              100 Blackford Ave.
+            </p>
+            <p class="text-base text-white/80">Middlesex, NJ 08846</p>
+          </div>
+        </div>
+
+        <!-- Address / directions card -->
+        <div class="flex flex-col rounded-3xl bg-white p-8 ring-1 ring-ink-100 shadow-soft" data-reveal>
+          <span class="grid h-12 w-12 place-items-center rounded-xl bg-[#fde8e9] text-[#ED1C24]">
+            <i class="fa-solid fa-building text-lg"></i>
+          </span>
+          <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{SITE.address.company}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-ink-600">
+            {SITE.address.street}<br />
+            {SITE.address.city}, {SITE.address.state} {SITE.address.zip}<br />
+            {SITE.address.country}
+          </p>
+          <ul class="mt-5 space-y-3 text-sm">
+            <li class="flex items-center gap-3">
+              <span class="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-[#fde8e9] text-[#ED1C24]"><i class="fa-solid fa-phone text-xs"></i></span>
+              <a href={telHref} class="font-semibold text-ink-900 hover:text-[#ED1C24]">800-810-4818</a>
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-[#fde8e9] text-[#ED1C24]"><i class="fa-solid fa-clock text-xs"></i></span>
+              <span class="text-ink-700">Mon–Fri · 8 AM – 5 PM ET</span>
+            </li>
+          </ul>
+          <a
+            href={mapsHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-auto inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+          >
+            View on Google Maps <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="section">
+    <div class="container-pf">
+      <div class="mx-auto max-w-3xl text-center" data-reveal>
+        <p class="inline-flex items-center gap-2 rounded-full bg-[#fde8e9] px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-[#c01620]">
+          <i class="fa-solid fa-circle-question"></i> FAQ
+        </p>
+        <h2 class="heading-lg mt-4 text-[#0f2747]">Questions before you reach out</h2>
+      </div>
+
+      <div class="mx-auto mt-10 max-w-3xl space-y-4">
+        {faqs.map((f) => (
+          <details class="group rounded-2xl bg-white p-6 ring-1 ring-ink-100 shadow-soft" data-reveal>
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4">
+              <span class="text-base font-bold text-[#0f2747]">{f.question}</span>
+              <span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#fde8e9] text-[#ED1C24] transition-transform group-open:rotate-45">
+                <i class="fa-solid fa-plus text-sm"></i>
+              </span>
+            </summary>
+            <p class="mt-4 text-sm leading-relaxed text-ink-600">{f.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FINAL CTA ===================== -->
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="relative overflow-hidden rounded-3xl bg-[#0f2747] px-6 py-14 sm:p-14 lg:p-16" data-reveal>
+        <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
+        <span aria-hidden="true" class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+        <div class="relative grid items-center gap-8 lg:grid-cols-[1.4fr_1fr]">
+          <div>
+            <h2 class="heading-lg text-white">
+              Let’s get your project <span class="text-[#ED1C24]">moving</span>
+            </h2>
+            <p class="mt-5 text-lg leading-relaxed text-white/85">
+              Our team is here Monday to Friday, 8 AM to 5 PM ET. Reach out however you like — we’ll
+              get right back to you.
+            </p>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a
+                href={telHref}
+                class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
+              >
+                <i class="fa-solid fa-phone text-xs"></i> Call 800-810-4818
+              </a>
+              <a
+                href={contactHref}
+                class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
+              >
+                Send Us A Message
+              </a>
+            </div>
+            <p class="mt-6 text-sm text-white/70">
+              Existing customer?
+              <a href={shopHref('user-login')} class="font-semibold text-white underline decoration-[#ED1C24] underline-offset-4 hover:text-[#ED1C24]">Sign in to your account</a>
+              to manage orders and artwork.
+            </p>
+          </div>
+
+          <div class="rounded-2xl bg-white/5 p-6 ring-1 ring-white/10">
+            <p class="text-xs font-bold uppercase tracking-[0.18em] text-[#ED1C24]">Hours</p>
+            <p class="mt-2 text-lg font-bold text-white">8 AM – 5 PM ET</p>
+            <p class="text-sm text-white/70">Monday to Friday</p>
+            <p class="mt-5 text-xs font-bold uppercase tracking-[0.18em] text-[#ED1C24]">Phone</p>
+            <p class="mt-2 text-lg font-bold text-white">800-810-4818</p>
+            <p class="mt-5 text-xs font-bold uppercase tracking-[0.18em] text-[#ED1C24]">Email</p>
+            <a href="mailto:orders@print-fast.com" class="mt-2 block break-all text-lg font-bold text-white hover:text-[#ED1C24]">orders@print-fast.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</ShopLayout>

@@ -1,0 +1,16 @@
+# Every app and shared package in the PrintFast monorepo.
+# Adding a new app = drop it in a folder and add its glob here.
+packages:
+  - 'packages/*'
+  - 'main-website'
+  - 'shop-website'
+  - 'roas/client'
+  - 'roas/server'
+# Native/postinstall builds these packages genuinely need:
+#   esbuild  — Vite/Astro bundling      sharp    — Astro image optimization
+#   @parcel/watcher — astro dev watcher  bcrypt  — ROAS password hashing
+allowBuilds:
+  '@parcel/watcher': true
+  bcrypt: true
+  esbuild: true
+  sharp: true

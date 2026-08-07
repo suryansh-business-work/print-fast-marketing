@@ -3,9 +3,18 @@ node_modules/
 
 # build output
 dist/
+build/
 .astro/
+*.tsbuildinfo
+
+# generated public dirs — `pnpm sync:public` rebuilds these from
+# packages/common/public + each app's public-src/
+main-website/public/
+shop-website/public/
 
 # logs
+logs/
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -16,8 +25,14 @@ pnpm-debug.log*
 .env.*
 !.env.example
 
-# editor
+# runtime uploads (ROAS) — real files live on the server volume
+roas/uploads/**
+!roas/uploads/**/.gitkeep
+
+# editor / OS
 .DS_Store
+Thumbs.db
+.idea/
 .vscode/*
 !.vscode/extensions.json
 !.vscode/settings.json

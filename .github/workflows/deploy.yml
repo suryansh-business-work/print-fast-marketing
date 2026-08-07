@@ -1,36 +1,94 @@
-name: Build Docker Image & Deploy to VPS
+name: Build & Deploy Platform
+
+# One pipeline for all four apps. Everything — the build matrix, the container
+# ports, the Nginx vhosts, the certbot domains — is derived from
+# deploy/apps.json, so adding an app means editing that manifest, not this file.
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      apps:
+        description: 'Space-separated app names to deploy (blank = all). e.g. "roas-client roas-server"'
+        required: false
+        default: ''
 
 concurrency:
   group: deploy-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  IMAGE_NAME: exyconnprintfast/print-fast-marketing-website
-  CONTAINER_NAME: print-fast-marketing
-  APP_PORT: '8080'
-  REMOTE_HOST: 31.220.49.107
-  REMOTE_USER: root
-  FALLBACK_SERVER_NAME: 31.220.49.107
-  SITE_DOMAIN: marketing.print-fast.com
-
 jobs:
-  build-and-deploy:
+  # ---------------------------------------------------------------------------
+  prepare:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+      apps: ${{ steps.plan.outputs.apps }}
+      count: ${{ steps.plan.outputs.count }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build deployment plan from deploy/apps.json
+        id: plan
+        env:
+          FILTER: ${{ github.event.inputs.apps }}
+        run: |
+          set -euo pipefail
+
+          # Collapse whitespace so a blank / spaces-only input means "all apps".
+          FILTER="$(printf '%s' "${FILTER:-}" | xargs || true)"
+
+          if [[ -n "$FILTER" ]]; then
+            SELECTED="$(jq -c --arg f "$FILTER" '
+              ($f | split(" ") | map(select(length > 0))) as $names
+              | [.apps[] | select(.name | IN($names[]))]
+            ' deploy/apps.json)"
+          else
+            SELECTED="$(jq -c '.apps' deploy/apps.json)"
+          fi
+
+          COUNT="$(jq 'length' <<< "$SELECTED")"
+          if [[ "$COUNT" -eq 0 ]]; then
+            echo "::error::No apps matched '${FILTER}'. Valid names: $(jq -r '[.apps[].name] | join(", ")' deploy/apps.json)"
+            exit 1
+          fi
+
+          # Flatten to primitives so matrix expressions stay simple; buildArgs
+          # rides along as a JSON string and is resolved in the build job.
+          MATRIX="$(jq -c \
+            --arg ns "$(jq -r '.registry.namespace' deploy/apps.json)" \
+            '{include: [.[] | {
+                name,
+                title,
+                image: ($ns + "/" + .image),
+                dockerfile,
+                buildArgs: (.buildArgs // {} | tojson)
+              }]}' <<< "$SELECTED")"
+
+          {
+            echo "matrix=${MATRIX}"
+            echo "apps=$(jq -r 'map(.name) | join(" ")' <<< "$SELECTED")"
+            echo "count=${COUNT}"
+          } >> "$GITHUB_OUTPUT"
+
+          echo "Deploying ${COUNT} app(s): $(jq -r 'map(.name) | join(", ")' <<< "$SELECTED")"
+
+  # ---------------------------------------------------------------------------
+  build:
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
     permissions:
       contents: read
-
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
+    name: build (${{ matrix.name }})
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - uses: docker/setup-buildx-action@v3
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3
@@ -38,309 +96,230 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push Docker image
+      - name: Resolve build args
+        id: args
+        env:
+          BUILD_ARGS_JSON: ${{ matrix.buildArgs }}
+          ALL_SECRETS: ${{ toJSON(secrets) }}
+        run: |
+          set -euo pipefail
+          # Values written as "@secret:NAME" are looked up in the repo secrets.
+          RESOLVED="$(jq -rn \
+            --argjson args "$BUILD_ARGS_JSON" \
+            --argjson secrets "$ALL_SECRETS" '
+              $args
+              | to_entries
+              | map(
+                  .value as $v
+                  | if ($v | type) == "string" and ($v | startswith("@secret:"))
+                    then .value = ($secrets[$v | ltrimstr("@secret:")] // "")
+                    else .
+                    end
+                )
+              | map("\(.key)=\(.value)")
+              | join("\n")
+            ')"
+          {
+            echo 'value<<__EOF__'
+            echo "$RESOLVED"
+            echo '__EOF__'
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Build and push ${{ matrix.name }}
         uses: docker/build-push-action@v6
         with:
+          # Context is the repo root for every image — the apps share packages/common.
           context: .
+          file: ${{ matrix.dockerfile }}
           push: true
+          build-args: ${{ steps.args.outputs.value }}
           tags: |
-            ${{ env.IMAGE_NAME }}:${{ github.sha }}
-            ${{ env.IMAGE_NAME }}:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+            ${{ matrix.image }}:${{ github.sha }}
+            ${{ matrix.image }}:latest
+          cache-from: type=gha,scope=${{ matrix.name }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.name }}
 
-      - name: Install SSH password helper
+  # ---------------------------------------------------------------------------
+  deploy:
+    needs: [prepare, build]
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Preflight — check required secrets
+        env:
+          ALL_SECRETS: ${{ toJSON(secrets) }}
         run: |
-          sudo apt-get update
-          sudo apt-get install -y sshpass
+          set -euo pipefail
+
+          # Hard requirements: without these the deploy cannot do anything.
+          MISSING=""
+          for KEY in SSH_PASSWORD DOCKERHUB_USERNAME DOCKERHUB_TOKEN; do
+            VALUE="$(jq -r --arg k "$KEY" '.[$k] // ""' <<< "$ALL_SECRETS")"
+            [[ -z "$VALUE" ]] && MISSING="${MISSING} ${KEY}"
+          done
+          if [[ -n "$MISSING" ]]; then
+            echo "::error::Missing required secret(s):${MISSING}. Add them under Settings -> Secrets and variables -> Actions."
+            exit 1
+          fi
+
+          # App-level secrets: report rather than block, so a ROAS gap cannot
+          # stop the websites from shipping. The affected container will fail
+          # its health check and turn the job red on its own.
+          ABSENT="$(jq -rn \
+            --argjson manifest "$(cat deploy/apps.json)" \
+            --argjson secrets "$ALL_SECRETS" '
+              ([$manifest.apps[] | (.env // [])[], ((.buildArgs // {}) | to_entries[] | .value)]
+                | map(select(type == "string" and contains("@secret:")))
+                | map(split("@secret:")[1]))
+              | unique
+              | map(select(($secrets[.] // "") == ""))
+              | join(" ")
+            ')"
+
+          if [[ -n "$ABSENT" ]]; then
+            echo "::warning::Secrets referenced by deploy/apps.json but not set:${ABSENT}"
+            echo "Not set (containers will start without them):${ABSENT}" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "All secrets referenced by deploy/apps.json are present."
+          fi
+
+      - name: Render Nginx configuration
+        run: node scripts/render-nginx.mjs
+
+      - name: Stage deployment payload
+        env:
+          ALL_SECRETS: ${{ toJSON(secrets) }}
+        run: |
+          set -euo pipefail
+          mkdir -p payload
+          cp deploy/apps.json payload/
+          cp deploy/remote/provision.sh payload/
+          cp -r deploy/nginx payload/nginx
+
+          # Every @secret:NAME referenced by the manifest, plus the fixed ones,
+          # written to a file so no secret ever lands in the SSH command line.
+          jq -rn \
+            --argjson manifest "$(cat deploy/apps.json)" \
+            --argjson secrets "$ALL_SECRETS" '
+              ([$manifest.apps[] | (.env // [])[]]
+                | map(select(contains("@secret:")))
+                | map(split("@secret:")[1]))
+              + ["CERTBOT_EMAIL", "DOCKERHUB_USERNAME", "DOCKERHUB_TOKEN"]
+              | unique
+              | map(select($secrets[.] != null and $secrets[.] != ""))
+              | map("\(.)=\($secrets[.])")
+              | join("\n")
+            ' > payload/deploy.env
+          chmod 600 payload/deploy.env
+
+          echo "payload staged:"
+          ls -la payload
+          echo "secrets provided: $(cut -d= -f1 payload/deploy.env | tr '\n' ' ')"
+
+      - name: Install sshpass
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq sshpass
 
       - name: Trust VPS SSH host key
+        env:
+          REMOTE_HOST: ${{ vars.DEPLOY_HOST || '31.220.49.107' }}
         run: |
-          mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
+          set -euo pipefail
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
 
-          # ssh-keyscan exits non-zero (failing this `bash -e` step) when the VPS
-          # is briefly slow to answer on port 22 within its default 5s timeout.
-          # Retry with a longer timeout so a transient blip doesn't break deploy.
+          # ssh-keyscan exits non-zero when the VPS is briefly slow to answer
+          # within its default 5s timeout — retry rather than fail the deploy.
           for attempt in 1 2 3 4 5 6; do
-            if ssh-keyscan -T 20 -H "${{ env.REMOTE_HOST }}" > /tmp/vps_known_hosts 2>/dev/null \
+            if ssh-keyscan -T 20 -H "$REMOTE_HOST" > /tmp/vps_known_hosts 2>/dev/null \
               && [ -s /tmp/vps_known_hosts ]; then
               cat /tmp/vps_known_hosts >> ~/.ssh/known_hosts
               chmod 600 ~/.ssh/known_hosts
-              echo "Collected SSH host key for ${{ env.REMOTE_HOST }} on attempt ${attempt}."
+              echo "Collected SSH host key on attempt ${attempt}."
               exit 0
             fi
             echo "ssh-keyscan attempt ${attempt}/6 returned no host key; retrying in 10s..."
             sleep 10
           done
 
-          echo "::error::Could not retrieve SSH host key for ${{ env.REMOTE_HOST }} after 6 attempts."
+          echo "::error::Could not retrieve SSH host key for ${REMOTE_HOST}."
           exit 1
 
-      - name: Deploy container on VPS
+      - name: Upload payload and provision VPS
         env:
           SSHPASS: ${{ secrets.SSH_PASSWORD }}
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-          IMAGE_REF: ${{ env.IMAGE_NAME }}:${{ github.sha }}
-          SITE_DOMAIN: ${{ env.SITE_DOMAIN }}
-          CERTBOT_EMAIL: ${{ secrets.CERTBOT_EMAIL }}
+          REMOTE_HOST: ${{ vars.DEPLOY_HOST || '31.220.49.107' }}
+          REMOTE_USER: ${{ vars.DEPLOY_USER || 'root' }}
+          IMAGE_TAG: ${{ github.sha }}
+          ONLY_APPS: ${{ needs.prepare.outputs.apps }}
+        run: |
+          set -euo pipefail
+          REMOTE_DIR="/opt/print-fast-deploy"
+
+          sshpass -e ssh -o StrictHostKeyChecking=yes -o ServerAliveInterval=30 \
+            "${REMOTE_USER}@${REMOTE_HOST}" "rm -rf ${REMOTE_DIR} && mkdir -p ${REMOTE_DIR}"
+
+          sshpass -e scp -o StrictHostKeyChecking=yes -r \
+            payload/. "${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}/"
+
+          sshpass -e ssh -o StrictHostKeyChecking=yes -o ServerAliveInterval=30 \
+            "${REMOTE_USER}@${REMOTE_HOST}" \
+            "IMAGE_TAG='${IMAGE_TAG}' ONLY_APPS='${ONLY_APPS}' bash ${REMOTE_DIR}/provision.sh"
+
+      - name: Verify public routes
+        env:
+          REMOTE_HOST: ${{ vars.DEPLOY_HOST || '31.220.49.107' }}
+          ONLY_APPS: ${{ needs.prepare.outputs.apps }}
         run: |
           set -euo pipefail
 
-          encode() {
-            printf '%s' "$1" | base64 -w0
-          }
+          curl -fsS --retry 10 --retry-delay 3 --retry-connrefused \
+            "http://${REMOTE_HOST}/healthz" >/dev/null
+          echo "IP route OK: http://${REMOTE_HOST}/healthz"
 
-          DOCKERHUB_USERNAME_B64="$(encode "$DOCKERHUB_USERNAME")"
-          DOCKERHUB_TOKEN_B64="$(encode "$DOCKERHUB_TOKEN")"
-          IMAGE_REF_B64="$(encode "$IMAGE_REF")"
-          CONTAINER_NAME_B64="$(encode "${{ env.CONTAINER_NAME }}")"
-          APP_PORT_B64="$(encode "${{ env.APP_PORT }}")"
-          FALLBACK_SERVER_NAME_B64="$(encode "${{ env.FALLBACK_SERVER_NAME }}")"
-          SITE_DOMAIN_B64="$(encode "$SITE_DOMAIN")"
-          CERTBOT_EMAIL_B64="$(encode "$CERTBOT_EMAIL")"
+          FAILED=0
+          for NAME in $ONLY_APPS; do
+            DOMAIN="$(jq -r --arg n "$NAME" '.apps[] | select(.name==$n) | .domain' deploy/apps.json)"
+            HEALTH="$(jq -r --arg n "$NAME" '.apps[] | select(.name==$n) | .healthPath' deploy/apps.json)"
 
-          sshpass -e ssh \
-            -o StrictHostKeyChecking=yes \
-            -o ServerAliveInterval=30 \
-            "${{ env.REMOTE_USER }}@${{ env.REMOTE_HOST }}" \
-            "DOCKERHUB_USERNAME_B64='$DOCKERHUB_USERNAME_B64' \
-             DOCKERHUB_TOKEN_B64='$DOCKERHUB_TOKEN_B64' \
-             IMAGE_REF_B64='$IMAGE_REF_B64' \
-             CONTAINER_NAME_B64='$CONTAINER_NAME_B64' \
-             APP_PORT_B64='$APP_PORT_B64' \
-             FALLBACK_SERVER_NAME_B64='$FALLBACK_SERVER_NAME_B64' \
-             SITE_DOMAIN_B64='$SITE_DOMAIN_B64' \
-             CERTBOT_EMAIL_B64='$CERTBOT_EMAIL_B64' \
-             bash -s" <<'REMOTE_SCRIPT'
-          set -euo pipefail
-
-          decode() {
-            if [[ -n "$1" ]]; then
-              printf '%s' "$1" | base64 -d
+            DOMAIN_IPS="$(getent ahostsv4 "$DOMAIN" | awk '{print $1}' | sort -u || true)"
+            if [[ -z "$DOMAIN_IPS" ]]; then
+              echo "::warning::${DOMAIN} has no A record yet — skipping public check."
+              continue
             fi
-          }
-
-          DOCKERHUB_USERNAME="$(decode "$DOCKERHUB_USERNAME_B64")"
-          DOCKERHUB_TOKEN="$(decode "$DOCKERHUB_TOKEN_B64")"
-          IMAGE_REF="$(decode "$IMAGE_REF_B64")"
-          CONTAINER_NAME="$(decode "$CONTAINER_NAME_B64")"
-          APP_PORT="$(decode "$APP_PORT_B64")"
-          FALLBACK_SERVER_NAME="$(decode "$FALLBACK_SERVER_NAME_B64")"
-          SITE_DOMAIN="$(decode "$SITE_DOMAIN_B64")"
-          CERTBOT_EMAIL="$(decode "$CERTBOT_EMAIL_B64")"
-
-          if [[ -z "$DOCKERHUB_USERNAME" || -z "$DOCKERHUB_TOKEN" ]]; then
-            echo "Docker Hub credentials are required."
-            exit 1
-          fi
-
-          export DEBIAN_FRONTEND=noninteractive
-
-          apt-get update
-          apt-get install -y ca-certificates curl gnupg nginx certbot python3-certbot-nginx
-
-          if ! command -v docker >/dev/null 2>&1; then
-            curl -fsSL https://get.docker.com | sh
-          fi
-
-          systemctl enable --now docker
-          systemctl enable --now nginx
-
-          printf '%s' "$DOCKERHUB_TOKEN" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
-          docker pull "$IMAGE_REF"
-
-          docker rm -f "$CONTAINER_NAME" >/dev/null 2>&1 || true
-          docker run -d \
-            --name "$CONTAINER_NAME" \
-            --restart unless-stopped \
-            -p "127.0.0.1:${APP_PORT}:80" \
-            "$IMAGE_REF"
-
-          echo "Waiting for ${CONTAINER_NAME} to become healthy on 127.0.0.1:${APP_PORT}..."
-          for attempt in {1..30}; do
-            if curl -fsS "http://127.0.0.1:${APP_PORT}/healthz" >/dev/null 2>&1; then
-              break
+            if ! printf '%s\n' "$DOMAIN_IPS" | grep -Fxq "$REMOTE_HOST"; then
+              echo "::warning::${DOMAIN} points at ${DOMAIN_IPS//$'\n'/, }, not ${REMOTE_HOST} — skipping."
+              continue
             fi
 
-            if [[ "$attempt" -eq 30 ]]; then
-              echo "Container health check failed after ${attempt} attempts."
-              docker ps -a --filter "name=${CONTAINER_NAME}"
-              docker logs --tail 100 "$CONTAINER_NAME" || true
-              exit 1
-            fi
-
-            sleep 2
-          done
-
-          mkdir -p /etc/nginx/snippets /var/www/certbot
-
-          PROXY_SNIPPET=/etc/nginx/snippets/print-fast-marketing-proxy.conf
-          cat > "$PROXY_SNIPPET" <<NGINX
-          location /.well-known/acme-challenge/ {
-              root /var/www/certbot;
-          }
-
-          location / {
-              proxy_pass http://127.0.0.1:${APP_PORT};
-              proxy_http_version 1.1;
-              proxy_set_header Host \$host;
-              proxy_set_header X-Real-IP \$remote_addr;
-              proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-              proxy_set_header X-Forwarded-Proto \$scheme;
-              proxy_set_header Connection "";
-          }
-          NGINX
-
-          NGINX_CONF=/etc/nginx/sites-available/print-fast-marketing.conf
-          cat > "$NGINX_CONF" <<NGINX
-          server {
-              listen 80 default_server;
-              listen [::]:80 default_server;
-              server_name ${FALLBACK_SERVER_NAME} _;
-
-              include ${PROXY_SNIPPET};
-          }
-          NGINX
-
-          if [[ -n "$SITE_DOMAIN" ]]; then
-            cat >> "$NGINX_CONF" <<NGINX
-
-          server {
-              listen 80;
-              listen [::]:80;
-              server_name ${SITE_DOMAIN};
-
-              include ${PROXY_SNIPPET};
-          }
-          NGINX
-          fi
-
-          rm -f /etc/nginx/sites-enabled/default
-          ln -sf "$NGINX_CONF" /etc/nginx/sites-enabled/print-fast-marketing.conf
-          nginx -t
-          systemctl reload nginx
-
-          echo "Verifying host Nginx proxy for ${FALLBACK_SERVER_NAME}..."
-          for attempt in {1..15}; do
-            if curl -fsS -H "Host: ${FALLBACK_SERVER_NAME}" "http://127.0.0.1/healthz" >/dev/null 2>&1; then
-              break
-            fi
-
-            if [[ "$attempt" -eq 15 ]]; then
-              echo "Host Nginx IP route failed after ${attempt} attempts."
-              nginx -T | tail -n 120
-              docker ps -a --filter "name=${CONTAINER_NAME}"
-              docker logs --tail 100 "$CONTAINER_NAME" || true
-              exit 1
-            fi
-
-            sleep 2
-          done
-
-          if [[ -n "$SITE_DOMAIN" ]]; then
-            if [[ "$SITE_DOMAIN" =~ ^[0-9]+(\.[0-9]+){3}$ ]]; then
-              echo "Skipping Certbot because SITE_DOMAIN is an IP address."
+            if curl -fsS --retry 8 --retry-delay 5 --retry-connrefused \
+              "https://${DOMAIN}${HEALTH}" >/dev/null; then
+              echo "OK  https://${DOMAIN}${HEALTH}"
             else
-              DOMAIN_IPS="$(getent ahostsv4 "$SITE_DOMAIN" | awk '{print $1}' | sort -u || true)"
-              echo "${SITE_DOMAIN} resolves to: ${DOMAIN_IPS:-no A record found}"
-
-              if [[ -z "$DOMAIN_IPS" ]]; then
-                echo "DNS is not ready: ${SITE_DOMAIN} has no public A record on this server."
-                echo "Skipping Certbot for now; deployment will continue at http://${FALLBACK_SERVER_NAME}."
-              elif ! printf '%s\n' "$DOMAIN_IPS" | grep -Fxq "$FALLBACK_SERVER_NAME"; then
-                echo "DNS is not pointing at this VPS. Expected ${FALLBACK_SERVER_NAME}, got: ${DOMAIN_IPS}"
-                echo "Skipping Certbot for now; deployment will continue at http://${FALLBACK_SERVER_NAME}."
-              else
-                CERTBOT_ARGS=(
-                  --nginx
-                  -d "$SITE_DOMAIN"
-                  --non-interactive
-                  --agree-tos
-                  --redirect
-                  --keep-until-expiring
-                )
-
-                if [[ -n "$CERTBOT_EMAIL" ]]; then
-                  CERTBOT_ARGS+=(-m "$CERTBOT_EMAIL")
-                else
-                  CERTBOT_ARGS+=(--register-unsafely-without-email)
-                fi
-
-                if ! certbot "${CERTBOT_ARGS[@]}"; then
-                  echo "Certbot failed for ${SITE_DOMAIN}; deployment will continue at http://${FALLBACK_SERVER_NAME}."
-                fi
-              fi
+              echo "::warning::HTTPS check failed for ${DOMAIN}${HEALTH}"
+              FAILED=1
             fi
-          else
-            echo "Skipping Certbot; SITE_DOMAIN is not set."
-          fi
+          done
 
-          docker image prune -af \
-            --filter "label=com.exyconn.print-fast.app=marketing-website" \
-            --filter "until=168h" >/dev/null 2>&1 || true
+          exit $FAILED
 
-          echo "Deployed ${IMAGE_REF} to http://${FALLBACK_SERVER_NAME}"
-          REMOTE_SCRIPT
-
-      - name: Verify public IP route
+      - name: Summary
+        if: always()
         run: |
-          curl -fsS \
-            --retry 10 \
-            --retry-delay 3 \
-            --retry-connrefused \
-            "http://${{ env.FALLBACK_SERVER_NAME }}/healthz" >/dev/null
-
-      - name: Verify public domain routes when DNS is ready
-        run: |
-          set -euo pipefail
-
-          SITE_DOMAIN="${{ env.SITE_DOMAIN }}"
-          FALLBACK_SERVER_NAME="${{ env.FALLBACK_SERVER_NAME }}"
-
-          if [[ -z "$SITE_DOMAIN" ]]; then
-            echo "Skipping public domain verification; SITE_DOMAIN is not set."
-            exit 0
-          fi
-
-          if [[ "$SITE_DOMAIN" =~ ^[0-9]+(\.[0-9]+){3}$ ]]; then
-            echo "Skipping public domain verification; SITE_DOMAIN is an IP address."
-            exit 0
-          fi
-
-          DOMAIN_IPS="$(getent ahostsv4 "$SITE_DOMAIN" | awk '{print $1}' | sort -u || true)"
-          echo "${SITE_DOMAIN} resolves to: ${DOMAIN_IPS:-no A record found}"
-
-          if [[ -z "$DOMAIN_IPS" ]]; then
-            echo "Skipping public domain verification; ${SITE_DOMAIN} has no public A record yet."
-            exit 0
-          fi
-
-          if ! printf '%s\n' "$DOMAIN_IPS" | grep -Fxq "$FALLBACK_SERVER_NAME"; then
-            echo "Skipping public domain verification; expected ${FALLBACK_SERVER_NAME}, got: ${DOMAIN_IPS}"
-            exit 0
-          fi
-
-          if ! curl -fsS \
-            --retry 10 \
-            --retry-delay 6 \
-            --retry-connrefused \
-            "http://${SITE_DOMAIN}/healthz" >/dev/null; then
-            echo "HTTP domain health check failed for ${SITE_DOMAIN}; deployment remains available at http://${FALLBACK_SERVER_NAME}."
-          fi
-
-          if ! curl -fsS \
-            --retry 10 \
-            --retry-delay 6 \
-            --retry-connrefused \
-            "https://${SITE_DOMAIN}/healthz" >/dev/null; then
-            echo "HTTPS domain health check failed for ${SITE_DOMAIN}; deployment remains available at http://${FALLBACK_SERVER_NAME}."
-          fi
-
-      - name: Deployment summary
-        run: |
-          echo "Docker image: ${{ env.IMAGE_NAME }}:${{ github.sha }}"
-          echo "VPS URL: http://${{ env.FALLBACK_SERVER_NAME }}"
-          echo "Domain URL: https://${{ env.SITE_DOMAIN }}"
-          echo "Time: $(date -u)"
+          {
+            echo "### Deployment"
+            echo ""
+            echo "| App | Domain | Port | Image |"
+            echo "| --- | --- | --- | --- |"
+            for NAME in ${{ needs.prepare.outputs.apps }}; do
+              jq -r --arg n "$NAME" --arg sha "${{ github.sha }}" \
+                '.apps[] | select(.name==$n) | "| \(.name) | https://\(.domain) | \(.hostPort) | \(.image):\($sha[0:7]) |"' \
+                deploy/apps.json
+            done
+          } >> "$GITHUB_STEP_SUMMARY"

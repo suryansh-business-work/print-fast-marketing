@@ -1,0 +1,45 @@
+{
+  "name": "@print-fast/shop-website",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Shop PrintFast storefront website (Astro, dev port 9001)",
+  "scripts": {
+    "dev": "node ../scripts/sync-public.mjs shop-website && astro dev",
+    "start": "node ../scripts/sync-public.mjs shop-website && astro dev",
+    "build": "node ../scripts/sync-public.mjs shop-website && astro build",
+    "preview": "astro preview",
+    "type-check": "astro check",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@print-fast/common": "workspace:*",
+    "@astrojs/react": "^5.0.4",
+    "@astrojs/sitemap": "^3.7.2",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@fortawesome/fontawesome-free": "^6.6.0",
+    "@mui/material": "^9.0.1",
+    "astro": "^5.18.1",
+    "formik": "^2.4.9",
+    "leaflet": "^1.9.4",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "react-leaflet": "^5.0.0",
+    "sass": "^1.83.0",
+    "yup": "^1.7.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/tailwind": "^6.0.2",
+    "@tailwindcss/forms": "^0.5.9",
+    "@tailwindcss/typography": "^0.5.15",
+    "@types/leaflet": "^1.9.21",
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "autoprefixer": "^10.4.20",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.2"
+  }
+}

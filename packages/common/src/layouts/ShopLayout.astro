@@ -1,0 +1,85 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import type { Props as SEOProps } from '@components/SEO.astro';
+import { SHOP_NAV, SHOP_PATH_PREFIX, shopPath, findShopGroup } from '@data/shop';
+import { mainHref } from '@config/sites';
+
+export interface Props extends SEOProps {
+  /** Label of the current page, shown as the last breadcrumb crumb. */
+  crumb?: string;
+}
+
+const { crumb, breadcrumbs, ...seoProps } = Astro.props;
+
+// Derive the current shop slug from the URL (e.g. /letters/ -> "letters").
+// Tolerates the shop being mounted under a sub-path via SHOP_PATH_PREFIX.
+const path = Astro.url.pathname.replace(/\/+$/, '');
+const withoutPrefix =
+  SHOP_PATH_PREFIX && path.startsWith(SHOP_PATH_PREFIX) ? path.slice(SHOP_PATH_PREFIX.length) : path;
+const slug = withoutPrefix.replace(/^\/+/, '');
+const group = slug ? findShopGroup(slug) : undefined;
+const isHome = slug === '';
+
+// Build SEO breadcrumbs (Home > Shop PrintFast > [Group] > Current) unless the
+// page supplied its own. "Home" points at the marketing site, which lives on a
+// different origin, so it is always absolute.
+const autoCrumbs = [
+  { name: 'Home', href: mainHref('/') },
+  { name: 'Shop PrintFast', href: shopPath('') },
+  ...(group && !isHome ? [{ name: group.title, href: `${shopPath('')}#${group.id}` }] : []),
+  ...(crumb && !isHome ? [{ name: crumb, href: path + '/' }] : []),
+];
+const finalCrumbs = breadcrumbs ?? autoCrumbs;
+
+const navActive = (href: string) => {
+  const clean = href.split('#')[0].replace(/\/+$/, '');
+  return clean === path;
+};
+---
+
+<BaseLayout {...seoProps} breadcrumbs={finalCrumbs}>
+  <!-- ===================== SHOP SUB-NAV ===================== -->
+  <nav
+    aria-label="Shop PrintFast"
+    {/* Offsets match the full sticky header: accent bar (3) + row + border, plus the
+        utility strip (37) once it appears at md. */}
+    class="sticky top-[68px] z-40 border-b border-ink-100 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/75 md:top-[105px] lg:top-[137px] dark:border-ink-800 dark:bg-ink-950/85"
+  >
+    <div class="container-pf flex items-center gap-1 overflow-x-auto py-2.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      {SHOP_NAV.map((item) => (
+        <a
+          href={item.href}
+          class:list={[
+            'inline-flex shrink-0 items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-bold uppercase tracking-wide transition-colors',
+            navActive(item.href)
+              ? 'bg-brand-500 text-white'
+              : 'text-ink-600 hover:bg-brand-50 hover:text-brand-700',
+          ]}
+        >
+          <i class:list={['fa-solid', item.icon, 'text-[11px]']} aria-hidden="true"></i>
+          {item.label}
+        </a>
+      ))}
+    </div>
+  </nav>
+
+  <!-- ===================== BREADCRUMB ===================== -->
+  <div class="border-b border-ink-100 bg-ink-50/60 dark:border-ink-800">
+    <div class="container-pf py-3">
+      <ol class="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-medium text-ink-500">
+        {finalCrumbs.map((c, i) => (
+          <li class="flex items-center gap-2">
+            {i > 0 && <i class="fa-solid fa-chevron-right text-[9px] text-ink-300" aria-hidden="true"></i>}
+            {i < finalCrumbs.length - 1 ? (
+              <a href={c.href} class="hover:text-brand-700">{c.name}</a>
+            ) : (
+              <span class="text-ink-800 dark:text-ink-200">{c.name}</span>
+            )}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+
+  <slot />
+</BaseLayout>

@@ -1,0 +1,107 @@
+---
+import ShopLayout from '@layouts/ShopLayout.astro';
+import { SHOP_GROUPS, shopPath } from '@data/shop';
+import { mainHref } from '@config/sites';
+
+// Entirely derived from the shop data model — adding a page to @data/shop lists
+// it here and in /sitemap.xml with no edit to this file.
+const shopGroups = [
+  {
+    title: 'Shop Home',
+    icon: 'fa-store',
+    links: [{ label: 'Shop PrintFast', href: shopPath('') }],
+  },
+  ...SHOP_GROUPS.map((group) => ({
+    title: group.title,
+    icon: group.icon,
+    links: group.pages.map((page) => ({ label: page.label, href: shopPath(page.slug) })),
+  })),
+];
+
+const marketingLinks = [
+  { label: 'PrintFast Digital Marketing', href: mainHref('/') },
+  { label: 'Who We Are', href: mainHref('/who-we-are/') },
+  { label: 'Contact Us', href: mainHref('/contact-us/') },
+  { label: 'Privacy Policy', href: mainHref('/privacy-policy/') },
+  { label: 'Terms of Use', href: mainHref('/terms-of-use/') },
+  { label: 'XML Sitemap', href: '/sitemap.xml' },
+];
+---
+
+<ShopLayout
+  title="Sitemap"
+  crumb="Sitemap"
+  description="Browse every Shop PrintFast page — postcards, mailers, print products, print services and company pages."
+  keywords={['Shop PrintFast sitemap', 'direct mail products', 'print product pages']}
+>
+  <section class="relative overflow-hidden bg-hero-radial">
+    <div class="container-pf py-16 sm:py-20 lg:py-24">
+      <div class="max-w-4xl" data-reveal>
+        <p class="eyebrow"><i class="fa-solid fa-sitemap text-brand-600"></i> Sitemap</p>
+        <h1 class="heading-xl mt-4">Every Shop PrintFast page.</h1>
+        <p class="lead mt-5 max-w-2xl">
+          Browse the full catalog — postcards, mailers, print products, print services and company
+          pages. Search engines can also use the XML sitemap.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href={shopPath('contact-us')} class="btn-primary">Contact PrintFast <i class="fa-solid fa-arrow-right text-xs"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-pf">
+      <div class="grid gap-6 lg:grid-cols-3">
+        {shopGroups.map((group) => (
+          <section class="card-hover p-6 sm:p-8" data-reveal>
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-brand-50 text-brand-600 text-lg">
+              <i class:list={['fa-solid', group.icon]} aria-hidden="true"></i>
+            </span>
+            <h2 class="mt-5 text-xl font-bold text-ink-900">{group.title}</h2>
+            <ul class="mt-5 space-y-3">
+              {group.links.map((link) => (
+                <li>
+                  <a href={link.href} class="group inline-flex items-center text-sm font-semibold text-ink-700 hover:text-brand-700 transition-colors">
+                    <i class="fa-solid fa-arrow-right text-[11px] text-brand-500 mr-2 group-hover:translate-x-0.5 transition-transform" aria-hidden="true"></i>
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section pt-0">
+    <div class="container-pf">
+      <div class="mb-8" data-reveal>
+        <p class="eyebrow"><i class="fa-solid fa-bullhorn text-brand-600"></i> Marketing Services</p>
+        <h2 class="heading-lg mt-4 text-ink-900">Looking for digital marketing?</h2>
+        <p class="lead mt-3 max-w-2xl">
+          SEO, PPC, social, email and website work live on the PrintFast Digital Marketing site.
+        </p>
+      </div>
+      <div class="grid gap-6 lg:grid-cols-3">
+        <section class="card-hover p-6 sm:p-8" data-reveal>
+          <span class="grid h-12 w-12 place-items-center rounded-xl bg-brand-50 text-brand-600 text-lg">
+            <i class="fa-solid fa-compass" aria-hidden="true"></i>
+          </span>
+          <h3 class="mt-5 text-xl font-bold text-ink-900">PrintFast Digital Marketing</h3>
+          <ul class="mt-5 space-y-3">
+            {marketingLinks.map((link) => (
+              <li>
+                <a href={link.href} class="group inline-flex items-center text-sm font-semibold text-ink-700 hover:text-brand-700 transition-colors">
+                  <i class="fa-solid fa-arrow-right text-[11px] text-brand-500 mr-2 group-hover:translate-x-0.5 transition-transform" aria-hidden="true"></i>
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+    </div>
+  </section>
+</ShopLayout>

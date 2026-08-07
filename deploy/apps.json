@@ -1,0 +1,116 @@
+{
+  "$comment": "Single source of truth for deployment. The GitHub Actions matrix, the remote provisioner, the Nginx vhosts and the SSL scripts are all generated from this file. To add a new app: add one entry here, add its Dockerfile, add the DNS A record — nothing else changes.",
+  "server": {
+    "host": "31.220.49.107",
+    "user": "root",
+    "fallbackServerName": "31.220.49.107"
+  },
+  "registry": {
+    "namespace": "exyconnprintfast"
+  },
+  "apps": [
+    {
+      "name": "print-fast-main",
+      "title": "Marketing website",
+      "image": "print-fast-main-website",
+      "dockerfile": "main-website/Dockerfile",
+      "domain": "marketing.print-fast.com",
+      "hostPort": 9000,
+      "containerPort": 80,
+      "healthPath": "/healthz",
+      "defaultServer": true,
+      "maxBodySize": "10M",
+      "buildArgs": {
+        "PUBLIC_MAIN_SITE_URL": "https://marketing.print-fast.com",
+        "PUBLIC_SHOP_SITE_URL": "https://shop.print-fast.com",
+        "PUBLIC_ROAS_APP_URL": "https://roas.print-fast.com",
+        "PUBLIC_ROAS_API_URL": "https://roas-server.print-fast.com"
+      },
+      "env": []
+    },
+    {
+      "name": "print-fast-shop",
+      "title": "Shop website",
+      "image": "print-fast-shop-website",
+      "dockerfile": "shop-website/Dockerfile",
+      "domain": "shop.print-fast.com",
+      "hostPort": 9001,
+      "containerPort": 80,
+      "healthPath": "/healthz",
+      "defaultServer": false,
+      "maxBodySize": "10M",
+      "buildArgs": {
+        "PUBLIC_MAIN_SITE_URL": "https://marketing.print-fast.com",
+        "PUBLIC_SHOP_SITE_URL": "https://shop.print-fast.com",
+        "PUBLIC_ROAS_APP_URL": "https://roas.print-fast.com",
+        "PUBLIC_ROAS_API_URL": "https://roas-server.print-fast.com"
+      },
+      "env": []
+    },
+    {
+      "name": "roas-client",
+      "title": "ROAS dashboard (UI)",
+      "image": "roas-printfast-client",
+      "dockerfile": "roas/client/Dockerfile",
+      "domain": "roas.print-fast.com",
+      "hostPort": 9002,
+      "containerPort": 9002,
+      "healthPath": "/",
+      "defaultServer": false,
+      "maxBodySize": "25M",
+      "buildArgs": {
+        "VITE_API_BASE_URL": "https://roas-server.print-fast.com/api/v1",
+        "VITE_GOOGLE_MAPS_API_KEY": "@secret:VITE_GOOGLE_MAPS_API_KEY"
+      },
+      "env": []
+    },
+    {
+      "name": "roas-server",
+      "title": "ROAS API server",
+      "image": "roas-printfast-server",
+      "dockerfile": "roas/server/Dockerfile",
+      "domain": "roas-server.print-fast.com",
+      "hostPort": 9003,
+      "containerPort": 9003,
+      "healthPath": "/api/v1/health",
+      "defaultServer": false,
+      "maxBodySize": "50M",
+      "buildArgs": {},
+      "volumes": [
+        "roas-uploads:/app/uploads"
+      ],
+      "env": [
+        "NODE_ENV=production",
+        "PORT=9003",
+        "MONGODB_URI=@secret:MONGODB_URI",
+        "SESSION_SECRET=@secret:SESSION_SECRET",
+        "SESSION_MAX_AGE=86400000",
+        "JWT_SECRET=@secret:JWT_SECRET",
+        "CORS_ORIGIN=https://roas.print-fast.com",
+        "ALLOW_ADMIN_SIGNUP=false",
+        "ALLOW_SEND_GOD_CREDENTIALS=true",
+        "GOD_USER_EMAIL=@secret:GOD_USER_EMAIL",
+        "GOD_USER_PASSWORD=@secret:GOD_USER_PASSWORD",
+        "GOD_USER_FIRST_NAME=Super",
+        "GOD_USER_LAST_NAME=Admin",
+        "SMTP_HOST=@secret:SMTP_HOST",
+        "SMTP_PORT=@secret:SMTP_PORT",
+        "SMTP_USER=@secret:SMTP_USER",
+        "SMTP_PASS=@secret:SMTP_PASS",
+        "IMAGEKIT_PUBLIC_KEY=@secret:IMAGEKIT_PUBLIC_KEY",
+        "IMAGEKIT_PRIVATE_KEY=@secret:IMAGEKIT_PRIVATE_KEY",
+        "IMAGEKIT_URL_ENDPOINTS=@secret:IMAGEKIT_URL_ENDPOINTS",
+        "OPENAI_API_KEY=@secret:OPENAI_API_KEY",
+        "SERVICE_TITAN_APP_KEY=@secret:SERVICE_TITAN_APP_KEY"
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "$comment": "Legacy shop URLs used to live under the marketing domain. Keep the 301 so ranking and old links survive the split.",
+      "from": "print-fast-main",
+      "location": "^/shop-print-fast/?(.*)$",
+      "to": "https://shop.print-fast.com/$1"
+    }
+  ]
+}
