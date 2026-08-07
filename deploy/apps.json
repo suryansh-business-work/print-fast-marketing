@@ -105,6 +105,15 @@
       ]
     }
   ],
+  "legacy": {
+    "$comment": "Artifacts from the pre-monorepo single-site deploy. The provisioner removes these before installing the new configuration — the old vhost declares `listen 80 default_server`, which collides with 00-default.conf and makes `nginx -t` fail.",
+    "containers": ["print-fast-marketing"],
+    "nginxSites": [
+      "print-fast-marketing.conf",
+      "print-fast-marketing.exyconn.com.conf"
+    ]
+  },
+
   "redirects": [
     {
       "$comment": "Legacy shop URLs used to live under the marketing domain. Keep the 301 so ranking and old links survive the split.",

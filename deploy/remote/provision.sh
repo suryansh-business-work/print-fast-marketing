@@ -163,6 +163,39 @@ done
 # ---------------------------------------------------------------------------
 log "Installing Nginx configuration"
 
+# Retire artifacts from the pre-monorepo deploy. The old vhost also declares
+# `listen 80 default_server`, so leaving it enabled makes `nginx -t` fail with
+# "a duplicate default server for 0.0.0.0:80".
+while IFS= read -r SITE; do
+  [[ -z "$SITE" ]] && continue
+  if [[ -e "/etc/nginx/sites-enabled/${SITE}" || -e "/etc/nginx/sites-available/${SITE}" ]]; then
+    rm -f "/etc/nginx/sites-enabled/${SITE}" "/etc/nginx/sites-available/${SITE}"
+    echo "  retired legacy vhost ${SITE}"
+  fi
+done < <(jq -r '.legacy.nginxSites[]?' "$MANIFEST" | strip_cr)
+
+while IFS= read -r LEGACY_CONTAINER; do
+  [[ -z "$LEGACY_CONTAINER" ]] && continue
+  if docker ps -a --format '{{.Names}}' | grep -Fxq "$LEGACY_CONTAINER"; then
+    docker rm -f "$LEGACY_CONTAINER" >/dev/null 2>&1 || true
+    echo "  removed legacy container ${LEGACY_CONTAINER}"
+  fi
+done < <(jq -r '.legacy.containers[]?' "$MANIFEST" | strip_cr)
+
+rm -f /etc/nginx/sites-enabled/default
+
+# Anything else still claiming default_server would collide with 00-default.conf.
+# Only disable (unlink) it — the file stays in sites-available for inspection.
+for ENABLED in /etc/nginx/sites-enabled/*; do
+  [[ -e "$ENABLED" ]] || continue
+  BASE="$(basename "$ENABLED")"
+  [[ "$BASE" == "00-default.conf" ]] && continue
+  if grep -qE '^\s*listen[^;]*default_server' "$ENABLED" 2>/dev/null; then
+    rm -f "$ENABLED"
+    warn "disabled ${BASE}: it claims default_server, which collides with 00-default.conf"
+  fi
+done
+
 # Snippets hold all routing and are always refreshed.
 install -m 0644 "${HERE}"/nginx/snippets/*.conf /etc/nginx/snippets/
 
@@ -179,9 +212,13 @@ for VHOST in "${HERE}"/nginx/sites-available/*.conf; do
   ln -sf "$TARGET" "/etc/nginx/sites-enabled/${BASENAME}"
 done
 
-rm -f /etc/nginx/sites-enabled/default
-
-nginx -t
+if ! nginx -t; then
+  echo
+  warn "Nginx rejected the configuration; the previous config is still live."
+  warn "Enabled vhosts:"
+  ls -l /etc/nginx/sites-enabled/ | sed 's/^/    /'
+  exit 1
+fi
 systemctl reload nginx
 
 printf '  verifying host proxy for %s' "$FALLBACK_SERVER_NAME"
