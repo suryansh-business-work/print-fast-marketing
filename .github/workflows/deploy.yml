@@ -100,28 +100,31 @@ jobs:
         id: args
         env:
           BUILD_ARGS_JSON: ${{ matrix.buildArgs }}
-          ALL_SECRETS: ${{ toJSON(secrets) }}
+          # Secrets are referenced explicitly, never via toJSON(secrets) — that
+          # expression makes GitHub reject the whole workflow before any job runs.
+          VITE_GOOGLE_MAPS_API_KEY: ${{ secrets.VITE_GOOGLE_MAPS_API_KEY }}
         run: |
           set -euo pipefail
-          # Values written as "@secret:NAME" are looked up in the repo secrets.
-          RESOLVED="$(jq -rn \
-            --argjson args "$BUILD_ARGS_JSON" \
-            --argjson secrets "$ALL_SECRETS" '
-              $args
-              | to_entries
-              | map(
-                  .value as $v
-                  | if ($v | type) == "string" and ($v | startswith("@secret:"))
-                    then .value = ($secrets[$v | ltrimstr("@secret:")] // "")
-                    else .
-                    end
-                )
-              | map("\(.key)=\(.value)")
-              | join("\n")
-            ')"
+
+          # Values written as "@secret:NAME" are expanded from the environment.
+          RESOLVED=""
+          while IFS= read -r LINE; do
+            [[ -z "$LINE" ]] && continue
+            KEY="${LINE%%=*}"
+            VALUE="${LINE#*=}"
+            if [[ "$VALUE" == @secret:* ]]; then
+              SECRET_NAME="${VALUE#@secret:}"
+              VALUE="${!SECRET_NAME:-}"
+              if [[ -z "$VALUE" ]]; then
+                echo "::warning::build arg ${KEY} wants secret ${SECRET_NAME}, which is not set"
+              fi
+            fi
+            RESOLVED+="${KEY}=${VALUE}"$'\n'
+          done < <(jq -r 'to_entries | map("\(.key)=\(.value)") | .[]' <<< "$BUILD_ARGS_JSON")
+
           {
             echo 'value<<__EOF__'
-            echo "$RESOLVED"
+            printf '%s' "$RESOLVED"
             echo '__EOF__'
           } >> "$GITHUB_OUTPUT"
 
@@ -146,6 +149,34 @@ jobs:
     timeout-minutes: 30
     permissions:
       contents: read
+
+    # Every secret the platform needs, referenced explicitly. `toJSON(secrets)`
+    # would be shorter but GitHub rejects a workflow that uses it — the run is
+    # marked action_required and no job is ever scheduled.
+    #
+    # Adding a new "@secret:NAME" to deploy/apps.json means adding one line
+    # here; the CI workflow fails if the two ever drift apart.
+    env:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+      CERTBOT_EMAIL: ${{ secrets.CERTBOT_EMAIL }}
+      MONGODB_URI: ${{ secrets.MONGODB_URI }}
+      SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      GOD_USER_EMAIL: ${{ secrets.GOD_USER_EMAIL }}
+      GOD_USER_PASSWORD: ${{ secrets.GOD_USER_PASSWORD }}
+      SMTP_HOST: ${{ secrets.SMTP_HOST }}
+      SMTP_PORT: ${{ secrets.SMTP_PORT }}
+      SMTP_USER: ${{ secrets.SMTP_USER }}
+      SMTP_PASS: ${{ secrets.SMTP_PASS }}
+      IMAGEKIT_PUBLIC_KEY: ${{ secrets.IMAGEKIT_PUBLIC_KEY }}
+      IMAGEKIT_PRIVATE_KEY: ${{ secrets.IMAGEKIT_PRIVATE_KEY }}
+      IMAGEKIT_URL_ENDPOINTS: ${{ secrets.IMAGEKIT_URL_ENDPOINTS }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      SERVICE_TITAN_APP_KEY: ${{ secrets.SERVICE_TITAN_APP_KEY }}
+      VITE_GOOGLE_MAPS_API_KEY: ${{ secrets.VITE_GOOGLE_MAPS_API_KEY }}
+
     steps:
       - uses: actions/checkout@v4
 
@@ -154,16 +185,13 @@ jobs:
           node-version: 20
 
       - name: Preflight — check required secrets
-        env:
-          ALL_SECRETS: ${{ toJSON(secrets) }}
         run: |
           set -euo pipefail
 
           # Hard requirements: without these the deploy cannot do anything.
           MISSING=""
           for KEY in SSH_PASSWORD DOCKERHUB_USERNAME DOCKERHUB_TOKEN; do
-            VALUE="$(jq -r --arg k "$KEY" '.[$k] // ""' <<< "$ALL_SECRETS")"
-            [[ -z "$VALUE" ]] && MISSING="${MISSING} ${KEY}"
+            [[ -z "${!KEY:-}" ]] && MISSING="${MISSING} ${KEY}"
           done
           if [[ -n "$MISSING" ]]; then
             echo "::error::Missing required secret(s):${MISSING}. Add them under Settings -> Secrets and variables -> Actions."
@@ -173,20 +201,15 @@ jobs:
           # App-level secrets: report rather than block, so a ROAS gap cannot
           # stop the websites from shipping. The affected container will fail
           # its health check and turn the job red on its own.
-          ABSENT="$(jq -rn \
-            --argjson manifest "$(cat deploy/apps.json)" \
-            --argjson secrets "$ALL_SECRETS" '
-              ([$manifest.apps[] | (.env // [])[], ((.buildArgs // {}) | to_entries[] | .value)]
-                | map(select(type == "string" and contains("@secret:")))
-                | map(split("@secret:")[1]))
-              | unique
-              | map(select(($secrets[.] // "") == ""))
-              | join(" ")
-            ')"
+          ABSENT=""
+          while IFS= read -r NAME; do
+            [[ -z "$NAME" ]] && continue
+            [[ -z "${!NAME:-}" ]] && ABSENT="${ABSENT} ${NAME}"
+          done < <(node scripts/manifest-secrets.mjs)
 
           if [[ -n "$ABSENT" ]]; then
             echo "::warning::Secrets referenced by deploy/apps.json but not set:${ABSENT}"
-            echo "Not set (containers will start without them):${ABSENT}" >> "$GITHUB_STEP_SUMMARY"
+            echo "Not set (containers start without them):${ABSENT}" >> "$GITHUB_STEP_SUMMARY"
           else
             echo "All secrets referenced by deploy/apps.json are present."
           fi
@@ -195,8 +218,6 @@ jobs:
         run: node scripts/render-nginx.mjs
 
       - name: Stage deployment payload
-        env:
-          ALL_SECRETS: ${{ toJSON(secrets) }}
         run: |
           set -euo pipefail
           mkdir -p payload
@@ -204,21 +225,23 @@ jobs:
           cp deploy/remote/provision.sh payload/
           cp -r deploy/nginx payload/nginx
 
-          # Every @secret:NAME referenced by the manifest, plus the fixed ones,
-          # written to a file so no secret ever lands in the SSH command line.
-          jq -rn \
-            --argjson manifest "$(cat deploy/apps.json)" \
-            --argjson secrets "$ALL_SECRETS" '
-              ([$manifest.apps[] | (.env // [])[]]
-                | map(select(contains("@secret:")))
-                | map(split("@secret:")[1]))
-              + ["CERTBOT_EMAIL", "DOCKERHUB_USERNAME", "DOCKERHUB_TOKEN"]
-              | unique
-              | map(select($secrets[.] != null and $secrets[.] != ""))
-              | map("\(.)=\($secrets[.])")
-              | join("\n")
-            ' > payload/deploy.env
+          # Secrets go into a 0600 file rather than the SSH command line, so
+          # they never appear in the remote process table. Values are
+          # single-quote escaped so provision.sh can `set -a; . deploy.env`
+          # safely regardless of spaces, newlines or shell metacharacters.
+          : > payload/deploy.env
           chmod 600 payload/deploy.env
+
+          {
+            node scripts/manifest-secrets.mjs
+            printf '%s\n' CERTBOT_EMAIL DOCKERHUB_USERNAME DOCKERHUB_TOKEN
+          } | sort -u | while IFS= read -r NAME; do
+            [[ -z "$NAME" ]] && continue
+            VALUE="${!NAME:-}"
+            [[ -z "$VALUE" ]] && continue
+            ESCAPED="${VALUE//\'/\'\\\'\'}"
+            printf "%s='%s'\n" "$NAME" "$ESCAPED" >> payload/deploy.env
+          done
 
           echo "payload staged:"
           ls -la payload
