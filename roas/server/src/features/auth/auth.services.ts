@@ -2,11 +2,17 @@ import bcrypt from 'bcrypt';
 import { UserModel } from '../users/users.models';
 import { UserRole } from '../../types/enums';
 import { ISessionUser } from '../../types/common';
-import { UnauthorizedError, ForbiddenError, ConflictError, AppError } from '../../utils/errors';
+import {
+  UnauthorizedError,
+  ForbiddenError,
+  ConflictError,
+  AppError,
+  ServiceUnavailableError,
+} from '../../utils/errors';
 import config from '../../config/config';
 import logger from '../../utils/logger';
 import { generatePassword } from '../../utils/password';
-import { sendEmail } from '../../utils/email';
+import { sendEmail, isEmailConfigured } from '../../utils/email';
 
 const BCRYPT_ROUNDS = 12;
 
@@ -107,6 +113,16 @@ export const changePassword = async (
 export const sendGodUserCredentials = async (): Promise<void> => {
   if (!config.allowSendGodCredentials) {
     throw new ForbiddenError('Sending Super Admin credentials is currently disabled');
+  }
+
+  // Checked before the password is touched. The new password only ever reaches
+  // the operator by email, so resetting it first and failing to send would lock
+  // them out of an account nobody can recover.
+  if (!isEmailConfigured()) {
+    throw new ServiceUnavailableError(
+      'Email delivery is not configured, so the credentials cannot be sent. ' +
+        'Set SMTP_HOST, SMTP_USER and SMTP_PASS on the server and try again.',
+    );
   }
 
   const newPassword = generatePassword();

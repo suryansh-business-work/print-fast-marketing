@@ -12,6 +12,15 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+/**
+ * Whether SMTP has enough configuration to attempt a send.
+ *
+ * Callers that mutate state before emailing should check this first — nodemailer
+ * only fails at send time, which is too late to undo the change.
+ */
+export const isEmailConfigured = (): boolean =>
+  Boolean(config.smtpHost && config.smtpUser && config.smtpPass);
+
 export const sendEmail = async (to: string, subject: string, text: string): Promise<void> => {
   try {
     await transporter.sendMail({

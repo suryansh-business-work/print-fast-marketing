@@ -41,3 +41,14 @@ export class ConflictError extends AppError {
     super(message, 409, 'CONFLICT');
   }
 }
+
+/**
+ * A dependency the request needs is not configured or not reachable — e.g. SMTP
+ * with no credentials. Distinct from a 500 because nothing went wrong in the
+ * code: the operator has to supply something.
+ */
+export class ServiceUnavailableError extends AppError {
+  constructor(message = 'Service temporarily unavailable') {
+    super(message, 503, 'SERVICE_UNAVAILABLE');
+  }
+}

@@ -198,35 +198,89 @@ rm -f /etc/nginx/sites-enabled/default
 # Hostnames this deployment is authoritative for.
 mapfile -t OWNED_HOSTS < <(jq -r '.apps[] | .domain, (.aliases[]?)' "$MANIFEST" | strip_cr)
 
-# Does this vhost list $2 in a server_name directive? Exact token match, so
-# "print-fast.com" never matches "shop-app.print-fast.com".
+# Every hostname listed in any server_name directive in $1, one per line.
+# Comments are stripped and newlines flattened first, so a directive is found
+# wherever it sits — including single-line `server { server_name a b; }` blocks,
+# which an anchored line match would miss entirely.
+server_names_in() {
+  sed 's/#.*//' "$1" 2>/dev/null \
+    | tr '\n\t' '  ' \
+    | grep -oE 'server_name[[:space:]]+[^;]*' \
+    | sed 's/^server_name[[:space:]]*//' \
+    | tr ' ' '\n' \
+    | grep -v '^$' || true
+}
+
+# Does this vhost claim $2? Exact token match, so "print-fast.com" never
+# matches "shop-app.print-fast.com".
 claims_host() {
-  awk '/^[[:space:]]*server_name/ {
-         sub(/;.*/, ""); sub(/^[[:space:]]*server_name[[:space:]]*/, ""); print
-       }' "$1" 2>/dev/null | tr ' \t' '\n\n' | grep -Fxq "$2"
+  server_names_in "$1" | grep -Fxq "$2"
+}
+
+# Take a vhost out of service without destroying its content.
+#
+# The two include directories need opposite treatment. Debian's nginx.conf pulls
+# in `sites-enabled/*` with no extension filter, so renaming a file there still
+# loads it — the entry has to go. conf.d is included as `conf.d/*.conf`, so
+# renaming is exactly what takes it out.
+disable_vhost() {
+  local FILE="$1" REASON="$2" BASE
+  BASE="$(basename "$FILE")"
+
+  case "$FILE" in
+    /etc/nginx/sites-enabled/*)
+      if [[ ! -L "$FILE" ]]; then
+        # A real file rather than the usual symlink — preserve it before removing.
+        cp -f "$FILE" "/etc/nginx/sites-available/${BASE}.disabled"
+        echo "    kept a copy at /etc/nginx/sites-available/${BASE}.disabled"
+      fi
+      rm -f "$FILE"
+      ;;
+    *)
+      mv -f "$FILE" "${FILE}.disabled"
+      ;;
+  esac
+
+  warn "disabled ${BASE}: ${REASON}"
 }
 
 # Evict foreign vhosts that would win over ours. Two ways that happens:
 #   * another default_server, which collides with 00-default.conf outright;
-#   * another block claiming a hostname we own — nginx serves whichever block
-#     loads first, so a stale config elsewhere on the box silently hijacks it.
-# Only the sites-enabled symlink is removed; the file stays in sites-available.
-for ENABLED in /etc/nginx/sites-enabled/*; do
-  [[ -e "$ENABLED" ]] || continue
-  BASE="$(basename "$ENABLED")"
+#   * another block claiming a hostname we own — with duplicate server_name
+#     nginx serves whichever block loads first, so a stale config elsewhere on
+#     the box silently hijacks it.
+#
+# Both include directories are scanned: a distro nginx.conf pulls in
+# sites-enabled/* AND conf.d/*.conf, and configs left by other projects
+# frequently sit in the latter.
+for CANDIDATE in /etc/nginx/sites-enabled/* /etc/nginx/conf.d/*.conf; do
+  [[ -e "$CANDIDATE" ]] || continue
+  BASE="$(basename "$CANDIDATE")"
   [[ -f "${HERE}/nginx/sites-available/${BASE}" ]] && continue   # one of ours
 
-  if grep -qE '^\s*listen[^;]*default_server' "$ENABLED" 2>/dev/null; then
-    rm -f "$ENABLED"
-    warn "disabled ${BASE}: claims default_server, which collides with 00-default.conf"
+  if grep -qE '^\s*listen[^;]*default_server' "$CANDIDATE" 2>/dev/null; then
+    disable_vhost "$CANDIDATE" "claims default_server, which collides with 00-default.conf"
     continue
   fi
 
   for HOST in ${OWNED_HOSTS[@]+"${OWNED_HOSTS[@]}"}; do
-    if claims_host "$ENABLED" "$HOST"; then
-      rm -f "$ENABLED"
-      warn "disabled ${BASE}: it claims ${HOST}, which this deployment serves"
+    if claims_host "$CANDIDATE" "$HOST"; then
+      disable_vhost "$CANDIDATE" "it claims ${HOST}, which this deployment serves"
       break
+    fi
+  done
+done
+
+# If a hostname is still declared by a config we do not manage, the eviction
+# above missed an include path. Surface it by name rather than leaving the next
+# person to guess why a domain serves the wrong site.
+for HOST in ${OWNED_HOSTS[@]+"${OWNED_HOSTS[@]}"}; do
+  for OTHER in /etc/nginx/sites-enabled/* /etc/nginx/conf.d/*.conf; do
+    [[ -e "$OTHER" ]] || continue
+    BASE="$(basename "$OTHER")"
+    [[ -f "${HERE}/nginx/sites-available/${BASE}" ]] && continue
+    if claims_host "$OTHER" "$HOST"; then
+      warn "${HOST} is still declared by ${OTHER} — it may take precedence over ours"
     fi
   done
 done
