@@ -22,7 +22,7 @@ export const SITE_ID: SiteId = env.PUBLIC_SITE_ID === 'shop' ? 'shop' : 'main';
 
 /** Public origin of every surface on the platform. */
 export const SITE_URLS = {
-  main: trimTrailingSlash(env.PUBLIC_MAIN_SITE_URL || 'https://marketing.print-fast.com'),
+  main: trimTrailingSlash(env.PUBLIC_MAIN_SITE_URL || 'https://print-fast.com'),
   shop: trimTrailingSlash(env.PUBLIC_SHOP_SITE_URL || 'https://shop.print-fast.com'),
   roas: trimTrailingSlash(env.PUBLIC_ROAS_APP_URL || 'https://roas.print-fast.com'),
   roasApi: trimTrailingSlash(env.PUBLIC_ROAS_API_URL || 'https://roas-server.print-fast.com'),

@@ -12,7 +12,7 @@ process.env.PUBLIC_SITE_ID = 'main';
 
 const workspaceRoot = fileURLToPath(new URL('..', import.meta.url));
 
-const SITE_URL = process.env.PUBLIC_MAIN_SITE_URL || 'https://marketing.print-fast.com';
+const SITE_URL = process.env.PUBLIC_MAIN_SITE_URL || 'https://print-fast.com';
 const DEV_PORT = Number(process.env.MAIN_SITE_PORT || 9000);
 
 // https://astro.build/config

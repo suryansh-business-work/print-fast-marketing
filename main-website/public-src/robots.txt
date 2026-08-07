@@ -1,5 +1,5 @@
 # Print Fast — robots.txt
-# https://marketing.print-fast.com
+# https://print-fast.com
 
 User-agent: *
 Allow: /
@@ -20,6 +20,6 @@ Allow: /
 User-agent: ClaudeBot
 Allow: /
 
-Sitemap: https://marketing.print-fast.com/sitemap.xml
-Sitemap: https://marketing.print-fast.com/sitemap-index.xml
-Sitemap: https://marketing.print-fast.com/sitemap-0.xml
+Sitemap: https://print-fast.com/sitemap.xml
+Sitemap: https://print-fast.com/sitemap-index.xml
+Sitemap: https://print-fast.com/sitemap-0.xml

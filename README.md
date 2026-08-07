@@ -5,7 +5,7 @@ one deploy pipeline.
 
 ```text
 print-fast-marketing/
-├── main-website/        Astro · marketing site        · dev :9000 · marketing.print-fast.com
+├── main-website/        Astro · marketing site        · dev :9000 · print-fast.com
 ├── shop-website/        Astro · Shop PrintFast        · dev :9001 · shop.print-fast.com
 ├── roas/
 │   ├── client/          Vite + React · ROAS dashboard · dev :9002 · roas.print-fast.com
@@ -64,7 +64,7 @@ URL when it is not**.
 ```ts
 mainHref('/contact-us/')
 //  on main-website -> /contact-us/
-//  on shop-website -> https://marketing.print-fast.com/contact-us/
+//  on shop-website -> https://print-fast.com/contact-us/
 ```
 
 Nothing in a component needs to know which site it is rendering inside. Override

@@ -14,14 +14,14 @@
       "title": "Marketing website",
       "image": "print-fast-main-website",
       "dockerfile": "main-website/Dockerfile",
-      "domain": "marketing.print-fast.com",
+      "domain": "print-fast.com",
       "hostPort": 9000,
       "containerPort": 80,
       "healthPath": "/healthz",
       "defaultServer": true,
       "maxBodySize": "10M",
       "buildArgs": {
-        "PUBLIC_MAIN_SITE_URL": "https://marketing.print-fast.com",
+        "PUBLIC_MAIN_SITE_URL": "https://print-fast.com",
         "PUBLIC_SHOP_SITE_URL": "https://shop.print-fast.com",
         "PUBLIC_ROAS_APP_URL": "https://roas.print-fast.com",
         "PUBLIC_ROAS_API_URL": "https://roas-server.print-fast.com"
@@ -40,7 +40,7 @@
       "defaultServer": false,
       "maxBodySize": "10M",
       "buildArgs": {
-        "PUBLIC_MAIN_SITE_URL": "https://marketing.print-fast.com",
+        "PUBLIC_MAIN_SITE_URL": "https://print-fast.com",
         "PUBLIC_SHOP_SITE_URL": "https://shop.print-fast.com",
         "PUBLIC_ROAS_APP_URL": "https://roas.print-fast.com",
         "PUBLIC_ROAS_API_URL": "https://roas-server.print-fast.com"
@@ -106,14 +106,19 @@
     }
   ],
   "legacy": {
-    "$comment": "Artifacts from the pre-monorepo single-site deploy. The provisioner removes these before installing the new configuration — the old vhost declares `listen 80 default_server`, which collides with 00-default.conf and makes `nginx -t` fail.",
-    "containers": ["print-fast-marketing"],
+    "$comment": "Artifacts from superseded deployments. The provisioner removes these before installing the new configuration. marketing.print-fast.com was retired in favour of the apex domain; its vhost and certificate are deleted so renewals stop attempting a domain we no longer serve.",
+    "containers": [
+      "print-fast-marketing"
+    ],
     "nginxSites": [
       "print-fast-marketing.conf",
-      "print-fast-marketing.exyconn.com.conf"
+      "print-fast-marketing.exyconn.com.conf",
+      "marketing.print-fast.com.conf"
+    ],
+    "certificates": [
+      "marketing.print-fast.com"
     ]
   },
-
   "redirects": [
     {
       "$comment": "Legacy shop URLs used to live under the marketing domain. Keep the 301 so ranking and old links survive the split.",

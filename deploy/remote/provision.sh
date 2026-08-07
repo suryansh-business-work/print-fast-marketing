@@ -182,6 +182,17 @@ while IFS= read -r LEGACY_CONTAINER; do
   fi
 done < <(jq -r '.legacy.containers[]?' "$MANIFEST" | strip_cr)
 
+# Drop certificates for domains we no longer serve, so certbot.timer stops
+# trying to renew them (a renewal for an unserved domain fails every run).
+while IFS= read -r LEGACY_CERT; do
+  [[ -z "$LEGACY_CERT" ]] && continue
+  if certbot certificates 2>/dev/null | grep -qE "Certificate Name: ${LEGACY_CERT}$"; then
+    certbot delete --cert-name "$LEGACY_CERT" --non-interactive >/dev/null 2>&1 \
+      && echo "  deleted certificate ${LEGACY_CERT}" \
+      || warn "could not delete certificate ${LEGACY_CERT}"
+  fi
+done < <(jq -r '.legacy.certificates[]?' "$MANIFEST" | strip_cr)
+
 rm -f /etc/nginx/sites-enabled/default
 
 # Anything else still claiming default_server would collide with 00-default.conf.

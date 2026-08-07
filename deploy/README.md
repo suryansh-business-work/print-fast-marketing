@@ -5,7 +5,7 @@ provisions the server.
 
 | App | Container / host port | Domain | Health |
 | --- | --- | --- | --- |
-| `print-fast-main` | 127.0.0.1:9000 | `marketing.print-fast.com` | `/healthz` |
+| `print-fast-main` | 127.0.0.1:9000 | `print-fast.com` | `/healthz` |
 | `print-fast-shop` | 127.0.0.1:9001 | `shop.print-fast.com` | `/healthz` |
 | `roas-client` | 127.0.0.1:9002 | `roas.print-fast.com` | `/` |
 | `roas-server` | 127.0.0.1:9003 | `roas-server.print-fast.com` | `/api/v1/health` |
@@ -86,7 +86,7 @@ values in `apps.json`).
 All four records must be `A` → `31.220.49.107`:
 
 ```text
-marketing.print-fast.com.    A  31.220.49.107
+print-fast.com.              A  31.220.49.107
 shop.print-fast.com.         A  31.220.49.107
 roas.print-fast.com.         A  31.220.49.107
 roas-server.print-fast.com.  A  31.220.49.107
@@ -142,7 +142,7 @@ certbot certificates
 
 ## Legacy URLs
 
-The shop used to live at `marketing.print-fast.com/shop-print-fast/*`. The
+The shop used to live at `marketing.print-fast.com/shop-print-fast/*`. The apex now serves the marketing site; the
 marketing vhost 301-redirects that whole prefix to `https://shop.print-fast.com/`
 (configured under `redirects` in `apps.json`), so old links and search rankings
 carry over.
