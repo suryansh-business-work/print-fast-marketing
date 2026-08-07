@@ -1,0 +1,67 @@
+name: CI
+
+# Validation only — no secrets, no deployment, safe to run on every push and PR.
+# Deployment lives in deploy.yml and runs on main.
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build & verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Build both websites
+        run: pnpm build:web
+
+      - name: Check for dangling internal links
+        run: pnpm check:links
+
+      - name: Build ROAS client and server
+        run: pnpm build:roas
+
+      - name: Nginx config is in sync with deploy/apps.json
+        run: |
+          set -euo pipefail
+          pnpm nginx:render
+          if ! git diff --quiet -- deploy/nginx; then
+            echo "::error::deploy/nginx is stale. Run 'pnpm nginx:render' and commit the result."
+            git diff --stat -- deploy/nginx
+            exit 1
+          fi
+          echo "deploy/nginx matches deploy/apps.json"
+
+      - name: Shell scripts parse
+        run: bash -n deploy/remote/provision.sh
+
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "### CI"
+            echo ""
+            echo "- marketing pages: $(find main-website/dist -name '*.html' | wc -l)"
+            echo "- shop pages: $(find shop-website/dist -name '*.html' | wc -l)"
+          } >> "$GITHUB_STEP_SUMMARY"
