@@ -195,16 +195,40 @@ done < <(jq -r '.legacy.certificates[]?' "$MANIFEST" | strip_cr)
 
 rm -f /etc/nginx/sites-enabled/default
 
-# Anything else still claiming default_server would collide with 00-default.conf.
-# Only disable (unlink) it — the file stays in sites-available for inspection.
+# Hostnames this deployment is authoritative for.
+mapfile -t OWNED_HOSTS < <(jq -r '.apps[] | .domain, (.aliases[]?)' "$MANIFEST" | strip_cr)
+
+# Does this vhost list $2 in a server_name directive? Exact token match, so
+# "print-fast.com" never matches "shop-app.print-fast.com".
+claims_host() {
+  awk '/^[[:space:]]*server_name/ {
+         sub(/;.*/, ""); sub(/^[[:space:]]*server_name[[:space:]]*/, ""); print
+       }' "$1" 2>/dev/null | tr ' \t' '\n\n' | grep -Fxq "$2"
+}
+
+# Evict foreign vhosts that would win over ours. Two ways that happens:
+#   * another default_server, which collides with 00-default.conf outright;
+#   * another block claiming a hostname we own — nginx serves whichever block
+#     loads first, so a stale config elsewhere on the box silently hijacks it.
+# Only the sites-enabled symlink is removed; the file stays in sites-available.
 for ENABLED in /etc/nginx/sites-enabled/*; do
   [[ -e "$ENABLED" ]] || continue
   BASE="$(basename "$ENABLED")"
-  [[ "$BASE" == "00-default.conf" ]] && continue
+  [[ -f "${HERE}/nginx/sites-available/${BASE}" ]] && continue   # one of ours
+
   if grep -qE '^\s*listen[^;]*default_server' "$ENABLED" 2>/dev/null; then
     rm -f "$ENABLED"
-    warn "disabled ${BASE}: it claims default_server, which collides with 00-default.conf"
+    warn "disabled ${BASE}: claims default_server, which collides with 00-default.conf"
+    continue
   fi
+
+  for HOST in ${OWNED_HOSTS[@]+"${OWNED_HOSTS[@]}"}; do
+    if claims_host "$ENABLED" "$HOST"; then
+      rm -f "$ENABLED"
+      warn "disabled ${BASE}: it claims ${HOST}, which this deployment serves"
+      break
+    fi
+  done
 done
 
 # Snippets hold all routing and are always refreshed.
@@ -284,9 +308,12 @@ for NAME in "${APP_NAMES[@]}"; do
     continue
   fi
 
-  # --cert-name pins the lineage to the canonical domain, and --expand lets a
-  # newly added alias join the existing certificate instead of being refused.
-  CERTBOT_ARGS=(--nginx --cert-name "$DOMAIN" --non-interactive --agree-tos
+  # --cert-name uses the app name, not the domain: this VPS already carried a
+  # lineage literally called "print-fast.com" belonging to another project,
+  # which also covered shop-app.print-fast.com. Reusing it would have tied our
+  # renewals to a hostname that resolves elsewhere and cannot be validated here.
+  # --expand lets a newly added alias join our own certificate.
+  CERTBOT_ARGS=(--nginx --cert-name "$NAME" --non-interactive --agree-tos
                 --redirect --keep-until-expiring --expand)
   for CERT_DOMAIN in "${CERT_DOMAINS[@]}"; do
     CERTBOT_ARGS+=(-d "$CERT_DOMAIN")
