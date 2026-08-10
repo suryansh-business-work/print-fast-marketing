@@ -38,7 +38,7 @@ export const SITE = {
   fullName: 'PrintFast Digital Marketing',
   tagline: 'Performance marketing for U.S. home-service brands',
   description:
-    'PrintFast is a U.S. home service marketing agency delivering SEO, Google Ads (PPC), social media marketing, email marketing and website creation for HVAC, plumbing, roofing, electrical and home service contractors — all under one accountable team. Serving contractors nationwide from Middlesex, NJ.',
+    'PrintFast is a U.S. home service marketing agency delivering SEO, Google Ads (PPC), social media marketing, email marketing and website creation for HVAC, plumbing, roofing, electrical and home service contractors — all under one accountable team. Serving contractors nationwide from Lakewood, NJ.',
   /**
    * Canonical origin of the site currently being built (marketing or shop).
    * Drives canonicals, og:url and absolute asset URLs.
@@ -52,14 +52,14 @@ export const SITE = {
   hours: 'Mon–Fri · 8 AM – 5 PM ET',
   address: {
     company: 'PrintFast',
-    street: '100 Blackford Ave.',
-    city: 'Middlesex',
+    street: '315 Fourth Street',
+    city: 'Lakewood',
     state: 'NJ',
-    zip: '08846',
+    zip: '08701',
     country: 'USA',
-    full: '100 Blackford Ave., Middlesex, NJ 08846',
-    lat: 40.5734,
-    lng: -74.4960,
+    full: '315 Fourth Street, Lakewood, NJ 08701',
+    lat: 40.0957,
+    lng: -74.2085,
   },
   // Both files share one 642x260 canvas, so swapping light <-> dark causes no layout shift.
   logo: '/logo/pf-bp-logo-light.png',

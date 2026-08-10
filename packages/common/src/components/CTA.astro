@@ -4,6 +4,8 @@ export interface Props {
   title: string;
   /* Trailing phrase of the title, picked out in theme red. */
   highlight?: string;
+  /* Paints the whole title theme red instead of only the `highlight` phrase. */
+  accentTitle?: boolean;
   description?: string;
   primaryCta: { label: string; href: string };
   secondaryCta?: { label: string; href: string };
@@ -13,6 +15,7 @@ const {
   eyebrow,
   title,
   highlight,
+  accentTitle = false,
   description,
   primaryCta,
   secondaryCta,
@@ -54,7 +57,9 @@ const wrapperClasses = {
           </p>
         )}
         <h2 class="heading-lg mt-5">
-          {title}
+          {accentTitle
+            ? <span class={variant === 'light' ? 'text-brand-600' : 'text-brand-500'}>{title}</span>
+            : title}
           {highlight && <> <span class={variant === 'light' ? 'text-brand-600' : 'text-brand-500'}>{highlight}</span></>}
         </h2>
         {description && (
