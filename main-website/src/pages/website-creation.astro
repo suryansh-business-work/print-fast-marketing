@@ -148,21 +148,23 @@ const rowB = rotate(CLIENT_LOGOS, Math.floor(CLIENT_LOGOS.length / 2));
   schema={[serviceSchema, localBusinessSchema]}
 >
   <!-- ===================== HERO BANNER ===================== -->
-  <section class="relative overflow-hidden bg-[#0f2747]">
-    <span aria-hidden="true" class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl"></span>
-    <span aria-hidden="true" class="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-[#ED1C24]/30 blur-3xl"></span>
+  <!-- Full-bleed photographic banner: the artwork fades to white across its left
+       third, so the copy sits in that zone on desktop and the photo stacks below
+       it under `lg`. Styling lives in main.scss as .pf-banner-*. -->
+  <section class="pf-banner-hero relative overflow-hidden pt-16 pb-12 lg:pt-24 lg:pb-20">
+    <div aria-hidden="true" class="pf-banner-fade"></div>
 
-    <div class="container-pf relative py-16 sm:py-20 lg:py-28">
-      <div class="max-w-3xl">
+    <div class="container-pf">
+      <div class="max-w-xl lg:max-w-[46%]">
         <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
           Website Creation
         </p>
 
-        <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[1.03] tracking-tight text-white sm:text-5xl lg:text-6xl">
+        <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[1.03] tracking-tight text-[#0f2747] sm:text-5xl">
           Website Design for Home Service Companies That <span class="text-[#ED1C24]">Loads Fast, Ranks, and Converts.</span>
         </h1>
 
-        <p class="mt-6 max-w-2xl text-sm leading-relaxed text-white/80 sm:text-base">
+        <p class="mt-6 max-w-2xl text-sm leading-relaxed text-ink-600 sm:text-base">
           PrintFast builds custom websites for HVAC companies, plumbers, electricians, roofers, and home service contractors across the U.S. As a home service web design agency, our contractor website design process creates ADA-compliant, locally optimized sites engineered for Core Web Vitals — so they rank on Google and turn visitors into booked service calls.
         </p>
 
@@ -170,19 +172,30 @@ const rowB = rotate(CLIENT_LOGOS, Math.floor(CLIENT_LOGOS.length / 2));
           <a href="/contact-us/" class={btnPrimary}>
             Get a Website Design Proposal <i class="fa-solid fa-arrow-right text-xs"></i>
           </a>
-          <a href="#pricing" class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10">
+          <a href="#pricing" class="inline-flex items-center justify-center gap-2 rounded-md bg-white px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-[#0f2747] ring-1 ring-ink-200 transition-all hover:ring-[#ED1C24] hover:text-[#c01620]">
             See pricing
           </a>
         </div>
 
         <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
           {trustItems.map((item) => (
-            <span class="inline-flex items-center gap-2 text-sm font-medium text-white/80">
+            <span class="inline-flex items-center gap-2 text-sm font-medium text-ink-600">
               <i class="fa-solid fa-circle-check text-[#ED1C24]"></i> {item}
             </span>
           ))}
         </div>
       </div>
+
+      <img
+        src="https://ik.imagekit.io/PFdigitalmarketing/Website%20Creation/Website_homepage_banner.png"
+        alt="Laptop, tablet and phone on a desk showing the same home-service contractor website, ringed by Astro, Next.js, WordPress, Webflow, Shopify and HubSpot logos"
+        width="1672"
+        height="941"
+        class="pf-banner-img"
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
+      />
     </div>
   </section>
 

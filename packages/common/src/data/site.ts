@@ -1,4 +1,5 @@
 import { SELF_URL, SITE_URLS, mainHref } from '../config/sites';
+import { shopHref } from './shop';
 
 export interface NavChild {
   label: string;
@@ -12,7 +13,17 @@ export interface NavLink {
   href: string;
   external?: boolean;
   children?: NavChild[];
-  featured?: { title: string; description: string; href: string; cta: string };
+  featured?: {
+    title: string;
+    description: string;
+    href: string;
+    cta: string;
+    /**
+     * Optional outline CTA rendered under the primary one. Its href is written
+     * for its own target origin, so `toMainSite` deliberately leaves it alone.
+     */
+    secondaryCta?: { label: string; href: string };
+  };
 }
 
 export interface ServiceCard {
@@ -167,6 +178,7 @@ const RAW_NAV_LINKS: NavLink[] = [
       description: 'Tell us about your goals — get a tailored proposal within one business day.',
       href: '/contact-us/',
       cta: 'Request a proposal',
+      secondaryCta: { label: 'Print shop & services', href: shopHref('') },
     },
   },
   { label: 'Who We Are', href: '/who-we-are/' },
