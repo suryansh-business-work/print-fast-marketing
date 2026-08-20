@@ -45,7 +45,7 @@ function isActive(href: string) {
   <!-- Top accent bar (logo's rainbow gradient) -->
   <div aria-hidden="true" class="h-[3px] w-full bg-spectrum"></div>
 
-  <div class="container-pf flex h-16 items-center justify-between gap-4 lg:h-24 lg:gap-8">
+  <div class="container-pf flex h-16 items-center justify-between gap-4 lg:h-24 lg:gap-4 xl:gap-8">
     <a href={mainHref('/')} class="flex items-center group" aria-label={`${SITE.fullName} home`}>
       <img
         src={SITE.logoLight}
@@ -54,7 +54,7 @@ function isActive(href: string) {
         height={SITE.logoHeight}
         decoding="async"
         fetchpriority="high"
-        class="block dark:hidden h-11 sm:h-12 lg:h-16 w-auto object-contain transition-transform group-hover:scale-[1.02]"
+        class="block dark:hidden h-11 sm:h-12 lg:h-14 xl:h-16 w-auto object-contain transition-transform group-hover:scale-[1.02]"
       />
       <img
         src={SITE.logoDark}
@@ -62,7 +62,7 @@ function isActive(href: string) {
         width={SITE.logoWidth}
         height={SITE.logoHeight}
         decoding="async"
-        class="hidden dark:block h-11 sm:h-12 lg:h-16 w-auto object-contain transition-transform group-hover:scale-[1.02]"
+        class="hidden dark:block h-11 sm:h-12 lg:h-14 xl:h-16 w-auto object-contain transition-transform group-hover:scale-[1.02]"
       />
     </a>
 
@@ -70,13 +70,24 @@ function isActive(href: string) {
     <nav class="hidden lg:flex items-center gap-1" aria-label="Primary">
       {NAV_LINKS.map((link) => {
         const active = isActive(link.href);
+        if (link.variant === 'outline') {
+          return (
+            <a
+              href={link.href}
+              class="ml-1 inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-ink-300 px-4 py-2 text-sm font-semibold text-ink-800 transition-colors hover:border-brand-500 hover:bg-brand-50 hover:text-brand-700 dark:border-ink-700 dark:text-ink-100 dark:hover:border-brand-400 dark:hover:bg-ink-800 dark:hover:text-brand-400"
+            >
+              <i class="fa-solid fa-store text-xs" aria-hidden="true"></i>
+              {link.label}
+            </a>
+          );
+        }
         if (link.children?.length) {
           return (
             <div class="relative group" data-mega>
               <button
                 type="button"
                 class:list={[
-                  'inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-colors',
+                  'inline-flex items-center gap-1.5 rounded-full px-3 xl:px-4 py-2 text-sm font-medium transition-colors',
                   active
                     ? 'bg-brand-50 text-brand-700'
                     : 'text-ink-700 hover:text-brand-700 hover:bg-ink-50',
@@ -124,14 +135,6 @@ function isActive(href: string) {
                         <a href={link.featured.href} class="relative mt-4 inline-flex items-center gap-2 rounded-full bg-brand-500 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-600 transition-colors shadow-glow">
                           {link.featured.cta} <i class="fa-solid fa-arrow-right text-xs" aria-hidden="true"></i>
                         </a>
-                        {link.featured.secondaryCta && (
-                          <a
-                            href={link.featured.secondaryCta.href}
-                            class="relative mt-2.5 flex w-fit items-center gap-2 rounded-full border border-white/40 px-4 py-2 text-sm font-semibold text-white hover:border-white hover:bg-white/10 transition-colors"
-                          >
-                            <i class="fa-solid fa-store text-xs" aria-hidden="true"></i> {link.featured.secondaryCta.label}
-                          </a>
-                        )}
                       </aside>
                     )}
                   </div>
@@ -144,7 +147,7 @@ function isActive(href: string) {
           <a
             href={link.href}
             class:list={[
-              'rounded-full px-4 py-2 text-sm font-medium transition-colors',
+              'rounded-full px-3 xl:px-4 py-2 text-sm font-medium transition-colors',
               active
                 ? 'bg-brand-50 text-brand-700'
                 : 'text-ink-700 hover:text-brand-700 hover:bg-ink-50',
@@ -201,6 +204,17 @@ function isActive(href: string) {
   >
     <nav class="container-pf py-4 flex flex-col gap-1" aria-label="Mobile primary">
       {NAV_LINKS.map((link) => {
+        if (link.variant === 'outline') {
+          return (
+            <a
+              href={link.href}
+              class="flex items-center justify-between rounded-xl border border-ink-300 px-4 py-3 text-base font-semibold text-ink-900 hover:border-brand-500 hover:text-brand-700"
+            >
+              <span>{link.label}</span>
+              <i class="fa-solid fa-store text-sm text-brand-500" aria-hidden="true"></i>
+            </a>
+          );
+        }
         if (link.children?.length) {
           return (
             <details class="group rounded-xl border border-ink-100 open:bg-ink-50/60" data-mobile-mega>
@@ -227,15 +241,6 @@ function isActive(href: string) {
                       <span class="block text-xs text-brand-300">{link.featured.cta}</span>
                     </span>
                     <i class="fa-solid fa-arrow-right text-xs text-brand-400" aria-hidden="true"></i>
-                  </a>
-                )}
-                {link.featured?.secondaryCta && (
-                  <a
-                    href={link.featured.secondaryCta.href}
-                    class="mx-2 mt-2 flex items-center justify-between rounded-lg border border-ink-300 bg-transparent px-4 py-3 text-sm font-semibold text-ink-900 hover:border-brand-500 hover:text-brand-700 dark:border-ink-700 dark:text-ink-100 dark:hover:border-brand-400 dark:hover:text-brand-400"
-                  >
-                    <span>{link.featured.secondaryCta.label}</span>
-                    <i class="fa-solid fa-store text-xs" aria-hidden="true"></i>
                   </a>
                 )}
               </div>

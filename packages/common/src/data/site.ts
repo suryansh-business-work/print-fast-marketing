@@ -12,17 +12,17 @@ export interface NavLink {
   label: string;
   href: string;
   external?: boolean;
+  /**
+   * Render this entry as a standalone outline button in the header rather than
+   * a plain nav pill. Used for the cross-site "Print Shop & Services" CTA.
+   */
+  variant?: 'outline';
   children?: NavChild[];
   featured?: {
     title: string;
     description: string;
     href: string;
     cta: string;
-    /**
-     * Optional outline CTA rendered under the primary one. Its href is written
-     * for its own target origin, so `toMainSite` deliberately leaves it alone.
-     */
-    secondaryCta?: { label: string; href: string };
   };
 }
 
@@ -119,16 +119,21 @@ export const TEAM = [
 // and footer render identical destinations everywhere.
 // ---------------------------------------------------------------------------
 
-const toMainSite = <T extends { href: string }>(link: T): T => ({
-  ...link,
-  href: link.href.startsWith('/') ? mainHref(link.href) : link.href,
-  ...('children' in link && Array.isArray((link as NavLink).children)
-    ? { children: (link as NavLink).children!.map(toMainSite) }
-    : {}),
-  ...('featured' in link && (link as NavLink).featured
-    ? { featured: toMainSite((link as NavLink).featured!) }
-    : {}),
-});
+const toMainSite = <T extends { href: string }>(link: T): T => {
+  // Entries flagged `external` are already written for their own origin (the
+  // shop, for one), so they are handed back untouched.
+  if ((link as { external?: boolean }).external) return link;
+  return {
+    ...link,
+    href: link.href.startsWith('/') ? mainHref(link.href) : link.href,
+    ...('children' in link && Array.isArray((link as NavLink).children)
+      ? { children: (link as NavLink).children!.map(toMainSite) }
+      : {}),
+    ...('featured' in link && (link as NavLink).featured
+      ? { featured: toMainSite((link as NavLink).featured!) }
+      : {}),
+  };
+};
 
 const RAW_NAV_LINKS: NavLink[] = [
   { label: 'Home', href: '/' },
@@ -178,8 +183,13 @@ const RAW_NAV_LINKS: NavLink[] = [
       description: 'Tell us about your goals — get a tailored proposal within one business day.',
       href: '/contact-us/',
       cta: 'Request a proposal',
-      secondaryCta: { label: 'Print shop & services', href: shopHref('') },
     },
+  },
+  {
+    label: 'Print Shop & Services',
+    href: shopHref(''),
+    external: true,
+    variant: 'outline',
   },
   { label: 'Who We Are', href: '/who-we-are/' },
   { label: 'Contact', href: '/contact-us/' },
