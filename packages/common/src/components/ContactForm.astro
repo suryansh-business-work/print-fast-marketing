@@ -1,6 +1,7 @@
 ---
 import ContactFormReact from './ContactFormReact.tsx';
 import { SITE } from '@data/site';
+import { mainHref } from '@config/sites';
 
 export interface Props {
   title?: string;
@@ -18,4 +19,6 @@ const { title, subtitle, variant = 'general' } = Astro.props;
   phone={SITE.phone}
   phoneHref={SITE.phoneHref}
   email={SITE.email}
+  termsHref={mainHref('/terms-of-use/')}
+  privacyHref={mainHref('/privacy-policy/')}
 />

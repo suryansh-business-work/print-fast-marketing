@@ -8,21 +8,22 @@
 // transport and the field mapping live here; the visible form stays React +
 // Formik, so the design is untouched.
 //
-// Zoho names fields positionally (`SingleLine`, `MultiLine1`, `MultipleChoice1`),
-// which means ADDING OR REORDERING FIELDS INSIDE ZOHO RENAMES THEM and values
-// start landing in the wrong column — or get dropped. When the form changes,
-// re-export its HTML from Zoho and re-check every name below.
+// Zoho names fields positionally (`SingleLine`, `MultiLine1`, `MultipleChoice1`)
+// and RENUMBERS THEM WHENEVER THE FORM IS EDITED. That is not theoretical: an
+// edit to the form renamed `Email` to `Email1` and `PhoneNumber1_*` to
+// `PhoneNumber_*`, and because the browser cannot read Zoho's reply (see
+// `submitContactToZoho`), every lead was answered 409, stored nowhere, and the
+// visitor thanked anyway. Re-verify every name below after any form change.
 //
-// Three things the endpoint told us that no export mentions, each confirmed by
-// posting live records against it:
-//   * a mandatory "Terms and Conditions" tick box exists (see TERMS_FIELD);
-//   * the phone field only accepts the "+1" dial code (see the country codes
-//     below);
-//   * the phone field is marked unique, so Zoho refuses a second lead that
-//     reuses a stored number. The browser cannot see that rejection (below),
-//     so the visitor is thanked while the record is dropped — the fix lives in
-//     Zoho: switch "No duplicate values" off for the phone field.
+// How to re-verify without filling the CRM with junk: post a payload that
+// deliberately omits `TermsConditions`. Zoho then always answers 409 and stores
+// nothing, yet its error page still names every *other* field it rejected — so
+// one failing request tells you whether a field name, an option value or a
+// dialling code is accepted. Everything asserted below was checked that way
+// against the live endpoint on 2026-08-25.
 // ============================================================================
+
+import { COUNTRY_DIAL_CODES } from '@data/country-codes';
 
 const env = (import.meta.env ?? {}) as Record<string, string | undefined>;
 
@@ -32,9 +33,10 @@ export const ZOHO_CONTACT_FORM_ACTION =
   'https://forms.zohopublic.com/printfastllc/form/ContactUsAug2026Newsite/formperma/xPJfC4lKg6QWWlgZba7taYCYFhB4IZiLqRtKoU7NGLw/htmlRecords/submit';
 
 /**
- * Every choice the Zoho field "What service are you interested in?" accepts.
- * Zoho validates multi-selects against its own option list, so a value that is
- * not spelled exactly like this risks the whole record being rejected.
+ * Every choice the Zoho field "What service(s) are you interested in?" accepts.
+ * Zoho validates the multi-select against its own option list and rejects the
+ * whole record over a single unrecognised string, so these are spelled exactly
+ * as Zoho stores them — all seven confirmed accepted in one live submission.
  */
 const ZOHO_SERVICE = {
   seo: 'SEO',
@@ -70,27 +72,23 @@ const SERVICE_FALLBACK = [ZOHO_SERVICE.print];
 const DEFAULT_COUNTRY_CODE = '+1';
 
 /**
- * Zoho's phone field is locked to a single country code: send anything but
- * "+1" and the whole submission comes back 409 "Enter a valid country code"
- * with nothing stored — an invisible failure, since the browser cannot read
- * that response. So a foreign number is filed under "+1" with its country
- * digits kept in front of the number (Zoho accepts any length there) and the
- * string the visitor actually typed repeated in the notes.
- *
- * Open the field up in Zoho (phone field → allow international country codes)
- * and this list is all that needs to grow.
+ * Zoho validates the dialling code against its own country list: a made-up
+ * "+999" comes back 409 "Phone" with nothing stored. The field is no longer
+ * pinned to "+1" though — all 78 distinct codes our dropdown can emit were
+ * swept against the live endpoint and every one was accepted, so the code the
+ * visitor picked now goes through as dialled. This set guards the one path the
+ * dropdown does not control: a visitor typing "+xxx …" into the number box.
  */
-const ZOHO_ACCEPTED_COUNTRY_CODES = ['+1'];
+const ZOHO_ACCEPTED_COUNTRY_CODES = new Set(COUNTRY_DIAL_CODES.map((country) => country.dial));
 
 /** Zoho rejects a record whose mandatory field is blank. */
 const MANDATORY_PLACEHOLDER = '-';
 
 /**
- * The live form carries a mandatory "Terms and Conditions" tick box that the
- * exported HTML predates — leave it out and Zoho answers 409 "You must accept
- * the terms and conditions" and stores nothing. It is a plain checkbox with no
- * value attribute, so the only string it accepts is the browser default "on".
- * Our own consent checkbox is what ticks it.
+ * The form carries a mandatory "Terms and Conditions" tick box: leave it out —
+ * or send anything other than the browser's default "on", "off" very much
+ * included — and Zoho answers 409 "Terms and Conditions" and stores nothing.
+ * The visitor ticking our own consent box is what ticks it.
  */
 const TERMS_FIELD = 'TermsConditions';
 const TERMS_ACCEPTED = 'on';
@@ -157,7 +155,10 @@ const resolvePhone = (input: ZohoContactInput) => {
   return splitPhone(input.phone);
 };
 
-/** "Either" ticks both boxes on Zoho's multi-select. */
+/**
+ * "Either" ticks both boxes on Zoho's multi-select. It is not an option Zoho
+ * knows about, and forwarding it verbatim is a 409.
+ */
 const mapContactMethod = (method: ZohoContactInput['contactMethod']): string[] =>
   method === 'Either' ? ['Phone', 'Email'] : [method];
 
@@ -165,15 +166,14 @@ const mapService = (serviceLabel: string): readonly string[] =>
   SERVICE_MAP[serviceLabel.trim().toLowerCase()] ?? SERVICE_FALLBACK;
 
 /**
- * Zoho only has two free-text boxes and both are mandatory. The visitor's own
- * message fills the first; everything our form collects that Zoho has no field
- * for (the exact service label, plan, website, source page) fills the second.
+ * Everything our form collects that Zoho has no column for — the exact service
+ * label, the pricing plan, the page the lead came from. The box is optional, so
+ * an empty one is left off the record rather than padded with a placeholder.
  */
 const buildNotes = (input: ZohoContactInput, phoneAsEntered?: string): string => {
   const lines = [
     ['Service of interest', input.service],
     ['Pricing plan', input.plan],
-    ['Website', input.website],
     ['Preferred contact method', input.contactMethod],
     ['Phone as entered', phoneAsEntered],
     ['Submitted from', input.pageUrl],
@@ -196,13 +196,16 @@ export const buildZohoFormData = (input: ZohoContactInput): FormData => {
   data.append('zf_redirect_url', '');
   data.append('zc_gad', '');
 
+  // Mandatory, every one of them: both halves of the name, email, phone,
+  // company, both multi-selects and the terms tick box. Website and the two
+  // free-text boxes are the only optional fields on the form.
   data.append('Name_First', first || MANDATORY_PLACEHOLDER);
   data.append('Name_Last', last || MANDATORY_PLACEHOLDER);
-  data.append('Email', input.email.trim());
+  data.append('Email1', input.email.trim());
 
-  const codeAccepted = ZOHO_ACCEPTED_COUNTRY_CODES.includes(countryCode);
-  data.append('PhoneNumber1_countrycodeval', codeAccepted ? countryCode : DEFAULT_COUNTRY_CODE);
-  data.append('PhoneNumber1_countrycode', codeAccepted ? number : `${countryCode.replace(/\D/g, '')}${number}`);
+  const codeAccepted = ZOHO_ACCEPTED_COUNTRY_CODES.has(countryCode);
+  data.append('PhoneNumber_countrycodeval', codeAccepted ? countryCode : DEFAULT_COUNTRY_CODE);
+  data.append('PhoneNumber_countrycode', codeAccepted ? number : `${countryCode.replace(/\D/g, '')}${number}`);
 
   // "How shall we contact you" and the services list are multi-selects: Zoho
   // reads repeated keys, exactly like a native <select multiple> would send.
@@ -212,12 +215,21 @@ export const buildZohoFormData = (input: ZohoContactInput): FormData => {
 
   for (const service of mapService(input.service)) data.append('MultipleChoice1', service);
 
-  data.append('MultiLine', input.message.trim() || MANDATORY_PLACEHOLDER);
-  data.append(
-    'MultiLine1',
+  // Zoho URL-validates this one and 409s on anything that is not a URL, so only
+  // a value our own schema already vetted reaches it — and a visitor who left
+  // the optional website blank sends no field at all.
+  const website = input.website?.trim();
+  if (website) data.append('Website', website);
+
+  const message = input.message.trim();
+  if (message) data.append('MultiLine', message);
+
+  const notes = buildNotes(
+    input,
     // Only worth a line when Zoho could not store the number as dialled.
-    buildNotes(input, codeAccepted ? undefined : `${countryCode} ${number}`) || MANDATORY_PLACEHOLDER,
+    codeAccepted ? undefined : `${countryCode} ${number}`,
   );
+  if (notes) data.append('MultiLine1', notes);
 
   if (input.consent) data.append(TERMS_FIELD, TERMS_ACCEPTED);
 
@@ -232,8 +244,9 @@ export const buildZohoFormData = (input: ZohoContactInput): FormData => {
  * endpoint without CORS headers, so a readable response was never available to
  * a browser. The POST itself still arrives and the record is stored — multipart
  * form data is a CORS-safelisted body, so no preflight is involved. What we
- * give up is reading Zoho's answer, which is why the field mapping above was
- * verified against the live endpoint rather than assumed.
+ * give up is reading Zoho's answer, which is why the mapping above is verified
+ * against the live endpoint rather than assumed: from in here a rejected record
+ * is invisible, and looks exactly like a stored one.
  *
  * Resolves once the request has left the browser; throws when it could not be
  * sent at all (offline, DNS failure, a blocking extension).

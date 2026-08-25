@@ -14,6 +14,7 @@ import {
   dialCodeFor,
 } from '@data/country-codes';
 import { submitContactToZoho } from '@config/zoho-contact';
+import { SITE_URLS } from '@config/sites';
 
 export interface ContactFormReactProps {
   variant?: 'general' | 'review';
@@ -22,6 +23,10 @@ export interface ContactFormReactProps {
   phone?: string;
   phoneHref?: string;
   email?: string;
+  /** Target of the "Terms and Conditions" link on the consent tick. */
+  termsHref?: string;
+  /** Target of the "Privacy Policy" link on the consent tick. */
+  privacyHref?: string;
 }
 
 interface FormValues {
@@ -64,7 +69,9 @@ const buildSchema = (variant: 'general' | 'review', captchaAnswer: number) =>
     service: Yup.string().required('Please pick a service'),
     plan: Yup.string().notRequired(),
     message: Yup.string().trim().min(10, 'Tell us a bit more (10+ chars)').max(2000, 'Please keep it under 2000 chars').required('Message is required'),
-    consent: Yup.boolean().oneOf([true], 'Please accept the privacy notice'),
+    // Zoho refuses the whole record unless its terms box is ticked, so this is
+    // a hard gate rather than a nicety.
+    consent: Yup.boolean().oneOf([true], 'Please accept the terms and conditions'),
     captcha: Yup.string()
       .trim()
       .required('Please answer the question')
@@ -83,6 +90,15 @@ const captchaInputClass =
 const inputErrorClass = 'border-red-400 focus:border-red-500 focus:ring-red-500';
 const labelClass = 'text-sm font-medium text-ink-800';
 const errorClass = 'mt-1 text-xs font-medium text-red-600';
+const consentLinkClass = 'font-semibold text-brand-700 underline underline-offset-2 hover:text-brand-800';
+
+// Both policies live on the marketing site, and only it has a privacy page, so
+// these default to absolute URLs. `mainHref` cannot stand in here: it keys off
+// `PUBLIC_SITE_ID`, which the Astro pages see but this client bundle does not,
+// so on the shop it would collapse to a same-site path that 404s. The wrapper
+// resolves the pair properly and passes it down.
+const DEFAULT_TERMS_HREF = `${SITE_URLS.main}/terms-of-use/`;
+const DEFAULT_PRIVACY_HREF = `${SITE_URLS.main}/privacy-policy/`;
 
 const services = CONTACT_SERVICE_OPTIONS.map((service) => service.label);
 
@@ -129,12 +145,15 @@ export default function ContactFormReact({
   phone,
   phoneHref,
   email,
+  termsHref = DEFAULT_TERMS_HREF,
+  privacyHref = DEFAULT_PRIVACY_HREF,
 }: ContactFormReactProps) {
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [captcha, setCaptcha] = useState(INITIAL_CAPTCHA);
   const [initialValues, setInitialValues] = useState<FormValues>(() => createInitialValues(variant));
   const captchaId = useId();
+  const consentId = useId();
 
   useEffect(() => {
     // Randomised after mount, never during render — SSR has no idea which sum
@@ -439,16 +458,32 @@ export default function ContactFormReact({
                 <ErrorMessage name="captcha" component="p" className={errorClass} />
               </div>
 
-              <label className="sm:col-span-2 flex items-start gap-3 text-sm text-ink-600">
+              {/*
+                This tick is also what accepts Zoho's own mandatory "Terms and
+                Conditions" box, so the wording has to name them — see
+                `@config/zoho-contact`. The checkbox sits beside the label
+                rather than inside it: a wrapping label would swallow clicks
+                meant for the two links.
+              */}
+              <div className="sm:col-span-2 flex items-start gap-3 text-sm text-ink-600">
                 <Field
+                  id={consentId}
                   type="checkbox"
                   name="consent"
-                  className="mt-1 h-4 w-4 rounded border-ink-300 text-brand-600 focus:ring-brand-500"
+                  className="mt-1 h-4 w-4 shrink-0 rounded border-ink-300 text-brand-600 focus:ring-brand-500"
                 />
-                <span>
-                  I agree to the privacy policy and consent to be contacted about my enquiry. We never sell your data.
-                </span>
-              </label>
+                <label htmlFor={consentId}>
+                  I accept the{' '}
+                  <a href={termsHref} target="_blank" rel="noopener noreferrer" className={consentLinkClass}>
+                    Terms and Conditions
+                  </a>{' '}
+                  and the{' '}
+                  <a href={privacyHref} target="_blank" rel="noopener noreferrer" className={consentLinkClass}>
+                    Privacy Policy
+                  </a>
+                  , and consent to be contacted about my enquiry. We never sell your data.
+                </label>
+              </div>
               <ErrorMessage name="consent" component="p" className={`${errorClass} sm:col-span-2 -mt-3`} />
 
               {submitError && (
