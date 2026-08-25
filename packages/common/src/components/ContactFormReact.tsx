@@ -1,11 +1,6 @@
 import { Formik, Form, Field, ErrorMessage, type FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-import { useEffect, useId, useState, type ChangeEvent } from 'react';
-import {
-  CONTACT_SERVICE_OPTIONS,
-  findContactPlanOption,
-  findContactServiceOption,
-} from '@data/pricing';
+import { useEffect, useId, useState } from 'react';
 import {
   COMMON_COUNTRY_ISOS,
   COUNTRY_DIAL_CODES,
@@ -13,8 +8,26 @@ import {
   countryFlag,
   dialCodeFor,
 } from '@data/country-codes';
-import { submitContactToZoho } from '@config/zoho-contact';
+import { ZOHO_CONTACT_METHODS, ZOHO_SERVICES, submitContactToZoho } from '@config/zoho-contact';
 import { SITE_URLS } from '@config/sites';
+
+// ============================================================================
+// The visible contact form.
+//
+// Field for field this is the Zoho form "Contact Us (Aug 2026 - New site)" —
+// same questions, same order, same labels and hints, same idea of which
+// answers are required. Only the styling is ours, and the submit happens in
+// place instead of navigating off to Zoho (see `@config/zoho-contact`).
+//
+// Because the two multi-selects render Zoho's own option strings verbatim,
+// there is no mapping layer to keep in sync: whatever the visitor ticks is
+// literally what gets posted. Changing a label here without changing it in
+// Zoho is what would break it.
+//
+// The arithmetic captcha is ours alone. Zoho shows a reCAPTCHA on its hosted
+// page, but the submit endpoint accepts records without any captcha token, so
+// this is the only thing standing between a bot and the CRM.
+// ============================================================================
 
 export interface ContactFormReactProps {
   variant?: 'general' | 'review';
@@ -25,52 +38,53 @@ export interface ContactFormReactProps {
   email?: string;
   /** Target of the "Terms and Conditions" link on the consent tick. */
   termsHref?: string;
-  /** Target of the "Privacy Policy" link on the consent tick. */
-  privacyHref?: string;
 }
 
 interface FormValues {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   /** ISO-2 of the country picked in the dial-code dropdown. */
   phoneCountry: string;
   phone: string;
   company: string;
   website: string;
-  contactMethod: 'Email' | 'Phone' | 'Either';
-  service: string;
-  plan: string;
-  message: string;
+  contactMethods: string[];
+  services: string[];
+  requirements: string;
+  additionalInfo: string;
   consent: boolean;
   captcha: string;
 }
 
-// The dial code now lives in its own dropdown, so the box beside it holds the
+// The dial code lives in its own dropdown, so the box beside it holds the
 // national number only — digits and the usual human separators.
 const phoneRegex = /^[\s.\-()0-9]{7,20}$/;
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const emptyToUndefined = (value: unknown, originalValue: unknown) => (originalValue === '' ? undefined : value);
-// Zoho stores the name in two columns and treats both — plus the phone — as
-// mandatory, so the form has to insist on them or the record is rejected.
-const fullNameRegex = /^\S+(\s+\S+)+$/;
+
+// Mirrors Zoho's own `zf_MandArray`, plus the terms box its export predates.
+// Both free-text answers and the website are optional there, so they are
+// optional here — insisting on more than Zoho does would only lose leads.
 const buildSchema = (variant: 'general' | 'review', captchaAnswer: number) =>
   Yup.object({
-    name: Yup.string().trim().min(2, 'Please enter your full name').max(80, 'Name is too long').matches(fullNameRegex, 'Please enter your first and last name').required('Name is required'),
-    email: Yup.string().trim().email('Enter a valid email address').matches(emailRegex, 'Enter a valid email address').required('Email is required'),
+    firstName: Yup.string().trim().min(2, 'Please enter your first name').max(255, 'First name is too long').required('First name is required'),
+    lastName: Yup.string().trim().min(2, 'Please enter your last name').max(255, 'Last name is too long').required('Last name is required'),
+    email: Yup.string().trim().email('Enter a valid email address').matches(emailRegex, 'Enter a valid email address').max(255, 'Email is too long').required('Email is required'),
     phoneCountry: Yup.string().required(),
     phone: Yup.string().trim().matches(phoneRegex, 'Enter a valid phone number').required('Phone is required'),
-    company: Yup.string().trim().min(2, 'Company name is too short').max(120, 'Company name is too long').required('Company is required'),
+    company: Yup.string().trim().min(2, 'Company name is too short').max(255, 'Company name is too long').required('Company name is required'),
+    // Zoho URL-validates this field and rejects the whole record over a bad
+    // one, so it is checked here too rather than sent hopefully.
     website:
       variant === 'review'
-        ? Yup.string().trim().url('Enter a valid URL (include https://)').required('Website URL is required for the review')
-        : Yup.string().transform(emptyToUndefined).trim().url('Enter a valid URL (include https://)').notRequired(),
-    contactMethod: Yup.mixed<'Email' | 'Phone' | 'Either'>().oneOf(['Email', 'Phone', 'Either']).required(),
-    service: Yup.string().required('Please pick a service'),
-    plan: Yup.string().notRequired(),
-    message: Yup.string().trim().min(10, 'Tell us a bit more (10+ chars)').max(2000, 'Please keep it under 2000 chars').required('Message is required'),
-    // Zoho refuses the whole record unless its terms box is ticked, so this is
-    // a hard gate rather than a nicety.
+        ? Yup.string().trim().url('Enter a valid URL (include https://)').max(2083, 'URL is too long').required('Website URL is required for the review')
+        : Yup.string().transform(emptyToUndefined).trim().url('Enter a valid URL (include https://)').max(2083, 'URL is too long').notRequired(),
+    contactMethods: Yup.array().of(Yup.string().required()).min(1, 'Pick at least one way for us to reach you'),
+    services: Yup.array().of(Yup.string().required()).min(1, 'Pick at least one service'),
+    requirements: Yup.string().trim().max(2000, 'Please keep it under 2000 chars').notRequired(),
+    additionalInfo: Yup.string().trim().max(2000, 'Please keep it under 2000 chars').notRequired(),
     consent: Yup.boolean().oneOf([true], 'Please accept the terms and conditions'),
     captcha: Yup.string()
       .trim()
@@ -90,17 +104,16 @@ const captchaInputClass =
 const inputErrorClass = 'border-red-400 focus:border-red-500 focus:ring-red-500';
 const labelClass = 'text-sm font-medium text-ink-800';
 const errorClass = 'mt-1 text-xs font-medium text-red-600';
+// Zoho prints a grey note under several fields; these are those notes, verbatim.
+const hintClass = 'mt-1.5 text-xs text-ink-500';
+const subLabelClass = 'mt-1 block text-xs text-ink-500';
 const consentLinkClass = 'font-semibold text-brand-700 underline underline-offset-2 hover:text-brand-800';
 
-// Both policies live on the marketing site, and only it has a privacy page, so
-// these default to absolute URLs. `mainHref` cannot stand in here: it keys off
-// `PUBLIC_SITE_ID`, which the Astro pages see but this client bundle does not,
-// so on the shop it would collapse to a same-site path that 404s. The wrapper
-// resolves the pair properly and passes it down.
+// The marketing site owns the terms page. `mainHref` cannot stand in here: it
+// keys off `PUBLIC_SITE_ID`, which the Astro pages see but this client bundle
+// does not, so on the shop it would collapse to a same-site path. The wrapper
+// resolves it properly and passes it down.
 const DEFAULT_TERMS_HREF = `${SITE_URLS.main}/terms-of-use/`;
-const DEFAULT_PRIVACY_HREF = `${SITE_URLS.main}/privacy-policy/`;
-
-const services = CONTACT_SERVICE_OPTIONS.map((service) => service.label);
 
 /** Two small addends — big enough to beat a naive bot, easy enough to do in your head. */
 const createCaptcha = () => ({
@@ -120,23 +133,37 @@ const otherCountries = COUNTRY_DIAL_CODES.filter((country) => !COMMON_COUNTRY_IS
 /** Dial code first so it survives the dropdown clipping its own width. */
 const countryOptionLabel = (iso: string, name: string, dial: string) => `${dial} ${countryFlag(iso)} ${name}`;
 
-const createInitialValues = (variant: 'general' | 'review'): FormValues => ({
-  name: '',
+const INITIAL_VALUES: FormValues = {
+  firstName: '',
+  lastName: '',
   email: '',
   phoneCountry: DEFAULT_PHONE_COUNTRY,
   phone: '',
   company: '',
   website: '',
-  contactMethod: 'Email',
-  service: variant === 'review' ? 'Free Digital Review' : '',
-  plan: '',
-  message: '',
+  contactMethods: [],
+  services: [],
+  requirements: '',
+  additionalInfo: '',
   consent: false,
   captcha: '',
-});
+};
 
-const getPlanOptionsForService = (serviceLabel: string) =>
-  CONTACT_SERVICE_OPTIONS.find((service) => service.label === serviceLabel)?.plans ?? [];
+/**
+ * One option of a multi-select, drawn as a tickable chip. Formik collects these
+ * into the array named by `name` as long as each carries its own `value`.
+ */
+const OptionChip = ({ name, value }: { name: string; value: string }) => (
+  <label className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-ink-50 px-4 py-2 text-sm font-semibold text-ink-700 ring-1 ring-ink-200 transition-colors hover:bg-brand-50 hover:text-brand-700 hover:ring-brand-200 has-[:checked]:bg-brand-600 has-[:checked]:text-white has-[:checked]:ring-brand-600">
+    <Field
+      type="checkbox"
+      name={name}
+      value={value}
+      className="h-4 w-4 rounded border-ink-300 text-brand-600 focus:ring-brand-500"
+    />
+    {value}
+  </label>
+);
 
 export default function ContactFormReact({
   variant = 'general',
@@ -146,12 +173,10 @@ export default function ContactFormReact({
   phoneHref,
   email,
   termsHref = DEFAULT_TERMS_HREF,
-  privacyHref = DEFAULT_PRIVACY_HREF,
 }: ContactFormReactProps) {
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [captcha, setCaptcha] = useState(INITIAL_CAPTCHA);
-  const [initialValues, setInitialValues] = useState<FormValues>(() => createInitialValues(variant));
   const captchaId = useId();
   const consentId = useId();
 
@@ -159,37 +184,25 @@ export default function ContactFormReact({
     // Randomised after mount, never during render — SSR has no idea which sum
     // the browser will pick, and a mismatch would blow up hydration.
     setCaptcha(createCaptcha());
-
-    const params = new URLSearchParams(window.location.search);
-    const serviceOption = findContactServiceOption(params.get('service'));
-    const planOption = findContactPlanOption(serviceOption, params.get('plan'));
-
-    if (!serviceOption && !planOption) return;
-
-    setInitialValues((current) => ({
-      ...current,
-      service: serviceOption?.label ?? current.service,
-      plan: planOption?.label ?? '',
-    }));
   }, []);
 
   const handleSubmit = async (values: FormValues, helpers: FormikHelpers<FormValues>) => {
     setSubmitError(null);
     try {
       await submitContactToZoho({
-        name: values.name,
+        firstName: values.firstName,
+        lastName: values.lastName,
         email: values.email,
         phone: values.phone,
         phoneCountryCode: dialCodeFor(values.phoneCountry),
         company: values.company,
         website: values.website,
-        contactMethod: values.contactMethod,
-        service: values.service,
-        plan: values.plan,
-        message: values.message,
+        contactMethods: values.contactMethods,
+        services: values.services,
+        requirements: values.requirements,
+        additionalInfo: values.additionalInfo,
         consent: values.consent,
         pageUrl: window.location.href,
-        referrer: window.location.pathname,
       });
       helpers.resetForm();
       setCaptcha(createCaptcha());
@@ -232,7 +245,7 @@ export default function ContactFormReact({
   }
 
   return (
-    <div className="card p-6 sm:p-8 lg:p-10 ring-1 ring-ink-100" data-reveal>
+    <div className="card p-6 sm:p-8 lg:p-10 ring-1 ring-ink-100">
       <div className="flex items-start justify-between gap-6 flex-wrap">
         <div>
           <h3 className="heading-md">{title}</h3>
@@ -257,24 +270,32 @@ export default function ContactFormReact({
       </div>
 
       <Formik
-        enableReinitialize
-        initialValues={initialValues}
+        initialValues={INITIAL_VALUES}
         validationSchema={buildSchema(variant, captcha.a + captcha.b)}
         onSubmit={handleSubmit}
       >
-        {({ isSubmitting, errors, touched, values, setFieldValue }) => {
+        {({ isSubmitting, errors, touched, setFieldValue }) => {
           const cls = (field: keyof FormValues) =>
             `${inputClass} ${touched[field] && errors[field] ? inputErrorClass : ''}`;
-          const planOptions = getPlanOptionsForService(values.service);
           return (
             <Form className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2" noValidate>
-              <label className="block">
+              <div className="sm:col-span-2">
                 <span className={labelClass}>
                   Name<span className="text-brand-600">*</span>
                 </span>
-                <Field name="name" type="text" autoComplete="name" placeholder="Jane Doe" className={cls('name')} />
-                <ErrorMessage name="name" component="p" className={errorClass} />
-              </label>
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <label className="block">
+                    <Field name="firstName" type="text" autoComplete="given-name" placeholder="Jane" className={cls('firstName')} />
+                    <span className={subLabelClass}>First</span>
+                    <ErrorMessage name="firstName" component="p" className={errorClass} />
+                  </label>
+                  <label className="block">
+                    <Field name="lastName" type="text" autoComplete="family-name" placeholder="Doe" className={cls('lastName')} />
+                    <span className={subLabelClass}>Last</span>
+                    <ErrorMessage name="lastName" component="p" className={errorClass} />
+                  </label>
+                </div>
+              </div>
 
               <label className="block">
                 <span className={labelClass}>
@@ -324,92 +345,73 @@ export default function ContactFormReact({
 
               <label className="block">
                 <span className={labelClass}>
-                  Company<span className="text-brand-600">*</span>
+                  Company Name<span className="text-brand-600">*</span>
                 </span>
                 <Field name="company" type="text" autoComplete="organization" placeholder="Acme HVAC" className={cls('company')} />
                 <ErrorMessage name="company" component="p" className={errorClass} />
               </label>
 
-              <label className="block sm:col-span-2">
+              <label className="block">
                 <span className={labelClass}>
                   Website {variant === 'review' && <span className="text-brand-600">*</span>}
                 </span>
                 <Field name="website" type="url" placeholder="https://example.com" className={cls('website')} />
                 <ErrorMessage name="website" component="p" className={errorClass} />
+                <p className={hintClass}>Enter your company website (if you have one)</p>
               </label>
 
-              <label className="block">
-                <span className={labelClass}>Preferred contact method</span>
-                <Field as="select" name="contactMethod" className={cls('contactMethod')}>
-                  <option>Email</option>
-                  <option>Phone</option>
-                  <option>Either</option>
-                </Field>
-              </label>
-
-              <label className="block">
+              <div className="sm:col-span-2">
                 <span className={labelClass}>
-                  Service of interest<span className="text-brand-600">*</span>
+                  How shall we contact you<span className="text-brand-600">*</span>
                 </span>
-                <Field
-                  as="select"
-                  name="service"
-                  className={cls('service')}
-                  onChange={(event: ChangeEvent<HTMLSelectElement>) => {
-                    setFieldValue('service', event.target.value);
-                    setFieldValue('plan', '');
-                  }}
-                >
-                  <option value="">Select a service…</option>
-                  {services.map((s) => (
-                    <option key={s} value={s}>
-                      {s}
-                    </option>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {ZOHO_CONTACT_METHODS.map((method) => (
+                    <OptionChip key={method} name="contactMethods" value={method} />
                   ))}
-                </Field>
-                <ErrorMessage name="service" component="p" className={errorClass} />
-              </label>
-
-              {planOptions.length > 0 && (
-                <div className="block sm:col-span-2">
-                  <span className={labelClass}>Pricing plan</span>
-                  <div className="mt-2 flex flex-wrap gap-2">
-                    {planOptions.map((plan) => {
-                      const selected = values.plan === plan.label;
-                      return (
-                        <button
-                          key={plan.slug}
-                          type="button"
-                          onClick={() => setFieldValue('plan', plan.label)}
-                          className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition-all ${
-                            selected
-                              ? 'bg-brand-600 text-white shadow-soft'
-                              : 'bg-ink-50 text-ink-700 ring-1 ring-ink-200 hover:bg-brand-50 hover:text-brand-700 hover:ring-brand-200'
-                          }`}
-                          aria-pressed={selected}
-                        >
-                          {selected && <i className="fa-solid fa-check text-xs" aria-hidden="true"></i>}
-                          {plan.label}
-                        </button>
-                      );
-                    })}
-                  </div>
-                  <Field type="hidden" name="plan" />
                 </div>
-              )}
+                <ErrorMessage name="contactMethods" component="p" className={errorClass} />
+              </div>
+
+              <div className="sm:col-span-2">
+                <span className={labelClass}>
+                  What service(s) are you interested in?<span className="text-brand-600">*</span>
+                </span>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {ZOHO_SERVICES.map((service) => (
+                    <OptionChip key={service} name="services" value={service} />
+                  ))}
+                </div>
+                <ErrorMessage name="services" component="p" className={errorClass} />
+                <p className={hintClass}>
+                  E.g: SEO, Website creation, Social Media Marketing, Direct mail + digital combined, etc. Feel free to
+                  select multiple
+                </p>
+              </div>
 
               <label className="block sm:col-span-2">
-                <span className={labelClass}>
-                  How can we help?<span className="text-brand-600">*</span>
-                </span>
+                <span className={labelClass}>Please specify your requirements below for print services and products</span>
                 <Field
                   as="textarea"
-                  name="message"
+                  name="requirements"
                   rows={4}
-                  placeholder="Tell us about your goals, services, and current challenges…"
-                  className={cls('message')}
+                  placeholder="Postcards, letters, door hangers…"
+                  className={cls('requirements')}
                 />
-                <ErrorMessage name="message" component="p" className={errorClass} />
+                <ErrorMessage name="requirements" component="p" className={errorClass} />
+                <p className={hintClass}>E.g: postcards, letters, door hangers, direct mail, letters, etc.</p>
+              </label>
+
+              <label className="block sm:col-span-2">
+                <span className={labelClass}>Is there any additional information you would like to add?</span>
+                <Field
+                  as="textarea"
+                  name="additionalInfo"
+                  rows={4}
+                  placeholder="Tell us about your business goals, services and current challenges…"
+                  className={cls('additionalInfo')}
+                />
+                <ErrorMessage name="additionalInfo" component="p" className={errorClass} />
+                <p className={hintClass}>Tell us about your business goals, services and current challenges...</p>
               </label>
 
               <div className="sm:col-span-2 rounded-2xl bg-ink-50 ring-1 ring-ink-200 p-5">
@@ -459,11 +461,9 @@ export default function ContactFormReact({
               </div>
 
               {/*
-                This tick is also what accepts Zoho's own mandatory "Terms and
-                Conditions" box, so the wording has to name them — see
-                `@config/zoho-contact`. The checkbox sits beside the label
-                rather than inside it: a wrapping label would swallow clicks
-                meant for the two links.
+                Zoho's own mandatory tick box. The checkbox sits beside the
+                label rather than inside it: a wrapping label would swallow
+                clicks meant for the link.
               */}
               <div className="sm:col-span-2 flex items-start gap-3 text-sm text-ink-600">
                 <Field
@@ -476,12 +476,8 @@ export default function ContactFormReact({
                   I accept the{' '}
                   <a href={termsHref} target="_blank" rel="noopener noreferrer" className={consentLinkClass}>
                     Terms and Conditions
-                  </a>{' '}
-                  and the{' '}
-                  <a href={privacyHref} target="_blank" rel="noopener noreferrer" className={consentLinkClass}>
-                    Privacy Policy
                   </a>
-                  , and consent to be contacted about my enquiry. We never sell your data.
+                  .<span className="text-brand-600">*</span>
                 </label>
               </div>
               <ErrorMessage name="consent" component="p" className={`${errorClass} sm:col-span-2 -mt-3`} />

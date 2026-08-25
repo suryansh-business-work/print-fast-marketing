@@ -11,14 +11,23 @@ export interface Props {
 const { title, subtitle, variant = 'general' } = Astro.props;
 ---
 
-<ContactFormReact
-  client:load
-  variant={variant}
-  title={title}
-  subtitle={subtitle}
-  phone={SITE.phone}
-  phoneHref={SITE.phoneHref}
-  email={SITE.email}
-  termsHref={mainHref('/terms-of-use/')}
-  privacyHref={mainHref('/privacy-policy/')}
-/>
+{/*
+  `data-reveal` belongs out here, on markup React does not own. The reveal
+  observer in BaseLayout adds `is-visible` straight to the DOM and then
+  unobserves the element, so when it sat on the React root two things broke:
+  hydration warned about the class it never rendered, and re-rendering the root
+  (tapping "Send another message") wrote the class back out — leaving the form
+  at `opacity: 0` with no observer left to reveal it again.
+*/}
+<div data-reveal>
+  <ContactFormReact
+    client:load
+    variant={variant}
+    title={title}
+    subtitle={subtitle}
+    phone={SITE.phone}
+    phoneHref={SITE.phoneHref}
+    email={SITE.email}
+    termsHref={mainHref('/terms-of-use/')}
+  />
+</div>
