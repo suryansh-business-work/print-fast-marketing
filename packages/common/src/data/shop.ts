@@ -48,6 +48,12 @@ export interface ShopGroup {
 export const shopHref = (slug: string) =>
   slug ? `${SHOP_BASE}/${slug}/` : `${SHOP_BASE}/`;
 
+/**
+ * The customer-facing storefront app. Ordering and account sign-in live off-site,
+ * so the shop sub-nav links out to it in a new tab.
+ */
+export const SHOP_LOGIN_URL = 'https://www.shop-app.print-fast.com/user_registration.php';
+
 /** Same as `shopHref` but always relative — for routes generated inside the shop app. */
 export const shopPath = (slug: string) =>
   slug ? `${SHOP_PATH_PREFIX}/${slug}/` : `${SHOP_PATH_PREFIX}/`;
@@ -86,7 +92,7 @@ export const SHOP_GROUPS: ShopGroup[] = [
     pages: [
       { slug: 'all-products', label: 'All PrintFast Products', blurb: 'Browse the full lineup of 100+ marketing products in one place.', icon: 'fa-grip', source: '/all-products.html' },
       { slug: 'products-retailer', label: 'Products Overview', blurb: 'An overview of PrintFast marketing products for retail partners.', icon: 'fa-tags', source: '/products-retailer.html' },
-      { slug: 'ceow-products', label: 'CEOW Products', blurb: 'Curated product collection for CEOW partner programs.', icon: 'fa-layer-group', source: '/ceow_products.html' },
+      { slug: 'ceow-products', label: 'Membership Welcome Packets', blurb: 'Welcome new members with a custom printed Welcome Member Packet.', icon: 'fa-layer-group', source: '/ceow_products.html' },
       { slug: 'door-hangers', label: 'Door Hangers', blurb: 'High-impact door hangers that land your offer right on the doorknob.', icon: 'fa-door-open', source: '/door-hangers-217.html' },
       { slug: 'homeowner-experience-packs', label: 'Homeowner Experience Packs', blurb: 'Leave-behind packs that turn every service call into a lasting impression.', icon: 'fa-box-open', source: '/homeowner-experience-packs.html' },
       { slug: 'newsletters-new', label: 'Newsletters', blurb: 'Professionally written, editable newsletters that nurture your customer list.', icon: 'fa-newspaper', source: '/newsletters-new.html' },
@@ -129,9 +135,8 @@ export const SHOP_GROUPS: ShopGroup[] = [
     id: 'support',
     title: 'Support',
     icon: 'fa-headset',
-    description: 'Log in, upload artwork, and get in touch with our team.',
+    description: 'Upload artwork, review our terms, and get in touch with our team.',
     pages: [
-      { slug: 'user-login', label: 'Customer Login', blurb: 'Sign in to your PrintFast account to manage orders and artwork.', icon: 'fa-right-to-bracket', source: '/user_login.php' },
       { slug: 'upload-your-artwork', label: 'Upload Your Files', blurb: 'Send us your artwork and print-ready files securely.', icon: 'fa-cloud-arrow-up', source: '/upload-your-artwork.html' },
       { slug: 'terms-of-use', label: 'Terms & Conditions', blurb: 'The terms and conditions that govern use of PrintFast services.', icon: 'fa-file-contract', source: '/terms-of-use.html' },
       { slug: 'contact-us', label: 'Contact Us', blurb: 'Reach the PrintFast team — we’re here Mon–Fri, 8 AM–5 PM ET.', icon: 'fa-paper-plane', source: '/contact_us.html' },

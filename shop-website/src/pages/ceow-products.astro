@@ -7,7 +7,7 @@ const contactHref = getContactHref('digital-marketing-services');
 
 // Original PrintFast image assets (served from the live store's CDN).
 const CF = 'https://dqj17tese79do.cloudfront.net/printfast/images/common';
-const membershipImg = `${CF}/HSC_MarketingSuperstoreImage_6_2_2021_Billsedits.jpg?1642010677`;
+const membershipImg = 'https://ik.imagekit.io/PFdigitalmarketing/Shop.Printfast/Membership_Mailing_2me4GI5tY.png';
 const designStudioVideoImg = `${CF}/PF_YT_logo_image_for_site.jpg?1642010447`;
 const designStudioVideoUrl = 'https://youtu.be/p1jgnliaDcQ';
 
@@ -45,10 +45,12 @@ const steps = [
 ---
 
 <ShopLayout
-  title="Product Overview | Print & Marketing Products for Home Service Pros"
-  crumb="CEOW Products"
-  description="Explore PrintFast's print and marketing products built for home service professionals — postcards, door hangers, newsletters and more. Register for your member storefront."
+  title="Membership Welcome Packets | Custom Welcome Member Packets"
+  crumb="Membership Welcome Packets"
+  description="Welcome new members with a custom printed Welcome Member Packet from PrintFast — plus private member storefronts for training and membership organizations."
   keywords={[
+    'membership welcome packets',
+    'welcome member packet',
     'home service marketing products',
     'print products for contractors',
     'member storefront',
@@ -60,9 +62,9 @@ const steps = [
   schema={{
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: 'PrintFast Product Overview',
+    name: 'PrintFast Membership Welcome Packets',
     description:
-      'An overview of PrintFast print and marketing products for home service professionals, plus private member storefronts for training and membership organizations.',
+      'Custom printed Welcome Member Packets for new members, plus private member storefronts for training and membership organizations.',
     about: { '@type': 'Organization', name: 'PrintFast', telephone: '800-810-4818' },
   }}
 >
@@ -75,20 +77,13 @@ const steps = [
       <div class="grid items-center gap-12 lg:grid-cols-2">
         <div data-reveal>
           <p class="inline-flex rounded-md bg-[#ED1C24] px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-white">
-            Product Overview
+            Direct Mail Marketing
           </p>
           <h1 class="mt-5 font-display text-4xl font-extrabold uppercase leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Our <span class="text-[#ED1C24]">Products</span>
+            Membership Welcome <span class="text-[#ED1C24]">Packets</span>
           </h1>
           <p class="mt-5 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
-            Our focus is simple — we offer our products and services primarily to home service
-            professionals, so we speak your language. We understand the challenges you face as you
-            provide comfort and safety to the homeowners in your community.
-          </p>
-          <p class="mt-4 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
-            From printed forms and ID badges to exceptional marketing materials, direct mail and
-            reliable online services, we believe that <span class="font-semibold text-white">“Your Success Is Our Business”</span>
-            — and we live by that belief every day.
+            Welcome new members with a custom printed Welcome Member Packet.
           </p>
           <div class="mt-8 flex flex-wrap gap-3">
             <a
@@ -109,7 +104,7 @@ const steps = [
         <div class="relative" data-reveal>
           <img
             src={membershipImg}
-            alt="PrintFast marketing superstore for home service membership organizations"
+            alt="PrintFast membership welcome packet mailed to new home service plan members"
             class="mx-auto h-auto w-full max-w-md rounded-2xl shadow-soft"
             loading="eager"
             decoding="async"

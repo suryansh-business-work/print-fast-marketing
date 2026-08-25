@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import type { Props as SEOProps } from '@components/SEO.astro';
-import { SHOP_NAV, SHOP_PATH_PREFIX, shopPath, findShopGroup } from '@data/shop';
+import { SHOP_NAV, SHOP_LOGIN_URL, SHOP_PATH_PREFIX, shopPath, findShopGroup } from '@data/shop';
 import { mainHref } from '@config/sites';
 
 export interface Props extends SEOProps {
@@ -60,6 +60,16 @@ const navActive = (href: string) => {
           {item.label}
         </a>
       ))}
+
+      <a
+        href={SHOP_LOGIN_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="ml-auto inline-flex shrink-0 items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-bold uppercase tracking-wide text-[#0f2747] ring-1 ring-ink-300 transition-colors hover:bg-[#fde8e9] hover:text-[#c01620] hover:ring-[#ED1C24] dark:text-ink-100 dark:ring-ink-700 dark:hover:bg-ink-800 dark:hover:text-[#ED1C24] dark:hover:ring-[#ED1C24]"
+      >
+        <i class="fa-solid fa-right-to-bracket text-[11px]" aria-hidden="true"></i>
+        Login to shop
+      </a>
     </div>
   </nav>
 

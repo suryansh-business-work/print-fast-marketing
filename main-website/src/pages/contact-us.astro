@@ -5,7 +5,7 @@ import ContactForm from '@components/ContactForm.astro';
 import CheckoutReadyCTA from '@components/CheckoutReadyCTA.tsx';
 import Lottie from '@components/Lottie.astro';
 import OfficeMap from '@components/OfficeMap.tsx';
-import { SITE, TEAM } from '@data/site';
+import { SITE } from '@data/site';
 
 const channels = [
   {
@@ -40,7 +40,7 @@ const channels = [
 
 const departments = [
   { icon: 'fa-rocket', label: 'New business / Sales',  email: 'orders@print-fast.com', desc: 'Pricing, onboarding, free reviews.' },
-  { icon: 'fa-headset', label: 'Client support', email: 'mark@print-fast.com', desc: 'Existing client questions & requests.' },
+  { icon: 'fa-headset', label: 'Client support', email: 'kim@print-fast.com', desc: 'Existing client questions & requests.' },
   { icon: 'fa-newspaper', label: 'Press & media', email: 'bill@print-fast.com', desc: 'Interview, partnership and PR enquiries.' },
 ];
 
@@ -169,26 +169,6 @@ const faqs = [
               <a href="mailto:orders@print-fast.com" class="font-semibold text-white hover:text-brand-300 break-all">orders@print-fast.com</a>
             </div>
           </div>
-        </div>
-
-        <!-- Leadership -->
-        <div class="card p-6 sm:p-8">
-          <h3 class="heading-md text-2xl">Talk to our leadership</h3>
-          <p class="mt-2 text-ink-600 text-sm">Need a direct line? Our leadership team is one email away.</p>
-          <ul class="mt-6 space-y-4">
-            {TEAM.map((member) => (
-              <li class="flex items-start gap-4">
-                <span class="grid h-10 w-10 place-items-center rounded-lg bg-brand-50 text-brand-600 flex-shrink-0">
-                  <i class:list={['fa-solid', member.icon]} aria-hidden="true"></i>
-                </span>
-                <div class="min-w-0">
-                  <p class="text-sm font-semibold text-ink-900">{member.name}</p>
-                  <p class="text-xs text-ink-500 mt-0.5">{member.role}</p>
-                  <a href={`mailto:${member.email}`} class="text-sm text-brand-700 hover:text-brand-800 break-all">{member.email}</a>
-                </div>
-              </li>
-            ))}
-          </ul>
         </div>
       </aside>
     </div>

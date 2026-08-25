@@ -12,11 +12,6 @@ export interface NavLink {
   label: string;
   href: string;
   external?: boolean;
-  /**
-   * Render this entry as a standalone outline button in the header rather than
-   * a plain nav pill. Used for the cross-site "Print Shop & Services" CTA.
-   */
-  variant?: 'outline';
   children?: NavChild[];
   featured?: {
     title: string;
@@ -185,12 +180,7 @@ const RAW_NAV_LINKS: NavLink[] = [
       cta: 'Request a proposal',
     },
   },
-  {
-    label: 'Print Shop & Services',
-    href: shopHref(''),
-    external: true,
-    variant: 'outline',
-  },
+  { label: 'Print & Direct Mail', href: shopHref(''), external: true },
   { label: 'Who We Are', href: '/who-we-are/' },
   { label: 'Contact', href: '/contact-us/' },
 ];
