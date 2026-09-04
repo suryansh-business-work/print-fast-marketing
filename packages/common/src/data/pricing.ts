@@ -135,7 +135,7 @@ export const SOCIAL_MEDIA_PLANS = [
       '2 sticky funnel strategies',
       'Hyper-local market targeting',
       '1 - 60 min monthly strategy session with keyword/tagging research',
-      '3-4 boosted posts/month with +$400 boost spend',
+      '3-4 boosted posts/month with +$200 boost spend',
     ],
     cta: { label: 'Build Authority', href: '/contact-us/?service=managed-social-media&plan=authority-plan#contact-form' },
   },
