@@ -15,7 +15,7 @@
       "image": "print-fast-main-website",
       "dockerfile": "main-website/Dockerfile",
       "domain": "print-fast.com",
-      "aliases": ["www.print-fast.com", "marketing.print-fast.com"],
+      "aliases": ["www.print-fast.com"],
       "hostPort": 9000,
       "containerPort": 80,
       "healthPath": "/healthz",
@@ -107,15 +107,18 @@
     }
   ],
   "legacy": {
-    "$comment": "Artifacts from superseded deployments. The provisioner removes these before installing the new configuration. Do not list marketing.print-fast.com here again: its DNS still points at this VPS and old links still use it, so deleting its vhost and certificate left HTTPS answering with the apex certificate (a name-mismatch error). It is an alias of print-fast-main instead, which 301s it to the apex over a valid certificate.",
+    "$comment": "Artifacts from superseded deployments. The provisioner removes these before installing the new configuration. marketing.print-fast.com was retired in favour of the apex domain; its vhost and certificate are deleted so renewals stop attempting a domain we no longer serve.",
     "containers": [
       "print-fast-marketing"
     ],
     "nginxSites": [
       "print-fast-marketing.conf",
-      "print-fast-marketing.exyconn.com.conf"
+      "print-fast-marketing.exyconn.com.conf",
+      "marketing.print-fast.com.conf"
     ],
-    "certificates": []
+    "certificates": [
+      "marketing.print-fast.com"
+    ]
   },
   "redirects": [
     {
