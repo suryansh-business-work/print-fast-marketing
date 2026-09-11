@@ -1,5 +1,5 @@
 import { SELF_URL, SITE_URLS, mainHref } from '../config/sites';
-import { shopHref } from './shop';
+import { SHOP_LOGIN_URL, shopHref } from './shop';
 
 export interface NavChild {
   label: string;
@@ -12,6 +12,8 @@ export interface NavLink {
   label: string;
   href: string;
   external?: boolean;
+  /** Open in a new tab — for destinations off the PrintFast sites, like the storefront app. */
+  newTab?: boolean;
   children?: NavChild[];
   featured?: {
     title: string;
@@ -181,6 +183,8 @@ const RAW_NAV_LINKS: NavLink[] = [
     },
   },
   { label: 'Print & Direct Mail', href: shopHref(''), external: true },
+  // Same storefront the shop sub-nav's "Login to shop" button opens.
+  { label: 'Shop', href: SHOP_LOGIN_URL, external: true, newTab: true },
   { label: 'Who We Are', href: '/who-we-are/' },
   { label: 'Contact', href: '/contact-us/' },
 ];

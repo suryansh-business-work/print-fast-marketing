@@ -83,14 +83,20 @@ values in `apps.json`).
 
 ## DNS
 
-All four records must be `A` → `31.220.49.107`:
+Every record must be `A` → `31.220.49.107`:
 
 ```text
 print-fast.com.              A  31.220.49.107
+www.print-fast.com.          A  31.220.49.107   (alias, 301 to the apex)
+marketing.print-fast.com.    A  31.220.49.107   (alias, 301 to the apex)
 shop.print-fast.com.         A  31.220.49.107
 roas.print-fast.com.         A  31.220.49.107
 roas-server.print-fast.com.  A  31.220.49.107
 ```
+
+An alias gets its own vhost and joins its app's certificate. Never drop a
+hostname whose DNS still points here: without a vhost, HTTPS requests for it
+fall through to another server block and fail with a certificate name mismatch.
 
 Certbot is skipped (with a warning, not a failure) for any domain whose A record
 is missing or points elsewhere — the deploy still completes and the site stays
@@ -142,7 +148,10 @@ certbot certificates
 
 ## Legacy URLs
 
-The shop used to live at `marketing.print-fast.com/shop-print-fast/*`. The apex now serves the marketing site; the
+The marketing site used to live at `marketing.print-fast.com`; that hostname is
+now an alias that 301s to the same path on `https://print-fast.com`.
+
+The shop used to live at `marketing.print-fast.com/shop-print-fast/*`. The
 marketing vhost 301-redirects that whole prefix to `https://shop.print-fast.com/`
 (configured under `redirects` in `apps.json`), so old links and search rankings
-carry over.
+carry over — an old shop link takes one hop to the apex, then one to the shop.
