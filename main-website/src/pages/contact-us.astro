@@ -4,7 +4,6 @@ import SectionHeading from '@components/SectionHeading.astro';
 import ContactForm from '@components/ContactForm.astro';
 import CheckoutReadyCTA from '@components/CheckoutReadyCTA.tsx';
 import Lottie from '@components/Lottie.astro';
-import OfficeMap from '@components/OfficeMap.tsx';
 import { SITE } from '@data/site';
 
 const channels = [
@@ -21,13 +20,6 @@ const channels = [
     value: 'orders@print-fast.com',
     href: 'mailto:orders@print-fast.com',
     sub: 'Replies within 1 business day',
-  },
-  {
-    icon: 'fa-location-dot',
-    label: 'Visit us',
-    value: 'Lakewood, NJ',
-    href: `https://www.google.com/maps/dir/?api=1&destination=${SITE.address.lat},${SITE.address.lng}`,
-    sub: '315 Fourth Street, 08701',
   },
   {
     icon: 'fa-calendar-check',
@@ -101,7 +93,7 @@ const faqs = [
   <!-- Contact channels -->
   <section class="section-tight">
     <div class="container-pf">
-      <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <ul class="grid gap-4 sm:grid-cols-3">
         {channels.map((c) => (
           <li>
             <a href={c.href} class="card-hover p-6 block h-full">
@@ -174,58 +166,41 @@ const faqs = [
     </div>
   </section>
 
-  <!-- Map -->
+  <!-- A note from Bill -->
   <section class="section-tight">
     <div class="container-pf">
-      <SectionHeading
-        eyebrow="Find us"
-        title="Stop by our New Jersey HQ"
-        description="315 Fourth Street, Lakewood, NJ 08701 — about an hour from Newark Liberty International."
-      />
-      <div class="mt-10 grid lg:grid-cols-3 gap-6 items-stretch">
-        <div class="relative z-0 lg:col-span-2 rounded-3xl overflow-hidden ring-1 ring-ink-100 shadow-soft h-[420px] sm:h-[480px] bg-ink-50">
-          <OfficeMap
-            client:only="react"
-            lat={SITE.address.lat}
-            lng={SITE.address.lng}
-            company={SITE.address.company}
-            address={SITE.address.full}
-            phone={SITE.phone}
-            phoneHref={SITE.phoneHref}
+      <div class="card p-6 sm:p-10 grid md:grid-cols-12 gap-8 lg:gap-12 items-center" data-reveal>
+        <div class="md:col-span-4 min-w-0">
+          <img
+            src="https://ik.imagekit.io/PFdigitalmarketing/Bill_profile_pic.png"
+            alt="Bill, PrintFast"
+            class="mx-auto w-full max-w-xs h-auto rounded-3xl shadow-soft"
+            loading="lazy"
+            decoding="async"
           />
         </div>
-        <div class="card p-6 sm:p-8 flex flex-col gap-5">
-          <div>
-            <p class="eyebrow"><i class="fa-solid fa-location-dot text-brand-600"></i> Office</p>
-            <h3 class="mt-3 text-xl font-display font-bold text-ink-900">{SITE.address.company}</h3>
-            <p class="mt-2 text-ink-600 text-sm leading-relaxed">
-              {SITE.address.street}<br />
-              {SITE.address.city}, {SITE.address.state} {SITE.address.zip}<br />
-              {SITE.address.country}
-            </p>
-          </div>
-          <ul class="space-y-3 text-sm">
-            <li class="flex items-center gap-3">
-              <span class="grid h-9 w-9 place-items-center rounded-lg bg-brand-50 text-brand-600 flex-shrink-0"><i class="fa-solid fa-phone text-xs"></i></span>
-              <a href={SITE.phoneHref} class="font-semibold text-ink-900 hover:text-brand-700">{SITE.phone}</a>
-            </li>
-            <li class="flex items-center gap-3">
-              <span class="grid h-9 w-9 place-items-center rounded-lg bg-brand-50 text-brand-600 flex-shrink-0"><i class="fa-solid fa-envelope text-xs"></i></span>
-              <a href="mailto:orders@print-fast.com" class="font-semibold text-ink-900 hover:text-brand-700 break-all">orders@print-fast.com</a>
-            </li>
-            <li class="flex items-center gap-3">
-              <span class="grid h-9 w-9 place-items-center rounded-lg bg-brand-50 text-brand-600 flex-shrink-0"><i class="fa-solid fa-clock text-xs"></i></span>
-              <span class="text-ink-700">{SITE.hours}</span>
-            </li>
-          </ul>
-          <a
-            href={`https://www.google.com/maps/dir/?api=1&destination=${SITE.address.lat},${SITE.address.lng}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn-primary justify-center mt-auto"
-          >
-            Get directions <i class="fa-solid fa-arrow-right text-xs"></i>
-          </a>
+        <div class="md:col-span-8 min-w-0 space-y-4 text-ink-700 leading-relaxed">
+          <p>Hello,</p>
+          <p>
+            My name is <strong class="text-ink-900">Bill</strong>, and welcome to <strong class="text-ink-900">PrintFast</strong>.
+            We work exclusively with <strong class="text-ink-900">home service providers nationwide</strong>—including HVAC,
+            plumbing, electrical, and other residential service companies. Because we serve only this industry, we understand
+            the unique marketing challenges of keeping your company visible and your phones ringing.
+          </p>
+          <p>
+            Our approach is to <strong class="text-ink-900">coordinate your digital, direct mail, and print marketing</strong> so
+            homeowners see the same message and brand wherever they encounter your company. Whether they receive a postcard,
+            see your social media, visit your website, or receive an email, everything works together to keep your company in
+            front of the homeowner and reinforce your message.
+          </p>
+          <p>
+            I’d also invite you to schedule a <strong class="text-ink-900">complimentary, no-obligation 30-minute marketing call</strong>
+            with me. It’s a chance for us to learn a little about your company, talk about what you’re currently doing to generate
+            business, and share some ideas that may help. There’s <strong class="text-ink-900">no sales pitch and no obligation</strong>—just
+            a conversation about your marketing.
+          </p>
+          <p>Have a great day!</p>
+          <p class="font-bold text-ink-900">Bill</p>
         </div>
       </div>
     </div>

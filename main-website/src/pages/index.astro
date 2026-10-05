@@ -10,6 +10,14 @@ import CTA from '@components/CTA.astro';
 import ContactForm from '@components/ContactForm.astro';
 import ClientLogos from '@components/ClientLogos.astro';
 import { SERVICES } from '@data/site';
+import { shopHref } from '@data/shop';
+
+// Print and direct mail programs sold on the shop site, shown after the digital services.
+const printServices = [
+  { icon: 'fa-id-card', title: 'Membership Welcome Packets', href: shopHref('ceow-products'), description: 'High-impact onboarding essentials built to help you turn new maintenance-plan subscribers into loyal brand advocates—securing your agreements in a polished presentation that drives retention, keeps your business top-of-mind, and establishes you as the dominant local pro from day one.' },
+  { icon: 'fa-envelope-open-text', title: 'Postcards', href: shopHref('printfast-postcards'), description: 'Simply stated, if you do not ask for work you will not get any work. Sending postcards to your prospect market each month is the best way to build your brand awareness, so when homeowners need service, your name is top of mind.' },
+  { icon: 'fa-box-open', title: 'Homeowner Experience Packs', href: shopHref('homeowner-experience-packs'), description: 'Homeowner Experience Packs are a powerful tool designed to elevate every interaction your service experts have with homeowners. Presented at the very beginning of a visit, these packs immediately establish professionalism, trust, and value — setting your company apart from competitors who may only leave behind a single brochure.' },
+];
 
 const whyUs = [
   { icon: 'fa-trophy', title: 'Trades-only expertise', description: "35+ years of focused digital marketing work with HVAC, plumbing, electrical, roofing, lawn care, cleaning and home service contractors across the U.S. — we speak the trades, we don't just serve them." },
@@ -77,12 +85,20 @@ const whyUs = [
     <div class="container-pf">
       <SectionHeading
         eyebrow="What we do"
-        title="Digital Marketing Services Built for Home Service Contractors"
+        title="Digital, Direct Mail and Print Marketing for Home Service Contractors"
         description="A complete home service marketing stack tuned for the trades. Choose a single channel or combine SEO, PPC, social media, email, web and direct mail — every engagement starts with a strategy call, a market audit and a clear plan tied to booked jobs."
       />
 
       <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {SERVICES.map((s) => (
+          <ServiceCard
+            icon={s.icon}
+            title={s.title}
+            description={s.description}
+            href={s.href}
+          />
+        ))}
+        {printServices.map((s) => (
           <ServiceCard
             icon={s.icon}
             title={s.title}

@@ -6,8 +6,10 @@ import { getContactHref } from '@data/pricing';
 const contactHref = getContactHref('digital-marketing-services');
 
 // Original PrintFast image assets (served from the same CDN/S3 the live store uses).
-const HERO_IMG =
-  'https://nklopsouqd.s3.us-west-1.amazonaws.com/printfast/images/common/YT-banner-DMP-2024_1_.png?1727429122';
+// Browsers only autoplay muted video; YouTube loops a single video only when it is
+// also listed as its own playlist.
+const HERO_VIDEO_ID = 'RgD9IrjGchE';
+const HERO_VIDEO = `https://www.youtube.com/embed/${HERO_VIDEO_ID}?autoplay=1&mute=1&loop=1&playlist=${HERO_VIDEO_ID}&controls=0&playsinline=1&rel=0&modestbranding=1`;
 const STAGING = 'https://nklopsouqd.s3.us-west-1.amazonaws.com/stagingpr/images/common';
 
 const features = [
@@ -176,14 +178,16 @@ const faqs = [
         </div>
 
         <div class="relative" data-reveal>
-          <img
-            src={HERO_IMG}
-            alt="Direct Mail PLUS mail marketing campaign across mailbox and social media"
-            class="mx-auto h-auto w-full max-w-xl rounded-2xl shadow-glow"
-            loading="eager"
-            decoding="async"
-            fetchpriority="high"
-          />
+          <div class="mx-auto aspect-video w-full max-w-xl overflow-hidden rounded-2xl bg-black shadow-glow">
+            <iframe
+              src={HERO_VIDEO}
+              title="Direct Mail PLUS mail marketing campaign across mailbox and social media"
+              class="h-full w-full"
+              allow="autoplay; encrypted-media; picture-in-picture"
+              allowfullscreen
+              loading="eager"
+            ></iframe>
+          </div>
         </div>
       </div>
     </div>
@@ -204,15 +208,14 @@ const faqs = [
       <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {features.map((f) => (
           <div class="flex flex-col items-center rounded-2xl bg-white p-8 text-center ring-1 ring-ink-100 shadow-soft transition-all hover:-translate-y-1 hover:ring-[#ED1C24]/40" data-reveal>
-            <img
-              src={f.img}
-              alt={f.title}
-              width="96"
-              height="96"
-              class="h-20 w-20 object-contain"
-              loading="lazy"
-              decoding="async"
-            />
+            <!-- The source PNGs are green; masking them over a solid fill renders the same
+                 artwork in the theme red used by the How It Works step badges. -->
+            <span
+              role="img"
+              aria-label={f.title}
+              class="block h-20 w-20 bg-[#ED1C24]"
+              style={`-webkit-mask: url('${f.img}') center / contain no-repeat; mask: url('${f.img}') center / contain no-repeat;`}
+            ></span>
             <h3 class="mt-5 text-base font-extrabold uppercase tracking-wide text-[#0f2747]">{f.title}</h3>
             <p class="mt-2 text-sm leading-relaxed text-ink-600">{f.description}</p>
           </div>
