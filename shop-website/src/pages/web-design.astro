@@ -4,6 +4,9 @@ import { shopHref } from '@data/shop';
 import { getContactHref } from '@data/pricing';
 import WebsitePlans from '@components/WebsitePlans.astro';
 import ContactForm from '@components/ContactForm.astro';
+import { showPricing } from '@config/feature-flags';
+
+const pricingVisible = showPricing('shop/web-design');
 
 const contactHref = getContactHref('digital-marketing-services');
 
@@ -152,12 +155,14 @@ const faqs = [
             >
               Contact Us <i class="fa-solid fa-arrow-right text-xs"></i>
             </a>
+            {pricingVisible && (
             <a
               href="#plans"
               class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
             >
               View Plans
             </a>
+            )}
           </div>
         </div>
 
@@ -204,7 +209,7 @@ const faqs = [
   </section>
 
   <!-- ===================== PRICING PLANS ===================== -->
-  <WebsitePlans id="plans" class="bg-ink-50/60" />
+  {pricingVisible && <WebsitePlans id="plans" class="bg-ink-50/60" />}
 
   <!-- ===================== WP ENGINE PARTNERSHIP ===================== -->
   <section class="section">

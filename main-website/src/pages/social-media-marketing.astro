@@ -3,6 +3,9 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import ContactForm from '@components/ContactForm.astro';
 import { SOCIAL_MEDIA_PLANS, getContactHref } from '@data/pricing';
 import { TESTIMONIALS, CLIENT_LOGOS } from '@data/site';
+import { showPricing } from '@config/feature-flags';
+
+const pricingVisible = showPricing('main/social-media-marketing');
 
 const trustItems = ['Built for HVAC, Plumbing & Home Services', 'Done-for-you social media', 'Free strategy call'];
 
@@ -178,9 +181,11 @@ const rowB = rotate(CLIENT_LOGOS, Math.floor(CLIENT_LOGOS.length / 2));
           <a href={getContactHref('managed-social-media')} class={btnPrimary}>
             Get My Social Media Proposal <i class="fa-solid fa-arrow-right text-xs"></i>
           </a>
+          {pricingVisible && (
           <a href="#pricing" class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10">
             See pricing
           </a>
+          )}
         </div>
 
         <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
@@ -283,6 +288,7 @@ const rowB = rotate(CLIENT_LOGOS, Math.floor(CLIENT_LOGOS.length / 2));
   </section>
 
   <!-- ===================== PRICING ===================== -->
+  {pricingVisible && (
   <section id="pricing" class="section bg-ink-50/60">
     <div class="container-pf">
       <div class="mx-auto max-w-3xl text-center" data-reveal>
@@ -337,6 +343,7 @@ const rowB = rotate(CLIENT_LOGOS, Math.floor(CLIENT_LOGOS.length / 2));
       </div>
     </div>
   </section>
+  )}
 
   <!-- ===================== PROCESS ===================== -->
   <section class="section">
@@ -498,6 +505,7 @@ const rowB = rotate(CLIENT_LOGOS, Math.floor(CLIENT_LOGOS.length / 2));
     </div>
   </section>
 
+  {pricingVisible && (
   <section class="section-tight pt-0">
     <div class="container-pf">
       <div class="rounded-2xl bg-[#0f2747] p-6 text-sm leading-relaxed text-white/80 ring-1 ring-white/10 shadow-soft sm:p-8" data-reveal>
@@ -507,4 +515,5 @@ const rowB = rotate(CLIENT_LOGOS, Math.floor(CLIENT_LOGOS.length / 2));
       </div>
     </div>
   </section>
+  )}
 </BaseLayout>

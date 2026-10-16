@@ -8,6 +8,9 @@ import Testimonials from '@components/Testimonials.astro';
 import CTA from '@components/CTA.astro';
 import ContactForm from '@components/ContactForm.astro';
 import { getContactHref } from '@data/pricing';
+import { showPricing } from '@config/feature-flags';
+
+const pricingVisible = showPricing('main/email-marketing');
 import ClientLogos from '@components/ClientLogos.astro';
 import { SITE } from '@data/site';
 
@@ -186,7 +189,7 @@ const localBusinessSchema = {
     highlight="Drives Repeat Revenue"
     description="Done-for-you email marketing for home service companies — strategy, copy, design, automations and deliverability — engineered to quietly compound revenue and become a top-three channel for HVAC, plumbing, electrical and home improvement businesses across the U.S."
     primaryCta={{ label: 'Request an Email Marketing Proposal', href: '/contact-us/' }}
-    secondaryCta={{ label: 'See pricing', href: '#pricing' }}
+    secondaryCta={pricingVisible ? { label: 'See pricing', href: '#pricing' } : undefined}
     trustItems={['No long-term contracts', 'Specialists in Home Service Email Marketing', 'Free strategy call for contractors']}
   />
 

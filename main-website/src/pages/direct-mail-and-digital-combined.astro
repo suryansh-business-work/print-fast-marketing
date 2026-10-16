@@ -9,6 +9,9 @@ import CTA from '@components/CTA.astro';
 import ContactForm from '@components/ContactForm.astro';
 import ClientLogos from '@components/ClientLogos.astro';
 import { getContactHref } from '@data/pricing';
+import { showPricing } from '@config/feature-flags';
+
+const pricingVisible = showPricing('main/direct-mail-and-digital-combined');
 
 const proofPoints = [
   { stat: '2.1×', label: 'higher conversion rates when digital campaigns are combined with direct mail postcards (Source: ANA/DMA Study)' },
@@ -198,7 +201,7 @@ const faqs = [
     highlight="Local Territory Dominance"
     description="Stop choosing between physical mailers and online ads. PrintFast merges targeted direct mail postcards with matching search and social media campaigns to target the exact same high-value local homeowners in print and on their devices simultaneously. Experience the powerful dynamic synergy of combined digital and print marketing!"
     primaryCta={{ label: 'Get a Coordinated Campaign Proposal', href: getContactHref('direct-mail-digital-combined') }}
-    secondaryCta={{ label: 'View Plans & Pricing', href: '#pricing' }}
+    secondaryCta={pricingVisible ? { label: 'View Plans & Pricing', href: '#pricing' } : undefined}
     imageSrc="/images/direct-mail-digital.png"
     trustItems={['All-in-one print, post & digital design', 'Targeted mailing list included', 'Custom trackable QR codes']}
   />
@@ -267,6 +270,7 @@ const faqs = [
   </section>
 
   <!-- Pricing Cards -->
+  {pricingVisible && (
   <section id="pricing" class="section">
     <div class="container-pf">
       <SectionHeading
@@ -284,6 +288,7 @@ const faqs = [
       </div>
     </div>
   </section>
+  )}
 
   <!-- Comprehensive Capabilities Breakdown -->
   <section class="section bg-ink-50/60">

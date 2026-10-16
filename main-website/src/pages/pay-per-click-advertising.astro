@@ -8,6 +8,9 @@ import Testimonials from '@components/Testimonials.astro';
 import CTA from '@components/CTA.astro';
 import ContactForm from '@components/ContactForm.astro';
 import { getContactHref } from '@data/pricing';
+import { showPricing } from '@config/feature-flags';
+
+const pricingVisible = showPricing('main/pay-per-click-advertising');
 import ClientLogos from '@components/ClientLogos.astro';
 import { SITE } from '@data/site';
 
@@ -97,13 +100,13 @@ const plans = [
 const faqs = [
   { q: 'What is the minimum ad spend for home service PPC advertising?',
     a: 'For local Google Search Ads and Local Services Ads (LSA), we recommend a minimum of $1,500–$2,500/month of ad spend to gather enough conversion data for meaningful optimization. Below that threshold, home service SEO and email marketing typically deliver a stronger return on investment.',
-    link: { label: 'Review PPC plans', href: '#pricing' } },
+    link: pricingVisible ? { label: 'Review PPC plans', href: '#pricing' } : undefined },
   { q: 'Do I own my Google Ads and Meta ad accounts when working with PrintFast?',
     a: "Yes — always. We build every campaign inside your Google Ads, Meta Business Manager, Microsoft Advertising and TikTok for Business accounts. You retain full admin access at all times and can revoke our access immediately if needed. There is no platform lock-in and no proprietary account structures you can't take with you.",
     link: { label: "See what's included", href: '#included' } },
   { q: 'Does PrintFast mark up ad spend or take a percentage of my Google Ads budget?',
     a: 'No — never. All ad spend is billed directly by Google, Meta, Microsoft and TikTok to your card. We never handle your ad budget or add a markup. The only payment you make to PrintFast is our transparent monthly PPC management fee.',
-    link: { label: 'Compare pricing', href: '#pricing' } },
+    link: pricingVisible ? { label: 'Compare pricing', href: '#pricing' } : undefined },
   { q: 'How quickly will I see leads from Google Ads and Local Services Ads?',
     a: "Google Search Ads and Local Services Ads (LSA) typically generate qualified contractor leads within 7–14 days of campaign launch. Meta Ads and YouTube campaigns generally take 3–4 weeks to fully optimize through the learning phase. We share weekly leading indicators — impressions, calls, CPL — so you're never in the dark.",
     link: { label: 'View the launch process', href: '#process' } },
@@ -199,7 +202,7 @@ const localBusinessSchema = {
     highlight="real lead value — not vanity clicks."
     description="Our home service paid-media team manages Google Ads, Local Services Ads (LSAs), Meta ads, and Bing ads for HVAC, plumbing and home service contractors. You own the ad accounts, every data point and every dollar of ad spend — zero markup, zero lock-in."
     primaryCta={{ label: 'Get My Free PPC Proposal', href: '/contact-us/' }}
-    secondaryCta={{ label: 'See pricing', href: '#pricing' }}
+    secondaryCta={pricingVisible ? { label: 'See pricing', href: '#pricing' } : undefined}
     trustItems={['No long-term contracts', 'Built for HVAC, Plumbing & Home Services', 'Free PPC strategy call']}
     banner={{
       src: 'https://ik.imagekit.io/PFdigitalmarketing/PPC/PPC_banner_image',
@@ -329,6 +332,7 @@ const localBusinessSchema = {
   </section>
 
   <!-- Pricing -->
+  {pricingVisible && (
   <section id="pricing" class="section bg-ink-50/60">
     <div class="container-pf">
       <SectionHeading
@@ -344,6 +348,7 @@ const localBusinessSchema = {
       </p>
     </div>
   </section>
+  )}
 
   <!-- FAQ -->
   <section class="section">

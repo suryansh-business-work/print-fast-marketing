@@ -3,6 +3,9 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import SectionHeading from '@components/SectionHeading.astro';
 import { SITE } from '@data/site';
 import { SOCIAL_MEDIA_PLANS, getContactHref } from '@data/pricing';
+import { showPricing } from '@config/feature-flags';
+
+const pricingVisible = showPricing('main/complete-social-media-plan');
 
 const planMeta = [
   { bestFor: 'Startups & small businesses', setup: '$999.99 waived for annual plans', posts: '8', boost: '2 boosted posts + $100 boost spend', accent: 'bg-brand-600' },
@@ -109,13 +112,14 @@ const industries = [
           Compare the full PrintFast social growth system: plan pricing, setup fees, included services, monthly posts, boosted post budgets, add-ons and supported home-service industries.
         </p>
         <div class="mt-8 flex flex-wrap gap-3">
-          <a href="#plan-matrix" class="btn-primary">Compare plans <i class="fa-solid fa-arrow-down text-xs"></i></a>
+          {pricingVisible && <a href="#plan-matrix" class="btn-primary">Compare plans <i class="fa-solid fa-arrow-down text-xs"></i></a>}
           <a href={getContactHref('managed-social-media')} class="btn-outline">Talk to a strategist <i class="fa-solid fa-arrow-right text-xs"></i></a>
         </div>
       </div>
     </div>
   </section>
 
+  {pricingVisible && (<>
   <section class="section-tight border-y border-ink-100 bg-white">
     <div class="container-pf">
       <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -227,6 +231,7 @@ const industries = [
       </div>
     </div>
   </section>
+  </>)}
 
   <section class="section-tight bg-ink-900 text-white">
     <div class="container-pf">
