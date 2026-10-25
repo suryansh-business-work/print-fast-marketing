@@ -1,0 +1,1572 @@
+---
+import LandingLayout from '@layouts/LandingLayout.astro';
+import { SITE } from '@data/site';
+import { mainHref } from '@config/sites';
+// The design's clock icon is Font Awesome's outline ("regular") style, which
+// the site-wide bundle leaves out; only this page pays for it.
+import '@fortawesome/fontawesome-free/css/regular.min.css';
+
+// ---------------------------------------------------------------------------
+// Campaign window. The urgency bar and its countdown badge both read from
+// here, so next season is a one-line change.
+// ---------------------------------------------------------------------------
+const APPROVAL_DEADLINE = '2026-11-13'; // Friday, Nov. 13 (Eastern time)
+const DEADLINE_LABEL = 'Friday, Nov. 13';
+
+/** Whole calendar days from today (in Eastern time) until `isoDate`. */
+const daysUntil = (isoDate: string, now = new Date()) => {
+  const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York' }).format(now);
+  return Math.round((Date.parse(isoDate) - Date.parse(today)) / 86_400_000);
+};
+
+const countdownLabel = (days: number) =>
+  days > 1 ? `(${days} days left)` : days === 1 ? '(1 day left)' : days === 0 ? '(Last day)' : '';
+
+const initialCountdown = countdownLabel(daysUntil(APPROVAL_DEADLINE));
+
+// Shared class strings. None of them sets a colour or size that a call site
+// overrides, so two utilities never compete for the same property.
+const wrap = 'mx-auto w-full max-w-[1200px] px-4 sm:px-6';
+const sectionMuted = 'border-y border-ink-100 bg-ink-50 py-9';
+const eyebrow =
+  'inline-flex items-center gap-2 rounded-full py-[5px] pl-[11px] pr-3 text-xs font-bold uppercase leading-4 tracking-[0.18em]';
+const eyebrowLight = `${eyebrow} bg-brand-100 text-brand-700`;
+const h2 = 'mt-4 text-[2rem] font-bold leading-[1.2] tracking-[-0.03em] sm:text-[2.5rem] lg:text-[48px]';
+const intro = 'mt-6 max-w-[704px] text-[17px] leading-[1.6] sm:text-[18px]';
+const cardShadow = 'shadow-[0_10px_30px_rgba(237,28,36,0.07)]';
+const card = `rounded-2xl border border-ink-100 bg-white ${cardShadow}`;
+const iconTile = 'grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-brand-50 text-[22.4px] text-brand-600';
+const cardTitle = 'text-xl font-bold leading-[1.4] tracking-[-0.02em] text-ink-900';
+const smallTitle = 'text-[1.1rem] font-bold leading-[1.36] tracking-[-0.02em] text-ink-900';
+const cardBody = 'text-[0.98rem] leading-[1.5] text-ink-600';
+const btnBase =
+  'inline-flex items-center justify-center gap-2 rounded-md text-sm font-extrabold uppercase tracking-[0.025em] transition active:translate-y-px';
+const btnRedBase = `${btnBase} bg-brand-500 text-white shadow-[0_10px_30px_rgba(237,28,36,0.25)] hover:bg-brand-600`;
+const btn = `${btnBase} h-12 px-6`;
+const btnRed = `${btnRedBase} h-12 px-6`;
+const link = 'text-brand-700 underline underline-offset-[3px] hover:text-brand-800';
+
+const PLAN = '#plan';
+
+const heroPoints = [
+  { text: 'Owner-occupied homes only, filtered by home age and value. No apartments, no renters.' },
+  {
+    text: 'Optional "check your mailbox" ads that go live with your drop: Meta only, ChatGPT only or a mix that fits your budget.',
+    link: { label: 'See how Mailbox Sync works', href: '#mailbox-sync' },
+  },
+  { text: 'A custom QR code on every card, plus a simple way to see what booked using the CRM you already run.' },
+];
+
+const trades = [
+  'HVAC',
+  'Plumbing',
+  'Electrical',
+  'Roofing',
+  'Landscaping',
+  'Pest control',
+  'Painting',
+  'House cleaning',
+  'Fencing',
+  'Pool',
+  'Garage door',
+  'Other home service',
+];
+
+const landingWindows = [
+  { label: 'First week of Dec.', value: 'First week of December', checked: true },
+  { label: 'Right after New Year', value: 'Right after New Year' },
+  { label: 'Spring push', value: 'Spring push' },
+  { label: 'Not sure yet', value: 'Not sure yet' },
+];
+
+const adChannels = [
+  { label: 'Meta (Facebook, Instagram)', value: 'Meta (Facebook, Instagram)' },
+  { label: 'Google and YouTube', value: 'Google and YouTube' },
+  { label: 'ChatGPT ads', value: 'ChatGPT ads' },
+  { label: 'Just the mail for now', value: 'Just the mail for now', mailOnly: true },
+];
+
+const adSpend = ['Not sure yet', 'Under $500', '$500 to $1,000', '$1,000 to $2,500', '$2,500 to $5,000', '$5,000+'];
+
+const calculatorFields = [
+  { id: 'calc-homes', label: 'Homes mailed per drop', value: 5000, min: 100, max: 1000000, step: 100 },
+  {
+    id: 'calc-rate',
+    label: 'Response rate (%)',
+    hint: 'ANA prospect-list range is roughly 2 to 5%. We start you at 2.',
+    value: 2,
+    min: 0,
+    max: 100,
+    step: 0.1,
+  },
+  { id: 'calc-close', label: 'Calls that turn into a sold job (%)', value: 40, min: 0, max: 100, step: 1 },
+  {
+    id: 'calc-ticket',
+    label: 'Average ticket ($)',
+    hint: 'Blend repairs, tune-ups and the occasional change-out.',
+    value: 650,
+    min: 0,
+    max: 1000000,
+    step: 10,
+  },
+];
+
+const steps = [
+  {
+    n: '01',
+    icon: 'fa-map-location-dot',
+    title: 'Pick your turf',
+    text: 'You name the towns. We build the list: owner-occupied homes only, filtered by home age and value so the card lands where the work and the wallets are.',
+  },
+  {
+    n: '02',
+    icon: 'fa-pen-ruler',
+    title: 'We build the card and the ads',
+    text: 'Design, copy and offer written for your trade and season, plus social and search ads that match it, so the homeowner recognizes you on sight.',
+  },
+  {
+    n: '03',
+    icon: 'fa-envelopes-bulk',
+    title: 'Drops land, ads go live',
+    text: 'We print, pay postage and mail. If you added Mailbox Sync, your ads switch on around your in-home date. Then we hit the same homes again.',
+  },
+  {
+    n: '04',
+    icon: 'fa-qrcode',
+    title: 'Your CRM keeps score',
+    text: 'Every card gets a custom QR code to your campaign page or any link you choose. Have your CSRs tag postcard calls in ServiceTitan, Housecall Pro or whatever you run, then send us the results so we can sharpen the next drop.',
+  },
+];
+
+const channels = [
+  {
+    icon: 'fa-brands fa-meta',
+    title: 'Facebook and Instagram',
+    text: 'Feed, Stories and Reels ads in your mail towns, built from the same list where the platform allows and the same ZIP codes everywhere else.',
+    link: { label: 'More on social ads', href: mainHref('/social-media-marketing/') },
+  },
+  {
+    icon: 'fa-brands fa-google',
+    title: 'Google Search, Display and YouTube',
+    text: 'Catch the homeowner who reads your card, then searches your trade and town. Your ad is waiting at the top.',
+    link: { label: 'More on Google Ads', href: mainHref('/pay-per-click-advertising/') },
+  },
+  {
+    icon: 'fa-solid fa-comment-dots',
+    title: 'ChatGPT ads',
+    badge: 'New',
+    text: 'Homeowners now ask ChatGPT who to call. Sponsored placements put your company in those conversations about your trade, and the platform only opened to small advertisers in 2026, so early movers get the room.',
+    highlight: true,
+  },
+  {
+    icon: 'fa-solid fa-arrows-rotate',
+    title: 'Follow-up ads',
+    text: "Anyone who scans the card's QR code or visits your campaign page sees your offer again until they book or the deadline passes.",
+  },
+];
+
+const mixes = [
+  {
+    tag: 'Mail only',
+    title: 'Postcards, no ads',
+    text: 'The list, design, print, postage and a custom QR code. A strong start when every dollar has to go into the mailbox.',
+  },
+  {
+    tag: 'Mail + Meta',
+    title: 'Facebook and Instagram',
+    text: 'The most common first add-on. Puts the card in front of neighbors on the apps they already scroll, before and after it lands.',
+  },
+  {
+    tag: 'Mail + ChatGPT',
+    title: 'ChatGPT ads',
+    text: 'For the shop that wants to be first in the newest place homeowners ask who to call, while few local competitors are there.',
+  },
+  {
+    tag: 'Mail + the full mix',
+    title: 'Meta, Google and ChatGPT',
+    text: 'All three waves on every channel. The heaviest coverage for a big drop or a market you want to own this winter.',
+  },
+];
+
+const comparison = [
+  {
+    label: 'Who gets it',
+    eddm: 'Every door on the carrier route, renters and apartments included',
+    shared: 'A homeowner who is often shopping several contractors at once',
+    printfast: 'Owner-occupied homes in the towns you pick',
+  },
+  { label: 'Target by home age or value', eddm: 'No', shared: 'No', printfast: 'Yes' },
+  {
+    label: 'Repeat touches',
+    eddm: 'Only if you rebuy the route',
+    shared: 'One shot per lead',
+    printfast: 'Multiple drops plus ads between them',
+  },
+  {
+    label: 'Shows up on their phone',
+    eddm: 'No',
+    shared: 'No',
+    printfast: 'Optional Meta, Google or ChatGPT ads timed to the drop',
+  },
+  {
+    label: 'Measuring results',
+    eddm: 'Hard to prove',
+    shared: 'Per lead',
+    printfast: 'Custom QR code and offer code you tag in your CRM',
+  },
+  { label: 'Who owns the relationship', eddm: 'You', shared: 'The platform', printfast: 'You, from the first call on' },
+];
+
+const mistakes = [
+  {
+    title: 'Mailing renters',
+    text: 'Saturation mail hits apartments and rentals. Those folks call the landlord, not you.',
+  },
+  {
+    title: 'One and done',
+    text: 'A single drop is a coin flip. Response builds on the second and third touch, when they finally need you.',
+  },
+  {
+    title: 'No offer, no deadline',
+    text: '"Family owned since 1998" isn\'t a reason to call today. A seasonal offer with an end date is.',
+  },
+  {
+    title: 'No way to measure it',
+    text: 'If nobody logs an offer code or asks "how\'d you hear about us?", you\'ll never know which card paid for itself. Put a code on the card and tag it in your CRM.',
+  },
+  {
+    title: "Ads that don't match the card",
+    text: 'Different look, different offer, different message. The homeowner never connects the two, so you paid twice for zero recognition.',
+  },
+];
+
+const calendar = [
+  {
+    when: 'Now through mid-November',
+    text: 'Lock your towns, pull real homeowner counts, approve the card and the matching ads.',
+  },
+  {
+    when: 'First week of December',
+    text: "Drop one lands. Ads go live in the same ZIP codes. You're the name on the fridge before the cold snap.",
+  },
+  {
+    when: 'December 17',
+    text: "USPS's recommended last day to send First-Class Mail for delivery before Christmas in 2026. Waiting until here means you're competing with every holiday card in the country.",
+  },
+  {
+    when: 'Right after New Year',
+    text: 'Drop two hits exactly when the dead zone starts and homeowners are staring at the furnace, the water heater and the to-do list.',
+  },
+  {
+    when: 'February',
+    text: "Drop three. This is the one that books your spring before your competitor's first card even prints.",
+  },
+];
+
+const tradeCards = [
+  {
+    icon: 'fa-fire-flame-curved',
+    title: 'HVAC',
+    text: 'Furnace tune-ups before the first real freeze, no-heat priority service, and change-out financing for 15-year-old systems.',
+  },
+  {
+    icon: 'fa-faucet-drip',
+    title: 'Plumbing',
+    text: 'Frozen pipe prevention, water heater flush or replace, and sewer camera inspections before the ground freezes.',
+  },
+  {
+    icon: 'fa-bolt',
+    title: 'Electrical',
+    text: 'Standby generator installs, panel upgrades for older homes, and safety inspections before holiday loads.',
+  },
+  {
+    icon: 'fa-house-chimney',
+    title: 'Roofing',
+    text: 'Ice dam and leak checks now, plus "book your spring roof at winter pricing" to fill March and April.',
+  },
+  {
+    icon: 'fa-leaf',
+    title: 'Landscaping',
+    text: 'Snow removal contracts for the season and early-bird spring cleanup and mowing sign-ups.',
+  },
+  {
+    icon: 'fa-bug',
+    title: 'Pest Control',
+    text: 'Rodent exclusion as critters move indoors, plus a year-round protection plan.',
+  },
+  {
+    icon: 'fa-paint-roller',
+    title: 'Painting',
+    text: 'Interior projects while exteriors are on pause, and early booking for spring exterior slots.',
+  },
+  {
+    icon: 'fa-screwdriver-wrench',
+    title: 'Cleaning, Fencing, Pool and more',
+    text: 'Holiday deep cleans, winter fence repair, pool closing and spring opening reservations. Every trade has a winter angle.',
+  },
+];
+
+const proof = [
+  { lead: 'Owner-occupied targeting, not EDDM.', text: 'Filter by town, ZIP, home age and home value.' },
+  { lead: 'Design, copy, print and postage bundled.', text: 'No surprise line items when the drop goes out.' },
+  { lead: 'Matching ads built from your card.', text: 'Same look and offer across mailbox and phone.' },
+  { lead: 'Month-to-month.', text: 'We recommend three months because repeat touches are what drive response.' },
+  { lead: 'Plan in one business day.', text: 'Real counts and a mockup, not a generic rate sheet.' },
+];
+
+const LOGO_BASE = 'https://dqj17tese79do.cloudfront.net/printfast/images/common';
+const logos = [
+  { file: 'gold_medal.png', name: 'Gold Medal Service' },
+  { file: 'mr_sparky.png', name: 'Mister Sparky' },
+  { file: 'clockwork.png', name: 'Clockwork Heating and Air Conditioning' },
+  { file: 'service_experts.png', name: 'Service Experts' },
+  { file: 'roto_rooter.png', name: 'Roto-Rooter' },
+  { file: 'all_hours_air.png', name: 'All Hours Air' },
+  { file: 'plumbing_masters.png', name: 'Plumbing Masters' },
+  { file: 'friendly.png', name: 'Friendly Home Services' },
+  { file: 'easy_rooter.png', name: 'Easy Rooter' },
+  { file: 'absolute.png', name: 'Absolute Comfort' },
+  { file: 'one_source.png', name: 'One Source Home Service' },
+  { file: 'comfort_control.png', name: 'Comfort Control' },
+];
+
+// `answer` is plain text (it also feeds the FAQPage schema). When `link` is set,
+// that phrase inside the answer renders as a link on the page.
+const faqs: { question: string; answer: string; link?: { text: string; href: string } }[] = [
+  {
+    question: 'Does direct mail still work for home service contractors?',
+    answer:
+      'Yes, when it reaches the right homes. The ANA Response Rate Report places prospect-list direct mail at roughly 2 to 5% response, and its 2024 edition reported a 112% median ROI for direct mail versus 93% for paid search. What separates the shops that win is mailing owner-occupied homes, mailing more than once, and logging postcard calls in your CRM so you know what booked.',
+  },
+  {
+    question: 'When should I mail my winter postcards?',
+    answer:
+      'Approve your card in early to mid-November so drop one lands the first week of December, ahead of holiday card traffic. Hit the same homes again right after New Year and once more in February. USPS recommends sending First-Class Mail by December 17, 2026 for delivery before Christmas, so waiting that long puts you in the busiest mailbox of the year.',
+  },
+  {
+    question: 'Is EDDM or a targeted list better for a contractor?',
+    answer:
+      "For most home service companies, a targeted owner-occupied list. EDDM mails every door on a route, including renters and apartments who can't approve a furnace, water heater or roof. A targeted list filters by owner-occupied status, home age and home value, so every card goes to someone who can actually say yes.",
+  },
+  {
+    question: 'How many postcards should my company send?',
+    answer:
+      'Mail fewer homes more often instead of more homes once. A common starting point is 2,500 to 5,000 owner-occupied homes in your best ZIP codes, mailed at least three times over the season, with matching ads running in the same area between drops. Your Territory Plan shows the real homeowner counts for your towns.',
+  },
+  {
+    question: 'How do I know which jobs came from the postcard?',
+    answer:
+      'Your CRM is the scoreboard. Every card carries a custom QR code to your campaign page (or any link you want) and an offer code. Have your CSRs tag those calls and jobs in ServiceTitan, Housecall Pro, Jobber or whatever you use, then send us the numbers so we can tune the next drop around what actually booked. Rather have us pull the numbers? Give us access to your CRM and we will.',
+  },
+  {
+    question: 'What does "direct mail plus digital" actually mean?',
+    answer:
+      'The homeowner pulls your postcard from the mailbox, then sees a matching ad with the same look and offer on Facebook, Instagram or Google that same week. Two sightings in two places builds recognition, so when something breaks, your name is already the one they know.',
+  },
+  {
+    question: 'When do the ads start compared to the postcard?',
+    answer:
+      'Mailbox Sync runs in three waves around your in-home date: teaser ads 2 to 3 days before the card lands ("keep an eye on your mailbox"), offer ads the week it lands ("did you get your neighborhood offer?"), and deadline and follow-up ads until the offer ends. The ads use the same design and offer as the card so homeowners connect the two.',
+  },
+  {
+    question: 'How much do the ads cost on top of the mail?',
+    answer:
+      'Mailbox Sync is optional and billed in two parts: an ad management fee (strategy, ads built from your card, wave timing, launch, and sharing the ad platform results) and the ad spend the platforms charge, which you choose and fund up front so the ads go live on schedule. You can run Meta only, ChatGPT only, Google, or a mix. Your free Territory Plan shows the fee and a recommended spend for your towns before you commit.',
+  },
+  {
+    question: 'Can you run ChatGPT ads for my company?',
+    answer:
+      'Yes. ChatGPT opened self-serve ads to smaller advertisers in 2026, and homeowners increasingly ask it who to call for repairs. We set up sponsored placements on conversations about your trade, match the message to your postcard offer, and send clicks to your campaign landing page. You can run it on its own or alongside Facebook, Instagram and Google.',
+  },
+  {
+    question: 'Am I locked into a long contract?',
+    answer:
+      'No. Combined print and digital plans run month-to-month. We recommend at least three months because repeat touches are what move response.',
+  },
+  {
+    question: 'Which trades do you work with?',
+    answer:
+      'HVAC, plumbing, electrical, roofing, landscaping, pest control, painting, fencing, house cleaning, pool, garage door and other home service businesses across the U.S. See the full direct mail and digital combined service for details.',
+    link: { text: 'direct mail and digital combined service', href: mainHref('/direct-mail-and-digital-combined/') },
+  },
+];
+
+const footerServices = [
+  { label: 'Direct Mail and Digital Combined', href: mainHref('/direct-mail-and-digital-combined/') },
+  { label: 'Google Ads and PPC for Contractors', href: mainHref('/pay-per-click-advertising/') },
+  { label: 'Social Media Marketing for Contractors', href: mainHref('/social-media-marketing/') },
+  { label: 'SEO for Home Service Companies', href: mainHref('/search-engine-optimization/') },
+  { label: 'Email Marketing for Contractors', href: mainHref('/email-marketing/') },
+];
+
+const footerCompany = [
+  { label: 'Who We Are', href: mainHref('/who-we-are/') },
+  { label: 'Contact', href: mainHref('/contact-us/') },
+  { label: 'Privacy Policy', href: mainHref('/privacy-policy/') },
+  { label: 'Terms of Use', href: mainHref('/terms-of-use/') },
+];
+
+// Decorative QR-style pattern for the sample postcard: three finder squares and
+// seeded noise, so it reads as a QR code at a glance without encoding anything.
+const QR_SIZE = 21;
+const qrPath = (() => {
+  let seed = 7;
+  const rand = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+  const finders = [
+    [0, 0],
+    [QR_SIZE - 7, 0],
+    [0, QR_SIZE - 7],
+  ];
+  let d = '';
+  for (let y = 0; y < QR_SIZE; y++) {
+    for (let x = 0; x < QR_SIZE; x++) {
+      const finder = finders.find(([fx, fy]) => x >= fx - 1 && x <= fx + 7 && y >= fy - 1 && y <= fy + 7);
+      let on: boolean;
+      if (finder) {
+        const ring = Math.max(Math.abs(x - finder[0] - 3), Math.abs(y - finder[1] - 3));
+        on = ring !== 2 && ring <= 3;
+      } else {
+        on = rand() > 0.52;
+      }
+      if (on) d += `M${x} ${y}h1v1h-1z`;
+    }
+  }
+  return d;
+})();
+
+const year = new Date().getFullYear();
+---
+
+<LandingLayout
+  title="Direct Mail + Digital for Home Service Contractors | Free Territory Plan"
+  description="Fill your board before the January dead zone. Postcards to owner-occupied homes in the towns you pick, plus optional Facebook, Instagram, Google or ChatGPT ads timed to the day your card lands. Free Territory Plan in one business day."
+  keywords={[
+    'direct mail for contractors',
+    'direct mail and social media marketing',
+    'HVAC postcards',
+    'home service direct mail',
+    'EDDM alternative',
+    'owner-occupied mailing list',
+    'Mailbox Sync ads',
+    'ChatGPT ads for contractors',
+    'winter postcard marketing',
+    'PrintFast',
+  ]}
+  faqs={faqs.map(({ question, answer }) => ({ question, answer }))}
+>
+  <Fragment slot="header">
+    <!-- Urgency bar -->
+    <div class="bg-ink-900">
+      <p class={`${wrap} flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1 py-2.5 text-center text-[13px] leading-[21px] text-ink-100 sm:text-[14px]`}>
+        <span>
+          Winter mail slots are filling. <strong class="font-bold text-white">Approve your card by {DEADLINE_LABEL}</strong> to land in mailboxes the first week of December.
+        </span>
+        <span
+          data-countdown
+          data-deadline={APPROVAL_DEADLINE}
+          hidden={!initialCountdown}
+          class="rounded-full bg-brand-500 px-2.5 py-[3px] text-xs font-bold uppercase leading-4 tracking-[0.06em] text-white"
+        >{initialCountdown}</span>
+      </p>
+    </div>
+
+    <!-- Slim header: the only exits are the phone and the plan -->
+    <header class="sticky top-0 z-50 border-b border-ink-100 bg-white">
+      <div class={`${wrap} flex h-16 items-center justify-between gap-3 sm:h-[76px]`}>
+        <a href={mainHref('/')} class="flex shrink-0 items-center" aria-label={`${SITE.fullName} home`}>
+          <img
+            src={SITE.logoLight}
+            alt={`${SITE.fullName} logo`}
+            width={SITE.logoWidth}
+            height={SITE.logoHeight}
+            decoding="async"
+            fetchpriority="high"
+            class="h-10 w-auto sm:h-[52px]"
+          />
+        </a>
+        <div class="flex items-center gap-2.5 sm:gap-4">
+          <a
+            href={SITE.phoneHref}
+            class="inline-flex items-center gap-2 text-base font-bold text-ink-900 transition-colors hover:text-brand-600"
+            aria-label={`Talk to a person: ${SITE.phone}`}
+          >
+            <span class="grid h-9 w-9 place-items-center rounded-full bg-brand-50 text-brand-500 sm:h-auto sm:w-auto sm:bg-transparent">
+              <i class="fa-solid fa-phone" aria-hidden="true"></i>
+            </span>
+            <span class="hidden lg:inline">Talk to a person:</span>
+            <span class="hidden sm:inline lg:ml-1">{SITE.phone}</span>
+          </a>
+          <a
+            href={PLAN}
+            data-plan-link
+            class="inline-flex h-9 items-center rounded-md bg-brand-500 px-3 text-xs font-extrabold uppercase tracking-[0.025em] text-white shadow-[0_10px_30px_rgba(237,28,36,0.25)] transition hover:bg-brand-600 sm:h-[42px] sm:px-[18px] sm:text-[14px]"
+          >
+            Free Territory Plan
+          </a>
+        </div>
+      </div>
+    </header>
+  </Fragment>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="lp-hero relative overflow-hidden">
+    <div class={`${wrap} grid gap-10 pb-14 pt-10 lg:grid-cols-[minmax(0,1fr)_491px] lg:gap-x-[38px] lg:gap-y-0 lg:pt-12`}>
+      <!-- Copy -->
+      <div>
+        <p class={eyebrowLight}>
+          <i class="fa-solid fa-envelopes-bulk text-brand-500" aria-hidden="true"></i>
+          Direct mail + digital for home service pros
+        </p>
+        <h1 class="mt-4 text-[2.5rem] font-bold leading-[1.05] tracking-[-0.03em] text-ink-900 sm:text-[48px] lg:text-[60px]">
+          Fill your board before the <span class="text-[#e01920]">January dead zone</span> hits.
+        </h1>
+        <p class="mt-[30px] text-lg leading-[1.6] text-ink-600 sm:text-[20px]">
+          You know the stretch. The holidays wrap, the phones go quiet, and three trucks are still sitting in the lot at
+          9 a.m. while payroll still clears Friday. We put your postcard in the driveways of
+          <strong class="font-bold text-ink-900">owner-occupied homes in the exact towns you want</strong>, then, if
+          you want the extra push, hit those same homeowners on their phones with Facebook, Instagram or ChatGPT ads
+          timed to the day your card lands. List, design, print, postage and ads under one roof. You just answer the
+          phone.
+        </p>
+
+        <div class={`mt-6 rounded-2xl border border-l-4 border-ink-100 border-l-brand-500 bg-white py-[18px] pl-[21px] pr-5 ${cardShadow}`}>
+          <h2 class="text-lg font-bold leading-[1.3] tracking-[-0.02em] text-ink-900">
+            Straight answer: does direct mail still work for contractors?
+          </h2>
+          <p class="mt-2 text-base leading-6 text-ink-600">
+            Yes, when it hits the right homes. The <span class="font-bold text-brand-700">ANA Response Rate Report</span>
+            puts prospect-list mail at roughly <strong class="font-bold text-ink-900">2 to 5% response</strong>, and its
+            2024 edition put direct mail's median ROI at
+            <strong class="font-bold text-ink-900">112%, ahead of paid search at 93%</strong>. The catch: it has to
+            reach homeowners (not renters), land more than once, and come with a way to measure it, like an offer code
+            your CSRs log in your CRM.
+          </p>
+        </div>
+
+        <ul class="mt-6 space-y-2.5 pr-1">
+          {heroPoints.map((point) => (
+            <li class="flex gap-2 text-base leading-6 text-ink-900">
+              <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand-100 text-[11px] text-brand-700">
+                <i class="fa-solid fa-check" aria-hidden="true"></i>
+              </span>
+              <span>
+                {point.text}
+                {point.link && (
+                  <>
+                    {' '}
+                    <a href={point.link.href} class={link}>{point.link.label}</a>
+                  </>
+                )}
+              </span>
+            </li>
+          ))}
+        </ul>
+
+        <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <a href={PLAN} data-plan-link class={btnRed}>Get my free Territory Plan</a>
+          <a
+            href={SITE.phoneHref}
+            class={`${btn} border border-ink-100 bg-white text-brand-700 shadow-[0_10px_30px_rgba(237,28,36,0.08)] hover:border-brand-200`}
+          >
+            <i class="fa-solid fa-phone" aria-hidden="true"></i>
+            Call {SITE.phone}
+          </a>
+        </div>
+        <ul class="mt-3.5 flex flex-wrap gap-x-[18px] gap-y-1.5 text-sm leading-5 text-ink-500">
+          {['Free, no obligation', 'Plan in one business day', 'Month-to-month, no long contract'].map((item) => (
+            <li class="flex items-center gap-[7px]">
+              <span class="h-2 w-2 rounded-[2px] bg-brand-500" aria-hidden="true"></span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Territory Plan form -->
+      <div id="plan" class="scroll-mt-24 lg:row-span-2 lg:self-start">
+        <div class="rounded-3xl border border-ink-100 bg-white p-5 shadow-[0_24px_60px_rgba(15,39,71,0.10),0_10px_30px_rgba(237,28,36,0.07)] sm:p-7">
+          <div data-plan-body>
+            <h2 class="text-[26px] font-bold leading-[1.2] tracking-[-0.028em] text-ink-900 sm:text-[28px]">Get your free Territory Plan</h2>
+            <p class="mt-1.5 text-[0.98rem] leading-[1.5] text-ink-600">
+              Tell us your trade and your turf. We'll pull real homeowner counts for your towns, mock up your card and
+              ads, and map your mail dates. Back to you in one business day.
+            </p>
+            <div class="mt-4 grid grid-cols-2 gap-1.5" aria-hidden="true">
+              <span class="h-1.5 rounded-full bg-gradient-to-r from-brand-500 to-brand-600"></span>
+              <span data-plan-progress class="h-1.5 rounded-full bg-ink-100"></span>
+            </div>
+
+            <form id="plan-form" class="mt-4" novalidate>
+              <!-- Bots fill every field; people never see this one. -->
+              <div class="absolute -left-[9999px] h-px w-px overflow-hidden" aria-hidden="true">
+                <label for="plan-website">Leave this field empty</label>
+                <input id="plan-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+              </div>
+
+              <!-- Step 1: trade and turf -->
+              <fieldset data-step="1">
+                <legend class="sr-only">Step 1 of 2: your trade and turf</legend>
+                <p class="lp-step" aria-hidden="true">Step 1 of 2: Your trade and turf</p>
+
+                <div class="mt-[13px]">
+                  <label for="plan-trade" class="lp-label">What's your trade?</label>
+                  <select id="plan-trade" name="trade" required class="lp-input lp-select mt-2">
+                    <option value="" selected disabled>Choose your trade</option>
+                    {trades.map((trade) => <option value={trade}>{trade}</option>)}
+                  </select>
+                </div>
+
+                <div class="mt-4">
+                  <label for="plan-towns" class="lp-label">Towns or ZIP codes you want more work in</label>
+                  <p class="lp-hint">The neighborhoods you'd love to see your trucks in more often.</p>
+                  <input
+                    id="plan-towns"
+                    name="towns"
+                    type="text"
+                    required
+                    autocomplete="off"
+                    placeholder="e.g. 07748, 07733 or two towns by name"
+                    class="lp-input mt-1.5"
+                  />
+                </div>
+
+                <fieldset class="mt-4">
+                  <legend class="lp-label">When do you want cards landing?</legend>
+                  <div class="mt-3 grid grid-cols-2 gap-2">
+                    {landingWindows.map((option) => (
+                      <label class="lp-choice">
+                        <input type="radio" name="landing" value={option.value} checked={option.checked} class="lp-radio" />
+                        {option.label}
+                      </label>
+                    ))}
+                  </div>
+                </fieldset>
+
+                <fieldset class="mt-4">
+                  <legend class="lp-label">Add Mailbox Sync ads?</legend>
+                  <p class="lp-hint">Optional add-on: a management fee plus ad spend you fund up front. Pick one, a mix, or none.</p>
+                  <div class="mt-2 grid grid-cols-2 gap-2">
+                    {adChannels.map((option) => (
+                      <label class="lp-choice">
+                        <input
+                          type="checkbox"
+                          name="channels"
+                          value={option.value}
+                          data-mail-only={option.mailOnly ? '' : undefined}
+                          class="lp-check"
+                        />
+                        {option.label}
+                      </label>
+                    ))}
+                  </div>
+                </fieldset>
+
+                <div class="mt-4">
+                  <label for="plan-spend" class="lp-label">Monthly ad spend you'd be comfortable funding</label>
+                  <p class="lp-hint">Only if you picked an ad channel. Helps us size the plan.</p>
+                  <select id="plan-spend" name="spend" class="lp-input lp-select mt-1.5">
+                    {adSpend.map((amount) => <option value={amount}>{amount}</option>)}
+                  </select>
+                </div>
+
+                <button type="submit" class={`${btnRedBase} mt-4 h-[52px] w-full px-4`}>Next: where to send your plan</button>
+              </fieldset>
+
+              <!-- Step 2: contact details -->
+              <fieldset data-step="2" hidden>
+                <legend class="sr-only">Step 2 of 2: where to send your plan</legend>
+                <p class="lp-step" aria-hidden="true">Step 2 of 2: Where to send your plan</p>
+
+                <div class="mt-[13px] grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div>
+                    <label for="plan-first" class="lp-label">First name</label>
+                    <input id="plan-first" name="firstName" type="text" required autocomplete="given-name" class="lp-input mt-2" />
+                  </div>
+                  <div>
+                    <label for="plan-last" class="lp-label">Last name</label>
+                    <input id="plan-last" name="lastName" type="text" required autocomplete="family-name" class="lp-input mt-2" />
+                  </div>
+                </div>
+                <div class="mt-4">
+                  <label for="plan-company" class="lp-label">Company name</label>
+                  <input id="plan-company" name="company" type="text" required autocomplete="organization" class="lp-input mt-2" />
+                </div>
+                <div class="mt-4">
+                  <label for="plan-email" class="lp-label">Email</label>
+                  <input id="plan-email" name="email" type="email" required autocomplete="email" class="lp-input mt-2" />
+                </div>
+                <div class="mt-4">
+                  <label for="plan-phone" class="lp-label">Best phone number</label>
+                  <input
+                    id="plan-phone"
+                    name="phone"
+                    type="tel"
+                    required
+                    autocomplete="tel-national"
+                    inputmode="tel"
+                    pattern="[0-9()+.\-\s]{7,}"
+                    placeholder="(555) 010-0000"
+                    class="lp-input mt-2"
+                  />
+                </div>
+
+                <!-- Zoho's own mandatory tick box; the label sits beside it so the link stays clickable. -->
+                <div class="mt-4 flex items-start gap-2.5 text-[0.95rem] leading-[1.5] text-ink-600">
+                  <input id="plan-consent" name="consent" type="checkbox" required class="lp-check mt-0.5" />
+                  <label for="plan-consent">
+                    I accept the
+                    <a href={mainHref('/terms-of-use/')} target="_blank" rel="noopener noreferrer" class={`font-semibold ${link}`}>Terms and Conditions</a>.
+                  </label>
+                </div>
+
+                <p data-plan-error hidden role="alert" class="mt-4 rounded-[10px] border border-brand-200 bg-brand-50 px-3.5 py-3 text-sm font-medium text-brand-700">
+                  We could not send your request just now. Please try again, or call us at {SITE.phone}.
+                </p>
+
+                <div class="mt-4 flex gap-2">
+                  <button
+                    type="button"
+                    data-plan-back
+                    class={`${btnBase} h-[52px] border border-ink-200 bg-white px-4 text-ink-700 hover:border-brand-300 hover:text-brand-700`}
+                  >
+                    <i class="fa-solid fa-arrow-left text-xs" aria-hidden="true"></i>
+                    Back
+                  </button>
+                  <button type="submit" data-plan-submit class={`${btnRedBase} h-[52px] flex-1 px-4 disabled:cursor-not-allowed disabled:opacity-60`}>
+                    Send my free plan
+                  </button>
+                </div>
+              </fieldset>
+            </form>
+
+            <p class="mt-3 text-center text-[0.82rem] leading-5 text-ink-500">Your info goes to PrintFast only. No spam, no list selling, ever.</p>
+          </div>
+
+          <!-- Thank-you state -->
+          <div data-plan-done hidden role="status" aria-live="polite" class="py-6 text-center">
+            <span class="mx-auto grid h-14 w-14 place-items-center rounded-full bg-brand-50 text-xl text-brand-500">
+              <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+            </span>
+            <h2 class="mt-5 text-[26px] font-bold leading-[1.2] tracking-[-0.03em] text-ink-900">Your Territory Plan is in the works.</h2>
+            <p class="mx-auto mt-2 max-w-sm text-[0.98rem] leading-[1.5] text-ink-600">
+              Within one business day you'll get real homeowner counts for your towns, a card mockup and your mail dates.
+              Want to talk it through sooner? Call
+              <a href={SITE.phoneHref} class="font-semibold text-brand-700 hover:text-brand-800">{SITE.phone}</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sample postcard and phone. Below 500px the pair is zoomed down as one piece. -->
+      <figure class="lg:col-start-1 lg:mt-7">
+        <div class="flex items-end justify-center gap-4 [zoom:0.7] min-[500px]:[zoom:1]" aria-hidden="true">
+          <div class="relative h-[226px] w-[340px] shrink-0 -rotate-3 overflow-hidden rounded-[14px] border border-ink-100 bg-white px-[18px] pt-[15px] shadow-[0_18px_40px_rgba(15,39,71,0.14),0_10px_30px_rgba(237,28,36,0.07)]">
+            <span class="absolute -right-[30px] -top-[30px] h-[120px] w-[120px] rounded-full bg-[radial-gradient(circle_at_35%_35%,#ED1C24,#c8161d)]"></span>
+            <p class="relative text-[11.2px] font-extrabold uppercase leading-[1.2] tracking-[0.18em] text-brand-600">Your company here</p>
+            <p class="relative mt-[7px] text-[23.2px] font-extrabold leading-[1.05] tracking-[-0.03em] text-ink-900">
+              No Heat?<br />We're Already<br />On Your Street.
+            </p>
+            <p class="mt-[7px] max-w-[200px] text-[12.48px] leading-[17px] text-ink-600">
+              Furnace tune-up special for homeowners in your town. Same-day service.
+            </p>
+            <p class="absolute bottom-[13px] left-[18px] text-[16.79px] font-extrabold leading-[1.2] text-brand-600">(555) 010-0000</p>
+            <svg viewBox={`0 0 ${QR_SIZE} ${QR_SIZE}`} class="absolute bottom-[17px] right-[18px] h-[38px] w-[38px]" shape-rendering="crispEdges">
+              <path d={qrPath} fill="#0f2747" />
+            </svg>
+          </div>
+
+          <div class="h-[210px] w-[112px] shrink-0 rounded-[22px] bg-ink-900 p-2 shadow-[0_18px_40px_rgba(15,39,71,0.22)]">
+            <div class="flex h-full flex-col rounded-[14px] bg-white p-2">
+              <span class="block h-2 rounded-full bg-ink-100"></span>
+              <div class="relative mt-[7px] h-[58px] overflow-hidden rounded-md bg-gradient-to-br from-ink-800 to-ink-900">
+                <span class="absolute -right-3 -top-3 h-[42px] w-[42px] rounded-full bg-brand-500"></span>
+              </div>
+              <p class="mt-1 px-[7px] text-[9.6px] font-bold leading-[1.2] text-ink-900">No Heat? We're Already On Your Street.</p>
+              <p class="mt-[5px] px-[7px] text-[8px] leading-[1.5] text-ink-500">Sponsored · Your Company</p>
+              <span class="mt-1.5 block h-[7px] rounded-full bg-ink-100"></span>
+              <span class="mt-1.5 block h-2 w-[70%] rounded-full bg-ink-100"></span>
+            </div>
+          </div>
+        </div>
+        <figcaption class="mx-auto mt-4 max-w-[624px] text-center text-[0.82rem] leading-5 text-ink-500">
+          Sample only: the postcard in the mailbox and the matching ad on the homeowner's phone carry the same look and offer.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ===================== PICTURE THIS ===================== -->
+  <section class={sectionMuted}>
+    <div class={wrap}>
+      <p class={eyebrowLight}><i class="fa-solid fa-eye text-brand-500" aria-hidden="true"></i> Picture this</p>
+      <h2 class={`${h2} text-ink-900`}>Two shops. Same town. Same Tuesday in January.</h2>
+      <p class={`${intro} text-ink-600`}>Same trucks, same techs, same Google reviews. One thing is different, and it happened six weeks earlier.</p>
+
+      <div class="mt-8 grid gap-[22px] md:grid-cols-2">
+        {[
+          {
+            bar: 'bg-ink-300',
+            title: 'Shop A waited until it got slow',
+            body: "The board's got two callbacks and a warranty visit. Your best tech is asking if there's anything coming in. The CSR is refreshing the lead app, fighting four other outfits for the same shared lead. You're doing math on whether to send a guy home or eat the hours.",
+            lead: "Now you're mailing in a panic,",
+            rest: 'the card lands in February, and the first real call comes in March.',
+          },
+          {
+            bar: 'bg-gradient-to-r from-brand-500 to-brand-600',
+            title: 'Shop B mailed in December',
+            body: 'Their card hit 5,000 owner-occupied driveways the first week of December and again right after New Year. Those same homeowners have been seeing the matching ad between scrolls ever since.',
+            lead: 'The phone rings and the homeowner says the line every owner wants to hear:',
+            rest: `"I've seen you guys everywhere." That's not luck. That's a mail calendar.`,
+          },
+        ].map((shop) => (
+          <article class={`${card} relative overflow-hidden px-[30px] pb-8 pt-9`}>
+            <span class:list={['absolute inset-x-0 top-0 h-1', shop.bar]} aria-hidden="true"></span>
+            <p class="flex items-center gap-1.5 text-xs font-bold uppercase leading-[18px] tracking-[0.18em] text-ink-500">
+              <i class="fa-regular fa-clock" aria-hidden="true"></i> 7:40 a.m.
+            </p>
+            <h3 class={`mt-2.5 ${cardTitle}`}>{shop.title}</h3>
+            <p class="mt-2.5 text-base leading-6 text-ink-600">{shop.body}</p>
+            <p class="mt-4 text-base leading-6 text-ink-600">
+              <strong class="font-bold text-ink-900">{shop.lead}</strong> {shop.rest}
+            </p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CALCULATOR ===================== -->
+  <section class="py-9">
+    <div class={wrap}>
+      <p class={eyebrowLight}><i class="fa-solid fa-calculator text-brand-500" aria-hidden="true"></i> Run your own numbers</p>
+      <h2 class={`${h2} text-ink-900`}>What could one drop put on your board?</h2>
+      <p class={`${intro} text-ink-600`}>
+        Plug in your real numbers. The defaults sit at the conservative end of the ANA prospect-list range on purpose. If
+        it pencils out here, it pencils out.
+      </p>
+
+      <div class="mt-8 grid gap-[22px] lg:grid-cols-2" data-calculator>
+        <div class={`${card} space-y-4 px-7 pb-11 pt-7`}>
+          {calculatorFields.map((field) => (
+            <div>
+              <label for={field.id} class="lp-label">{field.label}</label>
+              {field.hint && <p class="lp-hint">{field.hint}</p>}
+              <input
+                id={field.id}
+                type="number"
+                inputmode="decimal"
+                value={field.value}
+                min={field.min}
+                max={field.max}
+                step={field.step}
+                data-default={field.value}
+                class:list={['lp-input', field.hint ? 'mt-1.5' : 'mt-2']}
+              />
+            </div>
+          ))}
+        </div>
+
+        <div class="flex flex-col justify-center rounded-2xl bg-ink-900 p-6 text-white sm:p-8" aria-live="polite">
+          <dl>
+            <div class="space-y-1.5">
+              <div class="flex items-center justify-between gap-4">
+                <dt class="text-base text-ink-300">Calls and scans from one drop</dt>
+                <dd data-calc-calls class="text-[32px] font-extrabold leading-[1.2] text-brand-400">100</dd>
+              </div>
+              <div class="flex items-center justify-between gap-4">
+                <dt class="text-base text-ink-300">Sold jobs</dt>
+                <dd data-calc-jobs class="text-[32px] font-extrabold leading-[1.2] text-brand-400">40</dd>
+              </div>
+            </div>
+            <div class="mt-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-t border-white/10 pt-3">
+              <dt class="text-base font-semibold text-ink-100">Estimated revenue from one drop</dt>
+              <dd data-calc-revenue class="text-[38px] font-extrabold leading-[1.2] tracking-[-0.025em] text-white sm:text-[44px]">$26,000</dd>
+            </div>
+          </dl>
+          <p class="mt-2.5 text-[0.82rem] leading-[1.56] text-ink-300">
+            A planning tool, not a promise. Real results swing with your offer, your towns, your reviews and how fast your
+            CSRs answer. That's exactly what your Territory Plan pressure-tests before you spend a dime on postage.
+          </p>
+          <a href={PLAN} data-plan-link class={`${btnRed} mt-4 w-full`}>Pressure-test my real numbers</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== HOW IT WORKS ===================== -->
+  <section class={sectionMuted}>
+    <div class={wrap}>
+      <p class={eyebrowLight}><i class="fa-solid fa-route text-brand-500" aria-hidden="true"></i> Mailbox to phone to booked call</p>
+      <h2 class={`${h2} max-w-[1010px] text-ink-900`}>How it works: four steps from your towns to a ringing phone</h2>
+      <p class={`${intro} text-ink-600`}>You've got trucks to run. Here's the whole job, start to finish.</p>
+
+      <ol class="mt-8 grid gap-[22px] sm:grid-cols-2 lg:grid-cols-4">
+        {steps.map((step) => (
+          <li class={`${card} relative p-8`}>
+            <span class="absolute right-5 top-4 text-[30px] font-extrabold leading-none text-brand-100" aria-hidden="true">{step.n}</span>
+            <span class={iconTile}><i class:list={['fa-solid', step.icon]} aria-hidden="true"></i></span>
+            <h3 class={`mt-[18px] ${cardTitle}`}>{step.title}</h3>
+            <p class={`mt-2.5 ${cardBody}`}>{step.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===================== MAILBOX SYNC ===================== -->
+  <section id="mailbox-sync" class="scroll-mt-20 py-9">
+    <div class={wrap}>
+      <p class={eyebrowLight}><i class="fa-solid fa-satellite-dish text-brand-500" aria-hidden="true"></i> Mailbox Sync ads</p>
+      <h2 class={`${h2} text-ink-900`}>The day your card hits the mailbox, your ad <span class="text-[#e01920]">hits their phone.</span></h2>
+      <p class={`${intro} text-ink-600`}>
+        A postcard alone gets one look at the kitchen counter. Mailbox Sync is the optional add-on that fixes that: we
+        build Facebook, Instagram, Google or ChatGPT ads off the same design and offer, then time them to your in-home
+        date in three waves so the homeowner sees you before, during and after the card lands. By the time something
+        breaks, you're not a stranger. You're the outfit that's been on their street all month.
+      </p>
+
+      <ol class="mt-9 grid gap-[22px] lg:grid-cols-3">
+        <!-- Wave 1 -->
+        <li class={`${card} flex flex-col p-7`}>
+          <p class="flex items-center gap-2.5">
+            <span class="lp-wave">Wave 1</span>
+            <span class="lp-when">2 to 3 days before it lands</span>
+          </p>
+          <h3 class={`mt-3 ${cardTitle}`}>"Heads up, check your mailbox"</h3>
+          <p class={`mb-4 mt-2.5 ${cardBody}`}>
+            Short teaser ads in the same towns build curiosity so the card gets read instead of tossed with the circulars.
+          </p>
+          <div class="lp-mock" role="img" aria-label="Sample Facebook and Instagram ad">
+            <div class="flex items-center gap-[9px]">
+              <span class="h-[34px] w-[34px] shrink-0 rounded-full bg-gradient-to-br from-brand-500 to-brand-700"></span>
+              <div>
+                <p class="text-[0.85rem] font-bold leading-[17px] text-ink-900">Your Company</p>
+                <p class="text-[0.72rem] leading-[15px] text-ink-500">Sponsored · Facebook and Instagram</p>
+              </div>
+            </div>
+            <p class="mt-3 text-[0.85rem] leading-[1.45] text-ink-900">
+              Neighbors, keep an eye on your mailbox this week. Something's headed your way that you'll want before the
+              first freeze.
+            </p>
+            <div class="relative mt-[11px] flex h-[120px] items-end overflow-hidden rounded-lg bg-gradient-to-br from-ink-900 to-ink-800 px-[11px] pb-3">
+              <span class="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-brand-500"></span>
+              <p class="relative max-w-[210px] text-[16.79px] font-extrabold leading-[1.2] text-white">Something's headed to your mailbox</p>
+            </div>
+            <div class="mt-2.5 flex items-center justify-between">
+              <span class="text-[0.78rem] text-ink-500">yourcompany.com</span>
+              <span class="rounded-md bg-ink-100 px-3 py-1.5 text-[0.78rem] font-bold leading-[19px] text-ink-900">Learn more</span>
+            </div>
+          </div>
+        </li>
+
+        <!-- Wave 2 -->
+        <li class={`${card} flex flex-col p-7`}>
+          <p class="flex items-center gap-2.5">
+            <span class="lp-wave">Wave 2</span>
+            <span class="lp-when">The week it lands</span>
+          </p>
+          <h3 class={`mt-3 ${cardTitle}`}>"Did you get your neighborhood offer?"</h3>
+          <p class={`mb-4 mt-2.5 ${cardBody}`}>
+            Search and social ads repeat the exact offer on the card, so anyone who misplaced it can still book in two taps.
+          </p>
+          <div class="lp-mock" role="img" aria-label="Sample Google Search ad">
+            <p class="text-[0.72rem] font-bold leading-[1.4] text-ink-900">Sponsored · Google Search</p>
+            <p class="mt-0.5 text-[0.78rem] leading-[1.5] text-[#3c4043]">yourcompany.com › neighborhood-offer</p>
+            <p class="mt-1 text-[16.79px] leading-[1.3] text-[#1a0dab]">Did You Get Your Neighborhood Offer? | Your Company</p>
+            <p class="mt-1 text-[0.85rem] leading-[1.47] text-[#4d5156]">
+              Homeowners on your street got our furnace tune-up special this week. Lost the card? Claim the same offer
+              online or call now.
+            </p>
+          </div>
+        </li>
+
+        <!-- Wave 3 -->
+        <li class={`${card} flex flex-col p-7`}>
+          <p class="flex items-center gap-2.5">
+            <span class="lp-wave">Wave 3</span>
+            <span class="lp-when">Until the offer ends</span>
+          </p>
+          <h3 class={`mt-3 ${cardTitle}`}>"Your offer ends Friday"</h3>
+          <p class={`mb-4 mt-2.5 ${cardBody}`}>
+            Deadline ads and follow-ups to anyone who scanned the QR or hit your landing page and didn't book yet.
+          </p>
+          <div class="lp-mock" role="img" aria-label="Sample sponsored answer in ChatGPT">
+            <p class="ml-auto max-w-[85%] rounded-2xl bg-ink-100 px-3 py-2 text-[0.85rem] leading-[1.55] text-ink-900">
+              Who can do a furnace tune-up near me this week?
+            </p>
+            <p class="mt-2.5 text-[0.85rem] leading-[1.47] text-ink-900">
+              A tune-up usually runs about an hour and is worth doing before the first hard freeze. Here's a local option:
+            </p>
+            <div class="mt-3 rounded-[10px] border border-brand-200 bg-brand-50 p-3">
+              <p class="text-[11.2px] font-bold uppercase leading-[1.4] tracking-[0.1em] text-ink-500">Sponsored in ChatGPT</p>
+              <p class="mt-1 text-[0.85rem] font-bold leading-[1.45] text-ink-900">Your Company</p>
+              <p class="mt-0.5 text-[0.85rem] leading-[1.47] text-ink-600">Your neighborhood tune-up offer ends Friday. Same-day slots open.</p>
+            </div>
+          </div>
+        </li>
+      </ol>
+
+      <h3 class="mt-14 text-center text-2xl font-bold leading-[1.25] tracking-[-0.02em] text-ink-900">Where your ads run</h3>
+      <ul class="mt-6 grid gap-[18px] sm:grid-cols-2 lg:grid-cols-4">
+        {channels.map((channel) => (
+          <li
+            class:list={[
+              'rounded-2xl bg-white px-[23px] py-6',
+              cardShadow,
+              channel.highlight ? 'border-2 border-brand-500' : 'border border-ink-100',
+            ]}
+          >
+            <span class={iconTile}><i class={channel.icon} aria-hidden="true"></i></span>
+            <h4 class={`mt-[18px] ${smallTitle}`}>
+              {channel.title}
+              {channel.badge && (
+                <span class="ml-1.5 inline-block rounded-full bg-brand-500 px-2 align-[2px] text-[10.4px] font-bold uppercase leading-[18px] tracking-[0.14em] text-white">
+                  {channel.badge}
+                </span>
+              )}
+            </h4>
+            <p class="mt-1.5 text-[0.95rem] leading-[1.5] text-ink-600">
+              {channel.text}
+              {channel.link && (
+                <>
+                  {' '}
+                  <a href={channel.link.href} class={`font-semibold ${link}`}>{channel.link.label}</a>
+                </>
+              )}
+            </p>
+          </li>
+        ))}
+      </ul>
+
+      <h3 class="mt-14 text-center text-2xl font-bold leading-[1.25] tracking-[-0.02em] text-ink-900">Pick your mix</h3>
+      <p class="mx-auto mt-2.5 max-w-[640px] text-center text-base leading-6 text-ink-600">
+        Every shop's budget is different. Start with the channel that fits, add more when the calls justify it.
+      </p>
+      <ul class="mt-6 grid gap-[18px] sm:grid-cols-2 lg:grid-cols-4">
+        {mixes.map((mix) => (
+          <li class={`${card} px-[23px] py-6`}>
+            <span class="inline-block rounded-full bg-brand-100 px-2.5 py-[3px] text-[11.2px] font-bold uppercase leading-4 tracking-[0.14em] text-brand-700">
+              {mix.tag}
+            </span>
+            <h4 class={`mt-3 ${smallTitle}`}>{mix.title}</h4>
+            <p class="mt-1.5 text-[0.95rem] leading-[1.5] text-ink-600">{mix.text}</p>
+          </li>
+        ))}
+      </ul>
+
+      <div class="mt-7 rounded-2xl border border-ink-100 bg-ink-50 p-5 sm:p-7">
+        <h4 class="text-[1.2rem] font-bold leading-[1.3] tracking-[-0.02em] text-ink-900">How the ads are billed: two line items, no surprises</h4>
+        <div class="mt-4 grid gap-5 md:grid-cols-2">
+          <div>
+            <p class="flex items-center gap-2 text-base font-bold leading-6 text-ink-900">
+              <i class="fa-solid fa-user-gear w-5 text-center text-brand-500" aria-hidden="true"></i> Ad management fee
+            </p>
+            <p class="mt-[7px] text-[0.97rem] leading-[1.58] text-ink-600">
+              Covers strategy, ads built from your card, wave timing to your in-home date, launch, monitoring and sharing
+              the results from the ad platforms. Separate from your mail cost.
+            </p>
+          </div>
+          <div>
+            <p class="flex items-center gap-2 text-base font-bold leading-6 text-ink-900">
+              <i class="fa-solid fa-wallet w-5 text-center text-brand-500" aria-hidden="true"></i> Ad spend, funded up front
+            </p>
+            <p class="mt-[7px] text-[0.97rem] leading-[1.58] text-ink-600">
+              The budget the platforms actually charge to show your ads. You choose the amount and fund it before launch,
+              so wave 1 goes live on schedule instead of waiting on a payment while your cards hit mailboxes.
+            </p>
+          </div>
+        </div>
+        <p class="mt-[18px] border-t border-ink-200 pt-[18px] text-[0.95rem] font-semibold leading-[1.5] text-ink-900">
+          Your free Territory Plan shows the management fee and a recommended spend for your towns before you commit to anything.
+        </p>
+      </div>
+
+      <div class="mt-12 text-center">
+        <p class="text-[1.4rem] font-bold leading-[1.3] tracking-[-0.02em] text-ink-900">The postcard opens the door. The ads keep it from closing.</p>
+        <a href={PLAN} data-plan-link class={`${btnRed} mt-6`}>Price my mix in my plan</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== EDDM COMPARISON ===================== -->
+  <section class="py-9">
+    <div class={wrap}>
+      <p class={eyebrowLight}><i class="fa-solid fa-scale-balanced text-brand-500" aria-hidden="true"></i> Before you spend another dollar</p>
+      <h2 class={`${h2} text-ink-900`}>EDDM vs. shared leads vs. targeted mail + digital</h2>
+      <p class={`${intro} text-ink-600`}>
+        EDDM is cheap per piece because it mails every door on the route, including the renters on the second floor who
+        can't sign off on a water heater. Here's how the three most common plays stack up.
+      </p>
+
+      <div class={`${card} mt-8 overflow-hidden`}>
+        <div class="overflow-x-auto">
+          <table class="w-full min-w-[760px] border-collapse text-left">
+            <caption class="px-[18px] py-3.5 text-left text-[0.9rem] font-semibold leading-[1.5] text-ink-500">
+              Comparison of three ways contractors buy new homeowner calls
+            </caption>
+            <thead>
+              <tr class="text-base leading-6 text-white">
+                <th scope="col" class="w-[22%] bg-ink-900 px-[18px] py-[14.5px] font-bold tracking-[-0.015em]">What matters</th>
+                <th scope="col" class="w-[27%] bg-ink-900 px-[18px] py-[14.5px] font-bold tracking-[-0.015em]">EDDM saturation mail</th>
+                <th scope="col" class="w-[27%] bg-ink-900 px-[18px] py-[14.5px] font-bold tracking-[-0.015em]">Shared lead sites</th>
+                <th scope="col" class="w-[24%] bg-brand-500 px-[18px] py-[14.5px] font-bold tracking-[-0.015em]">PrintFast Mail + Digital</th>
+              </tr>
+            </thead>
+            <tbody class="text-[0.98rem] leading-[1.5]">
+              {comparison.map((row) => (
+                <tr class="border-t border-ink-100 align-top">
+                  <th scope="row" class="px-[18px] py-4 font-bold text-ink-900">{row.label}</th>
+                  <td class="px-[18px] py-4 text-ink-600">{row.eddm}</td>
+                  <td class="px-[18px] py-4 text-ink-600">{row.shared}</td>
+                  <td class="bg-brand-50 px-[18px] py-4 font-semibold text-ink-900">{row.printfast}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== MISTAKES ===================== -->
+  <section class={sectionMuted}>
+    <div class={wrap}>
+      <p class={eyebrowLight}><i class="fa-solid fa-triangle-exclamation text-brand-500" aria-hidden="true"></i> Mistake check</p>
+      <h2 class={`${h2} text-ink-900`}>5 ways contractors torch money on postcards</h2>
+      <p class={`${intro} text-ink-600`}>If you've mailed before and swore it "doesn't work," odds are good one of these was the culprit.</p>
+
+      <ul class="mt-8 grid gap-[18px] md:grid-cols-2">
+        {mistakes.map((mistake) => (
+          <li class={`${card} flex gap-4 p-6`}>
+            <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-brand-50 text-[16.79px] text-brand-600">
+              <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+            </span>
+            <div>
+              <h3 class={cardTitle}>{mistake.title}</h3>
+              <p class={`mt-1 ${cardBody}`}>{mistake.text}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== WINTER CALENDAR ===================== -->
+  <section class="bg-ink-900 py-9">
+    <div class={wrap}>
+      <p class={`${eyebrow} bg-brand-500/20 text-brand-200`}>
+        <i class="fa-solid fa-calendar-days text-brand-500" aria-hidden="true"></i> The winter mail calendar
+      </p>
+      <h2 class={`${h2} text-white`}>When to mail so the phones ring in January</h2>
+      <p class={`${intro} text-ink-300`}>December mailboxes fill up fast with holiday cards and catalogs. Get in early, then stay in.</p>
+
+      <ol class="mt-9 border-l-2 border-white/15">
+        {calendar.map((item) => (
+          <li class="relative pb-6 pl-7 last:pb-0">
+            <span class="absolute -left-[9px] top-1.5 h-4 w-4 rounded-full bg-brand-500 ring-4 ring-brand-500/25" aria-hidden="true"></span>
+            <h3 class="text-[1.15rem] font-extrabold leading-[1.4] text-brand-400">{item.when}</h3>
+            <p class="mt-0.5 text-base leading-6 text-ink-300">{item.text}</p>
+          </li>
+        ))}
+      </ol>
+
+      <blockquote class="mt-10 max-w-[700px] border-l-4 border-brand-500 pl-[18px] text-[1.25rem] font-bold leading-[1.4] tracking-[-0.02em] text-white sm:text-[1.4rem]">
+        Mailing in January is the repair call. Mailing in December is the maintenance agreement. You already know which one
+        makes more money.
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ===================== TRADES ===================== -->
+  <section class="py-9">
+    <div class={wrap}>
+      <p class={eyebrowLight}><i class="fa-solid fa-snowflake text-brand-500" aria-hidden="true"></i> What to mail this winter</p>
+      <h2 class={`${h2} text-ink-900`}>The winter card that works for your trade</h2>
+      <p class={`${intro} text-ink-600`}>
+        The offer is half the battle. Here's where we usually start each trade, then we tune it to your towns and your margins.
+      </p>
+
+      <ul class="mt-8 grid gap-[18px] sm:grid-cols-2 lg:grid-cols-4">
+        {tradeCards.map((trade) => (
+          <li class={`${card} px-[23px] py-6`}>
+            <span class={iconTile}><i class:list={['fa-solid', trade.icon]} aria-hidden="true"></i></span>
+            <h3 class={`mt-[18px] ${cardTitle}`}>{trade.title}</h3>
+            <p class="mt-1.5 text-[0.95rem] leading-[1.5] text-ink-600">{trade.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT + LOGOS ===================== -->
+  <section class="border-y border-ink-100 bg-ink-50 pb-[52px] pt-9">
+    <div class={`${wrap} grid items-center gap-10 lg:grid-cols-2 lg:gap-9`}>
+      <div>
+        <p class={eyebrowLight}><i class="fa-solid fa-handshake text-brand-500" aria-hidden="true"></i> Who's on the other end of the phone</p>
+        <h2 class={`${h2} text-ink-900`}>A print shop that grew up with the trades</h2>
+        <p class="mt-6 text-[1.05rem] leading-[1.65] text-ink-600">
+          PrintFast is a print and marketing shop in Lakewood, New Jersey. For years, multi-trade shops coming up through
+          the CEO Warrior coaching program ordered their homeowner mailings through us. We've seen what pulls calls and
+          what ends up in the recycling bin.
+        </p>
+        <p class="mt-4 text-[1.05rem] leading-[1.65] text-ink-600">
+          Today we run the whole thing in-house: the list, the design, the printing, the postage and the digital ads that
+          back the card up. When you call, you get a person in Lakewood who knows what a shoulder season is, not a ticket
+          number.
+        </p>
+        <a href={PLAN} data-plan-link class={`${btnRed} mt-4`}>See my homeowner counts</a>
+      </div>
+
+      <ul class="space-y-2.5">
+        {proof.map((item) => (
+          <li class={`${card} flex gap-[18px] px-5 py-4`}>
+            <i class="fa-solid fa-circle-check w-4 shrink-0 text-base leading-6 text-brand-500" aria-hidden="true"></i>
+            <p class="text-base leading-6 text-ink-600">
+              <strong class="font-bold text-ink-900">{item.lead}</strong> {item.text}
+            </p>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class={`${wrap} mt-14`}>
+      <h2 class="text-center text-[1.15rem] font-bold leading-[1.35] tracking-[-0.03em] text-ink-900">Home service shops that have trusted PrintFast with their mail</h2>
+      <ul class="mt-5 grid grid-cols-2 gap-3.5 min-[480px]:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+        {logos.map((logo) => (
+          <li class="grid h-[86px] place-items-center rounded-xl border border-ink-100 bg-white px-3.5">
+            <img
+              src={`${LOGO_BASE}/${logo.file}`}
+              alt={logo.name}
+              width="91"
+              height="56"
+              loading="lazy"
+              decoding="async"
+              class="h-14 w-auto max-w-full object-contain"
+            />
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="py-9">
+    <div class={wrap}>
+      <p class={eyebrowLight}><i class="fa-solid fa-circle-question text-brand-500" aria-hidden="true"></i> Straight answers</p>
+      <h2 class={`${h2} text-ink-900`}>Questions contractors ask us every week</h2>
+
+      <div class="mt-7 max-w-[880px] space-y-3">
+        {faqs.map((faq) => {
+          const [before, after] = faq.link ? faq.answer.split(faq.link.text) : [faq.answer];
+          return (
+            <details open class="group rounded-xl border border-ink-100 bg-ink-50">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-3.5 text-[1.05rem] font-semibold leading-[1.4] text-ink-900 [&::-webkit-details-marker]:hidden">
+                {faq.question}
+                <span class="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand-100 text-[10px] text-brand-700" aria-hidden="true">
+                  <i class="fa-solid fa-minus group-[:not([open])]:hidden"></i>
+                  <i class="fa-solid fa-plus group-open:hidden"></i>
+                </span>
+              </summary>
+              <p class="mt-0.5 px-5 pb-3 text-base leading-[1.65] text-ink-600">
+                {before}
+                {faq.link && (
+                  <>
+                    <a href={faq.link.href} class={link}>{faq.link.text}</a>
+                    {after}
+                  </>
+                )}
+              </p>
+            </details>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FINAL CTA ===================== -->
+  <section class="py-9">
+    <div class={wrap}>
+      <div class="rounded-3xl bg-[linear-gradient(135deg,#c8161d_0%,#d81a21_50%,#a3111a_100%)] px-6 pb-14 pt-12 text-center">
+        <h2 class="text-[2rem] font-bold leading-[1.05] tracking-[-0.03em] text-white sm:text-[2.5rem] lg:text-[48px]">
+          The board doesn't fill itself. Your postcard can.
+        </h2>
+        <p class="mx-auto mt-6 max-w-[640px] text-[1.15rem] leading-[1.52] text-brand-100">
+          Tell us your trade and your towns. In one business day you'll have real homeowner counts, a card mockup, sample
+          "check your mailbox" ads and a mail calendar built to keep your trucks rolling through January.
+        </p>
+        <div class="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
+          <a href={PLAN} data-plan-link class={`${btn} border border-ink-100 bg-white text-brand-700 hover:bg-brand-50`}>
+            Get my free Territory Plan
+          </a>
+          <a href={SITE.phoneHref} class={`${btn} border border-white/30 bg-white/10 text-white hover:bg-white/20`}>
+            <i class="fa-solid fa-phone" aria-hidden="true"></i>
+            Call {SITE.phone}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer slot="footer" class="bg-ink-900 pb-12 pt-9">
+    <div class={wrap}>
+      <div class="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr] md:gap-7">
+        <div class="text-[0.95rem] text-ink-300">
+          <a href={mainHref('/')} class="inline-block" aria-label={`${SITE.fullName} home`}>
+            <img
+              src={SITE.logoDark}
+              alt={`${SITE.fullName} logo`}
+              width={SITE.logoWidth}
+              height={SITE.logoHeight}
+              loading="lazy"
+              decoding="async"
+              class="h-[52px] w-auto"
+            />
+          </a>
+          <p class="mt-3 leading-[1.5]">
+            Direct mail, print and digital marketing for HVAC, plumbing, electrical, roofing and home service contractors nationwide.
+          </p>
+          <p class="mt-4 leading-[1.7]">
+            {SITE.fullName}<br />
+            {SITE.address.street}, {SITE.address.city}, {SITE.address.state} {SITE.address.zip}<br />
+            <a href={SITE.phoneHref} class="text-white underline underline-offset-[3px] hover:text-brand-300">{SITE.phone}</a>
+            ·
+            <a href={`mailto:${SITE.email}`} class="text-white underline underline-offset-[3px] hover:text-brand-300">{SITE.email}</a><br />
+            Mon to Fri, 8 a.m. to 5 p.m. ET
+          </p>
+        </div>
+
+        <nav aria-label="Related services">
+          <h2 class="text-base font-bold leading-6 text-white">Related services</h2>
+          <ul class="mt-1.5 space-y-2 text-[0.95rem] leading-[1.5]">
+            {footerServices.map((item) => (
+              <li><a href={item.href} class="text-white underline underline-offset-[3px] hover:text-brand-300">{item.label}</a></li>
+            ))}
+          </ul>
+        </nav>
+
+        <nav aria-label="Company">
+          <h2 class="text-base font-bold leading-6 text-white">Company</h2>
+          <ul class="mt-1.5 space-y-2 text-[0.95rem] leading-[1.5]">
+            {footerCompany.map((item) => (
+              <li><a href={item.href} class="text-white underline underline-offset-[3px] hover:text-brand-300">{item.label}</a></li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+
+      <p class="mt-4 border-t border-white/10 pt-4 text-[0.8rem] leading-[1.55] text-[#8a93a6]">
+        <strong class="font-bold">Sources:</strong> Response and ROI figures from the ANA (Association of National
+        Advertisers) Response Rate Report, 2024 and 2025 editions. Holiday mailing date from the U.S. Postal Service's
+        recommended 2026 holiday mailing deadlines. Calculator outputs are estimates for planning only. Last reviewed
+        October 21, 2026.
+      </p>
+      <p class="mt-4 border-t border-white/10 pt-4 text-[0.8rem] leading-[1.55] text-[#8a93a6]">
+        © {year} {SITE.fullName}. All rights reserved.
+      </p>
+    </div>
+  </footer>
+</LandingLayout>
+
+<style>
+  .lp-hero {
+    background:
+      radial-gradient(640px 420px at 88% -6%, rgba(237, 28, 36, 0.08), transparent 70%),
+      radial-gradient(620px 460px at 4% 30%, rgba(15, 39, 71, 0.06), transparent 70%),
+      #fff;
+  }
+  .lp-step {
+    @apply text-xs font-bold uppercase leading-4 tracking-[0.18em] text-brand-700;
+  }
+  .lp-label {
+    @apply block text-[0.95rem] font-semibold leading-[1.4] text-ink-900;
+  }
+  .lp-hint {
+    @apply mt-[3px] text-[0.85rem] leading-[1.55] text-ink-500;
+  }
+  .lp-input {
+    @apply block h-[47px] w-full rounded-[10px] border border-ink-200 bg-white px-3.5 text-base text-ink-900 shadow-none placeholder:text-[#8a93a6] focus:border-brand-500 focus:ring-brand-500;
+  }
+  .lp-select {
+    @apply pl-[18px];
+  }
+  .lp-choice {
+    @apply flex cursor-pointer items-center gap-2.5 rounded-[10px] border border-ink-200 bg-white px-3.5 py-3 text-[0.95rem] font-semibold leading-[1.5] text-ink-900 transition-colors hover:border-brand-300;
+  }
+  .lp-choice:has(:checked) {
+    @apply border-brand-500 bg-brand-50 shadow-[0_0_0_0.5px_#ED1C24,0_6px_14px_-6px_rgba(237,28,36,0.35)];
+  }
+  .lp-radio {
+    @apply h-[18px] w-[18px] shrink-0 border-ink-300 text-brand-500 focus:ring-brand-500;
+  }
+  .lp-check {
+    @apply h-[18px] w-[18px] shrink-0 rounded-sm border-ink-300 text-brand-500 focus:ring-brand-500;
+  }
+  .lp-wave {
+    @apply shrink-0 rounded-full bg-brand-500 px-2.5 py-1 text-[11.2px] font-bold uppercase leading-[15px] tracking-[0.1em] text-white;
+  }
+  .lp-when {
+    @apply text-[0.98rem] font-bold uppercase leading-[1.5] tracking-[0.12em] text-ink-500;
+  }
+  /* Sample ads sit on the floor of their wave card, so all three line up. */
+  .lp-mock {
+    @apply mt-auto rounded-xl border border-ink-100 bg-white px-[13px] py-3.5 shadow-[0_12px_22px_rgba(15,39,71,0.08)];
+  }
+</style>
+
+<script>
+  import { submitContactToZoho } from '@config/zoho-contact';
+
+  // --- Countdown badge -------------------------------------------------------
+  // The page is static, so the badge printed at build time is re-counted in the
+  // visitor's browser against the same Eastern-time deadline.
+  const badge = document.querySelector<HTMLElement>('[data-countdown]');
+  if (badge?.dataset.deadline) {
+    const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York' }).format(new Date());
+    const days = Math.round((Date.parse(badge.dataset.deadline) - Date.parse(today)) / 86_400_000);
+    const label = days > 1 ? `(${days} days left)` : days === 1 ? '(1 day left)' : days === 0 ? '(Last day)' : '';
+    badge.textContent = label;
+    badge.hidden = !label;
+  }
+
+  // --- Calculator ------------------------------------------------------------
+  const calc = document.querySelector<HTMLElement>('[data-calculator]');
+  const calcFields = ['calc-homes', 'calc-rate', 'calc-close', 'calc-ticket'].map(
+    (id) => document.getElementById(id) as HTMLInputElement,
+  );
+  const whole = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });
+  const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+
+  const readCalc = () => {
+    const [homes, rate, close, ticket] = calcFields.map((input) => Math.max(0, Number(input.value) || 0));
+    const calls = Math.round(homes * (rate / 100));
+    const jobs = Math.round(calls * (close / 100));
+    return { homes, rate, close, ticket, calls, jobs, revenue: jobs * ticket };
+  };
+
+  const renderCalc = () => {
+    const { calls, jobs, revenue } = readCalc();
+    calc!.querySelector('[data-calc-calls]')!.textContent = whole.format(calls);
+    calc!.querySelector('[data-calc-jobs]')!.textContent = whole.format(jobs);
+    calc!.querySelector('[data-calc-revenue]')!.textContent = money.format(revenue);
+  };
+
+  if (calc) {
+    calcFields.forEach((input) => input.addEventListener('input', renderCalc));
+    renderCalc();
+  }
+
+  // --- Territory Plan form ---------------------------------------------------
+  const form = document.getElementById('plan-form') as HTMLFormElement;
+  const stepOne = form.querySelector<HTMLFieldSetElement>('[data-step="1"]')!;
+  const stepTwo = form.querySelector<HTMLFieldSetElement>('[data-step="2"]')!;
+  const progress = document.querySelector<HTMLElement>('[data-plan-progress]')!;
+  const errorBox = form.querySelector<HTMLElement>('[data-plan-error]')!;
+  const submitButton = form.querySelector<HTMLButtonElement>('[data-plan-submit]')!;
+  const planCard = document.getElementById('plan')!;
+
+  const showStep = (step: 1 | 2) => {
+    stepOne.hidden = step !== 1;
+    stepTwo.hidden = step !== 2;
+    progress.style.backgroundImage = step === 2 ? 'linear-gradient(90deg, #ED1C24, #c8161d)' : '';
+    const first = (step === 1 ? stepOne : stepTwo).querySelector<HTMLElement>('select, input');
+    first?.focus({ preventScroll: true });
+    if (planCard.getBoundingClientRect().top < 0) planCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  /** Native validation, one step at a time: the hidden step must not block the visible one. */
+  const stepIsValid = (step: HTMLFieldSetElement) => {
+    const fields = Array.from(step.querySelectorAll<HTMLInputElement | HTMLSelectElement>('input, select'));
+    const invalid = fields.find((field) => !field.checkValidity());
+    invalid?.reportValidity();
+    return !invalid;
+  };
+
+  // "Just the mail" and the ad channels exclude each other.
+  const channelBoxes = Array.from(form.querySelectorAll<HTMLInputElement>('input[name="channels"]'));
+  channelBoxes.forEach((box) =>
+    box.addEventListener('change', () => {
+      if (!box.checked) return;
+      const mailOnly = box.hasAttribute('data-mail-only');
+      channelBoxes.forEach((other) => {
+        if (other !== box && other.hasAttribute('data-mail-only') !== mailOnly) other.checked = false;
+      });
+    }),
+  );
+
+  form.querySelector('[data-plan-back]')!.addEventListener('click', () => showStep(1));
+
+  const summarise = (data: FormData) => {
+    const channels = data.getAll('channels').map(String);
+    const lines = [
+      'Free Territory Plan request (direct mail + digital landing page)',
+      `Trade: ${data.get('trade')}`,
+      `Towns or ZIP codes: ${String(data.get('towns')).trim()}`,
+      `Cards landing: ${data.get('landing')}`,
+      `Mailbox Sync ads: ${channels.length ? channels.join(', ') : 'None picked'}`,
+      `Monthly ad spend: ${data.get('spend')}`,
+    ];
+    // Only worth a line when the visitor actually ran their own numbers.
+    const changed = calcFields.some((input) => input.value !== input.dataset.default);
+    if (calc && changed) {
+      const c = readCalc();
+      lines.push(
+        `Calculator: ${whole.format(c.homes)} homes, ${c.rate}% response, ${c.close}% close rate, ${money.format(c.ticket)} ticket = ${whole.format(c.calls)} calls, ${whole.format(c.jobs)} jobs, ${money.format(c.revenue)}`,
+      );
+    }
+    return lines.join('\n');
+  };
+
+  const finish = () => {
+    document.querySelector<HTMLElement>('[data-plan-body]')!.hidden = true;
+    document.querySelector<HTMLElement>('[data-plan-done]')!.hidden = false;
+    planCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    if (!stepOne.hidden) {
+      if (stepIsValid(stepOne)) showStep(2);
+      return;
+    }
+    if (!stepIsValid(stepTwo)) return;
+
+    const data = new FormData(form);
+    // A filled honeypot is a bot: thank it and send nothing.
+    if (String(data.get('website') ?? '').trim()) return finish();
+
+    errorBox.hidden = true;
+    submitButton.disabled = true;
+    submitButton.textContent = 'Sending…';
+    try {
+      await submitContactToZoho({
+        firstName: String(data.get('firstName')),
+        lastName: String(data.get('lastName')),
+        email: String(data.get('email')),
+        phone: String(data.get('phone')),
+        company: String(data.get('company')),
+        contactMethods: ['Phone', 'Email'],
+        services: ['Direct Mail & Digital Combined'],
+        requirements: summarise(data),
+        consent: data.get('consent') === 'on',
+        pageUrl: window.location.href,
+      });
+      form.reset();
+      finish();
+    } catch {
+      errorBox.hidden = false;
+    } finally {
+      submitButton.disabled = false;
+      submitButton.textContent = 'Send my free plan';
+    }
+  });
+
+  // --- Plan CTAs -------------------------------------------------------------
+  // Every "plan" button scrolls to the form; put the cursor in its first field.
+  document.querySelectorAll<HTMLAnchorElement>('[data-plan-link]').forEach((anchor) =>
+    anchor.addEventListener('click', () => {
+      if (stepOne.hidden) return;
+      window.setTimeout(() => document.getElementById('plan-trade')?.focus({ preventScroll: true }), 450);
+    }),
+  );
+</script>

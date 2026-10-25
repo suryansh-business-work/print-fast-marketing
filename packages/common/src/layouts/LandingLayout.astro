@@ -1,0 +1,82 @@
+---
+// Shell for paid-traffic landing pages (/lp/*). Same styles, SEO and consent
+// tooling as BaseLayout, but no site header, footer or search: each landing page
+// brings its own slim header and footer so the only exits are its own CTAs.
+// The page is designed in light mode only, so the stored theme is not applied.
+import '@styles/global.css';
+import SEO, { type Props as SEOProps } from '@components/SEO.astro';
+import AccessibilityDrawer from '@components/AccessibilityDrawer.astro';
+import CookieConsent from '@components/CookieConsent.astro';
+import { SITE } from '@data/site';
+
+export interface Props extends SEOProps {}
+
+const seoProps = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+    <meta name="theme-color" content="#0f2747" />
+    <meta name="color-scheme" content="light" />
+
+    <!-- Performance hints -->
+    <link rel="dns-prefetch" href="https://dqj17tese79do.cloudfront.net" />
+    <link rel="preconnect" href="https://dqj17tese79do.cloudfront.net" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="image" href={SITE.logoLight} />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="mask-icon" href="/favicon.svg" color="#ED1C24" />
+
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+
+    <!-- Fonts (non-blocking). Landing pages set every heading in Inter, up to 800. -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+    </noscript>
+
+    <SEO {...seoProps} />
+
+    <slot name="head" />
+  </head>
+  <body class="min-h-screen flex flex-col bg-white text-ink-900">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:rounded-md focus:bg-brand-600 focus:px-4 focus:py-2 focus:text-white"
+    >
+      Skip to main content
+    </a>
+
+    <slot name="header" />
+
+    <main id="main" class="flex-1">
+      <slot />
+    </main>
+
+    <slot name="footer" />
+
+    <CookieConsent />
+    <AccessibilityDrawer />
+  </body>
+</html>
+
+<style is:global>
+  /* Landing pages set headings in Inter rather than the site's display face. */
+  body :is(h1, h2, h3, h4) {
+    font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  }
+</style>

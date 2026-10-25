@@ -20,6 +20,7 @@ const pages = [
   '/privacy-policy/',
   '/terms-of-use/',
   '/sitemap/',
+  '/lp/direct-mail-social-media-marketing/',
 ];
 
 export const GET: APIRoute = ({ url, site }) =>
