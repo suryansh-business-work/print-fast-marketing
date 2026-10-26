@@ -32,7 +32,7 @@ const eyebrow =
   'inline-flex items-center gap-2 rounded-full py-[5px] pl-[11px] pr-3 text-xs font-bold uppercase leading-4 tracking-[0.18em]';
 const eyebrowLight = `${eyebrow} bg-brand-100 text-brand-700`;
 const h2 = 'mt-4 text-[2rem] font-bold leading-[1.2] tracking-[-0.03em] sm:text-[2.5rem] lg:text-[48px]';
-const intro = 'mt-6 max-w-[704px] text-[17px] leading-[1.6] sm:text-[18px]';
+const intro = 'mt-6 text-[17px] leading-[1.6] sm:text-[18px]';
 const cardShadow = 'shadow-[0_10px_30px_rgba(237,28,36,0.07)]';
 const card = `rounded-2xl border border-ink-100 bg-white ${cardShadow}`;
 const iconTile = 'grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-brand-50 text-[22.4px] text-brand-600';
@@ -165,7 +165,15 @@ const channels = [
   },
 ];
 
-const mixes = [
+// The platforms' own marks, kept in their official colours. Width and height
+// carry each file's aspect ratio; the page sets the rendered height.
+const brandLogos = {
+  meta: { src: '/images/brand-logos/meta.svg', alt: 'Meta', width: 36, height: 24 },
+  google: { src: '/images/brand-logos/google.svg', alt: 'Google', width: 24, height: 24 },
+  chatgpt: { src: '/images/brand-logos/chatgpt.svg', alt: 'ChatGPT', width: 24, height: 24 },
+};
+
+const mixes: { tag: string; title: string; text: string; logos?: (keyof typeof brandLogos)[] }[] = [
   {
     tag: 'Mail only',
     title: 'Postcards, no ads',
@@ -175,16 +183,19 @@ const mixes = [
     tag: 'Mail + Meta',
     title: 'Facebook and Instagram',
     text: 'The most common first add-on. Puts the card in front of neighbors on the apps they already scroll, before and after it lands.',
+    logos: ['meta'],
   },
   {
     tag: 'Mail + ChatGPT',
     title: 'ChatGPT ads',
     text: 'For the shop that wants to be first in the newest place homeowners ask who to call, while few local competitors are there.',
+    logos: ['chatgpt'],
   },
   {
     tag: 'Mail + the full mix',
     title: 'Meta, Google and ChatGPT',
     text: 'All three waves on every channel. The heaviest coverage for a big drop or a market you want to own this winter.',
+    logos: ['meta', 'google', 'chatgpt'],
   },
 ];
 
@@ -583,7 +594,7 @@ const year = new Date().getFullYear();
       </div>
 
       <!-- Territory Plan form -->
-      <div id="plan" class="scroll-mt-24 lg:row-span-2 lg:self-start">
+      <div id="plan" class="scroll-mt-24 lg:self-start">
         <div class="rounded-3xl border border-ink-100 bg-white p-5 shadow-[0_24px_60px_rgba(15,39,71,0.10),0_10px_30px_rgba(237,28,36,0.07)] sm:p-7">
           <div data-plan-body>
             <h2 class="text-[26px] font-bold leading-[1.2] tracking-[-0.028em] text-ink-900 sm:text-[28px]">Get your free Territory Plan</h2>
@@ -757,9 +768,10 @@ const year = new Date().getFullYear();
         </div>
       </div>
 
-      <!-- Sample postcard and phone. Below 500px the pair is zoomed down as one piece. -->
-      <figure class="lg:col-start-1 lg:mt-7">
-        <div class="flex items-end justify-center gap-4 [zoom:0.7] min-[500px]:[zoom:1]" aria-hidden="true">
+      <!-- Sample postcard and phone, centred under both columns. The pair is zoomed as
+           one piece: down below 500px so it fits, up 30% once there is room. -->
+      <figure class="lg:col-span-2 lg:mt-7">
+        <div class="flex items-end justify-center gap-4 [zoom:0.7] min-[500px]:[zoom:1] md:[zoom:1.3]" aria-hidden="true">
           <div class="relative h-[226px] w-[340px] shrink-0 -rotate-3 overflow-hidden rounded-[14px] border border-ink-100 bg-white px-[18px] pt-[15px] shadow-[0_18px_40px_rgba(15,39,71,0.14),0_10px_30px_rgba(237,28,36,0.07)]">
             <span class="absolute -right-[30px] -top-[30px] h-[120px] w-[120px] rounded-full bg-[radial-gradient(circle_at_35%_35%,#ED1C24,#c8161d)]"></span>
             <p class="relative text-[11.2px] font-extrabold uppercase leading-[1.2] tracking-[0.18em] text-brand-600">Your company here</p>
@@ -1044,12 +1056,20 @@ const year = new Date().getFullYear();
       </p>
       <ul class="mt-6 grid gap-[18px] sm:grid-cols-2 lg:grid-cols-4">
         {mixes.map((mix) => (
-          <li class={`${card} px-[23px] py-6`}>
+          <li class={`${card} flex flex-col items-start px-[23px] py-6`}>
             <span class="inline-block rounded-full bg-brand-100 px-2.5 py-[3px] text-[11.2px] font-bold uppercase leading-4 tracking-[0.14em] text-brand-700">
               {mix.tag}
             </span>
             <h4 class={`mt-3 ${smallTitle}`}>{mix.title}</h4>
             <p class="mt-1.5 text-[0.95rem] leading-[1.5] text-ink-600">{mix.text}</p>
+            {/* Logos sit on the floor of the card, so they line up across the row. */}
+            {mix.logos && (
+              <div class="mt-auto flex items-center gap-3.5 pt-5">
+                {mix.logos.map((key) => (
+                  <img {...brandLogos[key]} loading="lazy" decoding="async" class="h-6 w-auto" />
+                ))}
+              </div>
+            )}
           </li>
         ))}
       </ul>
@@ -1286,22 +1306,25 @@ const year = new Date().getFullYear();
   <!-- ===================== FINAL CTA ===================== -->
   <section class="py-9">
     <div class={wrap}>
-      <div class="rounded-3xl bg-[linear-gradient(135deg,#c8161d_0%,#d81a21_50%,#a3111a_100%)] px-6 pb-14 pt-12 text-center">
-        <h2 class="text-[2rem] font-bold leading-[1.05] tracking-[-0.03em] text-white sm:text-[2.5rem] lg:text-[48px]">
-          The board doesn't fill itself. Your postcard can.
-        </h2>
-        <p class="mx-auto mt-6 max-w-[640px] text-[1.15rem] leading-[1.52] text-brand-100">
-          Tell us your trade and your towns. In one business day you'll have real homeowner counts, a card mockup, sample
-          "check your mailbox" ads and a mail calendar built to keep your trucks rolling through January.
-        </p>
-        <div class="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
-          <a href={PLAN} data-plan-link class={`${btn} border border-ink-100 bg-white text-brand-700 hover:bg-brand-50`}>
-            Get my free Territory Plan
-          </a>
-          <a href={SITE.phoneHref} class={`${btn} border border-white/30 bg-white/10 text-white hover:bg-white/20`}>
-            <i class="fa-solid fa-phone" aria-hidden="true"></i>
-            Call {SITE.phone}
-          </a>
+      <!-- Theme-blue box with soft glows, matching the social media marketing page's closing CTA. -->
+      <div class="relative overflow-hidden rounded-3xl bg-ink-900 px-6 pb-14 pt-12 text-center">
+        <span class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl" aria-hidden="true"></span>
+        <span class="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-brand-500/30 blur-3xl" aria-hidden="true"></span>
+        <div class="relative">
+          <h2 class="text-[2rem] font-bold leading-[1.05] tracking-[-0.03em] text-white sm:text-[2.5rem] lg:text-[48px]">
+            The board doesn't fill itself. <span class="text-brand-500">Your postcard can.</span>
+          </h2>
+          <p class="mx-auto mt-6 max-w-[640px] text-[1.15rem] leading-[1.52] text-white/85">
+            Tell us your trade and your towns. In one business day you'll have real homeowner counts, a card mockup, sample
+            "check your mailbox" ads and a mail calendar built to keep your trucks rolling through January.
+          </p>
+          <div class="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
+            <a href={PLAN} data-plan-link class={btnRed}>Get my free Territory Plan</a>
+            <a href={SITE.phoneHref} class={`${btn} border border-white/30 bg-white/10 text-white hover:bg-white/20`}>
+              <i class="fa-solid fa-phone" aria-hidden="true"></i>
+              Call {SITE.phone}
+            </a>
+          </div>
         </div>
       </div>
     </div>
