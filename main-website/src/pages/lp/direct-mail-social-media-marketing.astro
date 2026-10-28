@@ -2,6 +2,15 @@
 import LandingLayout from '@layouts/LandingLayout.astro';
 import { SITE } from '@data/site';
 import { mainHref } from '@config/sites';
+// The form's options come straight from the Zoho form it posts to, so a value
+// Zoho would refuse can never be rendered.
+import {
+  ZOHO_AD_CHANNELS,
+  ZOHO_AD_SPEND,
+  ZOHO_LANDING_WINDOWS,
+  ZOHO_MAIL_ONLY_CHANNEL,
+  ZOHO_TRADES,
+} from '@config/zoho-territory-plan';
 // The design's clock icon is Font Awesome's outline ("regular") style, which
 // the site-wide bundle leaves out; only this page pays for it.
 import '@fortawesome/fontawesome-free/css/regular.min.css';
@@ -48,6 +57,15 @@ const link = 'text-brand-700 underline underline-offset-[3px] hover:text-brand-8
 
 const PLAN = '#plan';
 
+// The checks Zoho applies to these fields, as input patterns: anything looser
+// is refused there, silently. String.raw because a quoted attribute in the
+// template drops the backslashes.
+const FIELD_PATTERNS = {
+  email: String.raw`[^\s@]+@[^\s@]+\.[^\s@]{2,}`,
+  phone: String.raw`\+?[\s.\(\)\-]*(\d[\s.\(\)\-]*){7,15}`,
+  website: String.raw`(https?:\/\/)?([\w\-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/\S*)?`,
+};
+
 const heroPoints = [
   { text: 'Owner-occupied homes only, filtered by home age and value. No apartments, no renters.' },
   {
@@ -56,37 +74,6 @@ const heroPoints = [
   },
   { text: 'A custom QR code on every card, plus a simple way to see what booked using the CRM you already run.' },
 ];
-
-const trades = [
-  'HVAC',
-  'Plumbing',
-  'Electrical',
-  'Roofing',
-  'Landscaping',
-  'Pest control',
-  'Painting',
-  'House cleaning',
-  'Fencing',
-  'Pool',
-  'Garage door',
-  'Other home service',
-];
-
-const landingWindows = [
-  { label: 'First week of Dec.', value: 'First week of December', checked: true },
-  { label: 'Right after New Year', value: 'Right after New Year' },
-  { label: 'Spring push', value: 'Spring push' },
-  { label: 'Not sure yet', value: 'Not sure yet' },
-];
-
-const adChannels = [
-  { label: 'Meta (Facebook, Instagram)', value: 'Meta (Facebook, Instagram)' },
-  { label: 'Google and YouTube', value: 'Google and YouTube' },
-  { label: 'ChatGPT ads', value: 'ChatGPT ads' },
-  { label: 'Just the mail for now', value: 'Just the mail for now', mailOnly: true },
-];
-
-const adSpend = ['Not sure yet', 'Under $500', '$500 to $1,000', '$1,000 to $2,500', '$2,500 to $5,000', '$5,000+'];
 
 const calculatorFields = [
   { id: 'calc-homes', label: 'Homes mailed per drop', value: 5000, min: 100, max: 1000000, step: 100 },
@@ -623,7 +610,7 @@ const year = new Date().getFullYear();
                   <label for="plan-trade" class="lp-label">What's your trade?</label>
                   <select id="plan-trade" name="trade" required class="lp-input lp-select mt-2">
                     <option value="" selected disabled>Choose your trade</option>
-                    {trades.map((trade) => <option value={trade}>{trade}</option>)}
+                    {ZOHO_TRADES.map((trade) => <option value={trade}>{trade}</option>)}
                   </select>
                 </div>
 
@@ -635,6 +622,7 @@ const year = new Date().getFullYear();
                     name="towns"
                     type="text"
                     required
+                    maxlength="255"
                     autocomplete="off"
                     placeholder="e.g. 07748, 07733 or two towns by name"
                     class="lp-input mt-1.5"
@@ -644,10 +632,10 @@ const year = new Date().getFullYear();
                 <fieldset class="mt-4">
                   <legend class="lp-label">When do you want cards landing?</legend>
                   <div class="mt-3 grid grid-cols-2 gap-2">
-                    {landingWindows.map((option) => (
+                    {ZOHO_LANDING_WINDOWS.map((option, index) => (
                       <label class="lp-choice">
-                        <input type="radio" name="landing" value={option.value} checked={option.checked} class="lp-radio" />
-                        {option.label}
+                        <input type="radio" name="landing" value={option} checked={index === 0} required class="lp-radio" />
+                        {option}
                       </label>
                     ))}
                   </div>
@@ -657,16 +645,16 @@ const year = new Date().getFullYear();
                   <legend class="lp-label">Add Mailbox Sync ads?</legend>
                   <p class="lp-hint">Optional add-on: a management fee plus ad spend you fund up front. Pick one, a mix, or none.</p>
                   <div class="mt-2 grid grid-cols-2 gap-2">
-                    {adChannels.map((option) => (
+                    {ZOHO_AD_CHANNELS.map((channel) => (
                       <label class="lp-choice">
                         <input
                           type="checkbox"
                           name="channels"
-                          value={option.value}
-                          data-mail-only={option.mailOnly ? '' : undefined}
+                          value={channel}
+                          data-mail-only={channel === ZOHO_MAIL_ONLY_CHANNEL ? '' : undefined}
                           class="lp-check"
                         />
-                        {option.label}
+                        {channel}
                       </label>
                     ))}
                   </div>
@@ -676,7 +664,7 @@ const year = new Date().getFullYear();
                   <label for="plan-spend" class="lp-label">Monthly ad spend you'd be comfortable funding</label>
                   <p class="lp-hint">Only if you picked an ad channel. Helps us size the plan.</p>
                   <select id="plan-spend" name="spend" class="lp-input lp-select mt-1.5">
-                    {adSpend.map((amount) => <option value={amount}>{amount}</option>)}
+                    {ZOHO_AD_SPEND.map((amount) => <option value={amount}>{amount}</option>)}
                   </select>
                 </div>
 
@@ -691,20 +679,49 @@ const year = new Date().getFullYear();
                 <div class="mt-[13px] grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div>
                     <label for="plan-first" class="lp-label">First name</label>
-                    <input id="plan-first" name="firstName" type="text" required autocomplete="given-name" class="lp-input mt-2" />
+                    <input id="plan-first" name="firstName" type="text" required maxlength="255" autocomplete="given-name" class="lp-input mt-2" />
                   </div>
                   <div>
                     <label for="plan-last" class="lp-label">Last name</label>
-                    <input id="plan-last" name="lastName" type="text" required autocomplete="family-name" class="lp-input mt-2" />
+                    <input id="plan-last" name="lastName" type="text" required maxlength="255" autocomplete="family-name" class="lp-input mt-2" />
+                  </div>
+                </div>
+                <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div>
+                    <label for="plan-company" class="lp-label">Company name</label>
+                    <input id="plan-company" name="company" type="text" required maxlength="255" autocomplete="organization" class="lp-input mt-2" />
+                  </div>
+                  <div>
+                    <label for="plan-site" class="lp-label">Website (optional)</label>
+                    <input
+                      id="plan-site"
+                      name="site"
+                      type="text"
+                      inputmode="url"
+                      maxlength="2083"
+                      autocomplete="url"
+                      autocapitalize="off"
+                      spellcheck="false"
+                      pattern={FIELD_PATTERNS.website}
+                      title="Enter your website, like yourcompany.com"
+                      placeholder="yourcompany.com"
+                      class="lp-input mt-2"
+                    />
                   </div>
                 </div>
                 <div class="mt-4">
-                  <label for="plan-company" class="lp-label">Company name</label>
-                  <input id="plan-company" name="company" type="text" required autocomplete="organization" class="lp-input mt-2" />
-                </div>
-                <div class="mt-4">
                   <label for="plan-email" class="lp-label">Email</label>
-                  <input id="plan-email" name="email" type="email" required autocomplete="email" class="lp-input mt-2" />
+                  <input
+                    id="plan-email"
+                    name="email"
+                    type="email"
+                    required
+                    maxlength="255"
+                    autocomplete="email"
+                    pattern={FIELD_PATTERNS.email}
+                    title="Enter an email like name@yourcompany.com"
+                    class="lp-input mt-2"
+                  />
                 </div>
                 <div class="mt-4">
                   <label for="plan-phone" class="lp-label">Best phone number</label>
@@ -713,9 +730,11 @@ const year = new Date().getFullYear();
                     name="phone"
                     type="tel"
                     required
+                    maxlength="25"
                     autocomplete="tel-national"
                     inputmode="tel"
-                    pattern="[0-9()+.\-\s]{7,}"
+                    pattern={FIELD_PATTERNS.phone}
+                    title="Enter a phone number with 7 to 15 digits"
                     placeholder="(555) 010-0000"
                     class="lp-input mt-2"
                   />
@@ -871,7 +890,6 @@ const year = new Date().getFullYear();
                 min={field.min}
                 max={field.max}
                 step={field.step}
-                data-default={field.value}
                 class:list={['lp-input', field.hint ? 'mt-1.5' : 'mt-2']}
               />
             </div>
@@ -1437,7 +1455,7 @@ const year = new Date().getFullYear();
 </style>
 
 <script>
-  import { submitContactToZoho } from '@config/zoho-contact';
+  import { submitTerritoryPlanToZoho } from '@config/zoho-territory-plan';
 
   // --- Countdown badge -------------------------------------------------------
   // The page is static, so the badge printed at build time is re-counted in the
@@ -1496,9 +1514,16 @@ const year = new Date().getFullYear();
     if (planCard.getBoundingClientRect().top < 0) planCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  /** Native validation, one step at a time: the hidden step must not block the visible one. */
+  /**
+   * Native validation, one step at a time: the hidden step must not block the
+   * visible one. Text is trimmed first, so a field of spaces fails here as
+   * empty instead of reaching Zoho and being refused there.
+   */
   const stepIsValid = (step: HTMLFieldSetElement) => {
     const fields = Array.from(step.querySelectorAll<HTMLInputElement | HTMLSelectElement>('input, select'));
+    fields.forEach((field) => {
+      if (field instanceof HTMLInputElement && ['text', 'email', 'tel'].includes(field.type)) field.value = field.value.trim();
+    });
     const invalid = fields.find((field) => !field.checkValidity());
     invalid?.reportValidity();
     return !invalid;
@@ -1517,27 +1542,6 @@ const year = new Date().getFullYear();
   );
 
   form.querySelector('[data-plan-back]')!.addEventListener('click', () => showStep(1));
-
-  const summarise = (data: FormData) => {
-    const channels = data.getAll('channels').map(String);
-    const lines = [
-      'Free Territory Plan request (direct mail + digital landing page)',
-      `Trade: ${data.get('trade')}`,
-      `Towns or ZIP codes: ${String(data.get('towns')).trim()}`,
-      `Cards landing: ${data.get('landing')}`,
-      `Mailbox Sync ads: ${channels.length ? channels.join(', ') : 'None picked'}`,
-      `Monthly ad spend: ${data.get('spend')}`,
-    ];
-    // Only worth a line when the visitor actually ran their own numbers.
-    const changed = calcFields.some((input) => input.value !== input.dataset.default);
-    if (calc && changed) {
-      const c = readCalc();
-      lines.push(
-        `Calculator: ${whole.format(c.homes)} homes, ${c.rate}% response, ${c.close}% close rate, ${money.format(c.ticket)} ticket = ${whole.format(c.calls)} calls, ${whole.format(c.jobs)} jobs, ${money.format(c.revenue)}`,
-      );
-    }
-    return lines.join('\n');
-  };
 
   const finish = () => {
     document.querySelector<HTMLElement>('[data-plan-body]')!.hidden = true;
@@ -1562,17 +1566,21 @@ const year = new Date().getFullYear();
     submitButton.disabled = true;
     submitButton.textContent = 'Sending…';
     try {
-      await submitContactToZoho({
+      await submitTerritoryPlanToZoho({
+        trade: String(data.get('trade')),
+        towns: String(data.get('towns')),
+        landing: String(data.get('landing')),
+        channels: data.getAll('channels').map(String),
+        spend: String(data.get('spend') ?? ''),
         firstName: String(data.get('firstName')),
         lastName: String(data.get('lastName')),
         email: String(data.get('email')),
         phone: String(data.get('phone')),
         company: String(data.get('company')),
-        contactMethods: ['Phone', 'Email'],
-        services: ['Direct Mail & Digital Combined'],
-        requirements: summarise(data),
+        website: String(data.get('site') ?? ''),
         consent: data.get('consent') === 'on',
         pageUrl: window.location.href,
+        gclid: new URLSearchParams(window.location.search).get('gclid') ?? undefined,
       });
       form.reset();
       finish();

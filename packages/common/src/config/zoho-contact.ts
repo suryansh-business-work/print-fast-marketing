@@ -143,9 +143,19 @@ const resolvePhone = (input: ZohoContactInput) => {
   return splitPhone(input.phone);
 };
 
+/**
+ * Appends both halves of a Zoho phone field. A dial code Zoho would refuse
+ * falls back to "+1" with its digits kept on the number, so the record is
+ * stored rather than lost.
+ */
+export const appendZohoPhone = (data: FormData, { countryCode, number }: { countryCode: string; number: string }) => {
+  const codeAccepted = ZOHO_ACCEPTED_COUNTRY_CODES.has(countryCode);
+  data.append('PhoneNumber_countrycodeval', codeAccepted ? countryCode : DEFAULT_COUNTRY_CODE);
+  data.append('PhoneNumber_countrycode', codeAccepted ? number : `${countryCode.replace(/\D/g, '')}${number}`);
+};
+
 /** Maps our form values onto Zoho's field names. Exported for testing. */
 export const buildZohoFormData = (input: ZohoContactInput): FormData => {
-  const { countryCode, number } = resolvePhone(input);
   const data = new FormData();
 
   // Zoho's own hidden trio — present in its generated HTML, so keep them.
@@ -157,9 +167,7 @@ export const buildZohoFormData = (input: ZohoContactInput): FormData => {
   data.append('Name_Last', input.lastName.trim() || MANDATORY_PLACEHOLDER);
   data.append('Email1', input.email.trim());
 
-  const codeAccepted = ZOHO_ACCEPTED_COUNTRY_CODES.has(countryCode);
-  data.append('PhoneNumber_countrycodeval', codeAccepted ? countryCode : DEFAULT_COUNTRY_CODE);
-  data.append('PhoneNumber_countrycode', codeAccepted ? number : `${countryCode.replace(/\D/g, '')}${number}`);
+  appendZohoPhone(data, resolvePhone(input));
 
   data.append('SingleLine', input.company.trim());
 
