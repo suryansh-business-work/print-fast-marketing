@@ -44,6 +44,7 @@ export const ZOHO_TRADES = [
   'Pool',
   'Garage door',
   'Other home service',
+  'Home Care/Senior Services',
 ] as const;
 
 export const ZOHO_LANDING_WINDOWS = ['First week of Dec.', 'Right after New Year', 'Spring push', 'Not sure yet'] as const;
