@@ -1,0 +1,594 @@
+---
+import "@styles/global.css";
+import "../../styles/home-care.css";
+import SEO from "@components/SEO.astro";
+import { SITE } from "@data/site";
+import {
+  audiences,
+  faqs,
+  intents,
+  layers,
+  states,
+  steps,
+  types,
+} from "../../data/home-care";
+const nav = [
+  ["why", "Why mail"],
+  ["targeting", "Targeting"],
+  ["tools", "Mail calculator"],
+  ["loop", "The loop"],
+  ["faq", "FAQ"],
+];
+const ads = ["Mail only", "Meta ads", "ChatGPT ads", "Meta and ChatGPT ads"];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0f2747" />
+    <link rel="icon" href="/favicon.ico" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+    />
+    <SEO
+      title="Home Care Direct Mail Marketing & Postcard Calculator | PrintFast"
+      appendSiteName={false}
+      description="Plan a home care postcard campaign for seniors, adult children and referral partners. Explore targeting, estimate mailing volume and preview your agency’s postcard."
+      keywords={[
+        "home care direct mail",
+        "home health marketing",
+        "hospice postcards",
+        "home care postcard calculator",
+      ]}
+      faqs={faqs}
+      schema={{
+        "@context": "https://schema.org",
+        "@type": "Service",
+        name: "Home care direct mail marketing",
+        provider: { "@id": SITE.orgUrl + "#organization" },
+        areaServed: "Continental United States",
+        serviceType: "Targeted postcard campaigns for home care agencies",
+      }}
+    />
+  </head>
+  <body class="hc">
+    <a class="skip" href="#main">
+      Skip to main content
+    </a>
+    <header>
+      <div class="wrap head">
+        <a href="/" aria-label="PrintFast home">
+          <img src={SITE.logoLight} alt="PrintFast" width="127" height="38" />
+        </a>
+        <span class="brandlabel">Home Care Marketing</span>
+        <nav aria-label="Page sections">
+          {nav.map(([id, label]) => (
+            <a href={"#" + id}>{label}</a>
+          ))}
+        </nav>
+        <a class="phone" href={SITE.phoneHref}>
+          {SITE.phone}
+        </a>
+        <a class="btn" href="#plan">
+          Build my plan
+        </a>
+      </div>
+    </header>
+    <main id="main">
+      <section class="hero">
+        <div class="wrap hero-grid">
+          <div>
+            <span class="tag" id="region">
+              For home care owners from Bergen County to down the Shore
+            </span>
+            <h1 id="headline">
+              The families who need you still check the mailbox. Let’s put your
+              agency in it.
+            </h1>
+            <p class="lead" id="subhead">
+              Fill private-pay hours with households that can actually afford
+              care, and the adult kids who make the call.
+            </p>
+            <p>
+              The holiday visit is when families see it. Mom skipped meals. Dad
+              nearly fell on the stairs. January is when they start making
+              calls. Your postcard should already be on the kitchen counter.
+            </p>
+            <div class="actions">
+              <a id="hero-action" class="btn" href="#tools">
+                Run my numbers
+              </a>
+              <a class="btn outline" href="#why">
+                Why mail works
+              </a>
+            </div>
+            <small>
+              No cookie wall. No gated PDF. Every tool on this page works before
+              you give us an email.
+            </small>
+          </div>
+          <aside class="panel tailor">
+            <h2>Tailor this page to you</h2>
+            {[
+              ["intent", "Where are you right now?", intents],
+              ["type", "Your agency", types],
+            ].map(([key, legend, opts]) => (
+              <fieldset>
+                <legend>{String(legend)}</legend>
+                <div class="pills">
+                  {Object.entries(opts).map(([v, label], i) => (
+                    <label>
+                      <input
+                        type="radio"
+                        name={String(key)}
+                        value={v}
+                        checked={i === 0}
+                      />
+                      <span>{label}</span>
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
+            ))}
+            <label>
+              Your state
+              <select id="state">
+                {Object.entries(states).map(([v, label]) => (
+                  <option value={v}>{label}</option>
+                ))}
+              </select>
+            </label>
+          </aside>
+        </div>
+      </section>
+      <div id="sections" class="wrap">
+        <section id="why">
+          <span class="tag">Awareness</span>
+          <h2>
+            Every home care client comes with a second decision-maker. Your
+            postcard has to win both.
+          </h2>
+          <p class="intro">
+            One of them wants to stay in the house they’ve lived in for 40 years
+            and keeps insisting they’re fine. The other is a son or daughter
+            juggling a job, their own family and a parent who won’t ask for
+            help. That’s the person researching care at 11pm, right after the
+            second fall or the third missed dose. A postcard on the kitchen
+            counter gets seen by both of them.
+          </p>
+          <div class="three">
+            <article class="panel">
+              <h3 class="stat">73%</h3>
+              <p>
+                of the time, an adult child is involved in planning a parent’s
+                care. Speak to the person helping make the decision.
+              </p>
+              <small>Source: Activated Insights</small>
+            </article>
+            <article class="panel">
+              <h3 class="stat">3 generations</h3>
+              <p>
+                The Silent Generation and Baby Boomers are receiving care. Gen X
+                and Boomers still caring for parents are often the ones
+                arranging it.
+              </p>
+              <small>Mail habits: USPS data via EVR Advertising</small>
+            </article>
+            <article class="panel">
+              <h3 class="stat">55+</h3>
+              <p>
+                communities can be mailed by carrier route, and targeted lists
+                can select by age, homeownership and household.
+              </p>
+              <a href="#targeting">See how we pick the neighborhoods</a>
+            </article>
+          </div>
+        </section>
+        <section id="targeting">
+          <span class="tag">Targeting, explained</span>
+          <h2>
+            Don’t mail the whole town. Mail the streets where your next clients
+            live.
+          </h2>
+          <p class="intro">
+            Most agencies blanket a few ZIP codes and hope. We stack the layers
+            below to find the best-case neighborhoods for your agency, starting
+            with 55+ and active adult communities. Turn layers on and off to
+            build your own targeting mix.
+          </p>
+          <div class="split">
+            <fieldset class="stack">
+              <legend class="sr-only">Targeting layers</legend>
+              {layers.map(([title, desc], i) => (
+                <label class="choice">
+                  <input type="checkbox" name="layer" value={i} checked />
+                  <span class="row">
+                    <strong>
+                      {i + 1}. {title}
+                    </strong>
+                    <span class="mix"></span>
+                  </span>
+                  <span>{desc}</span>
+                </label>
+              ))}
+            </fieldset>
+            <div class="stack">
+              <aside class="panel dark">
+                <h3 class="over">Your targeting mix</h3>
+                <p id="mix">
+                  Reach 55+ communities, senior-dense routes, long-time
+                  homeowners and adult children nearby in New Jersey.
+                </p>
+                <p id="mix-tip">
+                  Best case for private duty: filter for ability to pay and
+                  include adult children nearby.
+                </p>
+                <a class="btn" href="#plan">
+                  Map my best neighborhoods
+                </a>
+              </aside>
+              <p id="local-note" class="panel">
+                In New Jersey: Ocean County is home to active adult communities
+                from Toms River to Manchester and Lakewood. Monroe Township in
+                Middlesex County is another.
+              </p>
+              <p class="note">
+                <strong>What we never target:</strong> health conditions,
+                diagnoses or anything medical. We build lists from age, place
+                and household data only.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section id="tools">
+          <span class="tag">Consideration</span>
+          <h2>Run your own numbers. Then see your postcard.</h2>
+          <p class="intro">
+            These are your inputs, not our promises. Plug in your real numbers
+            to estimate how many households it takes to hit your goal.
+          </p>
+          <div class="two">
+            <div class="panel">
+              <h3>The mail calculator</h3>
+              <label id="hours-label">
+                Weekly private-pay hours you want to add:{" "}
+                <output for="h" id="hours">
+                  150
+                </output>
+                <input id="h" type="range" min="1" max="1000" value="150" />
+              </label>
+              <div class="fields">
+                {[
+                  ["avg", "Avg hours per client per week", 18, 1, 168, 1],
+                  ["r", "Your bill rate per hour ($)", 36, 1, 1000, 0.01],
+                  ["cl", "Inquiries you convert (%)", 30, 0.1, 100, 0.1],
+                  ["rs", "Households that reach out (%)", 0.5, 0.01, 100, 0.01],
+                  ["adm", "New admissions you want to add", 9, 1, 1000, 1],
+                ].map(([id, label, val, min, max, step]) => (
+                  <label hidden={id === "adm"}>
+                    {label}
+                    <input
+                      type="number"
+                      id={String(id)}
+                      value={val}
+                      min={min}
+                      max={max}
+                      step={step}
+                      required
+                    />
+                  </label>
+                ))}
+              </div>
+              <small>
+                Response rate is a planning assumption. Set it to what your
+                market has done for you before.
+              </small>
+            </div>
+            <div class="panel dark">
+              <h3 class="over">Your plan in plain numbers</h3>
+              <div aria-live="polite" aria-atomic="true">
+                <strong class="big" id="homes">
+                  6,000
+                </strong>{" "}
+                households on your list
+                <div class="results">
+                  {[
+                    ["clients", "9", "new clients"],
+                    ["inq", "30", "inquiries needed"],
+                    ["cards", "18,000", "postcards across 3 drops"],
+                    ["rev", "$280,800", "yearly revenue at your rate"],
+                  ].map(([id, n, label]) => (
+                    <div>
+                      <strong id={id}>{n}</strong>
+                      {label}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <p>
+                We recommend three drops to the same households, two to three
+                weeks apart. The first card introduces you. The third one is the
+                one they keep.
+              </p>
+              <a class="btn" href="#plan">
+                Turn these numbers into a mail plan
+              </a>
+            </div>
+            <div class="panel">
+              <fieldset class="stack">
+                <legend>
+                  <h3>Who should get your card?</h3>
+                </legend>
+                {audiences.map((a, i) => (
+                  <label class="choice">
+                    <input
+                      type="radio"
+                      name="aud"
+                      value={a.id}
+                      checked={i === 0}
+                    />
+                    <strong>{a.name}</strong>
+                    <span>{a.desc}</span>
+                  </label>
+                ))}
+              </fieldset>
+              <label>
+                Your agency name (for the preview)
+                <input
+                  id="preview-name"
+                  placeholder="Your Agency Name"
+                  maxlength="120"
+                />
+              </label>
+            </div>
+            <div>
+              <h3 class="caption">Live postcard preview, 6 × 11 front</h3>
+              <article class="postcard" aria-label="Postcard preview">
+                <div>
+                  <p class="over" id="post-tag">
+                    {audiences[0].tag}
+                  </p>
+                  <h3 id="post-title">{audiences[0].title}</h3>
+                  <p id="post-body">{audiences[0].body}</p>
+                  <strong id="post-agency">Your Agency Name</strong>
+                </div>
+                <div class="post-foot">
+                  <i aria-hidden="true" class="fa-solid fa-qrcode"></i>
+                  <strong>Scan to see care options</strong>
+                  <span>
+                    Serving <b id="post-state">New Jersey</b>
+                  </span>
+                </div>
+              </article>
+              <p class="panel">
+                <strong>Why this works:</strong>{" "}
+                <span id="post-why">{audiences[0].why}</span>
+              </p>
+            </div>
+          </div>
+        </section>
+        <section id="loop">
+          <span class="tag">How it keeps paying off</span>
+          <h2>Stop buying leads one mailing at a time. Build the loop.</h2>
+          <p class="intro">
+            A one-off postcard is a coin flip. A loop gets cheaper every round,
+            because every family you serve makes the next card, the next search
+            and the next AI answer work harder for you.
+          </p>
+          <ol class="steps">
+            {steps.map(([t, d], i) => (
+              <li class="panel">
+                <span aria-hidden="true">{i + 1}</span>
+                <h3>{t}</h3>
+                <p>{d}</p>
+              </li>
+            ))}
+          </ol>
+          <div class="two">
+            <p class="note">
+              <strong>Ads timed to the mailbox.</strong> When your cards hit
+              homes, we can run Meta ads, ChatGPT ads, or both in the same
+              neighborhoods. Ad management carries a fee on top of your mail
+              campaign, and you front the ad spend.
+            </p>
+            <p class="note">
+              <strong>Straight talk on tracking.</strong> Every card gets a
+              custom QR code. Log inquiries in WellSky, AxisCare, AlayaCare or
+              your own CRM and we’ll adjust the next drop with you.
+            </p>
+          </div>
+        </section>
+        <section id="compliance">
+          <span class="tag">Consideration</span>
+          <h2>30-second mailer compliance check</h2>
+          <p class="intro">
+            Home health and hospice play by different rules than a plumber.
+            Answer two questions before anything goes to print.
+          </p>
+          <div class="panel">
+            <div class="two">
+              {[
+                "Do you bill Medicare or Medicaid for any services?",
+                "Will the mailer offer a gift, gift card, discount or free service?",
+              ].map((q, i) => (
+                <fieldset>
+                  <legend>{q}</legend>
+                  <div class="pills">
+                    {["Yes", "No"].map((v) => (
+                      <label>
+                        <input type="radio" name={"check" + i} value={v} />
+                        <span>{v}</span>
+                      </label>
+                    ))}
+                  </div>
+                </fieldset>
+              ))}
+            </div>
+            <p id="check-result" role="status"></p>
+            <small>
+              This is a planning check, not legal advice. Have your compliance
+              officer or healthcare attorney review final copy.
+            </small>
+          </div>
+        </section>
+        <section id="plan">
+          <span class="tag">Decision</span>
+          <h2>Lock in your mail plan</h2>
+          <p class="intro">
+            Your calculator numbers and audience are already filled in. Add
+            where and when, and we’ll send back a proof and a quote.
+          </p>
+          <div class="split">
+            <form
+              class="panel"
+              id="quote"
+              method="post"
+              action="mailto:info@print-fast.com"
+              enctype="text/plain"
+            >
+              <div class="fields">
+                <label>
+                  Your name
+                  <input
+                    name="name"
+                    autocomplete="name"
+                    required
+                    maxlength="160"
+                  />
+                </label>
+                <label>
+                  Agency name
+                  <input
+                    name="agency_name"
+                    autocomplete="organization"
+                    required
+                    maxlength="120"
+                  />
+                </label>
+                <label>
+                  Email
+                  <input
+                    name="email"
+                    type="email"
+                    autocomplete="email"
+                    required
+                  />
+                </label>
+                <label>
+                  Mobile (optional)
+                  <input name="phone" type="tel" autocomplete="tel" />
+                </label>
+                <label class="wide">
+                  ZIP codes, towns or 55+ communities you serve
+                  <input
+                    name="service_area"
+                    placeholder="e.g. 08831, Monroe Township, Rossmoor"
+                    required
+                  />
+                </label>
+                <label>
+                  Target in-home date
+                  <input name="in_home_date" type="date" />
+                </label>
+                <label>
+                  Add ads timed to your drop?
+                  <select name="digital_addon">
+                    {ads.map((a) => (
+                      <option>{a}</option>
+                    ))}
+                  </select>
+                </label>
+              </div>
+              <button class="btn" type="submit">
+                Send me my proof and quote
+              </button>
+              <p id="delivery-hint" class="caption">
+                Opens an email draft with your plan for you to send.
+              </p>
+              <p id="send-status" role="status"></p>
+              <small>
+                PrintFast mails within the continental United States.
+              </small>
+              <noscript>
+                <p>
+                  Call <a href={SITE.phoneHref}>{SITE.phone}</a> to request a
+                  plan.
+                </p>
+              </noscript>
+            </form>
+            <aside class="panel dark">
+              <h3>Your plan so far</h3>
+              <ul id="summary"></ul>
+              <button class="btn light" id="share" type="button">
+                Copy my plan link
+              </button>
+              <p id="share-status" role="status"></p>
+              <small>
+                Send this plan to your partner or office manager. The link opens
+                this page with your numbers filled in.
+              </small>
+            </aside>
+          </div>
+        </section>
+        <section id="faq">
+          <h2>Straight answers for agency owners</h2>
+          {faqs.map((f) => (
+            <details>
+              <summary>{f.question}</summary>
+              <p>{f.answer}</p>
+            </details>
+          ))}
+        </section>
+      </div>
+    </main>
+    <footer>
+      <div class="wrap row">
+        <div>
+          <a href="/" aria-label="PrintFast home">
+            <img
+              src={SITE.logoDark}
+              alt="PrintFast"
+              width="140"
+              height="45"
+              loading="lazy"
+            />
+          </a>
+          <p>
+            Direct mail and digital marketing for home care, home health and
+            hospice agencies. Serving the continental U.S. from Lakewood, NJ.
+          </p>
+        </div>
+        <div>
+          <strong>Prefer to talk?</strong>
+          <a href={SITE.phoneHref}>{SITE.phone}</a>
+          <small>Monday to Friday, 8 AM to 5 PM ET</small>
+        </div>
+      </div>
+    </footer>
+    <aside class="stickybar" aria-label="Campaign planner shortcut">
+      <div class="wrap row">
+        <span id="nudge">
+          Holiday visits are when families notice. January is when they call.
+        </span>
+        <a id="shortcut" class="btn" href="#tools">
+          Run my numbers
+        </a>
+      </div>
+    </aside>
+    <aside class="exit panel" id="exit-card" hidden aria-label="Save your plan">
+      <strong>Keep your plan for later</strong>
+      <p>Share your numbers with your team.</p>
+      <button type="button" id="exit-share" class="btn outline">
+        Copy plan link
+      </button>{" "}
+      <button type="button" id="exit-close">
+        Close
+      </button>
+      <span role="status" id="exit-status"></span>
+    </aside>
+    <script src="../../scripts/home-care.ts"></script>
+  </body>
+</html>

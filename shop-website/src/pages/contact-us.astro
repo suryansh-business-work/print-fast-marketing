@@ -68,7 +68,7 @@ const faqs = [
   {
     question: 'Can I request a quote or start a project online?',
     answer:
-      'Yes. Use the “Send us a message” button to open our full quote form, where you can tell us about your goals and request tailored pricing — usually within one business day.',
+      'Yes. Use the “Send us a message” button to reach the quick note form on this page, where you can tell us about your goals and request tailored pricing — usually within one business day.',
   },
   {
     question: 'I already placed an order. How do I check on it?',
@@ -146,7 +146,7 @@ const labelClass = 'block text-xs font-semibold uppercase tracking-wide text-ink
           </p>
           <div class="mt-8 flex flex-wrap gap-3">
             <a
-              href={contactHref}
+              href="#contact-form"
               class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
             >
               Send Us A Message <i class="fa-solid fa-arrow-right text-xs"></i>
@@ -268,24 +268,18 @@ const labelClass = 'block text-xs font-semibold uppercase tracking-wide text-ink
             </ul>
             <div class="mt-8 flex flex-wrap gap-3">
               <a
-                href={contactHref}
-                class="inline-flex items-center justify-center gap-2 rounded-md bg-[#ED1C24] px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-lg transition-all hover:bg-[#c8161d] hover:shadow-xl active:translate-y-px"
-              >
-                Send Us A Message <i class="fa-solid fa-arrow-right text-xs"></i>
-              </a>
-              <a
                 href={telHref}
                 class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
               >
-                <i class="fa-solid fa-phone text-xs"></i> Call Instead
+                <i class="fa-solid fa-phone text-xs"></i> GIVE US A CALL
               </a>
             </div>
           </div>
         </div>
 
         <!-- Secondary: quick native note straight to the PrintFast team -->
-        <div class="flex flex-col rounded-3xl bg-white p-8 ring-1 ring-ink-100 shadow-soft sm:p-10" data-reveal>
-          <h3 class="text-base font-extrabold uppercase tracking-wide text-[#0f2747]">Or send a quick note</h3>
+        <div id="contact-form" class="scroll-mt-32 flex flex-col rounded-3xl bg-white p-8 ring-1 ring-ink-100 shadow-soft sm:p-10" data-reveal>
+          <h3 class="text-base font-extrabold uppercase tracking-wide text-[#0f2747]">Or send us a quick note</h3>
           <p class="mt-2 text-sm leading-relaxed text-ink-600">
             Have a quick question? Fill in the details below and it’ll go straight to our team.
           </p>
@@ -454,7 +448,7 @@ const labelClass = 'block text-xs font-semibold uppercase tracking-wide text-ink
                 <i class="fa-solid fa-phone text-xs"></i> Call 800-810-4818
               </a>
               <a
-                href={contactHref}
+                href="#contact-form"
                 class="inline-flex items-center justify-center gap-2 rounded-md px-7 py-4 text-sm font-extrabold uppercase tracking-wide text-white ring-1 ring-white/40 transition-all hover:bg-white/10"
               >
                 Send Us A Message

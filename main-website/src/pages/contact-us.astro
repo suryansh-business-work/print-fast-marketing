@@ -117,7 +117,10 @@ const faqs = [
   <section class="section scroll-mt-28" id="contact-form">
     <div class="container-pf grid lg:grid-cols-12 gap-10 items-start">
       <div class="lg:col-span-7 min-w-0">
-        <ContactForm />
+        <ContactForm
+          title="Get your free strategy report"
+          subtitle="Tell us about your business — we'll come back with our recommendations based on your current online stats."
+        />
         {pricingVisible && (
           <div class="mt-6">
             <CheckoutReadyCTA client:load />
@@ -187,7 +190,7 @@ const faqs = [
         <div class="md:col-span-8 min-w-0 space-y-4 text-ink-700 leading-relaxed">
           <p>Hello,</p>
           <p>
-            My name is <strong class="text-ink-900">Bill</strong>, and welcome to <strong class="text-ink-900">PrintFast</strong>.
+            My name is <strong class="text-ink-900">Bill</strong>, and I am the President of the PrintFast Division. It’s my pleasure to welcome you to <strong class="text-ink-900">PrintFast</strong>!
             We work exclusively with <strong class="text-ink-900">home service providers nationwide</strong>—including HVAC,
             plumbing, electrical, and other residential service companies. Because we serve only this industry, we understand
             the unique marketing challenges of keeping your company visible and your phones ringing.
@@ -206,6 +209,9 @@ const faqs = [
           </p>
           <p>Have a great day!</p>
           <p class="font-bold text-ink-900">Bill</p>
+        </div>
+        <div class="md:col-span-12">
+          <a href="https://zeeg.me/bill/marketing" class="btn-primary">Schedule 30-minutes with me</a>
         </div>
       </div>
     </div>

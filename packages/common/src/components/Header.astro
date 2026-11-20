@@ -2,6 +2,7 @@
 import { NAV_LINKS, SITE } from '@data/site';
 import { mainHref } from '@config/sites';
 
+const headerEmail = 'info@print-fast.com';
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 
 function isActive(href: string) {
@@ -20,9 +21,9 @@ function isActive(href: string) {
           <i class="fa-solid fa-phone text-brand-400 text-[11px]" aria-hidden="true"></i>
           <span class="font-medium">{SITE.phone}</span>
         </a>
-        <a href={`mailto:${SITE.email}`} class="inline-flex items-center gap-2 text-ink-200 hover:text-brand-300 transition-colors">
+        <a href={`mailto:${headerEmail}`} class="inline-flex items-center gap-2 text-ink-200 hover:text-brand-300 transition-colors">
           <i class="fa-solid fa-envelope text-brand-400 text-[11px]" aria-hidden="true"></i>
-          <span>{SITE.email}</span>
+          <span>{headerEmail}</span>
         </a>
       </div>
       <div class="flex items-center gap-2">
